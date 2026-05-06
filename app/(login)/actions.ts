@@ -11,7 +11,6 @@ import { db } from "@/lib/db/drizzle";
 import { createPasswordResetToken, validateResetToken } from "@/lib/db/queries";
 import { user as users } from "@/lib/db/schema";
 import { sendPasswordResetEmail } from "@/lib/email";
-import { createCheckoutSession } from "@/lib/payments/stripe";
 import { eq, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
