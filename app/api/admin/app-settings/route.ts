@@ -127,13 +127,6 @@ export async function POST(req: NextRequest) {
     const { clearEmailConfigCache } = await import("@/lib/email/config");
     clearEmailConfigCache();
 
-    if (internalApiKey !== undefined) {
-      const { clearInternalApiKeyCache } = await import(
-        "@/lib/internal-api/auth"
-      );
-      clearInternalApiKeyCache();
-    }
-
     const updatedSettings = await updateAppSettings(user.id, updateData);
 
     const updatedSubscriptionLimits = getSubscriptionLimits(updatedSettings);

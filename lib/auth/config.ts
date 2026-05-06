@@ -1,10 +1,8 @@
 import { getAppUrl } from "@/lib/app-url";
 import { db } from "@/lib/db/drizzle";
 import { accounts, user } from "@/lib/db/schema";
-import { compare } from "bcryptjs";
 import { and, eq } from "drizzle-orm";
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { CustomDrizzleAdapter } from "./custom-drizzle-adapter";
 import { createNewUserWithOnboarding } from "./user-onboarding";
@@ -24,45 +22,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       allowDangerousEmailAccountLinking: true,
-    }),
-    Credentials({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        const userResult = await db
-          .select()
-          .from(user)
-          .where(eq(user.email, credentials.email as string))
-          .limit(1);
-
-        if (!userResult[0]) {
-          return null;
-        }
-
-        const passwordMatch = await compare(
-          credentials.password as string,
-          userResult[0].passwordHash || ""
-        );
-
-        if (!passwordMatch) {
-          return null;
-        }
-
-        const userObj = {
-          id: userResult[0].id.toString(),
-          email: userResult[0].email,
-          name: userResult[0].name,
-          role: userResult[0].role,
-        };
-        return userObj;
-      },
     }),
   ],
   callbacks: {

@@ -3,14 +3,10 @@ import AdminSubscriptionLimits from "@/components/admin-subscription-limits";
 import AdminDeleteUser from "@/components/admin-delete-user";
 import AdminSettings from "@/components/admin-settings";
 import AdminInboxSettings from "@/components/admin-inbox-settings";
-import AdminInternalApi from "@/components/admin-internal-api";
-import AdminOpenAISettings from "@/components/admin-openai-settings";
 import { getCurrentUserFromSession } from "@/lib/db/queries";
 import {
-  Bot,
   Download,
   Gift,
-  KeyRound,
   Mail,
   Sliders,
   Trash2,
@@ -93,29 +89,6 @@ export default async function AdminSettingsPage() {
             </div>
           </section>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Bot className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">OpenAI</p>
-              </div>
-              <AdminOpenAISettings />
-            </div>
-          </section>
-
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <KeyRound className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Internal API</p>
-              </div>
-              <AdminInternalApi />
-            </div>
-          </section>
         </div>
       </div>
     </div>

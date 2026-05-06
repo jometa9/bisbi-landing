@@ -7,10 +7,6 @@ import {
   upsertProductSubscription,
 } from "@/lib/db/queries";
 import { ProductKey, user } from "@/lib/db/schema";
-import {
-  sendSubscriptionChangeEmail,
-  sendWelcomeWithSubscriptionEmail,
-} from "@/lib/email";
 import { stripe } from "@/lib/payments/stripe";
 import { generateRandomPassword } from "@/lib/utils";
 import { eq } from "drizzle-orm";
@@ -138,29 +134,7 @@ export async function assignFreeSubscription(
 
   const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
 
-  let emailSent = false;
-  try {
-    if (created && generatedPassword) {
-      await sendWelcomeWithSubscriptionEmail({
-        email: foundUser.email,
-        name: foundUser.name || foundUser.email.split("@")[0],
-        password: generatedPassword,
-        planName: planLabel,
-        expiryDate: expiryDateString,
-      });
-    } else {
-      await sendSubscriptionChangeEmail({
-        email: foundUser.email,
-        name: foundUser.name || foundUser.email.split("@")[0],
-        planName: planLabel,
-        status: "active",
-        expiryDate: expiryDateString,
-      });
-    }
-    emailSent = true;
-  } catch (emailError) {
-    console.error("[assignFreeSubscription] Failed to send email:", emailError);
-  }
+  const emailSent = false;
 
   const action = created ? "created and assigned" : "assigned";
   const message = `${planLabel} subscription ${action} to ${email} for ${duration} month(s).${stripeCanceled ? " Previous Stripe subscription was canceled." : ""}`;
@@ -238,18 +212,7 @@ export async function revokeSubscription(
 
   await deleteProductSubscription(foundUser.id, productKey);
 
-  let emailSent = false;
-  try {
-    await sendSubscriptionChangeEmail({
-      email: foundUser.email,
-      name: foundUser.name || foundUser.email.split("@")[0],
-      planName: "Removed",
-      status: "canceled",
-    });
-    emailSent = true;
-  } catch (emailError) {
-    console.error("[revokeSubscription] Failed to send email:", emailError);
-  }
+  const emailSent = false;
 
   return {
     ok: true,

@@ -2,6 +2,7 @@
 
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useI18n } from "@/lib/i18n";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
@@ -63,26 +64,26 @@ export function LandingHeader() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <Link
-            href="/sign-in"
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             className="text-sm hidden md:block"
             style={{ color: "#5C5C57" }}
           >
             {t.nav.signIn}
-          </Link>
-          <Link
-            href="/sign-up"
+          </button>
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             className="rounded-full px-4 py-1.5 text-sm font-medium text-white"
             style={{ backgroundColor: "#7BA89C" }}
-            onMouseEnter={(e: MouseEvent<HTMLAnchorElement>) => {
+            onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {
               e.currentTarget.style.backgroundColor = "#5A8C83";
             }}
-            onMouseLeave={(e: MouseEvent<HTMLAnchorElement>) => {
+            onMouseLeave={(e: MouseEvent<HTMLButtonElement>) => {
               e.currentTarget.style.backgroundColor = "#7BA89C";
             }}
           >
             {t.nav.downloadFree}
-          </Link>
+          </button>
         </div>
       </div>
     </header>

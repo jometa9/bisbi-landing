@@ -1,37 +1,19 @@
 "use client";
-import { useMetaPixel } from "@/components/meta-pixel";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ActionState } from "@/lib/auth/middleware";
 import { Loader2 } from "lucide-react";
 import { signIn as nextAuthSignIn, useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useActionState } from "react";
-import { signIn, signUp } from "./actions";
+import React from "react";
 
-export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
+export function Login() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
-  const priceId = searchParams.get("priceId");
-  const inviteId = searchParams.get("inviteId");
   const source = searchParams.get("source");
-  const [state, formAction, pending] = useActionState<ActionState, FormData>(
-    (mode === "signin" ? signIn : signUp) as (
-      state: ActionState,
-      payload: FormData
-    ) => Promise<ActionState>,
-    { error: "" }
-  );
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { trackCompleteRegistration } = useMetaPixel();
   const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
   const [isRedirecting, setIsRedirecting] = React.useState(false);
   const [redirectUrl, setRedirectUrl] = React.useState<string>("");
-  const [hasTrackedRegistration, setHasTrackedRegistration] =
-    React.useState(false);
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -41,20 +23,6 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const isFromApp = source === "app";
   const isAppRedirect = redirect && redirect.startsWith("bisbi://");
   const appName = "Bisbi";
-
-  const switchParams = new URLSearchParams();
-  if (redirect) switchParams.set("redirect", redirect);
-  if (priceId) switchParams.set("priceId", priceId);
-  if (inviteId) switchParams.set("inviteId", inviteId);
-  if (source) switchParams.set("source", source);
-  const alternateAuthHref = `${mode === "signin" ? "/sign-up" : "/sign-in"}${switchParams.toString() ? `?${switchParams.toString()}` : ""
-    }`;
-
-  const heading = isFromApp
-    ? `Access your ${appName} account`
-    : mode === "signin"
-      ? "Welcome back to Bisbi"
-      : "Create your Bisbi account";
 
   const handleGoogleSignIn = async () => {
     if (isGoogleLoading) return;
@@ -103,27 +71,9 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
 
   React.useEffect(() => {
     if (status === "authenticated") {
-      if (mode === "signup" && !hasTrackedRegistration && session?.user) {
-        const eventId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
-        trackCompleteRegistration(
-          {
-            content_name: "Bisbi Account",
-            status: true,
-          },
-          eventId
-        );
-        setHasTrackedRegistration(true);
-      }
       handleSuccessfulAuth();
     }
-  }, [
-    status,
-    router,
-    mode,
-    hasTrackedRegistration,
-    session,
-    trackCompleteRegistration,
-  ]);
+  }, [status, router, session]);
 
   React.useEffect(() => {
     if (status === "unauthenticated" && isGoogleLoading) {
@@ -154,7 +104,7 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
             Login Successful!
           </h2>
           <p className="text-xl text-gray-400">
-            We'll take you back to {appName}
+            We&apos;ll take you back to {appName}
           </p>
         </div>
         <div className="flex text-sm items-center space-x-2 text-gray-600">
@@ -174,7 +124,7 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         >
           Open {appName}
         </Button>
-        <p className="text-sm text-gray-600 ">
+        <p className="text-sm text-gray-600">
           Opening automatically, or click the button above
         </p>
       </div>
@@ -192,9 +142,11 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   return (
     <div className="space-y-3 pb-20">
       <div>
-        <h2 className="text-2xl font-semibold text-gray-900">{heading}</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">
+          {isFromApp ? `Access your ${appName} account` : "Welcome to Bisbi"}
+        </h2>
         <p className="text-base" style={{ color: "#A8A8A2" }}>
-          {mode === "signin" ? "Sign in to download Bisbi" : "Create an account to download Bisbi"}
+          Sign in to download Bisbi
         </p>
       </div>
 
@@ -203,12 +155,12 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         className="w-full justify-center gap-3 rounded-xl py-3 text-white text-md disabled:opacity-60"
         style={{ backgroundColor: "#1A1A18" }}
         onClick={handleGoogleSignIn}
-        disabled={isGoogleLoading || pending}
+        disabled={isGoogleLoading}
       >
         {isGoogleLoading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            {mode === "signin" ? "Connecting..." : "Creating account..."}
+            Connecting...
           </>
         ) : (
           <>
@@ -242,134 +194,10 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         )}
       </Button>
 
-      <form className="space-y-3" action={formAction}>
-        <input type="hidden" name="redirect" value={redirect || ""} />
-        <input type="hidden" name="priceId" value={priceId || ""} />
-        <input type="hidden" name="inviteId" value={inviteId || ""} />
-
-        <div className="space-y-1">
-          <div>
-            <Label htmlFor="email" className="text-sm text-gray-700">
-              Email
-            </Label>
-          </div>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            defaultValue={state.email}
-            required
-            maxLength={50}
-            placeholder="you@example.com"
-            disabled={pending || isGoogleLoading}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password" className="text-sm text-gray-700">
-              Password
-            </Label>
-            {mode === "signin" && (
-              <Link
-                href="/forgot-password"
-                className={`text-xs font-semibold text-gray-900 hover:underline ${pending || isGoogleLoading
-                    ? "pointer-events-none opacity-50"
-                    : ""
-                  }`}
-              >
-                Forgot password?
-              </Link>
-            )}
-          </div>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            className={mode === "signin" ? "mb-4" : ""}
-            autoComplete={
-              mode === "signin" ? "current-password" : "new-password"
-            }
-            defaultValue={state.password}
-            required
-            minLength={8}
-            maxLength={100}
-            placeholder="••••••••"
-            disabled={pending || isGoogleLoading}
-          />
-          {mode === "signup" && (
-            <p className="text-xs text-gray-600">
-              Password must be at least 8 characters long.
-            </p>
-          )}
-        </div>
-
-        {state?.error && (
-          <div className="text-sm text-gray-600">
-            {typeof state.error === "string" && state.error.includes("<a") ? (
-              <p dangerouslySetInnerHTML={{ __html: state.error }}></p>
-            ) : (
-              <p>{state.error}</p>
-            )}
-          </div>
-        )}
-
-        <Button
-          type="submit"
-          className="w-full justify-center rounded-xl py-3 text-md text-white"
-          style={{ backgroundColor: "#7BA89C" }}
-          disabled={pending || isGoogleLoading}
-        >
-          {pending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {mode === "signin" ? "Signing in..." : "Creating account..."}
-            </>
-          ) : mode === "signin" ? (
-            "Sign in"
-          ) : (
-            "Create account"
-          )}
-        </Button>
-      </form>
-
-      <div className="text-sm text-gray-600">
-        {mode === "signin" ? (
-          <>
-            Don&apos;t have an account?{" "}
-            <Link
-              href={alternateAuthHref}
-              className={`font-semibold text-gray-900 hover:underline ${pending || isGoogleLoading
-                  ? "pointer-events-none opacity-50"
-                  : ""
-                }`}
-            >
-              Sign up
-            </Link>
-          </>
-        ) : (
-          <>
-            Already have an account?{" "}
-            <Link
-              href={alternateAuthHref}
-              className={`font-semibold text-gray-900 hover:underline ${pending || isGoogleLoading
-                  ? "pointer-events-none opacity-50"
-                  : ""
-                }`}
-            >
-              Sign in
-            </Link>
-          </>
-        )}
-      </div>
-
       {isFromApp && (
         <p
-          type="button"
           onClick={() => window.history.back()}
           className="mx-auto block text-sm text-gray-600 transition hover:text-gray-800 cursor-pointer"
-          disabled={pending || isGoogleLoading}
         >
           Back to application
         </p>

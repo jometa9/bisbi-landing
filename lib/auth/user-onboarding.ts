@@ -3,7 +3,6 @@
 import { getAppUrl } from "@/lib/app-url";
 import { db } from "@/lib/db/drizzle";
 import { user } from "@/lib/db/schema";
-import { sendWelcomeEmail } from "@/lib/email/services";
 import { trackCompleteRegistration } from "@/lib/meta";
 import { generateApiKey } from "@/lib/utils";
 import { eq } from "drizzle-orm";
@@ -51,27 +50,7 @@ export async function createNewUserWithOnboarding(
   }
 
   const apiKey = generateApiKey();
-  let stripeCustomerId: string | null = null;
-  let stripeCustomerCreated = false;
-  try {
-    const { stripe } = await import("@/lib/payments/stripe");
-    const customer = await stripe.customers.create({
-      email,
-      name: name || undefined,
-      metadata: {
-        source: source === "oauth_google" ? "oauth_signin_flow" : "signup_flow",
-      },
-    });
-    stripeCustomerId = customer.id;
-    stripeCustomerCreated = true;
-  } catch (stripeError: unknown) {
-    const error = stripeError as { message?: string; code?: string };
-    console.error("[Onboarding] Error creating Stripe customer:", {
-      email,
-      error: error.message,
-      code: error.code,
-    });
-  }
+  const stripeCustomerCreated = false;
 
   const [createdUser] = await db
     .insert(user)
@@ -81,7 +60,6 @@ export async function createNewUserWithOnboarding(
       passwordHash: passwordHash || null,
       apiKey,
       role: "owner",
-      stripeCustomerId,
     })
     .returning();
 
@@ -95,24 +73,7 @@ export async function createNewUserWithOnboarding(
     };
   }
 
-  let welcomeEmailSent = false;
-  if (!skipWelcomeEmail) {
-    try {
-      const loginUrl = getAppUrl();
-      await sendWelcomeEmail({
-        email: createdUser.email,
-        name: createdUser.name || createdUser.email.split("@")[0],
-        loginUrl,
-      });
-      welcomeEmailSent = true;
-    } catch (emailError: unknown) {
-      const error = emailError as { message?: string };
-      console.error("[Onboarding] Error sending welcome email:", {
-        email,
-        error: error.message,
-      });
-    }
-  }
+  const welcomeEmailSent = false;
 
   if (source === "internal_api") {
     return {

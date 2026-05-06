@@ -195,14 +195,15 @@ export async function getUserEntitlements(userId: string) {
 
   const entitlements: {
     multi: UserProductSubscription | null;
+    bisbi: UserProductSubscription | null;
   } = {
     multi: null,
+    bisbi: null,
   };
 
   for (const sub of subscriptions) {
-    if (sub.productKey === "multi") {
-      entitlements.multi = sub;
-    }
+    if (sub.productKey === "multi") entitlements.multi = sub;
+    if (sub.productKey === "bisbi") entitlements.bisbi = sub;
   }
 
   return entitlements;

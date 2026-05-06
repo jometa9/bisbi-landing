@@ -145,7 +145,7 @@ export type NewInboundEmail = typeof inboundEmail.$inferInsert;
 export type CronLock = typeof cronLock.$inferSelect;
 export type NewCronLock = typeof cronLock.$inferInsert;
 
-export type ProductKey = "multi";
+export type ProductKey = "multi" | "bisbi";
 export type SubscriptionTier = "free" | "pro" | "unlimited";
 export type SubscriptionStatus =
   | "active"

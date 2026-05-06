@@ -2,21 +2,10 @@
 
 import { LandingHeader } from "@/components/landing/landing-header";
 import { Footer } from "@/components/layout/footer";
-import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-
-type OS = "mac" | "windows" | "unknown";
-
-function detectOS(): OS {
-  if (typeof window === "undefined") return "unknown";
-  const ua = window.navigator.userAgent.toLowerCase();
-  if (ua.includes("mac")) return "mac";
-  if (ua.includes("win")) return "windows";
-  return "unknown";
-}
 
 const LANG_CODES = ["EN", "ES", "PT", "FR", "IT", "DE", "ZH", "HI", "AR"] as const;
 
@@ -326,13 +315,13 @@ export default function HomePage() {
 
             <p className="text-sm" style={{ color: "#A8A8A2" }}>
               {t.cta.signInHint}{" "}
-              <Link
-                href="/sign-in"
+              <button
+                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
                 className="underline underline-offset-2"
                 style={{ color: "#7BA89C" }}
               >
                 {t.cta.signIn}
-              </Link>
+              </button>
             </p>
           </div>
         </section>
