@@ -46,7 +46,7 @@ export async function POST() {
       entitlements: {
         multi: {
           active: user.role === "admin" || isActiveSubscription(entitlements.multi),
-          tier: user.role === "admin" ? "unlimited" : getSubscriptionTier(entitlements.multi),
+          tier: user.role === "admin" ? "pro" : getSubscriptionTier(entitlements.multi),
           status: entitlements.multi?.status || "none",
           expiresAt: entitlements.multi?.expiresAt?.toISOString() || null,
         },

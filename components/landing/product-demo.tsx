@@ -5,25 +5,15 @@ import { useI18n } from "@/lib/i18n";
 
 type Platform = "mac" | "win";
 
-const HOTKEY_PARTS = ["CommandOrControl", "Shift", "Space"] as const;
-
-const MAC_GLYPHS: Record<string, string> = {
-  CommandOrControl: "⌘",
-  Shift: "⇧",
-  Space: "Space",
-};
-
-const WIN_GLYPHS: Record<string, string> = {
-  CommandOrControl: "Ctrl",
-  Shift: "Shift",
-  Space: "Space",
-};
-
-const BARS = 14;
+const BARS = 12;
 
 function detectPlatform(): Platform {
   if (typeof navigator === "undefined") return "mac";
-  return /Mac|iPhone|iPad/.test(navigator.userAgent) ? "mac" : "win";
+  return /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? "mac" : "win";
+}
+
+function hotkeyForPlatform(p: Platform): string {
+  return p === "mac" ? "⌘" : "Alt";
 }
 
 export function ProductDemo() {
@@ -36,29 +26,29 @@ export function ProductDemo() {
     setPlatform(detectPlatform());
   }, []);
 
-  const glyphs = platform === "mac" ? MAC_GLYPHS : WIN_GLYPHS;
+  const keyGlyph = hotkeyForPlatform(platform);
 
   return (
     <div className="demo-stack">
       <DemoCard index={1} title={steps[0].title} description={steps[0].description}>
-        <HotkeyCard
-          state="idle"
+        <HomeMock
+          mode="press-cycle"
           platform={platform}
-          glyphs={glyphs}
-          label={demo.hotkeyLabel}
-          hint={demo.idleHint}
+          keyGlyph={keyGlyph}
+          hotkeyLabel={demo.hotkeyLabel}
+          pasteHint={demo.pasteHint}
+          watermark={demo.previousTranscript}
         />
       </DemoCard>
 
       <DemoCard index={2} title={steps[1].title} description={steps[1].description}>
-        <HotkeyCard
-          state="recording"
+        <HomeMock
+          mode="recording"
           platform={platform}
-          glyphs={glyphs}
-          label={demo.hotkeyLabel}
-          hint={demo.recordingHint}
+          keyGlyph={keyGlyph}
+          hotkeyLabel={demo.hotkeyLabel}
+          pasteHint={demo.pasteHint}
           watermark={demo.transcript}
-          recordingLabel={demo.recordingLabel}
         />
         <RecordingPill />
       </DemoCard>
@@ -87,8 +77,8 @@ function DemoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="demo-card">
-      <div className="demo-card-header">
+    <div className="demo-step">
+      <div className="demo-step-header">
         <span className="demo-step-num">
           {String(index).padStart(2, "0")}
         </span>
@@ -97,29 +87,49 @@ function DemoCard({
           <p className="demo-step-desc">{description}</p>
         </div>
       </div>
-      <div className="demo-card-body">{children}</div>
+      <div className="demo-step-body">{children}</div>
     </div>
   );
 }
 
-function HotkeyCard({
-  state,
+function HomeMock({
+  mode,
   platform,
-  glyphs,
-  label,
-  hint,
+  keyGlyph,
+  hotkeyLabel,
+  pasteHint,
   watermark,
-  recordingLabel,
 }: {
-  state: "idle" | "recording";
+  mode: "press-cycle" | "recording";
   platform: Platform;
-  glyphs: Record<string, string>;
-  label: string;
-  hint: string;
+  keyGlyph: string;
+  hotkeyLabel: string;
+  pasteHint: string;
   watermark?: string;
-  recordingLabel?: string;
 }) {
-  const isRecording = state === "recording";
+  const isRecording = mode === "recording";
+
+  // Step 1: cycle the kbd between idle and pressed state.
+  const [cyclePressed, setCyclePressed] = useState(false);
+  useEffect(() => {
+    if (mode !== "press-cycle") return;
+    let pressed = false;
+    setCyclePressed(false);
+    const tick = () => {
+      pressed = !pressed;
+      setCyclePressed(pressed);
+    };
+    const idleHold = 1400;
+    const pressedHold = 900;
+    let timeout = window.setTimeout(function loop() {
+      tick();
+      timeout = window.setTimeout(loop, pressed ? pressedHold : idleHold);
+    }, idleHold);
+    return () => window.clearTimeout(timeout);
+  }, [mode]);
+
+  const kbdPressed = isRecording || cyclePressed;
+
   return (
     <div
       className={`demo-hotkey${isRecording ? " demo-hotkey--recording" : ""}`}
@@ -130,33 +140,17 @@ function HotkeyCard({
         </div>
       )}
       <div className="demo-hotkey-content">
-        <span className="demo-hotkey-label">
-          {isRecording && recordingLabel ? (
-            <span className="demo-hotkey-status">
-              <span className="demo-hotkey-dot" />
-              {recordingLabel}
-            </span>
-          ) : (
-            label
-          )}
-        </span>
+        <span className="demo-hotkey-label">{hotkeyLabel}</span>
         <div className="demo-hotkey-keys">
-          {HOTKEY_PARTS.map((part, i) => (
-            <span key={part} className="demo-kbd-row">
-              <kbd
-                className={`demo-kbd demo-kbd-${platform}${
-                  isRecording ? " demo-kbd-pressed" : ""
-                }`}
-              >
-                {glyphs[part]}
-              </kbd>
-              {i < HOTKEY_PARTS.length - 1 && (
-                <span className="demo-kbd-plus">+</span>
-              )}
-            </span>
-          ))}
+          <kbd
+            className={`demo-kbd demo-kbd-${platform}${
+              kbdPressed ? " demo-kbd-pressed" : ""
+            }`}
+          >
+            {keyGlyph}
+          </kbd>
         </div>
-        <span className="demo-hotkey-hint">{hint}</span>
+        <span className="demo-hotkey-hint">{pasteHint}</span>
       </div>
     </div>
   );
@@ -175,7 +169,8 @@ function RecordingPill() {
         const t = frame / 4;
         const v =
           0.25 +
-          0.55 * Math.abs(Math.sin(t * 0.9)) *
+          0.55 *
+            Math.abs(Math.sin(t * 0.9)) *
             (0.6 + 0.4 * Math.abs(Math.sin(t * 0.31)));
         next.push(v);
         return next;
@@ -185,9 +180,15 @@ function RecordingPill() {
   }, []);
 
   useEffect(() => {
-    const start = Date.now();
+    let start = Date.now();
     const id = window.setInterval(() => {
-      setSeconds(Math.floor((Date.now() - start) / 1000));
+      const elapsed = Math.floor((Date.now() - start) / 1000);
+      if (elapsed >= 30) {
+        start = Date.now();
+        setSeconds(0);
+      } else {
+        setSeconds(elapsed);
+      }
     }, 250);
     return () => window.clearInterval(id);
   }, []);
@@ -228,16 +229,54 @@ function EditorMock({
 }) {
   const [typed, setTyped] = useState("");
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const inViewRef = useRef(false);
 
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
+
+    let timeout: number | undefined;
+    let interval: number | undefined;
+    let started = false;
+    let cancelled = false;
+
+    function clearTimers() {
+      if (timeout) {
+        window.clearTimeout(timeout);
+        timeout = undefined;
+      }
+      if (interval) {
+        window.clearInterval(interval);
+        interval = undefined;
+      }
+    }
+
+    function startTyping() {
+      if (cancelled) return;
+      clearTimers();
+      let i = 0;
+      setTyped("");
+      timeout = window.setTimeout(() => {
+        interval = window.setInterval(() => {
+          i += 1;
+          setTyped(transcript.slice(0, i));
+          if (i >= transcript.length) {
+            if (interval) {
+              window.clearInterval(interval);
+              interval = undefined;
+            }
+            timeout = window.setTimeout(() => {
+              startTyping();
+            }, 3200);
+          }
+        }, 70);
+      }, 600);
+    }
+
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting && !inViewRef.current) {
-            inViewRef.current = true;
+          if (e.isIntersecting && !started) {
+            started = true;
             startTyping();
           }
         }
@@ -246,32 +285,10 @@ function EditorMock({
     );
     obs.observe(el);
 
-    let timeout: number | undefined;
-    let interval: number | undefined;
-
-    function startTyping() {
-      let i = 0;
-      setTyped("");
-      timeout = window.setTimeout(() => {
-        interval = window.setInterval(() => {
-          i += 1;
-          setTyped(transcript.slice(0, i));
-          if (i >= transcript.length) {
-            window.clearInterval(interval);
-            timeout = window.setTimeout(() => {
-              setTyped("");
-              inViewRef.current = false;
-              if (wrapperRef.current) startTyping();
-            }, 2800);
-          }
-        }, 28);
-      }, 600);
-    }
-
     return () => {
+      cancelled = true;
       obs.disconnect();
-      if (timeout) window.clearTimeout(timeout);
-      if (interval) window.clearInterval(interval);
+      clearTimers();
     };
   }, [transcript]);
 

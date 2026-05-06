@@ -13,8 +13,8 @@ export const es: LandingTranslations = {
     headline1: "La forma más rápida de escribir",
     headline2: "es no escribir.",
     subheadline:
-      "Hablá y Bisbi escribe el texto donde tengas el cursor — en cualquier app, en cualquier idioma.",
-    freeBadge: "Gratis para empezar. Mac y Windows.",
+      "Hablá. Bisbi escribe lo que decís — en cualquier app, en cualquier idioma.",
+    freeBadge: "Gratis para empezar. Sin tarjeta de crédito. Mac y Windows.",
   },
   download: {
     mac: "Descargar para Mac",
@@ -42,15 +42,20 @@ export const es: LandingTranslations = {
       },
     ],
     demo: {
+      greeting: "Buenos días",
+      statusIdle: "Listo para escuchar",
+      statusRecording: "Grabando ahora",
+      titleHint: "Apretá el atajo y hablá.",
       hotkeyLabel: "Atajo",
       idleHint: "Apretá el atajo y hablá.",
       recordingLabel: "Grabando ahora",
       recordingHint: "Hablá natural. Bisbi te está escuchando.",
+      previousTranscript: "Bisbi me encanta.",
       transcript:
         "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
       editorTitle: "Sin título — Notas",
       editorPlaceholder: "Escribí un mensaje…",
-      pasteHint: "Bisbi lo escribe donde tengas el cursor.",
+      pasteHint: "El texto se pega automáticamente donde estés escribiendo.",
     },
   },
   features: {
@@ -68,19 +73,9 @@ export const es: LandingTranslations = {
           "Un solo atajo. Hablá natural. Sin abrir nada, sin cambiar de ventana.",
       },
       {
-        title: "10 idiomas",
+        title: "99 idiomas",
         description:
-          "Inglés, español, francés, alemán, portugués, italiano, chino, hindi y árabe — detección automática o manual.",
-      },
-      {
-        title: "Traducción bilingüe",
-        description:
-          "Hablá en español, aparece en inglés. Grabá en cualquier idioma, traducí en el momento.",
-      },
-      {
-        title: "100% local y privado",
-        description:
-          "Todo corre en tu máquina. Tu voz nunca sale de tu computadora.",
+          "Detección automática. Hablá en uno, escribí en otro.",
       },
       {
         title: "Mac y Windows",
@@ -88,22 +83,6 @@ export const es: LandingTranslations = {
           "Apps nativas para las dos plataformas. Misma experiencia, mismo atajo, mismo resultado.",
       },
     ],
-  },
-  languagesSection: {
-    badge: "Idiomas",
-    title: "Hablá en tu idioma.",
-    subtitle:
-      "Reconocimiento en 99 idiomas con detección automática. Hablá en uno, escribí en otro.",
-    names: ["Inglés", "Español", "Portugués", "Francés", "Italiano", "Alemán", "Chino", "Hindi", "Árabe"],
-    moreLabel: "Más idiomas",
-    moreCount: "+90",
-  },
-  bilingual: {
-    title: "¿Querés ser bilingüe?",
-    description:
-      "Hablá en español. Bisbi traduce y escribe en inglés. O cualquier combinación de los 10 idiomas.",
-    highlight:
-      "Ideal para los que aprenden idiomas, viven afuera, o trabajan con equipos globales.",
   },
   cta: {
     title: "Empezá a hablar hoy.",
@@ -118,6 +97,35 @@ export const es: LandingTranslations = {
     contact: "Contacto",
     legal: "Legal",
     rights: "Todos los derechos reservados.",
+  },
+  demoApp: {
+    nav: { home: "Inicio", history: "Historial", settings: "Ajustes" },
+    greetings: {
+      lateNight: "Buenas noches",
+      morning: "Buenos días",
+      afternoon: "Buenas tardes",
+      evening: "Buenas noches",
+    },
+    statusTitle: "Listo para escuchar",
+    titleHint: "Presioná el atajo y hablá.",
+    hotkeyLabel: "Atajo",
+    hotkeyHint: "El texto se pega automáticamente donde estés escribiendo.",
+    activitySection: "Tu actividad",
+    statTranscriptions: "transcripciones",
+    statDictated: "dictado",
+    statWords: "palabras transcritas",
+    statWpm: "palabras por minuto",
+    recentSection: "Transcripciones recientes",
+    seeMore: "Ver todo en Historial",
+    badgeIdle: "Listo",
+    plan: { pro: "Pro" },
+    user: { name: "Lucía García", initial: "L" },
+    dateGroups: { today: "Hoy", yesterday: "Ayer" },
+    recent: [
+      "Mandale las notas de la revisión de diseño a Marta y confirmá que seguimos para el jueves.",
+      "Recordatorio para actualizar el copy del onboarding con los nuevos planes.",
+      "[Música] Borrador de email: gracias de nuevo por la presentación. Me encantaría agendar una llamada la próxima semana.",
+    ],
   },
   dashboard: {
     greeting: "Hola {name} 👋",

@@ -407,13 +407,13 @@ export async function getUserDataForDashboard(userId: string) {
   const subscriptionLimits = getSubscriptionLimits(settings);
   
   const getLimitsForTier = (tier: string) => {
-    if (tier === "unlimited" || userData.role === "admin") {
+    if (tier === "unlimited") {
       return {
         accountLimit: subscriptionLimits.unlimited?.accountLimit ?? null,
         fixedLotSize: subscriptionLimits.unlimited?.fixedLotSize ?? null,
       };
     }
-    if (tier === "pro") {
+    if (tier === "pro" || userData.role === "admin") {
       return {
         accountLimit: subscriptionLimits.pro?.accountLimit ?? 8,
         fixedLotSize: subscriptionLimits.pro?.fixedLotSize ?? null,
@@ -430,7 +430,7 @@ export async function getUserDataForDashboard(userId: string) {
     sub &&
     ["canceled", "expired"].includes(sub.status) &&
     (!sub.expiresAt || sub.expiresAt <= new Date());
-  const rawTier = userData.role === "admin" ? "unlimited" : getSubscriptionTier(sub);
+  const rawTier = userData.role === "admin" ? "pro" : getSubscriptionTier(sub);
   const multiTier = rawTier;
 
   return {

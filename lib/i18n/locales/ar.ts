@@ -13,8 +13,8 @@ export const ar: LandingTranslations = {
     headline1: "أسرع طريقة للكتابة",
     headline2: "هي عدم الكتابة.",
     subheadline:
-      "تكلم وسيكتب Bisbi حيث يوجد مؤشرك — في أي تطبيق، بأي لغة.",
-    freeBadge: "مجاني للبدء. Mac و Windows.",
+      "تكلّم. يكتب Bisbi ما تقوله — في أي تطبيق، بأي لغة.",
+    freeBadge: "مجاني للبدء. بدون بطاقة ائتمان. Mac و Windows.",
   },
   download: {
     mac: "تنزيل لـ Mac",
@@ -39,15 +39,20 @@ export const ar: LandingTranslations = {
       },
     ],
     demo: {
+      greeting: "صباح الخير",
+      statusIdle: "جاهز للاستماع",
+      statusRecording: "يسجّل الآن",
+      titleHint: "اضغط الاختصار وتحدّث.",
       hotkeyLabel: "الاختصار",
       idleHint: "اضغط الاختصار وتحدّث.",
       recordingLabel: "يسجّل الآن",
       recordingHint: "تحدّث بشكل طبيعي. Bisbi يستمع.",
+      previousTranscript: "أحبّ استخدام Bisbi.",
       transcript:
         "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
       editorTitle: "بدون عنوان — ملاحظات",
       editorPlaceholder: "اكتب رسالة…",
-      pasteHint: "يكتب Bisbi النص حيث يوجد مؤشرك.",
+      pasteHint: "يتم لصق النص تلقائيًا حيث تكتب.",
     },
   },
   features: {
@@ -65,19 +70,9 @@ export const ar: LandingTranslations = {
           "اختصار واحد. تكلم بشكل طبيعي. دون فتح أي شيء أو تبديل نافذة.",
       },
       {
-        title: "10 لغات",
+        title: "99 لغة",
         description:
-          "الإنجليزية والإسبانية والفرنسية والألمانية والبرتغالية والإيطالية والصينية والهندية والعربية — كشف تلقائي أو يدوي.",
-      },
-      {
-        title: "ترجمة ثنائية اللغة",
-        description:
-          "تكلم بالإسبانية، يظهر بالإنجليزية. سجّل بأي لغة، اترجم على الفور.",
-      },
-      {
-        title: "100% محلي وخاص",
-        description:
-          "كل شيء يعمل على جهازك. صوتك لا يغادر حاسوبك أبداً.",
+          "كشف تلقائي. تكلّم بواحدة، اكتب بأخرى.",
       },
       {
         title: "Mac و Windows",
@@ -85,22 +80,6 @@ export const ar: LandingTranslations = {
           "تطبيقات أصلية للمنصتين. نفس التجربة، نفس الاختصار، نفس النتيجة.",
       },
     ],
-  },
-  languagesSection: {
-    badge: "اللغات",
-    title: "تكلم بلغتك.",
-    subtitle:
-      "تعرّف على 99 لغة مع كشف تلقائي. تكلم بواحدة، يكتب بأخرى.",
-    names: ["الإنجليزية", "الإسبانية", "البرتغالية", "الفرنسية", "الإيطالية", "الألمانية", "الصينية", "الهندية", "العربية"],
-    moreLabel: "لغات أخرى",
-    moreCount: "+90",
-  },
-  bilingual: {
-    title: "تريد أن تصبح ثنائي اللغة؟",
-    description:
-      "تكلم بالإسبانية. يترجم Bisbi ويكتب بالإنجليزية. أو أي مزيج من اللغات العشر.",
-    highlight:
-      "مثالي لمتعلمي اللغات والمغتربين والفرق العالمية.",
   },
   cta: {
     title: "ابدأ التكلم اليوم.",
@@ -115,6 +94,35 @@ export const ar: LandingTranslations = {
     contact: "تواصل",
     legal: "قانوني",
     rights: "جميع الحقوق محفوظة.",
+  },
+  demoApp: {
+    nav: { home: "الرئيسية", history: "السجل", settings: "الإعدادات" },
+    greetings: {
+      lateNight: "تصبح على خير",
+      morning: "صباح الخير",
+      afternoon: "مساء الخير",
+      evening: "مساء الخير",
+    },
+    statusTitle: "جاهز للاستماع",
+    titleHint: "اضغط الاختصار وتحدّث.",
+    hotkeyLabel: "اختصار",
+    hotkeyHint: "يُلصق النص تلقائياً أينما كنت تكتب.",
+    activitySection: "نشاطك",
+    statTranscriptions: "نسخة",
+    statDictated: "أُمليت",
+    statWords: "كلمة منسوخة",
+    statWpm: "كلمة في الدقيقة",
+    recentSection: "النسخ الأخيرة",
+    seeMore: "اعرض الكل في السجل",
+    badgeIdle: "جاهز",
+    plan: { pro: "احترافي" },
+    user: { name: "ليلى أحمد", initial: "ل" },
+    dateGroups: { today: "اليوم", yesterday: "أمس" },
+    recent: [
+      "أرسل ملاحظات مراجعة التصميم إلى مارتا وأكّد موعدنا يوم الخميس.",
+      "تذكير بتحديث نص الإعداد الأولي بأسعار الخطط الجديدة.",
+      "[موسيقى] مسودة بريد: شكراً مرة أخرى على التعريف. أودّ تحديد موعد لمكالمة قصيرة الأسبوع المقبل.",
+    ],
   },
   dashboard: {
     greeting: "مرحباً {name} 👋",

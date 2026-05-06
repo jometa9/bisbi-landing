@@ -11,8 +11,8 @@ export const en = {
     headline1: "The fastest way to write",
     headline2: "is not to write.",
     subheadline:
-      "Speak and Bisbi types wherever your cursor is — in any app, in any language.",
-    freeBadge: "Free to start. Mac & Windows.",
+      "Speak. Bisbi types what you say — in any app, in any language.",
+    freeBadge: "Free to start. No credit card. Mac & Windows.",
   },
   download: {
     mac: "Download for Mac",
@@ -39,15 +39,20 @@ export const en = {
       },
     ],
     demo: {
+      greeting: "Good morning",
+      statusIdle: "Ready to listen",
+      statusRecording: "Recording now",
+      titleHint: "Press the hotkey and speak.",
       hotkeyLabel: "Hotkey",
       idleHint: "Press the hotkey and speak.",
       recordingLabel: "Recording now",
       recordingHint: "Speak naturally. Bisbi is listening.",
+      previousTranscript: "I love using Bisbi.",
       transcript:
         "Hey team — quick heads up. The launch is on track for Friday.",
       editorTitle: "Untitled — Notes",
       editorPlaceholder: "Type a message…",
-      pasteHint: "Bisbi types it wherever your cursor is.",
+      pasteHint: "The text is pasted automatically wherever you are typing.",
     },
   },
   features: {
@@ -65,19 +70,9 @@ export const en = {
           "One shortcut. Speak naturally. No window to open, no app to switch.",
       },
       {
-        title: "10 languages",
+        title: "99 languages",
         description:
-          "English, Spanish, French, German, Portuguese, Italian, Chinese, Hindi, Arabic — auto-detection or manual.",
-      },
-      {
-        title: "Bilingual translation",
-        description:
-          "Speak in Spanish, it appears in English. Record in any language, translate instantly.",
-      },
-      {
-        title: "100% local & private",
-        description:
-          "Everything runs on your machine. Your voice never leaves your computer.",
+          "Automatic detection. Speak in one, type in another.",
       },
       {
         title: "Mac & Windows",
@@ -85,22 +80,6 @@ export const en = {
           "Native apps for both platforms. Same experience, same shortcut, same result.",
       },
     ],
-  },
-  languagesSection: {
-    badge: "Languages",
-    title: "Speak your language.",
-    subtitle:
-      "Recognition across 99 languages with automatic detection. Speak in one, type in another.",
-    names: ["English", "Spanish", "Portuguese", "French", "Italian", "German", "Chinese", "Hindi", "Arabic"],
-    moreLabel: "More languages",
-    moreCount: "+90",
-  },
-  bilingual: {
-    title: "Want to be bilingual?",
-    description:
-      "Speak in Spanish. Bisbi translates and types in English. Or any combination of the 10 languages.",
-    highlight:
-      "Great for language learners, expats, and global teams.",
   },
   cta: {
     title: "Start speaking today.",
@@ -115,6 +94,35 @@ export const en = {
     contact: "Contact",
     legal: "Legal",
     rights: "All rights reserved.",
+  },
+  demoApp: {
+    nav: { home: "Home", history: "History", settings: "Settings" },
+    greetings: {
+      lateNight: "Good night",
+      morning: "Good morning",
+      afternoon: "Good afternoon",
+      evening: "Good evening",
+    },
+    statusTitle: "Ready to listen",
+    titleHint: "Press the hotkey and speak.",
+    hotkeyLabel: "Hotkey",
+    hotkeyHint: "The text is pasted automatically wherever you are typing.",
+    activitySection: "Your activity",
+    statTranscriptions: "transcriptions",
+    statDictated: "dictated",
+    statWords: "words transcribed",
+    statWpm: "words per minute",
+    recentSection: "Recent transcriptions",
+    seeMore: "See all in History",
+    badgeIdle: "Ready",
+    plan: { pro: "Pro" },
+    user: { name: "Jane Doe", initial: "J" },
+    dateGroups: { today: "Today", yesterday: "Yesterday" },
+    recent: [
+      "Send the design review notes to Marta and confirm we are still on for Thursday.",
+      "Reminder to update the onboarding copy with the new pricing tiers.",
+      "[Music] Draft email: thanks again for the introduction. I would love to schedule a quick call next week.",
+    ],
   },
   dashboard: {
     greeting: "Hey {name} 👋",

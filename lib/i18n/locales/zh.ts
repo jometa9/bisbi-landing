@@ -13,8 +13,8 @@ export const zh: LandingTranslations = {
     headline1: "写作最快的方式",
     headline2: "是不写。",
     subheadline:
-      "说话，Bisbi 就在光标处帮你写 — 任意应用，任意语言。",
-    freeBadge: "免费开始。Mac 和 Windows。",
+      "说话。Bisbi 写下你说的内容 — 任意应用，任意语言。",
+    freeBadge: "免费开始。无需信用卡。Mac 和 Windows。",
   },
   download: {
     mac: "下载 Mac 版",
@@ -39,14 +39,19 @@ export const zh: LandingTranslations = {
       },
     ],
     demo: {
+      greeting: "早上好",
+      statusIdle: "准备就绪",
+      statusRecording: "正在录音",
+      titleHint: "按下快捷键开始说话。",
       hotkeyLabel: "快捷键",
       idleHint: "按下快捷键开始说话。",
       recordingLabel: "正在录音",
       recordingHint: "自然说话，Bisbi 正在监听。",
+      previousTranscript: "我很喜欢用 Bisbi。",
       transcript: "团队你好——简短更新一下，发布按计划周五上线。",
       editorTitle: "未命名——笔记",
       editorPlaceholder: "输入消息…",
-      pasteHint: "Bisbi 会在你的光标处直接写出来。",
+      pasteHint: "文本会自动粘贴到你正在输入的位置。",
     },
   },
   features: {
@@ -64,19 +69,9 @@ export const zh: LandingTranslations = {
           "一个快捷键。自然说话。无需打开界面，无需切换窗口。",
       },
       {
-        title: "10 种语言",
+        title: "99 种语言",
         description:
-          "英语、西班牙语、法语、德语、葡萄牙语、意大利语、中文、印地语、阿拉伯语 — 自动检测或手动选择。",
-      },
-      {
-        title: "双语翻译",
-        description:
-          "用西班牙语说话，显示英文。用任意语言录音，即时翻译。",
-      },
-      {
-        title: "100% 本地隐私",
-        description:
-          "全部在你的设备上运行。你的声音永远不会离开你的电脑。",
+          "自动检测。说一种，打另一种。",
       },
       {
         title: "Mac 和 Windows",
@@ -84,22 +79,6 @@ export const zh: LandingTranslations = {
           "两个平台的原生应用。相同体验，相同快捷键，相同效果。",
       },
     ],
-  },
-  languagesSection: {
-    badge: "语言",
-    title: "说你的语言。",
-    subtitle:
-      "支持 99 种语言识别，自动检测。说一种，打另一种。",
-    names: ["英语", "西班牙语", "葡萄牙语", "法语", "意大利语", "德语", "中文", "印地语", "阿拉伯语"],
-    moreLabel: "更多语言",
-    moreCount: "+90",
-  },
-  bilingual: {
-    title: "想成为双语者？",
-    description:
-      "用西班牙语说话。Bisbi 翻译并用英语写出来。或 10 种语言的任意组合。",
-    highlight:
-      "非常适合语言学习者、海外华人和跨国团队。",
   },
   cta: {
     title: "今天就开始说话。",
@@ -114,6 +93,35 @@ export const zh: LandingTranslations = {
     contact: "联系我们",
     legal: "法律",
     rights: "保留所有权利。",
+  },
+  demoApp: {
+    nav: { home: "首页", history: "历史", settings: "设置" },
+    greetings: {
+      lateNight: "晚安",
+      morning: "早上好",
+      afternoon: "下午好",
+      evening: "晚上好",
+    },
+    statusTitle: "准备聆听",
+    titleHint: "按下快捷键开始说话。",
+    hotkeyLabel: "快捷键",
+    hotkeyHint: "文字会自动粘贴到你正在输入的位置。",
+    activitySection: "你的活动",
+    statTranscriptions: "条转录",
+    statDictated: "已听写",
+    statWords: "已转录词数",
+    statWpm: "每分钟词数",
+    recentSection: "最近的转录",
+    seeMore: "在历史中查看全部",
+    badgeIdle: "就绪",
+    plan: { pro: "专业版" },
+    user: { name: "李娜", initial: "李" },
+    dateGroups: { today: "今天", yesterday: "昨天" },
+    recent: [
+      "把设计评审笔记发给 Marta，确认我们周四的安排。",
+      "提醒：用新的定价方案更新引导文案。",
+      "[音乐] 邮件草稿：再次感谢介绍。我希望下周能安排一个简短的电话。",
+    ],
   },
   dashboard: {
     greeting: "你好 {name} 👋",

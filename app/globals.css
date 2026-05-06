@@ -14,20 +14,6 @@ body {
   color: #1A1A18;
 }
 
-@keyframes apps-marquee-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@keyframes apps-marquee-right {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-
-.apps-marquee:hover .apps-marquee-track {
-  animation-play-state: paused;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -163,67 +149,67 @@ html {
 .demo-stack {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 640px;
-  margin: 0 auto;
+  gap: 80px;
+  width: 100%;
 }
 
-.demo-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(26, 26, 24, 0.08);
-  border-radius: 20px;
-  padding: 20px;
+.demo-step {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 28px;
+  align-items: center;
+  text-align: center;
 }
 
-.demo-card-header {
+.demo-step-header {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 720px;
 }
 
 .demo-step-num {
-  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 10px;
-  border-radius: 999px;
-  background: #E6EFED;
-  color: #5A8C83;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.18em;
+  color: #7BA89C;
   font-variant-numeric: tabular-nums;
 }
 
 .demo-step-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
+  max-width: 640px;
 }
 
 .demo-step-title {
   margin: 0;
-  font-size: 15px;
+  font-size: 32px;
   font-weight: 600;
   color: #1A1A18;
-  line-height: 1.3;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .demo-step-desc {
   margin: 0;
-  font-size: 13px;
+  font-size: 17px;
   color: #5C5C57;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
-.demo-card-body {
+.demo-step-body {
   position: relative;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Hotkey card — mirrors .home-hotkey */
@@ -233,7 +219,8 @@ html {
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 36px 24px;
+  padding: 56px 24px;
+  width: 100%;
   border: 1px solid rgba(26, 26, 24, 0.08);
   border-radius: 14px;
   background: #F0EDE6;
@@ -275,63 +262,12 @@ html {
   transform: rotate(-6deg);
 }
 
-.demo-hotkey--recording {
-  border-color: #B8D0CB;
-  animation: demo-hotkey-breathe 2.4s ease-in-out infinite;
-}
-
-.demo-hotkey--recording::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(184, 208, 203, 0.35) 0%,
-    rgba(184, 208, 203, 0) 65%
-  );
-  animation: demo-hotkey-pulse 2.4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes demo-hotkey-breathe {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(123, 168, 156, 0); }
-  50% { box-shadow: 0 0 0 6px rgba(184, 208, 203, 0.25); }
-}
-
-@keyframes demo-hotkey-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
 .demo-hotkey-label {
-  font-size: 11px;
+  font-size: 12px;
   color: #A8A8A2;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-}
-
-.demo-hotkey-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #5A8C83;
   letter-spacing: 0.08em;
-}
-
-.demo-hotkey-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #C0392B;
-  animation: demo-blink 1.2s ease-in-out infinite;
-}
-
-@keyframes demo-blink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.85); }
+  font-weight: 500;
 }
 
 .demo-hotkey-keys {
@@ -340,24 +276,18 @@ html {
   gap: 6px;
 }
 
-.demo-kbd-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .demo-kbd {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  height: 40px;
-  padding: 0 12px;
+  min-width: 64px;
+  height: 64px;
+  padding: 0 18px;
   background: #FFFFFF;
   border: 1px solid rgba(26, 26, 24, 0.14);
-  border-bottom-width: 3px;
+  border-bottom-width: 4px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 14px;
+  font-size: 22px;
   font-weight: 500;
   color: #1A1A18;
   box-shadow: 0 1px 0 rgba(26, 26, 24, 0.04);
@@ -366,8 +296,8 @@ html {
     border-color 120ms ease;
 }
 
-.demo-kbd-mac { border-radius: 8px; }
-.demo-kbd-win { border-radius: 4px; }
+.demo-kbd-mac { border-radius: 12px; }
+.demo-kbd-win { border-radius: 6px; }
 
 .demo-kbd-pressed {
   transform: translateY(2px);
@@ -381,11 +311,6 @@ html {
   border-color: #B8D0CB;
 }
 
-.demo-kbd-plus {
-  color: #A8A8A2;
-  font-size: 14px;
-}
-
 .demo-hotkey-hint {
   font-size: 12px;
   color: #5C5C57;
@@ -393,61 +318,65 @@ html {
   margin-top: 2px;
 }
 
-/* Recording pill — mirrors .recording-pill */
+/* Recording pill — exact copy of .recording-pill, scaled up, sits below the home card */
 .demo-pill {
-  position: absolute;
-  left: 50%;
-  top: -16px;
-  transform: translateX(-50%);
-  display: inline-flex;
+  margin: 18px auto 0;
+  display: flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(20, 20, 22, 0.88);
-  padding: 7px 12px;
+  gap: 10px;
+  height: 36px;
+  padding: 0 12px;
+  width: fit-content;
+  background: rgba(20, 20, 22, 0.8);
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(12px);
-  z-index: 2;
-  pointer-events: none;
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .demo-pill-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #C0392B;
-  animation: demo-blink 1.2s ease-in-out infinite;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #B8D0CB;
+  transition: background 180ms ease;
 }
 
 .demo-pill-waveform {
-  display: inline-flex;
+  flex: 0 0 auto;
+  display: flex;
   align-items: center;
-  gap: 2px;
-  height: 14px;
+  justify-content: space-between;
+  width: 88px;
+  height: 18px;
 }
 
 .demo-pill-bar {
-  flex: 0 0 3px;
+  flex: 0 0 4px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 1);
   border-radius: 1px;
   transform-origin: center;
-  transform: scaleY(0.12);
+  transform: scaleY(0.08);
   transition: transform 90ms linear;
 }
 
 .demo-pill-time {
+  flex: 0 0 auto;
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1;
   letter-spacing: -0.02em;
 }
 
 /* Editor mock — step 3 */
 .demo-editor {
+  width: 100%;
   border: 1px solid rgba(26, 26, 24, 0.08);
   border-radius: 14px;
   background: #FFFFFF;
@@ -522,10 +451,44 @@ html {
   color: #A8A8A2;
 }
 
-@media (max-width: 480px) {
-  .demo-card { padding: 16px; }
-  .demo-hotkey { padding: 28px 16px; }
-  .demo-kbd { min-width: 34px; height: 34px; padding: 0 8px; font-size: 12px; }
-  .demo-step-title { font-size: 14px; }
-  .demo-step-desc { font-size: 12px; }
+@media (max-width: 640px) {
+  .demo-stack { gap: 56px; }
+  .demo-step { gap: 22px; }
+  .demo-step-title { font-size: 24px; }
+  .demo-step-desc { font-size: 15px; }
+  .demo-hotkey { padding: 36px 18px; }
+  .demo-kbd { min-width: 52px; height: 52px; padding: 0 14px; font-size: 18px; border-bottom-width: 3px; }
+  .demo-pill { height: 32px; padding: 0 10px; gap: 8px; margin-top: 14px; }
+  .demo-pill-waveform { width: 72px; height: 16px; }
+  .demo-pill-bar { flex: 0 0 3px; }
+  .demo-pill-time { font-size: 12px; }
+  .demo-pill-indicator { width: 10px; height: 10px; }
+}
+
+/* Hero — highlighter effect on the green word.
+   A cream band grows left-to-right behind the text on first render,
+   simulating someone running a marker over it. Adapts to text width in
+   any language and survives line wraps via box-decoration-break. */
+.hero-highlight {
+  background-image: linear-gradient(180deg, #F0EDE6 0%, #F0EDE6 100%);
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 0% 70%;
+  padding: 0 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  /* Delay tuned so the user finishes reading line 1 (~1s) and their eyes
+     have just landed on line 2 before the marker stroke kicks in. */
+  animation: hero-highlight-mark 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+}
+
+@keyframes hero-highlight-mark {
+  to { background-size: 100% 70%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-highlight {
+    animation: none;
+    background-size: 100% 70%;
+  }
 }
