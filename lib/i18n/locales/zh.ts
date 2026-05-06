@@ -38,6 +38,16 @@ export const zh: LandingTranslations = {
         description: "Bisbi 准确地在光标位置帮你写出来。",
       },
     ],
+    demo: {
+      hotkeyLabel: "快捷键",
+      idleHint: "按下快捷键开始说话。",
+      recordingLabel: "正在录音",
+      recordingHint: "自然说话，Bisbi 正在监听。",
+      transcript: "团队你好——简短更新一下，发布按计划周五上线。",
+      editorTitle: "未命名——笔记",
+      editorPlaceholder: "输入消息…",
+      pasteHint: "Bisbi 会在你的光标处直接写出来。",
+    },
   },
   features: {
     badge: "功能特点",

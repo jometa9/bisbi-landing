@@ -38,6 +38,17 @@ export const ar: LandingTranslations = {
         description: "يكتب Bisbi تماماً حيث يوجد مؤشرك.",
       },
     ],
+    demo: {
+      hotkeyLabel: "الاختصار",
+      idleHint: "اضغط الاختصار وتحدّث.",
+      recordingLabel: "يسجّل الآن",
+      recordingHint: "تحدّث بشكل طبيعي. Bisbi يستمع.",
+      transcript:
+        "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
+      editorTitle: "بدون عنوان — ملاحظات",
+      editorPlaceholder: "اكتب رسالة…",
+      pasteHint: "يكتب Bisbi النص حيث يوجد مؤشرك.",
+    },
   },
   features: {
     badge: "المميزات",

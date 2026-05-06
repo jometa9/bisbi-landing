@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SignOutButton } from "@/components/sign-out-button";
 import { AdminNav } from "@/components/admin-nav";
-import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -39,15 +38,14 @@ export default async function DashboardLayout({
       >
         <header
           className="border-b px-6 py-4 flex items-center justify-between"
-          style={{ borderColor: "#D9E8E5", backgroundColor: "#F0EDE6" }}
+          style={{ borderColor: "#EAE6DC", backgroundColor: "#FFFFFF" }}
         >
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/owl_head.svg" alt="Bisbi" width={22} height={22} />
+          <Link href="/" className="flex items-center">
             <span
-              className="text-base font-semibold tracking-tight"
-              style={{ color: "#1A1A18" }}
+              className="text-xl font-semibold tracking-tight"
+              style={{ color: "#7BA89C" }}
             >
-              bisbi
+              Bisbi
             </span>
           </Link>
 

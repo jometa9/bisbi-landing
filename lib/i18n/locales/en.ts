@@ -38,6 +38,17 @@ export const en = {
         description: "Bisbi types it exactly where your cursor is.",
       },
     ],
+    demo: {
+      hotkeyLabel: "Hotkey",
+      idleHint: "Press the hotkey and speak.",
+      recordingLabel: "Recording now",
+      recordingHint: "Speak naturally. Bisbi is listening.",
+      transcript:
+        "Hey team — quick heads up. The launch is on track for Friday.",
+      editorTitle: "Untitled — Notes",
+      editorPlaceholder: "Type a message…",
+      pasteHint: "Bisbi types it wherever your cursor is.",
+    },
   },
   features: {
     badge: "Features",

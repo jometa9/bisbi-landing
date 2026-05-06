@@ -1,7 +1,6 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -16,13 +15,12 @@ export function Footer() {
       <div className="max-w-5xl mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-3">
-              <Image src="/owl_head.svg" alt="Bisbi" width={20} height={20} />
+            <Link href="/" className="flex items-center mb-3">
               <span
-                className="text-base font-semibold tracking-tight"
-                style={{ color: "#1A1A18" }}
+                className="text-lg font-semibold tracking-tight"
+                style={{ color: "#7BA89C" }}
               >
-                bisbi
+                Bisbi
               </span>
             </Link>
             <p className="text-sm" style={{ color: "#A8A8A2" }}>

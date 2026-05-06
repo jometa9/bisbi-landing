@@ -3,8 +3,7 @@
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
-import { signIn, useSession } from "next-auth/react";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { MouseEvent } from "react";
@@ -14,14 +13,6 @@ export function LandingHeader() {
   const { data: session } = useSession();
   const router = useRouter();
   const isLoggedIn = !!session?.user;
-
-  const handleSignInClick = () => {
-    if (isLoggedIn) {
-      router.push("/dashboard");
-    } else {
-      signIn("google", { callbackUrl: "/dashboard" });
-    }
-  };
 
   const handleDownloadClick = () => {
     if (isLoggedIn) {
@@ -37,25 +28,17 @@ export function LandingHeader() {
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/owl_head.svg" alt="Bisbi" width={24} height={24} />
+        <Link href="/" className="flex items-center">
           <span
-            className="text-lg font-semibold tracking-tight"
-            style={{ color: "#1A1A18" }}
+            className="text-3xl font-semibold tracking-tight"
+            style={{ color: "#7BA89C" }}
           >
-            bisbi
+            Bisbi
           </span>
         </Link>
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <button
-            onClick={handleSignInClick}
-            className="text-sm hidden md:block"
-            style={{ color: "#5C5C57" }}
-          >
-            {t.nav.signIn}
-          </button>
           <button
             onClick={handleDownloadClick}
             className="rounded-full px-4 py-1.5 text-sm font-medium text-white"

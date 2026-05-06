@@ -41,6 +41,17 @@ export const es: LandingTranslations = {
           "Bisbi lo escribe exactamente donde tengas el cursor.",
       },
     ],
+    demo: {
+      hotkeyLabel: "Atajo",
+      idleHint: "Apretá el atajo y hablá.",
+      recordingLabel: "Grabando ahora",
+      recordingHint: "Hablá natural. Bisbi te está escuchando.",
+      transcript:
+        "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
+      editorTitle: "Sin título — Notas",
+      editorPlaceholder: "Escribí un mensaje…",
+      pasteHint: "Bisbi lo escribe donde tengas el cursor.",
+    },
   },
   features: {
     badge: "Características",

@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium transition-colors"
+        className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors"
         style={{
           backgroundColor: "#E6EFED",
           color: "#5C5C57",

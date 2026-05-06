@@ -1,6 +1,7 @@
 "use client";
 
 import { LandingHeader } from "@/components/landing/landing-header";
+import { ProductDemo } from "@/components/landing/product-demo";
 import { Footer } from "@/components/layout/footer";
 import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
@@ -8,6 +9,132 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 
 const LANG_CODES = ["EN", "ES", "PT", "FR", "IT", "DE", "ZH", "HI", "AR"] as const;
+
+const COMPATIBLE_APPS = [
+  // Communication
+  { slug: "slack", name: "Slack" },
+  { slug: "discord", name: "Discord" },
+  { slug: "microsoftteams", name: "Teams" },
+  { slug: "zoom", name: "Zoom" },
+  { slug: "skype", name: "Skype" },
+  { slug: "telegram", name: "Telegram" },
+  { slug: "whatsapp", name: "WhatsApp" },
+  { slug: "messenger", name: "Messenger" },
+  { slug: "signal", name: "Signal" },
+  { slug: "mattermost", name: "Mattermost" },
+  { slug: "webex", name: "Webex" },
+  { slug: "googlemeet", name: "Google Meet" },
+  // Email
+  { slug: "gmail", name: "Gmail" },
+  { slug: "microsoftoutlook", name: "Outlook" },
+  { slug: "protonmail", name: "Proton Mail" },
+  // Docs / Notes
+  { slug: "notion", name: "Notion" },
+  { slug: "googledocs", name: "Google Docs" },
+  { slug: "microsoftword", name: "Word" },
+  { slug: "microsoft", name: "Microsoft" },
+  { slug: "obsidian", name: "Obsidian" },
+  { slug: "evernote", name: "Evernote" },
+  { slug: "microsoftonenote", name: "OneNote" },
+  { slug: "confluence", name: "Confluence" },
+  { slug: "coda", name: "Coda" },
+  // Project Mgmt
+  { slug: "asana", name: "Asana" },
+  { slug: "trello", name: "Trello" },
+  { slug: "jira", name: "Jira" },
+  { slug: "linear", name: "Linear" },
+  { slug: "clickup", name: "ClickUp" },
+  { slug: "basecamp", name: "Basecamp" },
+  { slug: "airtable", name: "Airtable" },
+  { slug: "todoist", name: "Todoist" },
+  // Design
+  { slug: "figma", name: "Figma" },
+  { slug: "miro", name: "Miro" },
+  { slug: "sketch", name: "Sketch" },
+  { slug: "adobe", name: "Adobe" },
+  { slug: "adobephotoshop", name: "Photoshop" },
+  { slug: "adobeillustrator", name: "Illustrator" },
+  { slug: "canva", name: "Canva" },
+  { slug: "framer", name: "Framer" },
+  // Dev / IDEs
+  { slug: "visualstudiocode", name: "VS Code" },
+  { slug: "cursor", name: "Cursor" },
+  { slug: "github", name: "GitHub" },
+  { slug: "gitlab", name: "GitLab" },
+  { slug: "bitbucket", name: "Bitbucket" },
+  { slug: "jetbrains", name: "JetBrains" },
+  { slug: "intellijidea", name: "IntelliJ IDEA" },
+  { slug: "pycharm", name: "PyCharm" },
+  { slug: "sublimetext", name: "Sublime Text" },
+  { slug: "vim", name: "Vim" },
+  { slug: "replit", name: "Replit" },
+  // Languages / Frameworks
+  { slug: "javascript", name: "JavaScript" },
+  { slug: "typescript", name: "TypeScript" },
+  { slug: "python", name: "Python" },
+  { slug: "react", name: "React" },
+  { slug: "vuedotjs", name: "Vue" },
+  { slug: "angular", name: "Angular" },
+  { slug: "nodedotjs", name: "Node.js" },
+  { slug: "nextdotjs", name: "Next.js" },
+  { slug: "svelte", name: "Svelte" },
+  { slug: "tailwindcss", name: "Tailwind CSS" },
+  { slug: "html5", name: "HTML5" },
+  { slug: "rust", name: "Rust" },
+  { slug: "go", name: "Go" },
+  { slug: "prisma", name: "Prisma" },
+  // Cloud / Infra
+  { slug: "amazonwebservices", name: "AWS" },
+  { slug: "googlecloud", name: "Google Cloud" },
+  { slug: "microsoftazure", name: "Azure" },
+  { slug: "vercel", name: "Vercel" },
+  { slug: "netlify", name: "Netlify" },
+  { slug: "cloudflare", name: "Cloudflare" },
+  { slug: "docker", name: "Docker" },
+  { slug: "kubernetes", name: "Kubernetes" },
+  { slug: "linux", name: "Linux" },
+  { slug: "ubuntu", name: "Ubuntu" },
+  // Databases
+  { slug: "postgresql", name: "PostgreSQL" },
+  { slug: "mysql", name: "MySQL" },
+  { slug: "mongodb", name: "MongoDB" },
+  { slug: "redis", name: "Redis" },
+  { slug: "supabase", name: "Supabase" },
+  // AI
+  { slug: "openai", name: "ChatGPT" },
+  { slug: "anthropic", name: "Claude" },
+  { slug: "googlegemini", name: "Gemini" },
+  { slug: "huggingface", name: "Hugging Face" },
+  { slug: "perplexity", name: "Perplexity" },
+  { slug: "mistralai", name: "Mistral" },
+  { slug: "meta", name: "Meta" },
+  // Social / Content
+  { slug: "x", name: "X" },
+  { slug: "linkedin", name: "LinkedIn" },
+  { slug: "reddit", name: "Reddit" },
+  { slug: "instagram", name: "Instagram" },
+  { slug: "facebook", name: "Facebook" },
+  { slug: "youtube", name: "YouTube" },
+  { slug: "tiktok", name: "TikTok" },
+  { slug: "medium", name: "Medium" },
+  { slug: "substack", name: "Substack" },
+  // Browsers
+  { slug: "googlechrome", name: "Chrome" },
+  { slug: "firefox", name: "Firefox" },
+  { slug: "safari", name: "Safari" },
+  { slug: "brave", name: "Brave" },
+  { slug: "microsoftedge", name: "Edge" },
+  // Misc
+  { slug: "apple", name: "Apple" },
+  { slug: "spotify", name: "Spotify" },
+  { slug: "stripe", name: "Stripe" },
+  { slug: "dropbox", name: "Dropbox" },
+  { slug: "googledrive", name: "Google Drive" },
+] as const;
+
+const APPS_ROW_1 = COMPATIBLE_APPS.filter((_, i) => i % 3 === 0);
+const APPS_ROW_2 = COMPATIBLE_APPS.filter((_, i) => i % 3 === 1);
+const APPS_ROW_3 = COMPATIBLE_APPS.filter((_, i) => i % 3 === 2);
 
 const featureIcons = [
   // any app
@@ -85,19 +212,25 @@ export default function HomePage() {
       <main style={{ backgroundColor: "#FFFFFF" }}>
 
         {/* Hero */}
-        <section className="max-w-5xl mx-auto px-6 pt-36 pb-24 text-center">
+        <section className="max-w-4xl mx-auto px-6 pt-32 pb-16 text-center">
           <div className="flex justify-center mb-8">
-            <div className="rounded-2xl p-4" style={{ backgroundColor: "#E6EFED" }}>
-              <Image src="/owl_head.svg" alt="Bisbi owl" width={48} height={48} />
-            </div>
+            <Image
+              src="/assets/bisbi.png"
+              alt="Bisbi"
+              width={96}
+              height={96}
+              priority
+            />
           </div>
 
           <h1
             className="text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
             style={{ color: "#1A1A18" }}
           >
-            {t.hero.headline1}{" "}
-            <span style={{ color: "#7BA89C" }}>{t.hero.headline2}</span>
+            {t.hero.headline1}
+            <span className="block" style={{ color: "#7BA89C" }}>
+              {t.hero.headline2}
+            </span>
           </h1>
 
           <p
@@ -114,6 +247,49 @@ export default function HomePage() {
           <p className="mt-5 text-sm" style={{ color: "#A8A8A2" }}>
             {t.hero.freeBadge}
           </p>
+        </section>
+
+        {/* Compatible apps marquee */}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+
+          <div
+            className="apps-marquee group space-y-6"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+            }}
+          >
+            {[
+              { row: APPS_ROW_1, dir: "left", duration: "140s" },
+              { row: APPS_ROW_2, dir: "right", duration: "170s" },
+              { row: APPS_ROW_3, dir: "left", duration: "200s" },
+            ].map(({ row, dir, duration }, idx) => (
+              <div key={idx} className="overflow-hidden">
+                <div
+                  className="flex items-center gap-10 md:gap-12 w-max apps-marquee-track"
+                  style={{
+                    animation: `apps-marquee-${dir} ${duration} linear infinite`,
+                  }}
+                >
+                  {[...row, ...row].map((app, i) => (
+                    <Image
+                      key={`${app.slug}-${i}`}
+                      src={`/icons/apps/${app.slug}.svg`}
+                      alt={app.name}
+                      title={app.name}
+                      width={36}
+                      height={36}
+                      className="opacity-50 hover:opacity-100 transition-opacity duration-200 shrink-0"
+                      style={{ height: 34, width: "auto" }}
+                      unoptimized
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Bloques (cards) sobre el fondo beige */}
@@ -137,28 +313,7 @@ export default function HomePage() {
               {t.howItWorks.title}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-              {t.howItWorks.steps.map((step, i) => (
-                <div
-                  key={i}
-                  className="rounded-2xl p-8"
-                  style={{ backgroundColor: "#F0EDE6" }}
-                >
-                  <div
-                    className="text-4xl font-bold mb-4"
-                    style={{ color: "#D9E8E5" }}
-                  >
-                    {i + 1}
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: "#1A1A18" }}>
-                    {step.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#5C5C57" }}>
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <ProductDemo />
           </section>
 
           {/* Features */}

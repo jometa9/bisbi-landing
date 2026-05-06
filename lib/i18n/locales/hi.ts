@@ -40,6 +40,17 @@ export const hi: LandingTranslations = {
         description: "Bisbi ठीक वहाँ लिखता है जहाँ आपका कर्सर है।",
       },
     ],
+    demo: {
+      hotkeyLabel: "हॉटकी",
+      idleHint: "हॉटकी दबाएँ और बोलें।",
+      recordingLabel: "अभी रिकॉर्डिंग हो रही है",
+      recordingHint: "स्वाभाविक रूप से बोलें। Bisbi सुन रहा है।",
+      transcript:
+        "टीम — एक छोटा अपडेट। लॉन्च शुक्रवार को तय समय पर है।",
+      editorTitle: "बिना शीर्षक — नोट्स",
+      editorPlaceholder: "एक संदेश लिखें…",
+      pasteHint: "Bisbi उसे वहीं लिख देता है जहाँ आपका कर्सर है।",
+    },
   },
   features: {
     badge: "विशेषताएं",
