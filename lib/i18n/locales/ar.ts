@@ -24,6 +24,7 @@ export const ar: LandingTranslations = {
   howItWorks: {
     badge: "كيف يعمل",
     title: "ثلاث خطوات. هذا كل شيء.",
+    stepLabel: "خطوة",
     steps: [
       {
         title: "اضغط اختصارك",
@@ -47,6 +48,7 @@ export const ar: LandingTranslations = {
       idleHint: "اضغط الاختصار وتحدّث.",
       recordingLabel: "يسجّل الآن",
       recordingHint: "تحدّث بشكل طبيعي. Bisbi يستمع.",
+      transcribing: "يكتب",
       previousTranscript: "أحبّ استخدام Bisbi.",
       transcript:
         "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
@@ -82,7 +84,8 @@ export const ar: LandingTranslations = {
     ],
   },
   cta: {
-    title: "ابدأ التكلم اليوم.",
+    title: "ابدأ التكلم",
+    titleHighlight: "اليوم.",
     description:
       "حمّل Bisbi مجاناً. يعمل على Mac و Windows. لا تحتاج اشتراكاً للبدء.",
     signInHint: "لديك حساب؟",
@@ -94,6 +97,7 @@ export const ar: LandingTranslations = {
     contact: "تواصل",
     legal: "قانوني",
     rights: "جميع الحقوق محفوظة.",
+    createdBy: "صُنع بواسطة",
   },
   demoApp: {
     nav: { home: "الرئيسية", history: "السجل", settings: "الإعدادات" },
@@ -125,7 +129,7 @@ export const ar: LandingTranslations = {
     ],
   },
   dashboard: {
-    greeting: "مرحباً {name} 👋",
+    greeting: "مرحباً {name}!",
     ready: "حسابك جاهز. نزّل Bisbi وابدأ الإملاء.",
     downloadMac: "تنزيل لـ Mac",
     downloadWindows: "تنزيل لـ Windows",

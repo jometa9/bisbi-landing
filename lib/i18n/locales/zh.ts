@@ -24,6 +24,7 @@ export const zh: LandingTranslations = {
   howItWorks: {
     badge: "使用方法",
     title: "三步搞定。就这些。",
+    stepLabel: "步骤",
     steps: [
       {
         title: "按下快捷键",
@@ -47,6 +48,7 @@ export const zh: LandingTranslations = {
       idleHint: "按下快捷键开始说话。",
       recordingLabel: "正在录音",
       recordingHint: "自然说话，Bisbi 正在监听。",
+      transcribing: "转写中",
       previousTranscript: "我很喜欢用 Bisbi。",
       transcript: "团队你好——简短更新一下，发布按计划周五上线。",
       editorTitle: "未命名——笔记",
@@ -81,7 +83,8 @@ export const zh: LandingTranslations = {
     ],
   },
   cta: {
-    title: "今天就开始说话。",
+    title: "开始说话,",
+    titleHighlight: "就在今天。",
     description:
       "免费下载 Bisbi。适用于 Mac 和 Windows。无需订阅即可开始。",
     signInHint: "已有账户？",
@@ -93,6 +96,7 @@ export const zh: LandingTranslations = {
     contact: "联系我们",
     legal: "法律",
     rights: "保留所有权利。",
+    createdBy: "由",
   },
   demoApp: {
     nav: { home: "首页", history: "历史", settings: "设置" },
@@ -124,7 +128,7 @@ export const zh: LandingTranslations = {
     ],
   },
   dashboard: {
-    greeting: "你好 {name} 👋",
+    greeting: "你好 {name}!",
     ready: "你的账户已准备好。下载 Bisbi 开始听写。",
     downloadMac: "下载 Mac 版",
     downloadWindows: "下载 Windows 版",

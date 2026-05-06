@@ -24,6 +24,7 @@ export const hi: LandingTranslations = {
   howItWorks: {
     badge: "यह कैसे काम करता है",
     title: "तीन चरण। बस इतना।",
+    stepLabel: "चरण",
     steps: [
       {
         title: "अपना शॉर्टकट दबाएं",
@@ -49,6 +50,7 @@ export const hi: LandingTranslations = {
       idleHint: "हॉटकी दबाएँ और बोलें।",
       recordingLabel: "अभी रिकॉर्डिंग हो रही है",
       recordingHint: "स्वाभाविक रूप से बोलें। Bisbi सुन रहा है।",
+      transcribing: "ट्रांसक्राइब हो रहा है",
       previousTranscript: "मुझे Bisbi बहुत पसंद है।",
       transcript:
         "टीम — एक छोटा अपडेट। लॉन्च शुक्रवार को तय समय पर है।",
@@ -84,7 +86,8 @@ export const hi: LandingTranslations = {
     ],
   },
   cta: {
-    title: "आज बोलना शुरू करें।",
+    title: "बोलना शुरू करें",
+    titleHighlight: "आज।",
     description:
       "Bisbi मुफ्त डाउनलोड करें। Mac और Windows पर काम करता है। शुरू करने के लिए कोई सदस्यता नहीं।",
     signInHint: "पहले से खाता है?",
@@ -96,6 +99,7 @@ export const hi: LandingTranslations = {
     contact: "संपर्क",
     legal: "कानूनी",
     rights: "सर्वाधिकार सुरक्षित।",
+    createdBy: "द्वारा बनाया गया",
   },
   demoApp: {
     nav: { home: "होम", history: "इतिहास", settings: "सेटिंग्स" },
@@ -127,7 +131,7 @@ export const hi: LandingTranslations = {
     ],
   },
   dashboard: {
-    greeting: "नमस्ते {name} 👋",
+    greeting: "नमस्ते {name}!",
     ready:
       "आपका खाता तैयार है। Bisbi डाउनलोड करें और डिक्टेट करना शुरू करें।",
     downloadMac: "Mac के लिए डाउनलोड",

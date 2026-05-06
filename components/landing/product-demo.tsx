@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 
 type Platform = "mac" | "win";
+type CardVariant = "cream" | "tint";
+type Side = "left" | "right";
 
 const BARS = 12;
 
@@ -20,6 +22,7 @@ export function ProductDemo() {
   const { t } = useI18n();
   const steps = t.howItWorks.steps;
   const demo = t.howItWorks.demo;
+  const stepLabel = t.howItWorks.stepLabel;
 
   const [platform, setPlatform] = useState<Platform>("mac");
   useEffect(() => {
@@ -30,7 +33,14 @@ export function ProductDemo() {
 
   return (
     <div className="demo-stack">
-      <DemoCard index={1} title={steps[0].title} description={steps[0].description}>
+      <DemoCard
+        index={1}
+        label={stepLabel}
+        title={steps[0].title}
+        description={steps[0].description}
+        side="left"
+        variant="tint"
+      >
         <HomeMock
           mode="press-cycle"
           platform={platform}
@@ -41,24 +51,36 @@ export function ProductDemo() {
         />
       </DemoCard>
 
-      <DemoCard index={2} title={steps[1].title} description={steps[1].description}>
+      <DemoCard
+        index={2}
+        label={stepLabel}
+        title={steps[1].title}
+        description={steps[1].description}
+        side="right"
+        variant="tint"
+      >
         <HomeMock
           mode="recording"
           platform={platform}
           keyGlyph={keyGlyph}
           hotkeyLabel={demo.hotkeyLabel}
           pasteHint={demo.pasteHint}
-          watermark={demo.transcript}
+          watermark={demo.transcribing}
         />
-        <RecordingPill />
       </DemoCard>
 
-      <DemoCard index={3} title={steps[2].title} description={steps[2].description}>
+      <DemoCard
+        index={3}
+        label={stepLabel}
+        title={steps[2].title}
+        description={steps[2].description}
+        side="left"
+        variant="tint"
+      >
         <EditorMock
           title={demo.editorTitle}
           placeholder={demo.editorPlaceholder}
           transcript={demo.transcript}
-          hint={demo.pasteHint}
         />
       </DemoCard>
     </div>
@@ -67,20 +89,28 @@ export function ProductDemo() {
 
 function DemoCard({
   index,
+  label,
   title,
   description,
+  side,
+  variant,
   children,
 }: {
   index: number;
+  label: string;
   title: string;
   description: string;
+  side: Side;
+  variant: CardVariant;
   children: React.ReactNode;
 }) {
   return (
-    <div className="demo-step">
-      <div className="demo-step-header">
+    <div className={`demo-step${side === "right" ? " demo-step--reverse" : ""}`}>
+      <div
+        className={`demo-step-card${variant === "tint" ? " demo-step-card--tint" : ""}`}
+      >
         <span className="demo-step-num">
-          {String(index).padStart(2, "0")}
+          {label} {String(index).padStart(2, "0")}
         </span>
         <div className="demo-step-text">
           <h3 className="demo-step-title">{title}</h3>
@@ -156,7 +186,7 @@ function HomeMock({
   );
 }
 
-function RecordingPill() {
+export function RecordingPill({ floating = false }: { floating?: boolean }) {
   const [bars, setBars] = useState<number[]>(() => new Array(BARS).fill(0.15));
   const [seconds, setSeconds] = useState(0);
 
@@ -200,7 +230,11 @@ function RecordingPill() {
   }, [seconds]);
 
   return (
-    <div className="demo-pill" role="img" aria-label="Recording">
+    <div
+      className={`demo-pill${floating ? " demo-pill--floating" : ""}`}
+      role="img"
+      aria-label="Recording"
+    >
       <span className="demo-pill-indicator" />
       <span className="demo-pill-waveform">
         {bars.map((v, i) => (
@@ -220,12 +254,10 @@ function EditorMock({
   title,
   placeholder,
   transcript,
-  hint,
 }: {
   title: string;
   placeholder: string;
   transcript: string;
-  hint: string;
 }) {
   const [typed, setTyped] = useState("");
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -293,15 +325,43 @@ function EditorMock({
   }, [transcript]);
 
   const showPlaceholder = typed.length === 0;
+  const dateLabel = useMemo(() => {
+    if (typeof Date === "undefined") return "";
+    const d = new Date();
+    return d.toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  }, []);
 
   return (
     <div ref={wrapperRef} className="demo-editor">
       <div className="demo-editor-bar">
-        <span className="demo-editor-dot demo-editor-dot--red" />
-        <span className="demo-editor-dot demo-editor-dot--yellow" />
-        <span className="demo-editor-dot demo-editor-dot--green" />
-        <span className="demo-editor-title">{title}</span>
+        <svg
+          className="demo-editor-bar-icon"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M5 3h10l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+        </svg>
+        <span className="demo-editor-bar-date">{dateLabel}</span>
+        <span className="demo-editor-bar-spacer" />
+        <span className="demo-editor-bar-actions" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="14" y2="18" />
+          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4z" />
+          </svg>
+        </span>
       </div>
+      <h4 className="demo-editor-title">{title}</h4>
       <div className="demo-editor-body">
         <div className="demo-editor-text">
           {showPlaceholder ? (
@@ -311,7 +371,6 @@ function EditorMock({
           )}
           <span className="demo-editor-caret" aria-hidden="true" />
         </div>
-        <p className="demo-editor-hint">{hint}</p>
       </div>
     </div>
   );

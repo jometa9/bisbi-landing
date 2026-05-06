@@ -37,24 +37,32 @@ export default async function DashboardLayout({
         style={{ backgroundColor: "#F0EDE6" }}
       >
         <header
-          className="border-b px-6 py-4 flex items-center justify-between"
+          className="border-b"
           style={{ borderColor: "#EAE6DC", backgroundColor: "#FFFFFF" }}
         >
-          <Link href="/" className="flex items-center">
-            <span
-              className="text-xl font-semibold tracking-tight"
-              style={{ color: "#7BA89C" }}
-            >
-              Bisbi
-            </span>
-          </Link>
+          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/" className="flex items-center">
+              <span
+                className="text-xl font-semibold tracking-tight"
+                style={{ color: "#7BA89C" }}
+              >
+                Bisbi
+              </span>
+            </Link>
 
-          <SignOutButton />
+            <SignOutButton />
+          </div>
         </header>
 
-        {(user.role === "admin" || user.role === "superadmin") && <AdminNav />}
+        {(user.role === "admin" || user.role === "superadmin") && (
+          <div className="w-full max-w-5xl mx-auto">
+            <AdminNav />
+          </div>
+        )}
 
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="flex-1 w-full max-w-5xl mx-auto flex flex-col">
+          {children}
+        </main>
       </div>
     </UserDataProvider>
   );

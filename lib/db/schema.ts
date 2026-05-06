@@ -6,6 +6,7 @@ import {
   serial,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -68,9 +69,34 @@ export const appSettings = pgTable("appSettings", {
   bisbiProAnnualPriceId: text("bisbiProAnnualPriceId"),
   bisbiProMonthlyAmount: integer("bisbiProMonthlyAmount"),
   bisbiProAnnualAmount: integer("bisbiProAnnualAmount"),
+  bisbiFreeMonthlyWordLimit: integer("bisbiFreeMonthlyWordLimit"),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
   updatedBy: uuid("updatedBy").references(() => user.id),
 });
+
+export const userMonthlyUsage = pgTable(
+  "userMonthlyUsage",
+  {
+    id: serial("id").primaryKey(),
+    userId: uuid("userId")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    productKey: varchar("productKey", { length: 20 }).notNull(),
+    monthKey: varchar("monthKey", { length: 7 }).notNull(),
+    wordsUsed: integer("wordsUsed").notNull().default(0),
+    audioSeconds: integer("audioSeconds").notNull().default(0),
+    transcriptionsCount: integer("transcriptionsCount").notNull().default(0),
+    createdAt: timestamp("createdAt").notNull().defaultNow(),
+    updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+  },
+  (table) => ({
+    userProductMonthIdx: uniqueIndex("userMonthlyUsage_user_product_month_idx").on(
+      table.userId,
+      table.productKey,
+      table.monthKey
+    ),
+  })
+);
 
 export const accounts = pgTable("account", {
   id: serial("id").primaryKey(),
@@ -149,6 +175,8 @@ export type NewUserProductSubscription =
   typeof userProductSubscription.$inferInsert;
 export type InboundEmail = typeof inboundEmail.$inferSelect;
 export type NewInboundEmail = typeof inboundEmail.$inferInsert;
+export type UserMonthlyUsage = typeof userMonthlyUsage.$inferSelect;
+export type NewUserMonthlyUsage = typeof userMonthlyUsage.$inferInsert;
 export type CronLock = typeof cronLock.$inferSelect;
 export type NewCronLock = typeof cronLock.$inferInsert;
 

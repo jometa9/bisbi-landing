@@ -396,9 +396,10 @@
 .bisbi-demo .home-hotkey-watermark {
   position: absolute;
   inset: -12% -8% -18% -8%;
+  padding-top: 32px;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(40px, 7vw, 80px);
+  font-size: 80px;
   line-height: 1.02;
   letter-spacing: -0.03em;
   color: var(--text);
@@ -415,6 +416,10 @@
   word-break: break-word;
   hyphens: auto;
   transform: rotate(-6deg);
+}
+
+@media (max-width: 640px) {
+  .bisbi-demo .home-hotkey-watermark { padding-top: 64px; }
 }
 
 .bisbi-demo .home-hotkey-label {

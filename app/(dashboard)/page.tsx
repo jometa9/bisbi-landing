@@ -1,33 +1,34 @@
 "use client";
 
 import { LandingHeader } from "@/components/landing/landing-header";
-import { ProductDemo } from "@/components/landing/product-demo";
+import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
 import { WindowsDemo } from "@/components/landing/windows-demo";
 import { Footer } from "@/components/layout/footer";
 import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-const featureIcons = [
-  // any app
-  <svg key="app" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+const featureWatermarks = [
+  // any app — large monitor
+  <svg key="app" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <rect x="2" y="3" width="20" height="14" rx="2" />
     <path d="M8 21h8M12 17v4" />
   </svg>,
   // mic
-  <svg key="mic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+  <svg key="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z" />
     <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
     <line x1="12" y1="19" x2="12" y2="22" />
   </svg>,
   // globe
-  <svg key="globe" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+  <svg key="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <circle cx="12" cy="12" r="10" />
     <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
   </svg>,
-  // monitor
-  <svg key="monitor" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+  // mac + windows monitor
+  <svg key="monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <rect x="2" y="3" width="20" height="14" rx="2" />
     <path d="M8 21h8M12 17v4" />
     <path d="M7 8h4M7 11h2" />
@@ -61,6 +62,43 @@ function DownloadButtons({
     >
       {t.nav.downloadFree}
     </button>
+  );
+}
+
+function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
+  const ref = useRef<HTMLHeadingElement | null>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setActive(true);
+            obs.disconnect();
+            return;
+          }
+        }
+      },
+      { threshold: 0.5 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <h2
+      ref={ref}
+      className="text-3xl md:text-4xl font-semibold mb-4"
+      style={{ color: "#1A1A18" }}
+    >
+      {title}{" "}
+      <span className={`cta-highlight${active ? " cta-highlight--active" : ""}`}>
+        {highlight}
+      </span>
+    </h2>
   );
 }
 
@@ -138,64 +176,49 @@ export default function HomePage() {
           <ProductDemo />
         </section>
 
-        {/* Bloques (cards) sobre el fondo beige */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-4 pb-12">
-          {/* Features */}
-          <section
-            id="features"
-            className="rounded-3xl py-16 md:py-20 px-6 sm:px-10 md:px-16 border"
-            style={{ borderColor: "#EAE6DC" }}
+        {/* Features */}
+        <section
+          id="features"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+        >
+          <p
+            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
+            style={{ color: "#7BA89C" }}
           >
-            <p
-              className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-              style={{ color: "#7BA89C" }}
-            >
-              {t.features.badge}
-            </p>
-            <h2
-              className="text-3xl md:text-4xl font-semibold text-center mb-16"
-              style={{ color: "#1A1A18" }}
-            >
-              {t.features.title}
-            </h2>
+            {t.features.badge}
+          </p>
+          <h2
+            className="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16"
+            style={{ color: "#1A1A18" }}
+          >
+            {t.features.title}
+          </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {t.features.items.map((feature, i) => (
-                <div
-                  key={i}
-                  className="rounded-2xl p-6"
-                  style={{ backgroundColor: "#F0EDE6" }}
-                >
-                  <div
-                    className="mb-4 inline-flex rounded-xl p-2"
-                    style={{ backgroundColor: "#E6EFED", color: "#7BA89C" }}
-                  >
-                    {featureIcons[i]}
-                  </div>
-                  <h3 className="text-base font-semibold mb-2" style={{ color: "#1A1A18" }}>
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#5C5C57" }}>
-                    {feature.description}
-                  </p>
+          <div className="feature-grid">
+            {t.features.items.map((feature, i) => (
+              <div
+                key={i}
+                className={`feature-card${i % 2 === 1 ? " feature-card--tint" : ""}`}
+              >
+                <div className="feature-card-watermark" aria-hidden="true">
+                  {featureWatermarks[i]}
                 </div>
-              ))}
-            </div>
-          </section>
-        </div>
+                <div className="feature-card-content">
+                  <h3 className="feature-card-title">{feature.title}</h3>
+                  <p className="feature-card-desc">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Final CTA */}
-        <section className="py-24" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-6 text-center">
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
-              <Image src="/owl_head.svg" alt="Bisbi" width={36} height={36} />
+              <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />
             </div>
-            <h2
-              className="text-3xl md:text-4xl font-semibold mb-4"
-              style={{ color: "#1A1A18" }}
-            >
-              {t.cta.title}
-            </h2>
+            <CtaTitle title={t.cta.title} highlight={t.cta.titleHighlight} />
             <p
               className="text-lg mb-10 max-w-md mx-auto"
               style={{ color: "#5C5C57" }}
@@ -222,6 +245,8 @@ export default function HomePage() {
       </main>
 
       <Footer />
+
+      <RecordingPill floating />
     </>
   );
 }

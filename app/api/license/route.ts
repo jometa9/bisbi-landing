@@ -1,9 +1,12 @@
 import {
+  currentMonthKey,
   getAppSettings,
+  getBisbiFreeMonthlyWordLimit,
+  getSubscriptionTier,
   getUserByApiKey,
+  getUserMonthlyUsage,
   getUserProductSubscription,
   isActiveSubscription,
-  getSubscriptionTier,
 } from "@/lib/db/queries";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -29,21 +32,30 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
   }
 
-  const sub = await getUserProductSubscription(foundUser.id, "bisbi");
+  const monthKey = currentMonthKey();
+  const [sub, usage] = await Promise.all([
+    getUserProductSubscription(foundUser.id, "bisbi"),
+    getUserMonthlyUsage(foundUser.id, "bisbi", monthKey),
+  ]);
   const active = foundUser.role === "admin" || isActiveSubscription(sub);
   const tier = foundUser.role === "admin" ? "pro" : getSubscriptionTier(sub);
+  const effectivePlan = active ? tier : "free";
 
   const monthlyAmount = settings.bisbiProMonthlyAmount ?? 1000;
   const annualAmount = settings.bisbiProAnnualAmount ?? 9600;
   const monthlyEquivalent = Math.round(annualAmount / 12);
   const savingsPct = Math.round((1 - monthlyEquivalent / monthlyAmount) * 100);
 
+  const wordsUsed = usage?.wordsUsed ?? 0;
+  const wordsLimit = getBisbiFreeMonthlyWordLimit(settings);
+  const isFree = effectivePlan === "free";
+
   return NextResponse.json({
     userId: foundUser.id,
     email: foundUser.email,
     name: foundUser.name ?? foundUser.email.split("@")[0],
     avatar: foundUser.image || null,
-    plan: active ? tier : "free",
+    plan: effectivePlan,
     subscription: sub
       ? {
           status: sub.status,
@@ -52,6 +64,15 @@ export async function GET(request: NextRequest) {
           expiresAt: sub.expiresAt?.toISOString() ?? null,
         }
       : null,
+    usage: {
+      monthKey,
+      wordsUsed,
+      audioSeconds: usage?.audioSeconds ?? 0,
+      transcriptionsCount: usage?.transcriptionsCount ?? 0,
+      wordsLimit: isFree ? wordsLimit : null,
+      exceeded: isFree && wordsUsed >= wordsLimit,
+      remaining: isFree ? Math.max(0, wordsLimit - wordsUsed) : null,
+    },
     pricing: {
       pro: {
         monthly: {

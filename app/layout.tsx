@@ -78,7 +78,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#F0EDE6",
+  themeColor: "#FFFFFF",
   interactiveWidget: "resizes-content",
 };
 
@@ -93,7 +93,7 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className="min-h-screen font-sans antialiased"
-        style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+        style={{ backgroundColor: "#FFFFFF", color: "#1A1A18" }}
         suppressHydrationWarning={true}
       >
         <Providers userPromise={userPromise}>

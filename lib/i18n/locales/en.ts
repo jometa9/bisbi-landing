@@ -22,6 +22,7 @@ export const en = {
   howItWorks: {
     badge: "How it works",
     title: "Three steps. That's it.",
+    stepLabel: "Step",
     steps: [
       {
         title: "Press your shortcut",
@@ -47,6 +48,7 @@ export const en = {
       idleHint: "Press the hotkey and speak.",
       recordingLabel: "Recording now",
       recordingHint: "Speak naturally. Bisbi is listening.",
+      transcribing: "Transcribing",
       previousTranscript: "I love using Bisbi.",
       transcript:
         "Hey team — quick heads up. The launch is on track for Friday.",
@@ -82,7 +84,8 @@ export const en = {
     ],
   },
   cta: {
-    title: "Start speaking today.",
+    title: "Start speaking",
+    titleHighlight: "today.",
     description:
       "Download Bisbi free. Works on Mac and Windows. No subscription to get started.",
     signInHint: "Already have an account?",
@@ -94,6 +97,7 @@ export const en = {
     contact: "Contact",
     legal: "Legal",
     rights: "All rights reserved.",
+    createdBy: "Created by",
   },
   demoApp: {
     nav: { home: "Home", history: "History", settings: "Settings" },
@@ -125,7 +129,7 @@ export const en = {
     ],
   },
   dashboard: {
-    greeting: "Hey {name} 👋",
+    greeting: "Hey {name}!",
     ready: "Your account is ready. Download Bisbi and start dictating.",
     downloadMac: "Download for Mac",
     downloadWindows: "Download for Windows",

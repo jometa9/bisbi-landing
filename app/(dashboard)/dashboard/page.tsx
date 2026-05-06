@@ -3,18 +3,7 @@
 import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { useUserData } from "@/contexts/user-data-context";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
-type OS = "mac" | "windows" | "unknown";
-
-function detectOS(): OS {
-  if (typeof window === "undefined") return "unknown";
-  const ua = window.navigator.userAgent.toLowerCase();
-  if (ua.includes("mac")) return "mac";
-  if (ua.includes("win")) return "windows";
-  return "unknown";
-}
+import { useState } from "react";
 
 function interpolate(str: string, vars: Record<string, string>) {
   return str.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
@@ -23,18 +12,10 @@ function interpolate(str: string, vars: Record<string, string>) {
 export default function DashboardPage() {
   const { data } = useUserData();
   const { t } = useI18n();
-  const [os, setOS] = useState<OS>("unknown");
   const [downloading, setDownloading] = useState<"mac" | "windows" | null>(null);
-
-  useEffect(() => {
-    setOS(detectOS());
-  }, []);
 
   const userName =
     data?.name?.split(" ")[0] || data?.email?.split("@")[0] || "there";
-
-  const showMac = os === "mac" || os === "unknown";
-  const showWin = os === "windows" || os === "unknown";
 
   const handleClick = async (platform: "mac" | "windows") => {
     setDownloading(platform);
@@ -43,28 +24,32 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
+    <div className="relative flex-1 flex items-center justify-center overflow-hidden">
       <div
-        className="rounded-2xl p-4 mb-8"
-        style={{ backgroundColor: "#E6EFED" }}
-      >
-        <Image src="/owl_head.svg" alt="Bisbi" width={40} height={40} />
-      </div>
+        className="dashboard-owl-watermark pointer-events-none absolute select-none"
+        aria-hidden="true"
+      />
 
-      <h1 className="text-2xl font-semibold mb-2" style={{ color: "#1A1A18" }}>
-        {interpolate(t.dashboard.greeting, { name: userName })}
-      </h1>
+      <div className="relative w-full max-w-5xl mx-auto px-6 py-20 text-center">
+        <h1
+          className="text-3xl md:text-4xl font-semibold mb-4"
+          style={{ color: "#1A1A18" }}
+        >
+          {interpolate(t.dashboard.greeting, { name: userName })}
+        </h1>
 
-      <p className="text-base mb-10 max-w-sm" style={{ color: "#5C5C57" }}>
-        {t.dashboard.ready}
-      </p>
+        <p
+          className="text-base md:text-lg mb-12 max-w-md mx-auto"
+          style={{ color: "#5C5C57" }}
+        >
+          {t.dashboard.ready}
+        </p>
 
-      <div className="flex flex-col sm:flex-row gap-3">
-        {showMac && (
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => handleClick("mac")}
             disabled={downloading !== null}
-            className="inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-colors disabled:opacity-70"
+            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-colors disabled:opacity-70"
             style={{ backgroundColor: "#7BA89C" }}
             onMouseEnter={(e) => {
               if (!downloading)
@@ -81,25 +66,20 @@ export default function DashboardPage() {
             </svg>
             {downloading === "mac" ? t.dashboard.starting : t.dashboard.downloadMac}
           </button>
-        )}
 
-        {showWin && (
           <button
             onClick={() => handleClick("windows")}
             disabled={downloading !== null}
-            className="inline-flex items-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70"
-            style={{
-              backgroundColor: showMac ? "#E6EFED" : "#7BA89C",
-              color: showMac ? "#1A1A18" : "#FFFFFF",
-            }}
+            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70"
+            style={{ backgroundColor: "#E6EFED", color: "#1A1A18" }}
             onMouseEnter={(e) => {
               if (!downloading)
                 (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  showMac ? "#D9E8E5" : "#5A8C83";
+                  "#D9E8E5";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                showMac ? "#E6EFED" : "#7BA89C";
+                "#E6EFED";
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -109,12 +89,12 @@ export default function DashboardPage() {
               ? t.dashboard.starting
               : t.dashboard.downloadWindows}
           </button>
-        )}
-      </div>
+        </div>
 
-      <p className="mt-8 text-xs" style={{ color: "#A8A8A2" }}>
-        {t.dashboard.hint}
-      </p>
+        <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
+          {t.dashboard.hint}
+        </p>
+      </div>
     </div>
   );
 }

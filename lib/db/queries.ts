@@ -1,6 +1,6 @@
 import { verifyToken } from "@/lib/auth/session";
 import { generateInternalApiKey, generateResetToken, getResetTokenExpiry } from "@/lib/utils";
-import { and, eq, gt, isNull } from "drizzle-orm";
+import { and, eq, gt, isNull, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { auth } from "../auth/config";
@@ -9,9 +9,84 @@ import {
   appSettings,
   ProductKey,
   user,
+  userMonthlyUsage,
+  UserMonthlyUsage,
   userProductSubscription,
   UserProductSubscription,
 } from "./schema";
+
+export const BISBI_FREE_MONTHLY_WORD_LIMIT_DEFAULT = 2000;
+
+export function currentMonthKey(date: Date = new Date()): string {
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, "0");
+  return `${y}-${m}`;
+}
+
+export function getBisbiFreeMonthlyWordLimit(
+  settings: typeof appSettings.$inferSelect
+): number {
+  const v = settings.bisbiFreeMonthlyWordLimit;
+  if (typeof v === "number" && v > 0) return v;
+  return BISBI_FREE_MONTHLY_WORD_LIMIT_DEFAULT;
+}
+
+export async function getUserMonthlyUsage(
+  userId: string,
+  productKey: ProductKey,
+  monthKey: string = currentMonthKey()
+): Promise<UserMonthlyUsage | null> {
+  const result = await db
+    .select()
+    .from(userMonthlyUsage)
+    .where(
+      and(
+        eq(userMonthlyUsage.userId, userId),
+        eq(userMonthlyUsage.productKey, productKey),
+        eq(userMonthlyUsage.monthKey, monthKey)
+      )
+    )
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function addUserMonthlyUsage(
+  userId: string,
+  productKey: ProductKey,
+  delta: { words: number; audioSeconds: number }
+): Promise<UserMonthlyUsage> {
+  const monthKey = currentMonthKey();
+  const words = Math.max(0, Math.floor(delta.words || 0));
+  const audioSeconds = Math.max(0, Math.floor(delta.audioSeconds || 0));
+
+  const result = await db
+    .insert(userMonthlyUsage)
+    .values({
+      userId,
+      productKey,
+      monthKey,
+      wordsUsed: words,
+      audioSeconds,
+      transcriptionsCount: 1,
+    })
+    .onConflictDoUpdate({
+      target: [
+        userMonthlyUsage.userId,
+        userMonthlyUsage.productKey,
+        userMonthlyUsage.monthKey,
+      ],
+      set: {
+        wordsUsed: sql`${userMonthlyUsage.wordsUsed} + ${words}`,
+        audioSeconds: sql`${userMonthlyUsage.audioSeconds} + ${audioSeconds}`,
+        transcriptionsCount: sql`${userMonthlyUsage.transcriptionsCount} + 1`,
+        updatedAt: new Date(),
+      },
+    })
+    .returning();
+
+  return result[0];
+}
 
 export async function getUser() {
   const cookieStore = await cookies();
@@ -573,6 +648,7 @@ export async function updateAppSettings(
     bisbiProAnnualPriceId: string | null;
     bisbiProMonthlyAmount: number | null;
     bisbiProAnnualAmount: number | null;
+    bisbiFreeMonthlyWordLimit: number | null;
   }>
 ) {
   const settings = await db
@@ -675,6 +751,10 @@ export async function updateAppSettings(
       }
       if (data.bisbiProAnnualAmount !== undefined) {
         updateData.bisbiProAnnualAmount = data.bisbiProAnnualAmount ?? null;
+      }
+      if (data.bisbiFreeMonthlyWordLimit !== undefined) {
+        updateData.bisbiFreeMonthlyWordLimit =
+          data.bisbiFreeMonthlyWordLimit ?? null;
       }
 
       const result = await db

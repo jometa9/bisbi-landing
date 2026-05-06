@@ -8,56 +8,69 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full border-t"
-      style={{ borderColor: "#D9E8E5", backgroundColor: "#F0EDE6" }}
+      className="w-full mt-16 md:mt-24"
+      style={{ backgroundColor: "#FFFFFF" }}
       role="contentinfo"
     >
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-          <div>
-            <Link href="/" className="flex items-center mb-3">
-              <span
-                className="text-lg font-semibold tracking-tight"
-                style={{ color: "#7BA89C" }}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="footer-card">
+          <div className="footer-card-watermark" aria-hidden="true" />
+          <div className="footer-card-content">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+              <div className="max-w-md">
+                <Link href="/" className="flex items-center mb-3">
+                  <span
+                    className="text-4xl font-semibold tracking-tight"
+                    style={{ color: "#7BA89C" }}
+                  >
+                    Bisbi
+                  </span>
+                </Link>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "#5C5C57" }}
+                >
+                  {t.hero.subheadline}
+                </p>
+                <p className="mt-3 text-xs" style={{ color: "#A8A8A2" }}>
+                  {t.footer.createdBy}{" "}
+                  <a
+                    href="https://api2labs.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 transition-colors hover:text-[#1A1A18]"
+                  >
+                    API2LABS.COM
+                  </a>
+                </p>
+              </div>
+
+              <div
+                className="flex flex-wrap gap-6 text-sm"
+                style={{ color: "#5C5C57" }}
               >
-                Bisbi
-              </span>
-            </Link>
-            <p className="text-sm" style={{ color: "#A8A8A2" }}>
-              {t.footer.tagline1}
-              <br />
-              {t.footer.tagline2}
+                <a
+                  href="mailto:hello@bisbi.app"
+                  className="transition-colors hover:text-[#1A1A18]"
+                >
+                  {t.footer.contact}
+                </a>
+                <Link
+                  href="/legal"
+                  className="transition-colors hover:text-[#1A1A18]"
+                >
+                  {t.footer.legal}
+                </Link>
+              </div>
+            </div>
+
+            <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
+              &copy; {new Date().getFullYear()} Bisbi. {t.footer.rights}
             </p>
           </div>
-
-          <div className="flex flex-wrap gap-6 text-sm" style={{ color: "#5C5C57" }}>
-            <a
-              href="mailto:hello@bisbi.app"
-              className="transition-colors hover:text-[#1A1A18]"
-            >
-              {t.footer.contact}
-            </a>
-            <Link
-              href="/legal"
-              className="transition-colors hover:text-[#1A1A18]"
-            >
-              {t.footer.legal}
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/joaquinmetayer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-[#1A1A18]"
-            >
-              LinkedIn
-            </Link>
-          </div>
         </div>
-
-        <p className="mt-8 text-xs" style={{ color: "#A8A8A2" }}>
-          &copy; {new Date().getFullYear()} Bisbi. {t.footer.rights}
-        </p>
       </div>
     </footer>
   );
 }
+

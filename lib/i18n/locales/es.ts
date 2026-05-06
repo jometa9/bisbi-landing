@@ -24,6 +24,7 @@ export const es: LandingTranslations = {
   howItWorks: {
     badge: "Cómo funciona",
     title: "Tres pasos. Nada más.",
+    stepLabel: "Paso",
     steps: [
       {
         title: "Apretá tu shortcut",
@@ -50,6 +51,7 @@ export const es: LandingTranslations = {
       idleHint: "Apretá el atajo y hablá.",
       recordingLabel: "Grabando ahora",
       recordingHint: "Hablá natural. Bisbi te está escuchando.",
+      transcribing: "Transcribiendo",
       previousTranscript: "Bisbi me encanta.",
       transcript:
         "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
@@ -85,7 +87,8 @@ export const es: LandingTranslations = {
     ],
   },
   cta: {
-    title: "Empezá a hablar hoy.",
+    title: "Empezá a hablar",
+    titleHighlight: "hoy.",
     description:
       "Descargá Bisbi gratis. Funciona en Mac y Windows. Sin suscripción para empezar.",
     signInHint: "¿Ya tenés cuenta?",
@@ -97,6 +100,7 @@ export const es: LandingTranslations = {
     contact: "Contacto",
     legal: "Legal",
     rights: "Todos los derechos reservados.",
+    createdBy: "Creado por",
   },
   demoApp: {
     nav: { home: "Inicio", history: "Historial", settings: "Ajustes" },
@@ -128,7 +132,7 @@ export const es: LandingTranslations = {
     ],
   },
   dashboard: {
-    greeting: "Hola {name} 👋",
+    greeting: "¡Hola {name}!",
     ready: "Tu cuenta está lista. Descargá Bisbi y empezá a dictar.",
     downloadMac: "Descargar para Mac",
     downloadWindows: "Descargar para Windows",
