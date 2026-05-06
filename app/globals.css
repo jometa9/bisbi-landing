@@ -732,11 +732,14 @@ html {
 
 /* Dashboard owl watermark — silhouette mask, no fill, not rotated */
 .dashboard-owl-watermark {
-  left: -8%;
-  bottom: -25%;
-  width: 55%;
+  left: 0;
+  bottom: 0;
+  width: 70%;
   max-width: 480px;
   aspect-ratio: 1;
+  /* Anchor relative to its own size so the visible portion is consistent
+     across viewport heights (mobile/desktop). */
+  transform: translate(-20%, 30%);
   background-color: #1A1A18;
   -webkit-mask-image: url(/owl_head.svg);
   mask-image: url(/owl_head.svg);
@@ -748,6 +751,13 @@ html {
   mask-position: center;
   opacity: 0.05;
   z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .dashboard-owl-watermark {
+    width: 55%;
+    transform: translate(-15%, 25%);
+  }
 }
 
 /* Hero — highlighter effect on the green word.

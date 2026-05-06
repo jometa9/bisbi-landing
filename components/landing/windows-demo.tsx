@@ -36,21 +36,33 @@ const LOCALE_FOR_LANG: Record<Lang, string> = {
   ar: "ar",
 };
 
-function formatNumber(n: number, lang: Lang): string {
-  return new Intl.NumberFormat(LOCALE_FOR_LANG[lang]).format(n);
+function formatCompactNumber(n: number, lang: Lang): string {
+  const locale = LOCALE_FOR_LANG[lang];
+  if (n < 1000) return new Intl.NumberFormat(locale).format(n);
+  let value: number;
+  let suffix: string;
+  if (n < 1_000_000) {
+    value = n / 1000;
+    suffix = "K";
+  } else if (n < 1_000_000_000) {
+    value = n / 1_000_000;
+    suffix = "M";
+  } else {
+    value = n / 1_000_000_000;
+    suffix = "B";
+  }
+  const truncated = Math.floor(value * 10) / 10;
+  const formatted = new Intl.NumberFormat(locale, {
+    maximumFractionDigits: truncated < 10 ? 1 : 0,
+  }).format(truncated);
+  return `${formatted}${suffix}`;
 }
 
 function formatDuration(s: number): string {
   if (s <= 0) return "0s";
   if (s < 60) return `${s}s`;
-  if (s < 3600) {
-    const m = Math.floor(s / 60);
-    const rem = s % 60;
-    return rem === 0 ? `${m}m` : `${m}m ${rem}s`;
-  }
-  const h = Math.floor(s / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  return m === 0 ? `${h}h` : `${h}h ${m}m`;
+  if (s < 3600) return `${Math.floor(s / 60)}m`;
+  return `${Math.floor(s / 3600)}h`;
 }
 
 type GreetingKey = "lateNight" | "morning" | "afternoon" | "evening";
@@ -161,7 +173,7 @@ export function WindowsDemo() {
                 <h2 className="home-section-title">{demo.activitySection}</h2>
                 <div className="home-stats">
                   <Stat
-                    value={formatNumber(MOCK_STATS.totalTranscriptions, lang)}
+                    value={formatCompactNumber(MOCK_STATS.totalTranscriptions, lang)}
                     label={demo.statTranscriptions}
                   />
                   <Stat
@@ -169,10 +181,10 @@ export function WindowsDemo() {
                     label={demo.statDictated}
                   />
                   <Stat
-                    value={formatNumber(MOCK_STATS.totalWords, lang)}
+                    value={formatCompactNumber(MOCK_STATS.totalWords, lang)}
                     label={demo.statWords}
                   />
-                  <Stat value={formatNumber(wpm, lang)} label={demo.statWpm} />
+                  <Stat value={formatCompactNumber(wpm, lang)} label={demo.statWpm} />
                 </div>
               </section>
 
