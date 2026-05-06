@@ -82,7 +82,7 @@ export default function HomePage() {
   return (
     <>
       <LandingHeader />
-      <main style={{ backgroundColor: "#F0EDE6" }}>
+      <main style={{ backgroundColor: "#FFFFFF" }}>
 
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 pt-36 pb-24 text-center">
@@ -116,9 +116,14 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* How it works */}
-        <section id="how-it-works" className="py-24" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-6">
+        {/* Bloques (cards) sobre el fondo beige */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-4 pb-12">
+          {/* How it works */}
+          <section
+            id="how-it-works"
+            className="rounded-3xl py-16 md:py-20 px-6 sm:px-10 md:px-16 border"
+            style={{ borderColor: "#EAE6DC" }}
+          >
             <p
               className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
               style={{ color: "#7BA89C" }}
@@ -132,7 +137,7 @@ export default function HomePage() {
               {t.howItWorks.title}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               {t.howItWorks.steps.map((step, i) => (
                 <div
                   key={i}
@@ -154,12 +159,14 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Features */}
-        <section id="features" className="py-24" style={{ backgroundColor: "#F0EDE6" }}>
-          <div className="max-w-5xl mx-auto px-6">
+          {/* Features */}
+          <section
+            id="features"
+            className="rounded-3xl py-16 md:py-20 px-6 sm:px-10 md:px-16 border"
+            style={{ borderColor: "#EAE6DC" }}
+          >
             <p
               className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
               style={{ color: "#7BA89C" }}
@@ -178,7 +185,7 @@ export default function HomePage() {
                 <div
                   key={i}
                   className="rounded-2xl p-6"
-                  style={{ backgroundColor: "#FFFFFF" }}
+                  style={{ backgroundColor: "#F0EDE6" }}
                 >
                   <div
                     className="mb-4 inline-flex rounded-xl p-2"
@@ -195,12 +202,14 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Languages */}
-        <section id="languages" className="py-24" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-6 text-center">
+          {/* Languages */}
+          <section
+            id="languages"
+            className="rounded-3xl py-16 md:py-20 px-6 sm:px-10 md:px-16 text-center border"
+            style={{ borderColor: "#EAE6DC" }}
+          >
             <p
               className="text-sm font-medium mb-3 uppercase tracking-widest"
               style={{ color: "#7BA89C" }}
@@ -253,8 +262,8 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Final CTA */}
         <section className="py-24" style={{ backgroundColor: "#FFFFFF" }}>

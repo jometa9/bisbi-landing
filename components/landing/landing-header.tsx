@@ -31,24 +31,10 @@ export function LandingHeader() {
     }
   };
 
-  const navigationLinks = [
-    { href: "/#how-it-works", label: t.nav.howItWorks },
-    { href: "/#features", label: t.nav.features },
-    { href: "/#languages", label: t.nav.languages },
-  ];
-
-  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.includes("#")) return;
-    e.preventDefault();
-    const id = href.split("#")[1];
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
     <header
       className="fixed inset-x-0 top-0 z-50"
-      style={{ backgroundColor: "#F0EDE6" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
@@ -60,28 +46,6 @@ export function LandingHeader() {
             bisbi
           </span>
         </Link>
-
-        <nav className="hidden items-center gap-8 text-sm md:flex">
-          {navigationLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e: MouseEvent<HTMLAnchorElement>) =>
-                handleNavClick(e, link.href)
-              }
-              className="cursor-pointer"
-              style={{ color: "#A8A8A2" }}
-              onMouseEnter={(e: MouseEvent<HTMLAnchorElement>) => {
-                e.currentTarget.style.color = "#5C5C57";
-              }}
-              onMouseLeave={(e: MouseEvent<HTMLAnchorElement>) => {
-                e.currentTarget.style.color = "#A8A8A2";
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
