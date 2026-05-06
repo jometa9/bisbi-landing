@@ -1,0 +1,319 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+@plugin 'tailwindcss-animate';
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden !important;
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes midnight-fade {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-midnight-fade {
+  animation: midnight-fade 1.5s ease-in-out infinite;
+}
+
+.chat-container-mobile {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: calc(100vh - 5rem);
+  height: calc(var(--chat-dvh, 100dvh) - 5rem);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  transition: height 0.12s ease-out;
+}
+.chat-container-mobile [data-radix-scroll-area-viewport] {
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+main:has(.chat-container-mobile) {
+  overscroll-behavior: none;
+}
+@media (min-width: 768px) {
+  .chat-container-mobile {
+    top: 7rem;
+    height: calc(100vh - 7rem);
+    min-height: 400px;
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base {
+  :root {
+    --font-sans:
+      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: #0f172a;
+    @apply bg-background text-foreground;
+  }
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+}
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(240 10% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(240 10% 3.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 10% 3.9%);
+  --primary: hsl(240 5.9% 10%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(240 4.8% 95.9%);
+  --secondary-foreground: hsl(240 5.9% 10%);
+  --muted: hsl(240 4.8% 95.9%);
+  --muted-foreground: hsl(240 3.8% 46.1%);
+  --accent: hsl(240 4.8% 95.9%);
+  --accent-foreground: hsl(240 5.9% 10%);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(240 5.9% 90%);
+  --input: hsl(240 5.9% 90%);
+  --ring: hsl(240 10% 3.9%);
+  --chart-1: hsl(12 76% 61%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
+  --radius: 0.6rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --animate-spin: spin 2s linear infinite;
+}
+
+body[data-billing-period="annual"] .billing-monthly {
+  display: none !important;
+}
+
+body[data-billing-period="annual"] .billing-annual {
+  display: flex !important;
+}
+
+body[data-billing-period="monthly"] .billing-monthly {
+  display: flex !important;
+}
+
+body[data-billing-period="monthly"] .billing-annual {
+  display: none !important;
+}
+
+body:not([data-billing-period]) .billing-monthly {
+  display: flex !important;
+}
+
+body:not([data-billing-period]) .billing-annual {
+  display: none !important;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.demo-desktop-layout .lg\:grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.demo-desktop-layout .lg\:grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.demo-desktop-layout .lg\:grid-cols-12 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+.demo-desktop-layout .sm\:grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.demo-desktop-layout .sm\:grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.demo-desktop-layout .sm\:grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.demo-desktop-layout .xl\:grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.demo-desktop-layout .xl\:grid-cols-8 {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+.demo-desktop-layout .lg\:col-span-3 {
+  grid-column: span 3 / span 3;
+}
+.demo-desktop-layout .lg\:col-span-4 {
+  grid-column: span 4 / span 4;
+}
+.demo-desktop-layout .lg\:col-span-8 {
+  grid-column: span 8 / span 8;
+}
+.demo-desktop-layout .lg\:col-span-9 {
+  grid-column: span 9 / span 9;
+}
+.demo-desktop-layout .xl\:col-span-3 {
+  grid-column: span 3 / span 3;
+}
+.demo-desktop-layout .xl\:col-span-9 {
+  grid-column: span 9 / span 9;
+}
+.demo-desktop-layout .lg\:inline {
+  display: inline;
+}
+.demo-desktop-layout .hidden.sm\:flex {
+  display: flex;
+}

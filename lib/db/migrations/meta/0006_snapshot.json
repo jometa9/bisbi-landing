@@ -1,0 +1,732 @@
+{
+  "id": "3a8fc5b3-1ebd-4d13-a60c-777d2517fe29",
+  "prevId": "2d4bb44f-c595-40e1-8987-7a85ef1e2f8f",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refreshToken": {
+          "name": "refreshToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "accessToken": {
+          "name": "accessToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expiresAt": {
+          "name": "expiresAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tokenType": {
+          "name": "tokenType",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idToken": {
+          "name": "idToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sessionState": {
+          "name": "sessionState",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.appSettings": {
+      "name": "appSettings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "multiWindowsVersion": {
+          "name": "multiWindowsVersion",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1.0.0'"
+        },
+        "multiWindowsDownloadUrl": {
+          "name": "multiWindowsDownloadUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ctrWindowsVersion": {
+          "name": "ctrWindowsVersion",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1.0.0'"
+        },
+        "ctrWindowsDownloadUrl": {
+          "name": "ctrWindowsDownloadUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ctrMacVersion": {
+          "name": "ctrMacVersion",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1.0.0'"
+        },
+        "ctrMacDownloadUrl": {
+          "name": "ctrMacDownloadUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "localCopierSubscriptionLimits": {
+          "name": "localCopierSubscriptionLimits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bridgeToken": {
+          "name": "bridgeToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resendApiKey": {
+          "name": "resendApiKey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resendTestEmail": {
+          "name": "resendTestEmail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emailFrom": {
+          "name": "emailFrom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resendInboundWebhookSecret": {
+          "name": "resendInboundWebhookSecret",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inboxRetentionDays": {
+          "name": "inboxRetentionDays",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "discordWebhookUrl": {
+          "name": "discordWebhookUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "infrastructureDiscordWebhookUrl": {
+          "name": "infrastructureDiscordWebhookUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedBy": {
+          "name": "updatedBy",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "appSettings_updatedBy_user_id_fk": {
+          "name": "appSettings_updatedBy_user_id_fk",
+          "tableFrom": "appSettings",
+          "tableTo": "user",
+          "columnsFrom": [
+            "updatedBy"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cronLock": {
+      "name": "cronLock",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "jobName": {
+          "name": "jobName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lockKey": {
+          "name": "lockKey",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastRunAt": {
+          "name": "lastRunAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lastRunBy": {
+          "name": "lastRunBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lastRunDurationMs": {
+          "name": "lastRunDurationMs",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lastRunStatus": {
+          "name": "lastRunStatus",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lastRunError": {
+          "name": "lastRunError",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "cronLock_jobName_unique": {
+          "name": "cronLock_jobName_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "jobName"
+          ]
+        },
+        "cronLock_lockKey_unique": {
+          "name": "cronLock_lockKey_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "lockKey"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.inboundEmail": {
+      "name": "inboundEmail",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "resendEmailId": {
+          "name": "resendEmailId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mailFrom": {
+          "name": "mailFrom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rcptTo": {
+          "name": "rcptTo",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "messageId": {
+          "name": "messageId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "textBody": {
+          "name": "textBody",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "htmlBody": {
+          "name": "htmlBody",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "headers": {
+          "name": "headers",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rawWebhookPayload": {
+          "name": "rawWebhookPayload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rawEmailContent": {
+          "name": "rawEmailContent",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attachments": {
+          "name": "attachments",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "readAt": {
+          "name": "readAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "archivedAt": {
+          "name": "archivedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receivedAt": {
+          "name": "receivedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "inboundEmail_resendEmailId_unique": {
+          "name": "inboundEmail_resendEmailId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "resendEmailId"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passwordHash": {
+          "name": "passwordHash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'member'"
+        },
+        "apiKey": {
+          "name": "apiKey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resetToken": {
+          "name": "resetToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resetTokenExpiry": {
+          "name": "resetTokenExpiry",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deletedAt": {
+          "name": "deletedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripeCustomerId": {
+          "name": "stripeCustomerId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metaPurchaseEventId": {
+          "name": "metaPurchaseEventId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "user_apiKey_unique": {
+          "name": "user_apiKey_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "apiKey"
+          ]
+        },
+        "user_stripeCustomerId_unique": {
+          "name": "user_stripeCustomerId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "stripeCustomerId"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.userProductSubscription": {
+      "name": "userProductSubscription",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productKey": {
+          "name": "productKey",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tier": {
+          "name": "tier",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'free'"
+        },
+        "accountLimit": {
+          "name": "accountLimit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "billingPeriod": {
+          "name": "billingPeriod",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripeSubscriptionId": {
+          "name": "stripeSubscriptionId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripeProductId": {
+          "name": "stripeProductId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "planName": {
+          "name": "planName",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expiresAt": {
+          "name": "expiresAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metaPurchaseEventId": {
+          "name": "metaPurchaseEventId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "userProductSubscription_userId_user_id_fk": {
+          "name": "userProductSubscription_userId_user_id_fk",
+          "tableFrom": "userProductSubscription",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "userProductSubscription_stripeSubscriptionId_unique": {
+          "name": "userProductSubscription_stripeSubscriptionId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "stripeSubscriptionId"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
