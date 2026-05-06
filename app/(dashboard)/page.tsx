@@ -42,6 +42,7 @@ function DownloadButtons({
   variant?: "hero" | "cta";
 }) {
   const { t } = useI18n();
+  const router = useRouter();
 
   const base =
     variant === "hero"
@@ -50,7 +51,7 @@ function DownloadButtons({
 
   return (
     <button
-      onClick={() => handleDownload()}
+      onClick={() => router.push("/dashboard")}
       className={base}
       style={{ backgroundColor: "#7BA89C" }}
       onMouseEnter={(e) => {
