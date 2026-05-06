@@ -39,8 +39,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   }, []);
 
   const isFromApp = source === "app";
-  const isAppRedirect = redirect && redirect.startsWith("iptrade://");
-  const appName = "IPTRADE";
+  const isAppRedirect = redirect && redirect.startsWith("bisbi://");
+  const appName = "Bisbi";
 
   const switchParams = new URLSearchParams();
   if (redirect) switchParams.set("redirect", redirect);
@@ -53,8 +53,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const heading = isFromApp
     ? `Access your ${appName} account`
     : mode === "signin"
-      ? "Welcome back to IPTRADE"
-      : "Welcome back to IPTRADE";
+      ? "Welcome back to Bisbi"
+      : "Create your Bisbi account";
 
   const handleGoogleSignIn = async () => {
     if (isGoogleLoading) return;
@@ -107,7 +107,7 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         const eventId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
         trackCompleteRegistration(
           {
-            content_name: "IPTRADE Account",
+            content_name: "Bisbi Account",
             status: true,
           },
           eventId
@@ -169,7 +169,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
               console.error("Error opening app:", error);
             }
           }}
-          className="w-full justify-center rounded-lg bg-gray-900 py-3 text-md text-white hover:bg-gray-600"
+          className="w-full justify-center rounded-xl py-3 text-md text-white"
+          style={{ backgroundColor: "#7BA89C" }}
         >
           Open {appName}
         </Button>
@@ -192,12 +193,15 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
     <div className="space-y-3 pb-20">
       <div>
         <h2 className="text-2xl font-semibold text-gray-900">{heading}</h2>
-        <p className="text-xl text-gray-400">The best way to copy trades</p>
+        <p className="text-base" style={{ color: "#A8A8A2" }}>
+          {mode === "signin" ? "Sign in to download Bisbi" : "Create an account to download Bisbi"}
+        </p>
       </div>
 
       <Button
         type="button"
-        className="w-full justify-center gap-3 rounded-lg bg-gray-900 py-3 text-white text-md hover:bg-gray-600 disabled:opacity-60"
+        className="w-full justify-center gap-3 rounded-xl py-3 text-white text-md disabled:opacity-60"
+        style={{ backgroundColor: "#1A1A18" }}
         onClick={handleGoogleSignIn}
         disabled={isGoogleLoading || pending}
       >
@@ -313,7 +317,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
 
         <Button
           type="submit"
-          className="w-full justify-center rounded-lg bg-gray-900 py-3 text-md text-white hover:bg-gray-600"
+          className="w-full justify-center rounded-xl py-3 text-md text-white"
+          style={{ backgroundColor: "#7BA89C" }}
           disabled={pending || isGoogleLoading}
         >
           {pending ? (

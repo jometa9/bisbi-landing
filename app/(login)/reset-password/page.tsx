@@ -271,7 +271,7 @@ function ResetPasswordForm() {
         <p className="text-xl text-gray-400">
           {session
             ? "Set a new password for your account"
-            : "Create a new password for your IPTRADE account"}
+            : "Create a new password for your Bisbi account"}
         </p>
 
         {session && (

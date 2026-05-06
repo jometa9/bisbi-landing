@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
         const { fbc, fbp } = extractFacebookCookies(request);
         const { clientIpAddress, clientUserAgent } = extractClientInfo(request);
         await trackLead({
-          contentName: `IPTRADE MULTI Download`,
+          contentName: `Bisbi Download`,
           contentCategory: "app_download",
           eventSourceUrl: request.url,
           eventId: metaEventId,

@@ -31,7 +31,7 @@ export async function welcomeEmailTemplate(data: {
 }) {
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Welcome to IPTRADE!",
+    subject: "Welcome to Bisbi!",
     name: data.name,
     message: "We're thrilled to have you on board.",
     buttonUrl: data.loginUrl,
@@ -56,12 +56,12 @@ export async function welcomeWithSubscriptionTemplate(data: {
   const planLabel =
     data.planName.charAt(0).toUpperCase() + data.planName.slice(1);
 
-  let message = `An account has been created for you on IPTRADE with the ${planLabel} plan${data.expiryDate ? `, valid until ${data.expiryDate}` : ""}.`;
+  let message = `An account has been created for you on Bisbi with the ${planLabel} plan${data.expiryDate ? `, valid until ${data.expiryDate}` : ""}.`;
   message += `\n\nYour password is ${data.password}. You can also sign in with Google using this same email.`;
 
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Welcome to IPTRADE",
+    subject: "Welcome to Bisbi",
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: data.loginUrl,
@@ -162,7 +162,7 @@ export async function subscriptionChangeEmailTemplate(data: {
     data.dashboardUrl ||
     `${getAppUrl()}/dashboard`;
 
-  let message = `We're informing you about a change in your IPTRADE subscription.`;
+  let message = `We're informing you about a change in your Bisbi subscription.`;
 
   message += `\n\n${statusMessage}`;
 
@@ -211,7 +211,7 @@ export async function versionUpdateEmailTemplate(data: {
   downloadUrl?: string;
   isCritical?: boolean;
 }) {
-  let message = `A new version of IPTRADE is now available.\n\nCurrent: ${data.currentVersion}\nNew: ${data.newVersion}`;
+  let message = `A new version of Bisbi is now available.\n\nCurrent: ${data.currentVersion}\nNew: ${data.newVersion}`;
 
   if (data.isCritical) {
     message = `🚨 CRITICAL UPDATE: ${message}\n\nThis is a critical update that addresses important security or stability issues. Please update as soon as possible.`;

@@ -34,7 +34,7 @@ export async function getEmailConfig(): Promise<EmailConfig> {
     cachedConfig = {
       apiKey,
       testEmail: settings?.testEmail || "onboarding@resend.dev",
-      emailFrom: settings?.emailFrom || "no-reply@iptradecopier.com",
+      emailFrom: settings?.emailFrom || "no-reply@bisbi.app",
     };
     cacheTime = now;
 
@@ -44,7 +44,7 @@ export async function getEmailConfig(): Promise<EmailConfig> {
     return {
       apiKey: null,
       testEmail: "onboarding@resend.dev",
-      emailFrom: "no-reply@iptradecopier.com",
+      emailFrom: "no-reply@bisbi.app",
     };
   }
 }

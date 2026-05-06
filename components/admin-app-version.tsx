@@ -105,7 +105,7 @@ export default function AdminAppVersion() {
     <div className="space-y-3">
         <div className="grid grid-cols-1 gap-3">
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="multi-version" className="text-xs">IPTRADE Multi Version</Label>
+            <Label htmlFor="multi-version" className="text-xs">Bisbi Version</Label>
             <Input
               id="multi-version"
               placeholder="1.0.0"

@@ -48,7 +48,7 @@ export async function sendWelcomeEmail({
     () =>
       sendEmail({
         to: email,
-        subject: "Welcome to IPTRADE!",
+        subject: "Welcome to Bisbi!",
         html,
         text,
       }),
@@ -86,7 +86,7 @@ export async function sendWelcomeWithSubscriptionEmail({
     () =>
       sendEmail({
         to: email,
-        subject: "Welcome to IPTRADE!",
+        subject: "Welcome to Bisbi!",
         html,
         text,
       }),
@@ -124,21 +124,21 @@ export async function sendSubscriptionChangeEmail({
       dashboardUrl,
     });
 
-    let subject = "Your IPTRADE subscription has been updated";
+    let subject = "Your Bisbi subscription has been updated";
     if (status === "active") {
-      subject = "Your IPTRADE subscription is active";
+      subject = "Your Bisbi subscription is active";
     } else if (status === "trialing") {
-      subject = "Your IPTRADE trial has started";
+      subject = "Your Bisbi trial has started";
     } else if (status === "canceled") {
-      subject = "Your IPTRADE subscription has been canceled";
+      subject = "Your Bisbi subscription has been canceled";
     } else if (status === "canceling") {
-      subject = "Your IPTRADE subscription cancellation has been scheduled";
+      subject = "Your Bisbi subscription cancellation has been scheduled";
     } else if (status === "plan_changed") {
-      subject = "Your IPTRADE plan has been changed";
+      subject = "Your Bisbi plan has been changed";
     } else if (status === "unpaid") {
-      subject = "There was a payment issue with your IPTRADE subscription";
+      subject = "There was a payment issue with your Bisbi subscription";
     } else if (status === "expired") {
-      subject = "Your IPTRADE subscription has expired";
+      subject = "Your Bisbi subscription has expired";
     }
 
     return await withRetry(
@@ -179,7 +179,7 @@ export async function sendPasswordResetEmail({
 
   return sendEmail({
     to: email,
-    subject: "Reset password for your IPTRADE account",
+    subject: "Reset password for your Bisbi account",
     html,
     text,
   });
@@ -213,7 +213,7 @@ export async function sendVersionUpdateEmail({
 
   const subject = isCritical
     ? `[CRITICAL UPDATE] New version ${newVersion} available`
-    : `New version ${newVersion} available for IPTRADE`;
+    : `New version ${newVersion} available for Bisbi`;
 
   return sendEmail({
     to: email,

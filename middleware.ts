@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   const isFromApp =
     source === "app" &&
     redirect &&
-    redirect.startsWith("iptrade://");
+    redirect.startsWith("bisbi://");
 
   const shouldClearSession =
     request.nextUrl.searchParams.get("clear_session") === "true";

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const redirectUrl = searchParams.get("redirect") || "iptrade://login";
+  const redirectUrl = searchParams.get("redirect") || "bisbi://login";
 
   const loginUrl = new URL("/sign-in", request.nextUrl.origin);
   loginUrl.searchParams.set("redirect", redirectUrl);

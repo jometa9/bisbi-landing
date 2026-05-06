@@ -22,7 +22,7 @@ export function getReadablePlanName(user: User): string {
 }
 
 export function generateApiKey(): string {
-  const prefix = "iptrade_lc_";
+  const prefix = "bisbi_lc_";
   const remainingLength = 50 - prefix.length;
 
   const chars =
@@ -43,7 +43,7 @@ export function generateResetToken(): string {
 }
 
 export function generateInternalApiKey(): string {
-  return "iptrade_int_" + crypto.randomBytes(24).toString("hex");
+  return "bisbi_int_" + crypto.randomBytes(24).toString("hex");
 }
 
 export function generateRandomPassword(length = 16): string {

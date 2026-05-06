@@ -44,7 +44,7 @@ export function PasswordResetForm() {
       <CardHeader>
         <CardTitle>Reset Password</CardTitle>
         <p className="text-sm text-muted-foreground">
-          Change your password to protect access to your IPTRADE account.
+          Change your password to protect access to your Bisbi account.
         </p>
       </CardHeader>
       <CardContent>

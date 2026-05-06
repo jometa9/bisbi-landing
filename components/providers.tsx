@@ -2,6 +2,7 @@
 
 import { UserProvider } from "@/lib/auth";
 import { NextAuthProvider } from "@/lib/auth/nextauth-provider";
+import { I18nProvider } from "@/lib/i18n";
 import { ReactNode } from "react";
 
 interface ProvidersProps {
@@ -12,7 +13,9 @@ interface ProvidersProps {
 export function Providers({ children, userPromise }: ProvidersProps) {
   return (
     <NextAuthProvider>
-      <UserProvider userPromise={userPromise}>{children}</UserProvider>
+      <UserProvider userPromise={userPromise}>
+        <I18nProvider>{children}</I18nProvider>
+      </UserProvider>
     </NextAuthProvider>
   );
 }

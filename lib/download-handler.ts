@@ -21,7 +21,7 @@ export const trackDownloadEvent = (
 ) => {
   if (typeof window !== "undefined" && window.fbq) {
     window.fbq("track", "Lead", {
-      content_name: `IPTRADE ${productKey.toUpperCase()} Download`,
+      content_name: `Bisbi Download`,
       content_category: "app_download",
       content_ids: [productKey],
       custom_data: { productKey, os },
@@ -56,12 +56,13 @@ export const handleDownload = async (
 
     trackDownloadEvent(productKey, detectedOS, eventId);
 
+
     const link = document.createElement("a");
     link.href = downloadUrl;
 
     const fileName = detectedOS === "mac"
-      ? "IPTRADE-Multi-Setup.dmg"
-      : "IPTRADE-Multi-Setup.exe";
+      ? "Bisbi-Setup.dmg"
+      : "Bisbi-Setup.exe";
 
     link.download = fileName;
     link.target = "_blank";

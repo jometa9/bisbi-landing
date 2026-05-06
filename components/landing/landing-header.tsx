@@ -1,128 +1,88 @@
 "use client";
 
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useI18n } from "@/lib/i18n";
+import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState, type MouseEvent } from "react";
-
-const navigationLinks = [
-  { href: "/#features", label: "Features" },
-  { href: "/#prices", label: "Pricing" },
-  { href: "/documentation", label: "Docs" },
-  { href: "/assistant", label: "Chat" },
-];
+import type { MouseEvent } from "react";
 
 export function LandingHeader() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [showDropdown, setShowDropdown] = useState(false);
+  const { t } = useI18n();
 
-  const handleNavClick = useCallback(
-    async (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-      if (!href.includes("#")) {
-        return;
-      }
+  const navigationLinks = [
+    { href: "/#how-it-works", label: t.nav.howItWorks },
+    { href: "/#features", label: t.nav.features },
+    { href: "/#languages", label: t.nav.languages },
+  ];
 
-      event.preventDefault();
-      const targetId = href.split("#")[1];
-
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-        window.history.replaceState({}, "", `${pathname}#${targetId}`);
-        return;
-      }
-
-      if (pathname !== "/") {
-        await router.push("/");
-        setTimeout(() => {
-          const checkAndScroll = (checkAttempts = 0) => {
-            if (window.location.pathname === "/") {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              window.history.replaceState({}, "", `/#${targetId}`);
-              setTimeout(() => {
-                const attemptScroll = (attempts = 0) => {
-                  if (window.location.pathname !== "/") return;
-                  const element = document.getElementById(targetId);
-                  if (element) {
-                    element.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  } else if (attempts < 15) {
-                    setTimeout(() => attemptScroll(attempts + 1), 200);
-                  }
-                };
-                attemptScroll();
-              }, 400);
-            } else if (checkAttempts < 10) {
-              setTimeout(() => checkAndScroll(checkAttempts + 1), 200);
-            }
-          };
-          checkAndScroll();
-        }, 500);
-      }
-    },
-    [pathname, router]
-  );
-
-  useEffect(() => {
-    const handleClickOutside = () => setShowDropdown(false);
-    if (showDropdown) {
-      document.addEventListener("click", handleClickOutside);
-      return () => document.removeEventListener("click", handleClickOutside);
-    }
-  }, [showDropdown]);
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.includes("#")) return;
+    e.preventDefault();
+    const id = href.split("#")[1];
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between p-3">
-        <Link href="/" className="text-xl font-bold tracking-tight">
-          IPTRADE
+    <header
+      className="fixed inset-x-0 top-0 z-50"
+      style={{ backgroundColor: "#F0EDE6" }}
+    >
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/owl_head.svg" alt="Bisbi" width={24} height={24} />
+          <span
+            className="text-lg font-semibold tracking-tight"
+            style={{ color: "#1A1A18" }}
+          >
+            bisbi
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium  md:flex">
-          {navigationLinks.map((link) => {
-            if (link.href.includes("#")) {
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(event) => handleNavClick(event, link.href)}
-                  className="transition-colors text-gray-400 hover:text-gray-600 cursor-pointer"
-                >
-                  {link.label}
-                </a>
-              );
-            }
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="transition-colors text-gray-400 hover:text-gray-600 cursor-pointer"
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <nav className="hidden items-center gap-8 text-sm md:flex">
+          {navigationLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e: MouseEvent<HTMLAnchorElement>) =>
+                handleNavClick(e, link.href)
+              }
+              className="cursor-pointer"
+              style={{ color: "#A8A8A2" }}
+              onMouseEnter={(e: MouseEvent<HTMLAnchorElement>) => {
+                e.currentTarget.style.color = "#5C5C57";
+              }}
+              onMouseLeave={(e: MouseEvent<HTMLAnchorElement>) => {
+                e.currentTarget.style.color = "#A8A8A2";
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="rounded-full border border-transparent bg-gray-900 px-2 py-0.5 text-sm text-white shadow-none hover:bg-gray-600 cursor-pointer md:border md:border-gray-300 md:bg-white md:text-gray-900 md:hover:bg-gray-100">
-            <Link href="/sign-up" target="_blank" rel="noopener noreferrer">
-              Sign up
-            </Link>
-          </div>
-
-          <div className="relative hidden md:block">
-            <a
-              href="/dashboard"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-transparent bg-gray-900 px-2 py-0.5 text-sm cursor-pointer text-white shadow-none hover:bg-gray-600 block"
-            >
-              Get started
-            </a>
-          </div>
+          <LanguageSwitcher />
+          <Link
+            href="/sign-in"
+            className="text-sm hidden md:block"
+            style={{ color: "#5C5C57" }}
+          >
+            {t.nav.signIn}
+          </Link>
+          <Link
+            href="/sign-up"
+            className="rounded-full px-4 py-1.5 text-sm font-medium text-white"
+            style={{ backgroundColor: "#7BA89C" }}
+            onMouseEnter={(e: MouseEvent<HTMLAnchorElement>) => {
+              e.currentTarget.style.backgroundColor = "#5A8C83";
+            }}
+            onMouseLeave={(e: MouseEvent<HTMLAnchorElement>) => {
+              e.currentTarget.style.backgroundColor = "#7BA89C";
+            }}
+          >
+            {t.nav.downloadFree}
+          </Link>
         </div>
       </div>
     </header>

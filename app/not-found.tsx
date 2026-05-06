@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   description:
-    "The page you are looking for does not exist. Return to IPTRADE – local trade copier for MT4, MT5, and cTrader.",
+    "The page you are looking for does not exist. Return to Bisbi – voice dictation for Mac and Windows.",
   robots: { index: false, follow: true },
 };
 
