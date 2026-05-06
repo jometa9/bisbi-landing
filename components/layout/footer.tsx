@@ -18,7 +18,7 @@ export function Footer() {
           <div className="footer-card-content">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               <div className="max-w-md">
-                <Link href="/" className="flex items-center mb-3">
+                <Link href="/" className="flex items-center mb-3 cursor-pointer">
                   <span
                     className="text-4xl font-semibold tracking-tight"
                     style={{ color: "#7BA89C" }}
@@ -38,7 +38,7 @@ export function Footer() {
                     href="https://api2labs.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-2 transition-colors hover:text-[#1A1A18]"
+                    className="underline underline-offset-2 transition-colors hover:text-[#1A1A18] cursor-pointer"
                   >
                     API2LABS.COM
                   </a>
@@ -51,13 +51,13 @@ export function Footer() {
               >
                 <a
                   href="mailto:hello@bisbi.app"
-                  className="transition-colors hover:text-[#1A1A18]"
+                  className="transition-colors hover:text-[#1A1A18] cursor-pointer"
                 >
                   {t.footer.contact}
                 </a>
                 <Link
                   href="/legal"
-                  className="transition-colors hover:text-[#1A1A18]"
+                  className="transition-colors hover:text-[#1A1A18] cursor-pointer"
                 >
                   {t.footer.legal}
                 </Link>

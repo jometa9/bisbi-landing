@@ -89,6 +89,7 @@ export function WindowsDemo() {
   } as CSSProperties;
 
   return (
+    <div className="bisbi-demo-frame">
     <div className="bisbi-demo" role="img" aria-label="Bisbi product demo">
       <TitleBar />
       <div className="app" style={owlVars}>
@@ -195,6 +196,7 @@ export function WindowsDemo() {
           </div>
         </main>
       </div>
+    </div>
     </div>
   );
 }

@@ -107,14 +107,16 @@ function DemoCard({
   return (
     <div className={`demo-step${side === "right" ? " demo-step--reverse" : ""}`}>
       <div
-        className={`demo-step-card${variant === "tint" ? " demo-step-card--tint" : ""}`}
+        className={`demo-step-card${variant === "tint" ? " demo-step-card--tint" : ""} demo-step-card--${side}`}
       >
-        <span className="demo-step-num">
+        <div className="demo-step-card-watermark" aria-hidden="true">
           {label} {String(index).padStart(2, "0")}
-        </span>
-        <div className="demo-step-text">
-          <h3 className="demo-step-title">{title}</h3>
-          <p className="demo-step-desc">{description}</p>
+        </div>
+        <div className="demo-step-card-content">
+          <div className="demo-step-text">
+            <h3 className="demo-step-title">{title}</h3>
+            <p className="demo-step-desc">{description}</p>
+          </div>
         </div>
       </div>
       <div className="demo-step-body">{children}</div>
@@ -282,6 +284,8 @@ function EditorMock({
       }
     }
 
+    const tokens = transcript.match(/\S+\s*/g) ?? [];
+
     function startTyping() {
       if (cancelled) return;
       clearTimers();
@@ -290,8 +294,8 @@ function EditorMock({
       timeout = window.setTimeout(() => {
         interval = window.setInterval(() => {
           i += 1;
-          setTyped(transcript.slice(0, i));
-          if (i >= transcript.length) {
+          setTyped(tokens.slice(0, i).join(""));
+          if (i >= tokens.length) {
             if (interval) {
               window.clearInterval(interval);
               interval = undefined;
@@ -300,7 +304,7 @@ function EditorMock({
               startTyping();
             }, 3200);
           }
-        }, 70);
+        }, 180);
       }, 600);
     }
 

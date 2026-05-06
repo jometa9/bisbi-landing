@@ -99,7 +99,7 @@ export default async function UpgradePage() {
           <form action={startCheckout}>
             <button
               type="submit"
-              className="w-full rounded-full py-3 text-sm font-medium text-white transition-colors"
+              className="w-full rounded-full py-3 text-sm font-medium text-white transition-colors cursor-pointer"
               style={{ backgroundColor: "#7BA89C" }}
             >
               Subscribe

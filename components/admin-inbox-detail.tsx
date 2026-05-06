@@ -225,7 +225,6 @@ export function AdminInboxDetail({ emailId }: Props) {
                 <Button
                   variant="outline"
                   className="shadow-none"
-                  title="Back to inbox"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to inbox
@@ -260,7 +259,6 @@ export function AdminInboxDetail({ emailId }: Props) {
                       variant="outline"
                       size="sm"
                       className="shadow-none"
-                      title="Reply"
                     >
                       <CornerDownLeft className="h-4 w-4" />
                     </Button>
@@ -379,7 +377,7 @@ export function AdminInboxDetail({ emailId }: Props) {
                         <a
                           href={`/api/admin/inbox/attachments/${attachment.id}`}
                           download={attachment.filename}
-                          className="text-gray-400 hover:text-gray-600 transition-colors"
+                          className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                         >
                           <Download className="h-4 w-4" />
                         </a>

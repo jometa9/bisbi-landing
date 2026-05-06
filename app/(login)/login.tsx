@@ -1,9 +1,13 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { signIn as nextAuthSignIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import { useI18n } from "@/lib/i18n";
+
+function interpolate(str: string, vars: Record<string, string>) {
+  return str.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
+}
 
 export function Login() {
   const searchParams = useSearchParams();
@@ -11,6 +15,7 @@ export function Login() {
   const source = searchParams.get("source");
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { t } = useI18n();
   const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
   const [isRedirecting, setIsRedirecting] = React.useState(false);
   const [redirectUrl, setRedirectUrl] = React.useState<string>("");
@@ -98,34 +103,43 @@ export function Login() {
 
   if (isRedirecting && isAppRedirect) {
     return (
-      <div className="space-y-3 pb-20">
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Login Successful!
-          </h2>
-          <p className="text-xl text-gray-400">
-            We&apos;ll take you back to {appName}
-          </p>
-        </div>
-        <div className="flex text-sm items-center space-x-2 text-gray-600">
-          Opening {appName}...
-        </div>
-        <Button
-          onClick={() => {
-            try {
-              const urlToUse = redirectUrl || redirect!;
-              window.location.href = urlToUse;
-            } catch (error) {
-              console.error("Error opening app:", error);
-            }
-          }}
-          className="w-full justify-center rounded-xl py-3 text-md text-white"
-          style={{ backgroundColor: "#7BA89C" }}
+      <div className="text-center">
+        <h1
+          className="text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+          style={{ color: "#1A1A18" }}
         >
-          Open {appName}
-        </Button>
-        <p className="text-sm text-gray-600">
-          Opening automatically, or click the button above
+          {t.login.successTitle}
+        </h1>
+        <p
+          className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+          style={{ color: "#5C5C57" }}
+        >
+          {interpolate(t.login.successSubtitle, { appName })}
+        </p>
+        <div className="flex justify-center">
+          <button
+            onClick={() => {
+              try {
+                const urlToUse = redirectUrl || redirect!;
+                window.location.href = urlToUse;
+              } catch (error) {
+                console.error("Error opening app:", error);
+              }
+            }}
+            className="inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white cursor-pointer"
+            style={{ backgroundColor: "#7BA89C" }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#5A8C83";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#7BA89C";
+            }}
+          >
+            {interpolate(t.login.openApp, { appName })}
+          </button>
+        </div>
+        <p className="mt-5 text-sm" style={{ color: "#A8A8A2" }}>
+          {t.login.openingHint}
         </p>
       </div>
     );
@@ -133,74 +147,110 @@ export function Login() {
 
   if (!isMounted || status === "loading") {
     return (
-      <div className="flex flex-col items-center text-center py-12">
-        <p className="text-sm text-gray-600">Loading...</p>
+      <div className="text-center">
+        <h1
+          className="text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+          style={{ color: "#1A1A18" }}
+        >
+          {isFromApp ? interpolate(t.login.accessAccount, { appName }) : t.login.welcome}
+        </h1>
+        <p
+          className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+          style={{ color: "#5C5C57" }}
+        >
+          {t.login.subtitle}
+        </p>
+        <div className="flex justify-center">
+          <span
+            className="inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium text-white opacity-70"
+            style={{ backgroundColor: "#7BA89C" }}
+            aria-busy="true"
+          >
+            <Loader2 className="h-4 w-4 animate-spin" />
+            {t.login.loading}
+          </span>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3 pb-20">
-      <div>
-        <h2 className="text-2xl font-semibold text-gray-900">
-          {isFromApp ? `Access your ${appName} account` : "Welcome to Bisbi"}
-        </h2>
-        <p className="text-base" style={{ color: "#A8A8A2" }}>
-          Sign in to download Bisbi
-        </p>
+    <div className="text-center">
+      <h1
+        className="text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+        style={{ color: "#1A1A18" }}
+      >
+        {isFromApp ? interpolate(t.login.accessAccount, { appName }) : t.login.welcome}
+      </h1>
+      <p
+        className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+        style={{ color: "#5C5C57" }}
+      >
+        {t.login.subtitle}
+      </p>
+
+      <div className="flex justify-center">
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          disabled={isGoogleLoading}
+          className="inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+          style={{ backgroundColor: "#7BA89C" }}
+          onMouseEnter={(e) => {
+            if (!isGoogleLoading)
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#5A8C83";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#7BA89C";
+          }}
+        >
+          {isGoogleLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {t.login.connecting}
+            </>
+          ) : (
+            <>
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+                  <path
+                    fill="#FFFFFF"
+                    d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
+                  />
+                  <path
+                    fill="#FFFFFF"
+                    d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
+                  />
+                  <path
+                    fill="#FFFFFF"
+                    d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
+                  />
+                  <path
+                    fill="#FFFFFF"
+                    d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
+                  />
+                </g>
+              </svg>
+              {t.login.continueWithGoogle}
+            </>
+          )}
+        </button>
       </div>
 
-      <Button
-        type="button"
-        className="w-full justify-center gap-3 rounded-xl py-3 text-white text-md disabled:opacity-60"
-        style={{ backgroundColor: "#1A1A18" }}
-        onClick={handleGoogleSignIn}
-        disabled={isGoogleLoading}
-      >
-        {isGoogleLoading ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Connecting...
-          </>
-        ) : (
-          <>
-            <svg
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-                <path
-                  fill="#4285F4"
-                  d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
-                />
-              </g>
-            </svg>
-            Continue with Google
-          </>
-        )}
-      </Button>
-
       {isFromApp && (
-        <p
+        <button
+          type="button"
           onClick={() => window.history.back()}
-          className="mx-auto block text-sm text-gray-600 transition hover:text-gray-800 cursor-pointer"
+          className="mx-auto block mt-5 text-sm transition-colors cursor-pointer"
+          style={{ color: "#A8A8A2" }}
         >
-          Back to application
-        </p>
+          {t.login.backToApp}
+        </button>
       )}
     </div>
   );

@@ -23,7 +23,7 @@ export function AdminNav() {
           <Link
             key={href}
             href={href}
-            className="flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors"
+            className="flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors cursor-pointer"
             style={{
               borderColor: isActive ? "#7BA89C" : "transparent",
               color: isActive ? "#1A1A18" : "#5C5C57",

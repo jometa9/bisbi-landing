@@ -7,9 +7,9 @@ export function AuthHeader() {
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="mx-auto flex w-full max-w-5xl items-center px-6 py-4">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center cursor-pointer">
           <span
-            className="text-xl font-semibold tracking-tight"
+            className="text-3xl font-semibold tracking-tight"
             style={{ color: "#7BA89C" }}
           >
             Bisbi

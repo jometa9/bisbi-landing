@@ -155,7 +155,7 @@ export default async function BillingPage({
             <form action={openPortal}>
               <button
                 type="submit"
-                className="w-full rounded-full py-3 text-sm font-medium transition-colors"
+                className="w-full rounded-full py-3 text-sm font-medium transition-colors cursor-pointer"
                 style={{ backgroundColor: "#E6EFED", color: "#1A1A18" }}
               >
                 Manage subscription
@@ -169,7 +169,7 @@ export default async function BillingPage({
         </div>
 
         <p className="text-center mt-6 text-xs" style={{ color: "#A8A8A2" }}>
-          <Link href="/dashboard" style={{ color: "#7BA89C" }}>
+          <Link href="/dashboard" style={{ color: "#7BA89C" }} className="cursor-pointer">
             ← Back to dashboard
           </Link>
         </p>

@@ -52,7 +52,7 @@ export const en = {
       previousTranscript: "I love using Bisbi.",
       transcript:
         "Hey team — quick heads up. The launch is on track for Friday.",
-      editorTitle: "Untitled — Notes",
+      editorTitle: "Meeting notes — Notes",
       editorPlaceholder: "Type a message…",
       pasteHint: "The text is pasted automatically wherever you are typing.",
     },
@@ -137,6 +137,19 @@ export const en = {
     hint: "Your subscription and settings are managed inside the app.",
     signOut: "Sign out",
     signingOut: "Signing out…",
+  },
+  login: {
+    welcome: "Welcome to Bisbi",
+    accessAccount: "Access your {appName} account",
+    subtitle: "Sign in to download Bisbi",
+    continueWithGoogle: "Continue with Google",
+    connecting: "Connecting…",
+    loading: "Loading…",
+    successTitle: "Login successful",
+    successSubtitle: "We'll take you back to {appName}",
+    openApp: "Open {appName}",
+    openingHint: "Opening automatically, or click the button above",
+    backToApp: "Back to application",
   },
 };
 

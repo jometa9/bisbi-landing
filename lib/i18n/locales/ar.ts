@@ -52,7 +52,7 @@ export const ar: LandingTranslations = {
       previousTranscript: "أحبّ استخدام Bisbi.",
       transcript:
         "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
-      editorTitle: "بدون عنوان — ملاحظات",
+      editorTitle: "ملاحظات الاجتماع — ملاحظات",
       editorPlaceholder: "اكتب رسالة…",
       pasteHint: "يتم لصق النص تلقائيًا حيث تكتب.",
     },
@@ -137,5 +137,18 @@ export const ar: LandingTranslations = {
     hint: "اشتراكك وإعداداتك تُدار داخل التطبيق.",
     signOut: "تسجيل الخروج",
     signingOut: "جارٍ الخروج…",
+  },
+  login: {
+    welcome: "مرحباً بك في Bisbi",
+    accessAccount: "ادخل إلى حساب {appName} الخاص بك",
+    subtitle: "سجّل الدخول لتنزيل Bisbi",
+    continueWithGoogle: "المتابعة باستخدام Google",
+    connecting: "جارٍ الاتصال…",
+    loading: "جارٍ التحميل…",
+    successTitle: "تم تسجيل الدخول",
+    successSubtitle: "سنعيدك إلى {appName}",
+    openApp: "فتح {appName}",
+    openingHint: "سيُفتح تلقائياً، أو اضغط الزر أعلاه",
+    backToApp: "العودة إلى التطبيق",
   },
 };

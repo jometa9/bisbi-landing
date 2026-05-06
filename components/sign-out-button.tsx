@@ -1,12 +1,10 @@
 "use client";
 
-import { useI18n } from "@/lib/i18n";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function SignOutButton() {
   const router = useRouter();
-  const { t } = useI18n();
   const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
@@ -23,10 +21,24 @@ export function SignOutButton() {
     <button
       onClick={handleSignOut}
       disabled={loading}
-      className="text-sm transition-colors disabled:opacity-50"
+      className="inline-flex items-center justify-center transition-colors disabled:opacity-50 cursor-pointer"
       style={{ color: "#A8A8A2" }}
     >
-      {loading ? t.dashboard.signingOut : t.dashboard.signOut}
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+      </svg>
     </button>
   );
 }

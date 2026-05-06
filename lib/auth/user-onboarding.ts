@@ -121,8 +121,7 @@ export async function createNewUserWithOnboarding(
       firstName,
       lastName,
       status: "completed",
-      eventSourceUrl:
-        getAppUrl() + (source === "oauth_google" ? "/sign-in" : "/sign-up"),
+      eventSourceUrl: getAppUrl() + "/sign-in",
       eventId: eventId || undefined,
       clientIpAddress: clientIp,
       clientUserAgent: userAgent,

@@ -54,7 +54,7 @@ export const hi: LandingTranslations = {
       previousTranscript: "मुझे Bisbi बहुत पसंद है।",
       transcript:
         "टीम — एक छोटा अपडेट। लॉन्च शुक्रवार को तय समय पर है।",
-      editorTitle: "बिना शीर्षक — नोट्स",
+      editorTitle: "मीटिंग नोट्स — नोट्स",
       editorPlaceholder: "एक संदेश लिखें…",
       pasteHint: "जहाँ आप टाइप कर रहे हैं, वहाँ टेक्स्ट अपने आप पेस्ट हो जाता है।",
     },
@@ -140,5 +140,18 @@ export const hi: LandingTranslations = {
     hint: "आपकी सदस्यता और सेटिंग्स ऐप के अंदर मैनेज की जाती हैं।",
     signOut: "साइन आउट",
     signingOut: "साइन आउट हो रहा है…",
+  },
+  login: {
+    welcome: "Bisbi में आपका स्वागत है",
+    accessAccount: "अपने {appName} खाते में प्रवेश करें",
+    subtitle: "Bisbi डाउनलोड करने के लिए साइन इन करें",
+    continueWithGoogle: "Google के साथ जारी रखें",
+    connecting: "कनेक्ट हो रहा है…",
+    loading: "लोड हो रहा है…",
+    successTitle: "लॉगिन सफल",
+    successSubtitle: "हम आपको {appName} पर वापस ले जाएंगे",
+    openApp: "{appName} खोलें",
+    openingHint: "अपने आप खुल रहा है, या ऊपर बटन पर क्लिक करें",
+    backToApp: "एप्लिकेशन पर वापस जाएं",
   },
 };

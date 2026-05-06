@@ -400,7 +400,7 @@ export function AdminNewEmailForm() {
                   <button
                     type="button"
                     onClick={() => removeAttachment(a.id)}
-                    className="text-gray-400 hover:text-red-600 transition-colors"
+                    className="text-gray-400 hover:text-red-600 transition-colors cursor-pointer"
                   >
                     <X className="h-4 w-4" />
                   </button>

@@ -4,10 +4,10 @@ import { LandingHeader } from "@/components/landing/landing-header";
 import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
 import { WindowsDemo } from "@/components/landing/windows-demo";
 import { Footer } from "@/components/layout/footer";
-import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const featureWatermarks = [
@@ -45,8 +45,8 @@ function DownloadButtons({
 
   const base =
     variant === "hero"
-      ? "inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white"
-      : "inline-flex items-center gap-3 rounded-full px-5 py-2.5 text-sm font-medium transition-colors text-white";
+      ? "inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white cursor-pointer"
+      : "inline-flex items-center gap-3 rounded-full px-5 py-2.5 text-sm font-medium transition-colors text-white cursor-pointer";
 
   return (
     <button
@@ -123,7 +123,7 @@ export default function HomePage() {
           </div>
 
           <h1
-            className="text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
             style={{ color: "#1A1A18" }}
           >
             {t.hero.headline1}
@@ -179,7 +179,7 @@ export default function HomePage() {
         {/* Features */}
         <section
           id="features"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
         >
           <p
             className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
@@ -213,7 +213,7 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
+        <section className="py-8 md:py-12 pt-16 md:pt-24" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
               <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />
@@ -234,7 +234,7 @@ export default function HomePage() {
               {t.cta.signInHint}{" "}
               <button
                 onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-                className="underline underline-offset-2"
+                className="underline underline-offset-2 cursor-pointer"
                 style={{ color: "#7BA89C" }}
               >
                 {t.cta.signIn}

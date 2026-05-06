@@ -24,12 +24,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="relative flex-1 flex items-center justify-center overflow-hidden">
-      <div
-        className="dashboard-owl-watermark pointer-events-none absolute select-none"
-        aria-hidden="true"
-      />
-
+    <div className="relative flex-1 flex items-center justify-center">
       <div className="relative w-full max-w-5xl mx-auto px-6 py-20 text-center">
         <h1
           className="text-3xl md:text-4xl font-semibold mb-4"
@@ -39,7 +34,7 @@ export default function DashboardPage() {
         </h1>
 
         <p
-          className="text-base md:text-lg mb-12 max-w-md mx-auto"
+          className="text-base md:text-lg mb-12 max-w-5xl mx-auto"
           style={{ color: "#5C5C57" }}
         >
           {t.dashboard.ready}
@@ -49,7 +44,7 @@ export default function DashboardPage() {
           <button
             onClick={() => handleClick("mac")}
             disabled={downloading !== null}
-            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-colors disabled:opacity-70"
+            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
             style={{ backgroundColor: "#7BA89C" }}
             onMouseEnter={(e) => {
               if (!downloading)
@@ -70,7 +65,7 @@ export default function DashboardPage() {
           <button
             onClick={() => handleClick("windows")}
             disabled={downloading !== null}
-            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70"
+            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
             style={{ backgroundColor: "#E6EFED", color: "#1A1A18" }}
             onMouseEnter={(e) => {
               if (!downloading)

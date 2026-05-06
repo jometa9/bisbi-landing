@@ -33,17 +33,18 @@ export default async function DashboardLayout({
   return (
     <UserDataProvider user={user} initialData={initialUserData}>
       <div
-        className="min-h-screen flex flex-col"
-        style={{ backgroundColor: "#F0EDE6" }}
+        className="relative min-h-screen flex flex-col"
+        style={{ backgroundColor: "#FFFFFF", overflow: "clip" }}
       >
-        <header
-          className="border-b"
-          style={{ borderColor: "#EAE6DC", backgroundColor: "#FFFFFF" }}
-        >
+        <div
+          className="dashboard-owl-watermark pointer-events-none fixed select-none"
+          aria-hidden="true"
+        />
+        <header className="relative" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center cursor-pointer">
               <span
-                className="text-xl font-semibold tracking-tight"
+                className="text-3xl font-semibold tracking-tight"
                 style={{ color: "#7BA89C" }}
               >
                 Bisbi
@@ -60,7 +61,7 @@ export default async function DashboardLayout({
           </div>
         )}
 
-        <main className="flex-1 w-full max-w-5xl mx-auto flex flex-col">
+        <main className="relative flex-1 w-full max-w-5xl mx-auto flex flex-col">
           {children}
         </main>
       </div>

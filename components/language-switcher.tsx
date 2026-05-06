@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors cursor-pointer"
         style={{
           backgroundColor: "#E6EFED",
           color: "#5C5C57",
@@ -35,7 +35,6 @@ export function LanguageSwitcher() {
           (e.currentTarget as HTMLButtonElement).style.backgroundColor =
             "#E6EFED";
         }}
-        aria-label="Change language"
       >
         {LANG_LABELS[lang]}
         <svg
@@ -67,7 +66,7 @@ export function LanguageSwitcher() {
                 setLang(l);
                 setOpen(false);
               }}
-              className="w-full px-4 py-2.5 text-left text-sm transition-colors flex items-center justify-between"
+              className="w-full px-4 py-2.5 text-left text-sm transition-colors flex items-center justify-between cursor-pointer"
               style={{
                 backgroundColor: l === lang ? "#E6EFED" : "transparent",
                 color: l === lang ? "#7BA89C" : "#5C5C57",

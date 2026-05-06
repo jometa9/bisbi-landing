@@ -16,10 +16,14 @@ export default function AuthLayout({
   return (
     <NextAuthProvider>
       <I18nProvider>
-      <div className="min-h-screen" style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}>
+      <div className="relative min-h-screen" style={{ backgroundColor: "#FFFFFF", color: "#1A1A18", overflow: "clip" }}>
+        <div
+          className="dashboard-owl-watermark pointer-events-none fixed select-none"
+          aria-hidden="true"
+        />
         <AuthHeader />
-        <div className="flex min-h-screen flex-col items-center justify-center px-3 py-12 pt-28">
-          <div className="w-full max-w-md">{children}</div>
+        <div className="relative flex min-h-screen flex-col items-center justify-center px-3 py-12 pt-28">
+          <div className="relative w-full max-w-5xl">{children}</div>
         </div>
       </div>
       </I18nProvider>

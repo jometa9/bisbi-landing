@@ -25,7 +25,7 @@ export function AdminBreadcrumb() {
       <div className="flex items-baseline gap-3">
         <Link
           href="/dashboard/admin/inbox"
-          className="text-sm text-gray-400 hover:text-gray-800"
+          className="text-sm text-gray-400 hover:text-gray-800 cursor-pointer"
         >
           Inbox
         </Link>
@@ -40,7 +40,7 @@ export function AdminBreadcrumb() {
       <div className="flex items-baseline gap-3">
         <Link
           href="/dashboard/admin/inbox"
-          className="text-sm text-gray-400 hover:text-gray-800"
+          className="text-sm text-gray-400 hover:text-gray-800 cursor-pointer"
         >
           Inbox
         </Link>

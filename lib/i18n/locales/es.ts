@@ -55,7 +55,7 @@ export const es: LandingTranslations = {
       previousTranscript: "Bisbi me encanta.",
       transcript:
         "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
-      editorTitle: "Sin título — Notas",
+      editorTitle: "Notas de reunión — Notas",
       editorPlaceholder: "Escribí un mensaje…",
       pasteHint: "El texto se pega automáticamente donde estés escribiendo.",
     },
@@ -140,5 +140,18 @@ export const es: LandingTranslations = {
     hint: "Tu suscripción y ajustes se gestionan dentro de la app.",
     signOut: "Cerrar sesión",
     signingOut: "Cerrando sesión…",
+  },
+  login: {
+    welcome: "Bienvenido a Bisbi",
+    accessAccount: "Accedé a tu cuenta de {appName}",
+    subtitle: "Iniciá sesión para descargar Bisbi",
+    continueWithGoogle: "Continuar con Google",
+    connecting: "Conectando…",
+    loading: "Cargando…",
+    successTitle: "Sesión iniciada",
+    successSubtitle: "Te llevamos de vuelta a {appName}",
+    openApp: "Abrir {appName}",
+    openingHint: "Se abrirá automáticamente, o hacé clic en el botón",
+    backToApp: "Volver a la aplicación",
   },
 };

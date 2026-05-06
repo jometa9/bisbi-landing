@@ -1,6 +1,15 @@
 /* Scoped copy of the Bisbi Electron app styles, frozen on Home tab.
    All selectors live under .bisbi-demo so nothing leaks to the landing. */
 
+.bisbi-demo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  aspect-ratio: 1080 / 676;
+  container-type: inline-size;
+}
+
 .bisbi-demo {
   --primary: #7BA89C;
   --primary-dark: #5A8C83;
@@ -45,10 +54,14 @@
   --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  position: relative;
-  width: 100%;
-  max-width: 1080px;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  max-width: none;
+  margin: 0;
+  transform-origin: top left;
+  transform: scale(min(1, calc(100cqi / 1080px)));
   border-radius: 14px;
   overflow: hidden;
   /* Floating effect: hairline border, soft dark drop for gravity, and a
@@ -602,22 +615,3 @@
   font-style: italic;
 }
 
-@media (max-width: 768px) {
-  .bisbi-demo .app { height: 560px; }
-  .bisbi-demo .sidebar { flex-basis: 200px; }
-  .bisbi-demo .sidebar-brand { font-size: 32px; }
-  .bisbi-demo .content { padding: 24px 20px; }
-  .bisbi-demo .home-stats { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 560px) {
-  .bisbi-demo .app { height: 520px; }
-  .bisbi-demo .sidebar { flex-basis: 64px; }
-  .bisbi-demo .sidebar-top { padding: 14px 8px; }
-  .bisbi-demo .sidebar-brand { font-size: 0; }
-  .bisbi-demo .sidebar-brand::first-letter { font-size: 28px; }
-  .bisbi-demo .sidebar-nav button { justify-content: center; padding: 10px; font-size: 0; gap: 0; }
-  .bisbi-demo .sidebar-account-text { display: none; }
-  .bisbi-demo .sidebar-status-row { display: none; }
-  .bisbi-demo .home-title { font-size: 22px; }
-}

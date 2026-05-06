@@ -173,7 +173,6 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
   padding: 40px 36px;
   border: 1px solid rgba(26, 26, 24, 0.08);
   border-radius: 18px;
@@ -185,6 +184,33 @@ html {
 .demo-step-card--tint {
   background: #E6EFED;
   border-color: rgba(123, 168, 156, 0.2);
+}
+
+.demo-step-card-watermark {
+  position: absolute;
+  bottom: -20px;
+  font-size: 96px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.85;
+  color: #1A1A18;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.demo-step-card--left .demo-step-card-watermark { left: 16px; }
+.demo-step-card--right .demo-step-card-watermark { right: 16px; }
+
+.demo-step-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .demo-step-num {
@@ -536,12 +562,14 @@ html {
   .demo-step--reverse .demo-step-card { order: 0; }
   .demo-step--reverse .demo-step-body { order: 0; }
   .demo-step-card { padding: 28px 24px; }
+  .demo-step-card-watermark { font-size: 72px; }
 }
 
 @media (max-width: 640px) {
   .demo-stack { gap: 18px; }
   .demo-step-title { font-size: 24px; }
   .demo-step-desc { font-size: 15px; }
+  .demo-step-card-watermark { font-size: 64px; }
   .demo-hotkey { padding: 36px 18px; }
   .demo-kbd { min-width: 52px; height: 52px; padding: 0 14px; font-size: 18px; border-bottom-width: 3px; }
   .demo-pill { height: 32px; padding: 0 10px; gap: 8px; margin-top: 14px; }
@@ -719,6 +747,7 @@ html {
   -webkit-mask-position: center;
   mask-position: center;
   opacity: 0.05;
+  z-index: 0;
 }
 
 /* Hero — highlighter effect on the green word.

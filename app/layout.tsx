@@ -9,22 +9,22 @@ const metadataBaseUrl = getAppUrl();
 
 export const metadata: Metadata = {
   applicationName: "Bisbi",
-  title: "Bisbi — Press. Speak. Paste.",
+  title: "Bisbi — Apretá. Hablá. Pegá.",
   description:
-    "Bisbi is a local-first voice dictation app for Mac and Windows. Press a shortcut, speak, and your words appear wherever your cursor is — in any app, in any language.",
+    "Bisbi es una app de dictado por voz local para Mac y Windows. Apretá un atajo, hablá, y tus palabras aparecen donde esté el cursor — en cualquier app, en cualquier idioma.",
   keywords: [
-    "voice dictation",
-    "voice to text",
-    "speech to text",
-    "voice typing",
-    "multilingual dictation",
-    "voice dictation mac",
-    "voice dictation windows",
+    "dictado por voz",
+    "voz a texto",
+    "transcripción por voz",
+    "escribir con la voz",
+    "dictado multilingüe",
+    "dictado por voz mac",
+    "dictado por voz windows",
     "bisbi",
-    "local voice dictation",
-    "ai transcription",
-    "voice input",
-    "bilingual typing",
+    "dictado local",
+    "transcripción con ia",
+    "entrada de voz",
+    "escritura bilingüe",
   ],
   authors: [
     {
@@ -46,18 +46,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "es_LA",
     siteName: "Bisbi",
     url: "/",
-    title: "Bisbi — Press. Speak. Paste.",
+    title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
-      "Local-first voice dictation for Mac and Windows. Press a shortcut, speak, and Bisbi pastes your words wherever your cursor is — in any language.",
+      "Dictado por voz local para Mac y Windows. Apretá un atajo, hablá, y Bisbi pega tus palabras donde esté el cursor — en cualquier idioma.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bisbi — Press. Speak. Paste.",
+    title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
-      "Voice dictation that pastes wherever your cursor is. Supports 5 languages. 100% local, private, Mac & Windows.",
+      "Dictado por voz que pega donde esté tu cursor. Soporta 5 idiomas. 100% local, privado, Mac y Windows.",
   },
   robots: {
     index: true,
@@ -90,7 +90,7 @@ export default async function RootLayout({
   const userPromise = getUser();
 
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className="min-h-screen font-sans antialiased"
         style={{ backgroundColor: "#FFFFFF", color: "#1A1A18" }}

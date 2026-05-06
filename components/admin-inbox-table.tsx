@@ -322,7 +322,6 @@ export function AdminInboxTable() {
                   type="button"
                   onClick={() => setSearchQuery("")}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
-                  aria-label="Clear search"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -463,7 +462,7 @@ export function AdminInboxTable() {
                           <Link
                             href={`/dashboard/admin/inbox/${email.id}`}
                             className={cn(
-                              "hover:underline flex items-center gap-3",
+                              "hover:underline flex items-center gap-3 cursor-pointer",
                               isUnread ? "text-gray-800" : "text-gray-400"
                             )}
                           >
@@ -479,7 +478,7 @@ export function AdminInboxTable() {
                           <Link
                             href={`/dashboard/admin/inbox/${email.id}`}
                             className={cn(
-                              "hover:underline",
+                              "hover:underline cursor-pointer",
                               isUnread ? "text-gray-800" : "text-gray-400"
                             )}
                           >
@@ -514,7 +513,6 @@ export function AdminInboxTable() {
                                 }
                                 disabled={isUpdating}
                                 className="cursor-pointer text-gray-600 hover:text-gray-400 disabled:opacity-50"
-                                title="Mark as read"
                               >
                                 <MailOpen className="h-4 w-4" />
                               </button>
@@ -525,7 +523,6 @@ export function AdminInboxTable() {
                                 }
                                 disabled={isUpdating}
                                 className="cursor-pointer text-gray-600 hover:text-gray-400 disabled:opacity-50"
-                                title="Mark as unread"
                               >
                                 <Mail className="h-4 w-4" />
                               </button>
@@ -537,7 +534,6 @@ export function AdminInboxTable() {
                                 }
                                 disabled={isUpdating}
                                 className="cursor-pointer text-gray-600 hover:text-gray-400 disabled:opacity-50"
-                                title="Unarchive"
                               >
                                 <ArchiveRestore className="h-4 w-4" />
                               </button>
@@ -548,7 +544,6 @@ export function AdminInboxTable() {
                                 }
                                 disabled={isUpdating}
                                 className="cursor-pointer text-gray-600 hover:text-gray-400 disabled:opacity-50"
-                                title="Archive"
                               >
                                 <Archive className="h-4 w-4" />
                               </button>
@@ -557,7 +552,6 @@ export function AdminInboxTable() {
                               onClick={() => setDeletingEmailId(email.id)}
                               disabled={isUpdating}
                               className="cursor-pointer text-gray-600 hover:text-gray-400 disabled:opacity-50"
-                              title="Delete email"
                             >
                               <Trash2 className="h-4 w-4" />
                             </button>

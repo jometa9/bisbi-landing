@@ -49,7 +49,7 @@ function MailtoAnchor({
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <a href={href} onClick={handleClick} className={className}>
+    <a href={href} onClick={handleClick} className={`cursor-pointer ${className ?? ""}`}>
       {copied ? "Copied to clipboard" : children}
     </a>
   );
@@ -150,7 +150,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               return (
                 <MailtoAnchor
                   href={href}
-                  className="text-gray-400 hover:text-gray-600 underline"
+                  className="text-gray-400 hover:text-gray-600 underline cursor-pointer"
                 >
                   {children}
                 </MailtoAnchor>
@@ -175,7 +175,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 }}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="text-gray-400 hover:text-gray-600 underline"
+                className="text-gray-400 hover:text-gray-600 underline cursor-pointer"
               >
                 {children}
               </a>
