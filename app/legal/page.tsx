@@ -103,8 +103,8 @@ export default function LegalPage() {
                 Questions about our legal policies?
               </p>
               <div className="space-y-2 text-gray-700">
-                <p><strong>Email:</strong> hello@bisbi.app</p>
-                <p><strong>Website:</strong> https://bisbi.app</p>
+                <p><strong>Email:</strong> hello@bisbi.io</p>
+                <p><strong>Website:</strong> https://bisbi.io</p>
               </div>
             </div>
           </div>

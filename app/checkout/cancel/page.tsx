@@ -27,7 +27,7 @@ export default function CheckoutCancelPage() {
         className="text-sm underline underline-offset-2 cursor-pointer"
         style={{ color: "#7BA89C" }}
       >
-        Back to bisbi.app
+        Back to bisbi.io
       </Link>
     </main>
   );

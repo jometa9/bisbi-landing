@@ -174,7 +174,7 @@ export default function AdminInboxSettings() {
         <Input
           id="email-from"
           type="email"
-          placeholder="noreply@bisbi.app"
+          placeholder="noreply@bisbi.io"
           value={settings.emailFrom}
           onChange={(e) =>
             setSettings((prev) => ({

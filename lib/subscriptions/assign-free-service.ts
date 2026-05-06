@@ -6,12 +6,16 @@ import {
   getUserProductSubscription,
   upsertProductSubscription,
 } from "@/lib/db/queries";
+import {
+  sendSubscriptionChangeEmail,
+  sendWelcomeWithSubscriptionEmail,
+} from "@/lib/email/services";
 import { ProductKey, user } from "@/lib/db/schema";
 import { getStripe } from "@/lib/payments/stripe";
 import { generateRandomPassword } from "@/lib/utils";
 import { eq } from "drizzle-orm";
 
-export type AssignFreeSubscriptionPlan = "pro" | "unlimited";
+export type AssignFreeSubscriptionPlan = "pro";
 
 export type AssignFreeSubscriptionResult =
   | {
@@ -52,11 +56,11 @@ export async function assignFreeSubscription(
     return { ok: false, status: 400, error: "Invalid productKey. Must be 'multi'" };
   }
 
-  if (plan !== "pro" && plan !== "unlimited") {
+  if (plan !== "pro") {
     return {
       ok: false,
       status: 400,
-      error: "Plan must be 'pro' or 'unlimited' for assign",
+      error: "Plan must be 'pro' for assign",
     };
   }
 
@@ -134,11 +138,39 @@ export async function assignFreeSubscription(
   await upsertProductSubscription(foundUser.id, productKey, upsertData);
 
   const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
+  const recipientName = foundUser.name || email.split("@")[0];
+  const formattedExpiry = expiryDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
-  const emailSent = false;
+  let emailSent = false;
+  try {
+    if (created && generatedPassword) {
+      await sendWelcomeWithSubscriptionEmail({
+        email,
+        name: recipientName,
+        password: generatedPassword,
+        planName: `${planLabel} (Free, Admin Assigned)`,
+        expiryDate: formattedExpiry,
+      });
+    } else {
+      await sendSubscriptionChangeEmail({
+        email,
+        name: recipientName,
+        planName: `${planLabel} (Free, Admin Assigned)`,
+        status: "active",
+        expiryDate: formattedExpiry,
+      });
+    }
+    emailSent = true;
+  } catch (emailError) {
+    console.error("[assignFreeSubscription] Email send failed:", emailError);
+  }
 
   const action = created ? "created and assigned" : "assigned";
-  const message = `${planLabel} subscription ${action} to ${email} for ${duration} month(s).${stripeCanceled ? " Previous Stripe subscription was canceled." : ""}`;
+  const message = `${planLabel} subscription ${action} to ${email} for ${duration} month(s) (until ${formattedExpiry}).${stripeCanceled ? " Previous Stripe subscription was canceled." : ""}${emailSent ? " Notification email sent." : " Email could not be sent."}`;
 
   return {
     ok: true,

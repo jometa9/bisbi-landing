@@ -22,9 +22,8 @@ export default function AdminSettings() {
   );
 
   const availablePlans = [
-    { value: "none", label: "No Plan (Remove Subscription)" },
+    { value: "none", label: "Free (Remove Subscription)" },
     { value: "pro", label: "Pro" },
-    { value: "unlimited", label: "Unlimited" },
   ];
 
   const handleAssignFreeSubscription = async () => {

@@ -1,5 +1,6 @@
 import {
   getAppSettings,
+  getBisbiFreeMonthlyWordLimit,
   getSubscriptionLimits,
   getUser,
   updateAppSettings,
@@ -37,6 +38,7 @@ export async function GET() {
       bisbiProAnnualPriceId: settings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: settings.bisbiProAnnualAmount ?? 9600,
+      bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(settings),
     });
   } catch {
     return NextResponse.json(
@@ -75,28 +77,12 @@ export async function POST(req: NextRequest) {
       bisbiProAnnualPriceId,
       bisbiProMonthlyAmount,
       bisbiProAnnualAmount,
+      bisbiFreeMonthlyWordLimit,
     } = body;
 
     let subscriptionLimitsJson: string | undefined;
-    if (subscriptionLimits) {
-      if (
-        typeof subscriptionLimits === "object" &&
-        subscriptionLimits.free &&
-        subscriptionLimits.unlimited
-      ) {
-        if (!subscriptionLimits.pro) {
-          subscriptionLimits.pro = { accountLimit: 8, fixedLotSize: null };
-        }
-        subscriptionLimitsJson = JSON.stringify(subscriptionLimits);
-      } else {
-        return NextResponse.json(
-          {
-            error:
-              "Subscription limits must have free and unlimited plans",
-          },
-          { status: 400 }
-        );
-      }
+    if (subscriptionLimits && typeof subscriptionLimits === "object") {
+      subscriptionLimitsJson = JSON.stringify(subscriptionLimits);
     }
 
     const updateData: Parameters<typeof updateAppSettings>[1] = {
@@ -153,6 +139,13 @@ export async function POST(req: NextRequest) {
     if (bisbiProAnnualAmount !== undefined) {
       updateData.bisbiProAnnualAmount = typeof bisbiProAnnualAmount === "number" ? bisbiProAnnualAmount : null;
     }
+    if (bisbiFreeMonthlyWordLimit !== undefined) {
+      updateData.bisbiFreeMonthlyWordLimit =
+        typeof bisbiFreeMonthlyWordLimit === "number" &&
+        bisbiFreeMonthlyWordLimit >= 0
+          ? bisbiFreeMonthlyWordLimit
+          : null;
+    }
 
     const [{ clearEmailConfigCache }, { clearStripeCache }] = await Promise.all([
       import("@/lib/email/config"),
@@ -186,6 +179,7 @@ export async function POST(req: NextRequest) {
       bisbiProAnnualPriceId: updatedSettings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: updatedSettings.bisbiProAnnualAmount ?? 9600,
+      bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(updatedSettings),
     });
   } catch {
     return NextResponse.json(

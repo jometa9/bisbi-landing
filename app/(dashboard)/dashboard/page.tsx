@@ -3,6 +3,8 @@
 import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { useUserData } from "@/contexts/user-data-context";
+import { Inbox, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function interpolate(str: string, vars: Record<string, string>) {
@@ -12,6 +14,7 @@ function interpolate(str: string, vars: Record<string, string>) {
 export default function DashboardPage() {
   const { data } = useUserData();
   const { t } = useI18n();
+  const router = useRouter();
   const [downloading, setDownloading] = useState<"mac" | "windows" | null>(null);
 
   const userName =
@@ -85,6 +88,44 @@ export default function DashboardPage() {
               : t.dashboard.downloadWindows}
           </button>
         </div>
+
+        {data?.isAdmin && (
+          <div className="mt-3 flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              onClick={() => router.push("/dashboard/admin/inbox")}
+              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
+              style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "#E6EFED";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "#F0EDE6";
+              }}
+            >
+              <Inbox size={16} />
+              Inbox
+            </button>
+
+            <button
+              onClick={() => router.push("/dashboard/admin/settings")}
+              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
+              style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "#E6EFED";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "#F0EDE6";
+              }}
+            >
+              <Settings size={16} />
+              Settings
+            </button>
+          </div>
+        )}
 
         <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
           {t.dashboard.hint}

@@ -3,7 +3,6 @@ import { getCurrentUserFromSession, getUserDataForDashboard } from "@/lib/db/que
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SignOutButton } from "@/components/sign-out-button";
-import { AdminNav } from "@/components/admin-nav";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -42,7 +41,7 @@ export default async function DashboardLayout({
         />
         <header className="relative" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center cursor-pointer">
+            <Link href="/dashboard" className="flex items-center cursor-pointer">
               <span
                 className="text-3xl font-semibold tracking-tight"
                 style={{ color: "#7BA89C" }}
@@ -54,12 +53,6 @@ export default async function DashboardLayout({
             <SignOutButton />
           </div>
         </header>
-
-        {(user.role === "admin" || user.role === "superadmin") && (
-          <div className="w-full max-w-5xl mx-auto">
-            <AdminNav />
-          </div>
-        )}
 
         <main className="relative flex-1 w-full max-w-5xl mx-auto flex flex-col">
           {children}

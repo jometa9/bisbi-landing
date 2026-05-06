@@ -5,25 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 
-type SubscriptionLimits = {
-  free: { accountLimit: number | null; fixedLotSize: number | null };
-  pro: { accountLimit: number | null; fixedLotSize: number | null };
-  unlimited: { accountLimit: number | null; fixedLotSize: number | null };
-};
+const DEFAULT_FREE_WORD_LIMIT = 2000;
 
 export default function AdminSubscriptionLimits() {
-  const [subscriptionLimits, setSubscriptionLimits] =
-    useState<SubscriptionLimits>({
-      free: { accountLimit: 1, fixedLotSize: 0.01 },
-      pro: { accountLimit: 8, fixedLotSize: null },
-      unlimited: { accountLimit: null, fixedLotSize: null },
-    });
-  const [originalSubscriptionLimits, setOriginalSubscriptionLimits] =
-    useState<SubscriptionLimits>({
-      free: { accountLimit: 1, fixedLotSize: 0.01 },
-      pro: { accountLimit: 8, fixedLotSize: null },
-      unlimited: { accountLimit: null, fixedLotSize: null },
-    });
+  const [freeMonthlyWordLimit, setFreeMonthlyWordLimit] =
+    useState<number>(DEFAULT_FREE_WORD_LIMIT);
+  const [originalFreeMonthlyWordLimit, setOriginalFreeMonthlyWordLimit] =
+    useState<number>(DEFAULT_FREE_WORD_LIMIT);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonStatus, setButtonStatus] = useState<"success" | "error" | null>(
     null
@@ -35,21 +23,14 @@ export default function AdminSubscriptionLimits() {
         const response = await fetch("/api/admin/app-settings");
         if (response.ok) {
           const data = await response.json();
-          const currentLimits = data.subscriptionLimits || {
-            free: { accountLimit: 1, fixedLotSize: 0.01 },
-            pro: { accountLimit: 8, fixedLotSize: null },
-            unlimited: { accountLimit: null, fixedLotSize: null },
-          };
-
-          if (!currentLimits.pro) {
-            currentLimits.pro = { accountLimit: 8, fixedLotSize: null };
-          }
-
-          setSubscriptionLimits(currentLimits);
-          setOriginalSubscriptionLimits(currentLimits);
+          const value =
+            typeof data.bisbiFreeMonthlyWordLimit === "number"
+              ? data.bisbiFreeMonthlyWordLimit
+              : DEFAULT_FREE_WORD_LIMIT;
+          setFreeMonthlyWordLimit(value);
+          setOriginalFreeMonthlyWordLimit(value);
         }
-      } catch (error) {
-      }
+      } catch {}
     };
 
     loadCurrentSettings();
@@ -60,18 +41,13 @@ export default function AdminSubscriptionLimits() {
     setButtonStatus(null);
 
     try {
-      const getResponse = await fetch("/api/admin/app-settings");
-      const currentData = await getResponse.json();
-
       const response = await fetch("/api/admin/app-settings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          appVersion: currentData.appVersion || "1.0.0",
-          downloadUrl: currentData.downloadUrl || "",
-          subscriptionLimits,
+          bisbiFreeMonthlyWordLimit: freeMonthlyWordLimit,
         }),
       });
 
@@ -84,10 +60,12 @@ export default function AdminSubscriptionLimits() {
       setButtonStatus("success");
       setTimeout(() => setButtonStatus(null), 2000);
 
-      setOriginalSubscriptionLimits(
-        data.subscriptionLimits || subscriptionLimits
+      setOriginalFreeMonthlyWordLimit(
+        typeof data.bisbiFreeMonthlyWordLimit === "number"
+          ? data.bisbiFreeMonthlyWordLimit
+          : freeMonthlyWordLimit
       );
-    } catch (error) {
+    } catch {
       setButtonStatus("error");
       setTimeout(() => setButtonStatus(null), 2000);
     } finally {
@@ -95,78 +73,37 @@ export default function AdminSubscriptionLimits() {
     }
   };
 
-  const updateSubscriptionLimit = (
-    plan: keyof SubscriptionLimits,
-    field: "accountLimit" | "fixedLotSize",
-    value: string
-  ) => {
-    if (value === "" || value === null || value === undefined) {
-      setSubscriptionLimits((prev) => ({
-        ...prev,
-        [plan]: {
-          ...prev[plan],
-          [field]: null,
-        },
-      }));
-      return;
-    }
-
-    const numValue =
-      field === "accountLimit" ? parseInt(value, 10) : parseFloat(value);
-    if (isNaN(numValue)) return;
-
-    setSubscriptionLimits((prev) => ({
-      ...prev,
-      [plan]: {
-        ...prev[plan],
-        [field]: numValue,
-      },
-    }));
-  };
-
-  const hasChanges =
-    JSON.stringify(subscriptionLimits) !==
-    JSON.stringify(originalSubscriptionLimits);
+  const hasChanges = freeMonthlyWordLimit !== originalFreeMonthlyWordLimit;
 
   return (
-    <div className="space-y-3 h-full justify-between">
-      {(["free", "pro", "unlimited"] as const).map((plan) => (
-        <div key={plan} className="space-y-3 ">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label htmlFor={`${plan}-account-limit`} className="text-xs">
-              {plan.charAt(0).toUpperCase() + plan.slice(1)} Plan Account Limit
-              </Label>
-              <Input
-                id={`${plan}-account-limit`}
-                type="number"
-                value={subscriptionLimits[plan].accountLimit ?? ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  updateSubscriptionLimit(plan, "accountLimit", e.target.value)
-                }
-                className="shadow-none bg-white"
-                placeholder="null for unlimited"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor={`${plan}-fixed-lot-size`} className="text-xs">
-                {plan.charAt(0).toUpperCase() + plan.slice(1)} Plan Fixed Lot Size
-              </Label>
-              <Input
-                id={`${plan}-fixed-lot-size`}
-                type="number"
-                step="0.01"
-                value={subscriptionLimits[plan].fixedLotSize ?? ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  updateSubscriptionLimit(plan, "fixedLotSize", e.target.value)
-                }
-                className="shadow-none bg-white"
-                placeholder="null for no limit"
-              />
-            </div>
-          </div>
+    <div className="space-y-4 h-full justify-between">
+      <div className="space-y-1">
+        <Label htmlFor="free-word-limit" className="text-xs">
+          Free Plan — Monthly Word Limit
+        </Label>
+        <Input
+          id="free-word-limit"
+          type="number"
+          min={0}
+          value={freeMonthlyWordLimit}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const v = parseInt(e.target.value, 10);
+            if (!isNaN(v) && v >= 0) setFreeMonthlyWordLimit(v);
+          }}
+          className="shadow-none bg-white"
+          placeholder={`${DEFAULT_FREE_WORD_LIMIT}`}
+        />
+      </div>
+
+      <div className="space-y-1">
+        <Label className="text-xs">Pro Plan</Label>
+        <div
+          className="rounded-md border px-3 py-2 text-sm bg-white"
+          style={{ borderColor: "#D9E8E5", color: "#5C5C57" }}
+        >
+          Unlimited words
         </div>
-      ))}
+      </div>
 
       <Button
         onClick={handleUpdateLimits}
@@ -179,7 +116,7 @@ export default function AdminSubscriptionLimits() {
             ? "Success"
             : buttonStatus === "error"
               ? "Error"
-              : "Update Subscription Limits"}
+              : "Update Free Word Limit"}
       </Button>
     </div>
   );

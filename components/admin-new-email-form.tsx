@@ -82,11 +82,11 @@ export function AdminNewEmailForm() {
             const localPart = email.substring(0, atIndex);
             setNewEmailFromLocal(localPart);
           } else {
-            setEmailDomain("@bisbi.app");
+            setEmailDomain("@bisbi.io");
             setNewEmailFromLocal("");
           }
         } else {
-          setEmailDomain("@bisbi.app");
+          setEmailDomain("@bisbi.io");
         }
       })
       .catch((err) => console.error("Error fetching email config:", err));
