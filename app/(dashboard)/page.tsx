@@ -5,7 +5,6 @@ import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 const LANG_CODES = ["EN", "ES", "PT", "FR", "IT", "DE", "ZH", "HI", "AR"] as const;
 
@@ -53,74 +52,34 @@ function DownloadButtons({
   variant?: "hero" | "cta";
 }) {
   const { t } = useI18n();
-  const [os, setOS] = useState<OS>("unknown");
-  const [downloading, setDownloading] = useState<"mac" | "windows" | null>(null);
-
-  useEffect(() => {
-    setOS(detectOS());
-  }, []);
-
-  const showMac = os === "mac" || os === "unknown";
-  const showWin = os === "windows" || os === "unknown";
-
-  const handleClick = async (platform: "mac" | "windows") => {
-    setDownloading(platform);
-    await handleDownload("multi", platform);
-    setTimeout(() => setDownloading(null), 3000);
-  };
 
   const base =
     variant === "hero"
-      ? "inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors"
-      : "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors";
+      ? "inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white"
+      : "inline-flex items-center gap-3 rounded-full px-5 py-2.5 text-sm font-medium transition-colors text-white";
 
   return (
-    <div className="flex flex-wrap gap-3">
-      {showMac && (
-        <button
-          onClick={() => handleClick("mac")}
-          disabled={downloading !== null}
-          className={`${base} text-white disabled:opacity-70`}
-          style={{ backgroundColor: "#7BA89C" }}
-          onMouseEnter={(e) => {
-            if (!downloading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#5A8C83";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#7BA89C";
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-          </svg>
-          {downloading === "mac" ? t.download.starting : t.download.mac}
-        </button>
-      )}
-      {showWin && (
-        <button
-          onClick={() => handleClick("windows")}
-          disabled={downloading !== null}
-          className={`${base} disabled:opacity-70`}
-          style={{
-            backgroundColor: showMac ? "#E6EFED" : "#7BA89C",
-            color: showMac ? "#1A1A18" : "#FFFFFF",
-          }}
-          onMouseEnter={(e) => {
-            if (!downloading)
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                showMac ? "#D9E8E5" : "#5A8C83";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-              showMac ? "#E6EFED" : "#7BA89C";
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 12V6.75l6-1.32v6.57H3zM20 3v8.75h-8V5.05L20 3zM3 13h6v6.43l-6-1.43V13zm17 0v8.75l-8-2V13h8z" />
-          </svg>
-          {downloading === "windows" ? t.download.starting : t.download.windows}
-        </button>
-      )}
-    </div>
+    <button
+      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+      className={base}
+      style={{ backgroundColor: "#7BA89C" }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#5A8C83";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#7BA89C";
+      }}
+    >
+      <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+          <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
+          <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
+          <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
+          <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
+        </g>
+      </svg>
+      {t.nav.downloadFree}
+    </button>
   );
 }
 

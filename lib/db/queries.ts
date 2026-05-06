@@ -567,6 +567,10 @@ export async function updateAppSettings(
     openaiApiKey: string | null;
     openaiModel: string | null;
     internalApiKey: string | null;
+    bisbiProMonthlyPriceId: string | null;
+    bisbiProAnnualPriceId: string | null;
+    bisbiProMonthlyAmount: number | null;
+    bisbiProAnnualAmount: number | null;
   }>
 ) {
   const settings = await db
@@ -651,6 +655,18 @@ export async function updateAppSettings(
       }
       if (data.internalApiKey !== undefined) {
         updateData.internalApiKey = data.internalApiKey?.trim() || null;
+      }
+      if (data.bisbiProMonthlyPriceId !== undefined) {
+        updateData.bisbiProMonthlyPriceId = data.bisbiProMonthlyPriceId?.trim() || null;
+      }
+      if (data.bisbiProAnnualPriceId !== undefined) {
+        updateData.bisbiProAnnualPriceId = data.bisbiProAnnualPriceId?.trim() || null;
+      }
+      if (data.bisbiProMonthlyAmount !== undefined) {
+        updateData.bisbiProMonthlyAmount = data.bisbiProMonthlyAmount ?? null;
+      }
+      if (data.bisbiProAnnualAmount !== undefined) {
+        updateData.bisbiProAnnualAmount = data.bisbiProAnnualAmount ?? null;
       }
 
       const result = await db

@@ -7,7 +7,7 @@ import {
   upsertProductSubscription,
 } from "@/lib/db/queries";
 import { ProductKey, user } from "@/lib/db/schema";
-import { stripe } from "@/lib/payments/stripe";
+import { getStripe } from "@/lib/payments/stripe";
 import { generateRandomPassword } from "@/lib/utils";
 import { eq } from "drizzle-orm";
 
@@ -101,6 +101,7 @@ export async function assignFreeSubscription(
   let stripeCanceled = false;
   if (existingSubscription?.stripeSubscriptionId) {
     try {
+      const stripe = await getStripe();
       await stripe.subscriptions.cancel(existingSubscription.stripeSubscriptionId);
       stripeCanceled = true;
     } catch (stripeError: unknown) {
@@ -199,6 +200,7 @@ export async function revokeSubscription(
   let stripeCanceled = false;
   if (existingSubscription?.stripeSubscriptionId) {
     try {
+      const stripe = await getStripe();
       await stripe.subscriptions.cancel(existingSubscription.stripeSubscriptionId);
       stripeCanceled = true;
     } catch (stripeError: unknown) {

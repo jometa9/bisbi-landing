@@ -12,6 +12,7 @@ interface CreateNewUserParams {
   email: string;
   name?: string | null;
   passwordHash?: string | null;
+  image?: string | null;
   source: "signup_form" | "oauth_google" | "internal_api";
   formData?: FormData;
   profile?: {
@@ -32,7 +33,7 @@ interface CreateNewUserResult {
 export async function createNewUserWithOnboarding(
   params: CreateNewUserParams
 ): Promise<CreateNewUserResult> {
-  const { email, name, passwordHash, source, formData, profile, skipWelcomeEmail } = params;
+  const { email, name, passwordHash, image, source, formData, profile, skipWelcomeEmail } = params;
 
   const existingUser = await db
     .select()
@@ -58,6 +59,7 @@ export async function createNewUserWithOnboarding(
       email,
       name: name || null,
       passwordHash: passwordHash || null,
+      image: image || null,
       apiKey,
       role: "owner",
     })

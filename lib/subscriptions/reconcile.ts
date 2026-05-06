@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { userProductSubscription } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { stripe } from "@/lib/payments/stripe";
+import { getStripe } from "@/lib/payments/stripe";
 import Stripe from "stripe";
 
 export interface ReconcileResult {
@@ -120,6 +120,7 @@ export async function reconcileSubscriptionWithStripe(
 
     if (changes.billingPeriod && stripeBillingPeriod && sub.stripeSubscriptionId) {
       try {
+        const stripe = await getStripe();
         await stripe.subscriptions.update(sub.stripeSubscriptionId, {
           metadata: {
             ...stripeSub.metadata,
@@ -141,6 +142,7 @@ export async function getStripeSubscription(
   stripeSubscriptionId: string
 ): Promise<Stripe.Subscription | null> {
   try {
+    const stripe = await getStripe();
     const stripeSub = await stripe.subscriptions.retrieve(stripeSubscriptionId, {
       expand: ["items.data.price.product"],
     });

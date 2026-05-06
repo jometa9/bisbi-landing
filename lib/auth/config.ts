@@ -31,20 +31,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string;
         session.user.name = token.name as string;
         session.user.role = token.role as string;
+        session.user.image = token.image as string | null;
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, profile }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
         token.role = user.role;
+        token.image = user.image || (profile as { picture?: string })?.picture || null;
       }
       return token;
     },
     async signIn({ user: signInUser, account, profile }) {
       if (account?.provider === "google" && signInUser?.email) {
+        const googleImage = (profile as { picture?: string })?.picture || null;
+
         const existingUser = await db
           .select()
           .from(user)
@@ -55,6 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const result = await createNewUserWithOnboarding({
             email: profile.email,
             name: profile.name || null,
+            image: googleImage,
             source: "oauth_google",
             profile: {
               given_name: profile.given_name as string | undefined,
@@ -76,6 +81,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             });
           }
         } else if (existingUser.length > 0) {
+          if (googleImage !== null) {
+            await db
+              .update(user)
+              .set({ image: googleImage, updatedAt: new Date() })
+              .where(eq(user.id, existingUser[0].id));
+          }
+
           const existingAccount = await db
             .select()
             .from(accounts)

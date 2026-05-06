@@ -42,7 +42,7 @@ export async function POST() {
       name: user.name,
       role: user.role,
       apiKey: user.apiKey,
-      avatar: null,
+      avatar: user.image || null,
       entitlements: {
         multi: {
           active: user.role === "admin" || isActiveSubscription(entitlements.multi),
