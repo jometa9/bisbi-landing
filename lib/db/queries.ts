@@ -567,6 +567,8 @@ export async function updateAppSettings(
     openaiApiKey: string | null;
     openaiModel: string | null;
     internalApiKey: string | null;
+    stripeSecretKey: string | null;
+    stripeWebhookSecret: string | null;
     bisbiProMonthlyPriceId: string | null;
     bisbiProAnnualPriceId: string | null;
     bisbiProMonthlyAmount: number | null;
@@ -655,6 +657,12 @@ export async function updateAppSettings(
       }
       if (data.internalApiKey !== undefined) {
         updateData.internalApiKey = data.internalApiKey?.trim() || null;
+      }
+      if (data.stripeSecretKey !== undefined) {
+        updateData.stripeSecretKey = data.stripeSecretKey?.trim() || null;
+      }
+      if (data.stripeWebhookSecret !== undefined) {
+        updateData.stripeWebhookSecret = data.stripeWebhookSecret?.trim() || null;
       }
       if (data.bisbiProMonthlyPriceId !== undefined) {
         updateData.bisbiProMonthlyPriceId = data.bisbiProMonthlyPriceId?.trim() || null;

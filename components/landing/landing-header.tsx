@@ -1,14 +1,35 @@
 "use client";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { MouseEvent } from "react";
 
 export function LandingHeader() {
   const { t } = useI18n();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const isLoggedIn = !!session?.user;
+
+  const handleSignInClick = () => {
+    if (isLoggedIn) {
+      router.push("/dashboard");
+    } else {
+      signIn("google", { callbackUrl: "/dashboard" });
+    }
+  };
+
+  const handleDownloadClick = () => {
+    if (isLoggedIn) {
+      router.push("/dashboard");
+    } else {
+      handleDownload();
+    }
+  };
 
   const navigationLinks = [
     { href: "/#how-it-works", label: t.nav.howItWorks },
@@ -65,14 +86,14 @@ export function LandingHeader() {
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <button
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={handleSignInClick}
             className="text-sm hidden md:block"
             style={{ color: "#5C5C57" }}
           >
             {t.nav.signIn}
           </button>
           <button
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={handleDownloadClick}
             className="rounded-full px-4 py-1.5 text-sm font-medium text-white"
             style={{ backgroundColor: "#7BA89C" }}
             onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {

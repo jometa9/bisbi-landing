@@ -1,8 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { getCurrentUserFromSession, getUserProductSubscription, isActiveSubscription } from "@/lib/db/queries";
-import { stripe } from "@/lib/payments/stripe";
+import { getAppSettings, getCurrentUserFromSession, getUserProductSubscription, isActiveSubscription } from "@/lib/db/queries";
+import { getStripe } from "@/lib/payments/stripe";
 import { getAppUrl } from "@/lib/app-url";
 import { db } from "@/lib/db/drizzle";
 import { user } from "@/lib/db/schema";
@@ -15,6 +15,8 @@ async function startCheckout() {
 
   const sub = await getUserProductSubscription(currentUser.id, "bisbi");
   if (sub && isActiveSubscription(sub)) redirect("/dashboard/billing");
+
+  const [stripe, settings] = await Promise.all([getStripe(), getAppSettings()]);
 
   let customerId = currentUser.stripeCustomerId;
   if (!customerId) {
@@ -30,16 +32,14 @@ async function startCheckout() {
       .where(eq(user.id, currentUser.id));
   }
 
+  const priceId = settings.bisbiProMonthlyPriceId;
+  if (!priceId) redirect("/dashboard");
+
   const baseUrl = getAppUrl();
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
-    line_items: [
-      {
-        price: process.env.STRIPE_BISBI_PRO_PRICE_ID!,
-        quantity: 1,
-      },
-    ],
+    line_items: [{ price: priceId, quantity: 1 }],
     subscription_data: {
       trial_period_days: 7,
       metadata: { userId: currentUser.id, productKey: "bisbi" },

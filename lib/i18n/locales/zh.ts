@@ -7,6 +7,7 @@ export const zh: LandingTranslations = {
     languages: "语言",
     signIn: "登录",
     downloadFree: "免费下载",
+    dashboard: "控制台",
   },
   hero: {
     headline1: "写作最快的方式",

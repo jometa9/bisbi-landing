@@ -7,6 +7,7 @@ export const es: LandingTranslations = {
     languages: "Idiomas",
     signIn: "Iniciar sesión",
     downloadFree: "Descargar gratis",
+    dashboard: "Dashboard",
   },
   hero: {
     headline1: "La forma más rápida de escribir",

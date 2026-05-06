@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { userProductSubscription } from "@/lib/db/schema";
 import { and, or, lt, eq, isNotNull } from "drizzle-orm";
-import { stripe } from "@/lib/payments/stripe";
+import { getStripe } from "@/lib/payments/stripe";
 import type Stripe from "stripe";
 import {
   reconcileSubscriptionWithStripe,
@@ -153,6 +153,7 @@ export async function runSubscriptionCheck(): Promise<SubscriptionCheckResult> {
       try {
         if (sub.stripeSubscriptionId) {
           try {
+            const stripe = await getStripe();
             const stripeSub = await stripe.subscriptions.retrieve(sub.stripeSubscriptionId);
 
             if (stripeSub.status === "active" && stripeSub.cancel_at_period_end) {

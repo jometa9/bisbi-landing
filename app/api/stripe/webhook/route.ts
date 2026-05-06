@@ -1,15 +1,8 @@
 import { db } from "@/lib/db/drizzle";
-import {
-  getProductSubscriptionByStripeId,
-  getUserByStripeCustomerId,
-  upsertProductSubscription,
-} from "@/lib/db/queries";
+import { getAppSettings, getProductSubscriptionByStripeId, getUserByStripeCustomerId, upsertProductSubscription } from "@/lib/db/queries";
 import { user } from "@/lib/db/schema";
-import { stripe } from "@/lib/payments/stripe";
-import {
-  getStripeSubscription,
-  reconcileSubscriptionWithStripe,
-} from "@/lib/subscriptions/reconcile";
+import { getStripe } from "@/lib/payments/stripe";
+import { getStripeSubscription, reconcileSubscriptionWithStripe } from "@/lib/subscriptions/reconcile";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -27,13 +20,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
   }
 
+  const [stripe, settings] = await Promise.all([getStripe(), getAppSettings()]);
+
+  const webhookSecret = settings.stripeWebhookSecret;
+  if (!webhookSecret) {
+    return NextResponse.json({ error: "Webhook not configured" }, { status: 503 });
+  }
+
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
@@ -48,7 +44,6 @@ export async function POST(request: Request) {
         const productKey = (session.metadata?.productKey as "bisbi" | "multi") || "bisbi";
         if (!userId) break;
 
-        // Save Stripe customer ID on user if not already set
         const customerId = session.customer as string | null;
         if (customerId) {
           await db
@@ -90,7 +85,6 @@ export async function POST(request: Request) {
         const stripeSub = event.data.object as Stripe.Subscription;
         const existing = await getProductSubscriptionByStripeId(stripeSub.id);
         if (!existing) break;
-
         await reconcileSubscriptionWithStripe(existing, stripeSub);
         break;
       }
@@ -98,17 +92,15 @@ export async function POST(request: Request) {
       case "invoice.payment_failed": {
         const invoice = event.data.object as Stripe.Invoice;
         const subscriptionId =
-          typeof invoice.subscription === "string"
-            ? invoice.subscription
-            : null;
+          typeof invoice.subscription === "string" ? invoice.subscription : null;
         if (!subscriptionId) break;
-
         const existing = await getProductSubscriptionByStripeId(subscriptionId);
         if (!existing) break;
-
-        await upsertProductSubscription(existing.userId, existing.productKey as "bisbi" | "multi", {
-          status: "past_due",
-        });
+        await upsertProductSubscription(
+          existing.userId,
+          existing.productKey as "bisbi" | "multi",
+          { status: "past_due" }
+        );
         break;
       }
     }

@@ -7,7 +7,7 @@ import {
   upsertProductSubscription,
   isActiveSubscription,
 } from "@/lib/db/queries";
-import { stripe } from "@/lib/payments/stripe";
+import { getStripe } from "@/lib/payments/stripe";
 import { getAppUrl } from "@/lib/app-url";
 import { db } from "@/lib/db/drizzle";
 import { user } from "@/lib/db/schema";
@@ -21,6 +21,7 @@ async function openPortal() {
   const currentUser = await getCurrentUserFromSession();
   if (!currentUser?.stripeCustomerId) redirect("/dashboard/upgrade");
 
+  const stripe = await getStripe();
   const baseUrl = getAppUrl();
   const session = await stripe.billingPortal.sessions.create({
     customer: currentUser.stripeCustomerId,
@@ -181,6 +182,7 @@ export default async function BillingPage({
 
 async function syncFromCheckoutSession(sessionId: string, userId: string) {
   try {
+    const stripe = await getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ["subscription"],
     });
@@ -209,6 +211,7 @@ async function syncFromCheckoutSession(sessionId: string, userId: string) {
 
 async function syncFromStripe(stripeSubId: string, userId: string) {
   try {
+    const stripe = await getStripe();
     const stripeSub = await stripe.subscriptions.retrieve(stripeSubId);
     return await upsertFromStripeSub(userId, stripeSub);
   } catch {

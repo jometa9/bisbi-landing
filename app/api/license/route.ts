@@ -1,4 +1,5 @@
 import {
+  getAppSettings,
   getUserByApiKey,
   getUserProductSubscription,
   isActiveSubscription,
@@ -8,25 +9,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-const PRICING = {
-  pro: {
-    monthly: {
-      priceId: process.env.STRIPE_BISBI_PRO_MONTHLY_PRICE_ID ?? null,
-      amount: 1000,
-      currency: "usd",
-      label: "US$ 10 / month",
-    },
-    annual: {
-      priceId: process.env.STRIPE_BISBI_PRO_ANNUAL_PRICE_ID ?? null,
-      amount: 9600,
-      currency: "usd",
-      label: "US$ 96 / year",
-      monthlyEquivalent: "US$ 8 / month",
-      savings: "20% off",
-    },
-  },
-};
 
 // Called by the Bisbi desktop app with Authorization: Bearer {apiKey}
 export async function GET(request: NextRequest) {
@@ -38,7 +20,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Missing API key" }, { status: 401 });
   }
 
-  const foundUser = await getUserByApiKey(apiKey);
+  const [foundUser, settings] = await Promise.all([
+    getUserByApiKey(apiKey),
+    getAppSettings(),
+  ]);
+
   if (!foundUser) {
     return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
   }
@@ -46,6 +32,11 @@ export async function GET(request: NextRequest) {
   const sub = await getUserProductSubscription(foundUser.id, "bisbi");
   const active = foundUser.role === "admin" || isActiveSubscription(sub);
   const tier = foundUser.role === "admin" ? "pro" : getSubscriptionTier(sub);
+
+  const monthlyAmount = settings.bisbiProMonthlyAmount ?? 1000;
+  const annualAmount = settings.bisbiProAnnualAmount ?? 9600;
+  const monthlyEquivalent = Math.round(annualAmount / 12);
+  const savingsPct = Math.round((1 - monthlyEquivalent / monthlyAmount) * 100);
 
   return NextResponse.json({
     userId: foundUser.id,
@@ -61,6 +52,23 @@ export async function GET(request: NextRequest) {
           expiresAt: sub.expiresAt?.toISOString() ?? null,
         }
       : null,
-    pricing: PRICING,
+    pricing: {
+      pro: {
+        monthly: {
+          priceId: settings.bisbiProMonthlyPriceId || null,
+          amount: monthlyAmount,
+          currency: "usd",
+          label: `US$ ${(monthlyAmount / 100).toFixed(0)} / month`,
+        },
+        annual: {
+          priceId: settings.bisbiProAnnualPriceId || null,
+          amount: annualAmount,
+          currency: "usd",
+          label: `US$ ${(annualAmount / 100).toFixed(0)} / year`,
+          monthlyEquivalent: `US$ ${(monthlyEquivalent / 100).toFixed(0)} / month`,
+          savings: `${savingsPct}% off`,
+        },
+      },
+    },
   });
 }

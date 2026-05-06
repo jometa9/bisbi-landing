@@ -5,6 +5,7 @@ export const en = {
     languages: "Languages",
     signIn: "Sign in",
     downloadFree: "Download free",
+    dashboard: "Dashboard",
   },
   hero: {
     headline1: "The fastest way to write",

@@ -31,6 +31,12 @@ export async function GET() {
       openaiApiKey: settings.openaiApiKey || "",
       openaiModel: settings.openaiModel || "",
       internalApiKey: settings.internalApiKey || "",
+      stripeSecretKey: settings.stripeSecretKey || "",
+      stripeWebhookSecret: settings.stripeWebhookSecret || "",
+      bisbiProMonthlyPriceId: settings.bisbiProMonthlyPriceId || "",
+      bisbiProAnnualPriceId: settings.bisbiProAnnualPriceId || "",
+      bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
+      bisbiProAnnualAmount: settings.bisbiProAnnualAmount ?? 9600,
     });
   } catch {
     return NextResponse.json(
@@ -63,6 +69,12 @@ export async function POST(req: NextRequest) {
       openaiApiKey,
       openaiModel,
       internalApiKey,
+      stripeSecretKey,
+      stripeWebhookSecret,
+      bisbiProMonthlyPriceId,
+      bisbiProAnnualPriceId,
+      bisbiProMonthlyAmount,
+      bisbiProAnnualAmount,
     } = body;
 
     let subscriptionLimitsJson: string | undefined;
@@ -123,9 +135,31 @@ export async function POST(req: NextRequest) {
     if (internalApiKey !== undefined) {
       updateData.internalApiKey = internalApiKey?.trim() || null;
     }
+    if (stripeSecretKey !== undefined) {
+      updateData.stripeSecretKey = stripeSecretKey?.trim() || null;
+    }
+    if (stripeWebhookSecret !== undefined) {
+      updateData.stripeWebhookSecret = stripeWebhookSecret?.trim() || null;
+    }
+    if (bisbiProMonthlyPriceId !== undefined) {
+      updateData.bisbiProMonthlyPriceId = bisbiProMonthlyPriceId?.trim() || null;
+    }
+    if (bisbiProAnnualPriceId !== undefined) {
+      updateData.bisbiProAnnualPriceId = bisbiProAnnualPriceId?.trim() || null;
+    }
+    if (bisbiProMonthlyAmount !== undefined) {
+      updateData.bisbiProMonthlyAmount = typeof bisbiProMonthlyAmount === "number" ? bisbiProMonthlyAmount : null;
+    }
+    if (bisbiProAnnualAmount !== undefined) {
+      updateData.bisbiProAnnualAmount = typeof bisbiProAnnualAmount === "number" ? bisbiProAnnualAmount : null;
+    }
 
-    const { clearEmailConfigCache } = await import("@/lib/email/config");
+    const [{ clearEmailConfigCache }, { clearStripeCache }] = await Promise.all([
+      import("@/lib/email/config"),
+      import("@/lib/payments/stripe"),
+    ]);
     clearEmailConfigCache();
+    if (stripeSecretKey !== undefined) clearStripeCache();
 
     const updatedSettings = await updateAppSettings(user.id, updateData);
 
@@ -146,6 +180,12 @@ export async function POST(req: NextRequest) {
       openaiApiKey: updatedSettings.openaiApiKey || "",
       openaiModel: updatedSettings.openaiModel || "",
       internalApiKey: updatedSettings.internalApiKey || "",
+      stripeSecretKey: updatedSettings.stripeSecretKey || "",
+      stripeWebhookSecret: updatedSettings.stripeWebhookSecret || "",
+      bisbiProMonthlyPriceId: updatedSettings.bisbiProMonthlyPriceId || "",
+      bisbiProAnnualPriceId: updatedSettings.bisbiProAnnualPriceId || "",
+      bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
+      bisbiProAnnualAmount: updatedSettings.bisbiProAnnualAmount ?? 9600,
     });
   } catch {
     return NextResponse.json(

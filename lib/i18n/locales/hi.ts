@@ -7,6 +7,7 @@ export const hi: LandingTranslations = {
     languages: "भाषाएं",
     signIn: "साइन इन",
     downloadFree: "मुफ्त डाउनलोड",
+    dashboard: "डैशबोर्ड",
   },
   hero: {
     headline1: "लिखने का सबसे तेज़ तरीका",

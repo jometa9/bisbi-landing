@@ -7,6 +7,7 @@ export const ar: LandingTranslations = {
     languages: "اللغات",
     signIn: "تسجيل الدخول",
     downloadFree: "تنزيل مجاني",
+    dashboard: "لوحة التحكم",
   },
   hero: {
     headline1: "أسرع طريقة للكتابة",
