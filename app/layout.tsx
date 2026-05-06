@@ -9,9 +9,6 @@ const metadataBaseUrl = getAppUrl();
 
 export const metadata: Metadata = {
   applicationName: "Bisbi",
-  icons: {
-    icon: [{ url: "/owl_head.svg", type: "image/svg+xml" }],
-  },
   title: "Bisbi — Press. Speak. Paste.",
   description:
     "Bisbi is a local-first voice dictation app for Mac and Windows. Press a shortcut, speak, and your words appear wherever your cursor is — in any app, in any language.",

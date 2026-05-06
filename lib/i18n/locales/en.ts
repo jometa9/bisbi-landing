@@ -79,8 +79,10 @@ export const en = {
     badge: "Languages",
     title: "Speak your language.",
     subtitle:
-      "Bisbi supports 10 languages with automatic detection. Speak in one, type in another.",
+      "Recognition across 99 languages with automatic detection. Speak in one, type in another.",
     names: ["English", "Spanish", "Portuguese", "French", "Italian", "German", "Chinese", "Hindi", "Arabic"],
+    moreLabel: "More languages",
+    moreCount: "+90",
   },
   bilingual: {
     title: "Want to be bilingual?",

@@ -79,8 +79,10 @@ export const zh: LandingTranslations = {
     badge: "语言",
     title: "说你的语言。",
     subtitle:
-      "Bisbi 支持 10 种语言，自动检测。说一种，打另一种。",
+      "支持 99 种语言识别，自动检测。说一种，打另一种。",
     names: ["英语", "西班牙语", "葡萄牙语", "法语", "意大利语", "德语", "中文", "印地语", "阿拉伯语"],
+    moreLabel: "更多语言",
+    moreCount: "+90",
   },
   bilingual: {
     title: "想成为双语者？",

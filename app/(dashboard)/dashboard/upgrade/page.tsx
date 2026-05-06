@@ -41,7 +41,6 @@ async function startCheckout() {
     mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
     subscription_data: {
-      trial_period_days: 7,
       metadata: { userId: currentUser.id, productKey: "bisbi" },
     },
     metadata: { userId: currentUser.id, productKey: "bisbi" },
@@ -80,7 +79,7 @@ export default async function UpgradePage() {
               Pro
             </span>
             <p className="text-sm mt-2" style={{ color: "#7BA89C" }}>
-              7-day free trial, then billed monthly
+              Billed monthly
             </p>
           </div>
 
@@ -103,12 +102,12 @@ export default async function UpgradePage() {
               className="w-full rounded-full py-3 text-sm font-medium text-white transition-colors"
               style={{ backgroundColor: "#7BA89C" }}
             >
-              Start free trial
+              Subscribe
             </button>
           </form>
 
           <p className="text-center text-xs" style={{ color: "#A8A8A2" }}>
-            No charge during trial. Cancel anytime.
+            Cancel anytime.
           </p>
         </div>
       </div>

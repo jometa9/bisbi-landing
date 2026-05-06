@@ -82,8 +82,10 @@ export const es: LandingTranslations = {
     badge: "Idiomas",
     title: "Hablá en tu idioma.",
     subtitle:
-      "Bisbi soporta 10 idiomas con detección automática. Hablá en uno, escribí en otro.",
+      "Reconocimiento en 99 idiomas con detección automática. Hablá en uno, escribí en otro.",
     names: ["Inglés", "Español", "Portugués", "Francés", "Italiano", "Alemán", "Chino", "Hindi", "Árabe"],
+    moreLabel: "Más idiomas",
+    moreCount: "+90",
   },
   bilingual: {
     title: "¿Querés ser bilingüe?",

@@ -238,6 +238,20 @@ export default function HomePage() {
                   </span>
                 </div>
               ))}
+              <div
+                className="rounded-2xl px-8 py-5 flex flex-col items-center gap-2"
+                style={{ backgroundColor: "#E6EFED" }}
+              >
+                <span
+                  className="text-xs font-bold uppercase tracking-widest"
+                  style={{ color: "#7BA89C" }}
+                >
+                  {t.languagesSection.moreCount}
+                </span>
+                <span className="text-base font-medium" style={{ color: "#1A1A18" }}>
+                  {t.languagesSection.moreLabel}
+                </span>
+              </div>
             </div>
           </div>
         </section>
