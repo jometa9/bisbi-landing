@@ -32,7 +32,7 @@ export async function reconcileUserFromStripe(
       customer: stripeCustomerId,
       status: "all",
       limit: 10,
-      expand: ["data.items.data.price.product"],
+      expand: ["data.items.data.price"],
     });
 
     for (const stripeSub of subs.data) {
@@ -75,6 +75,13 @@ async function reconcileOne(
     stripeProductId = (product as Stripe.Product).id ?? null;
   } else if (typeof product === "string") {
     stripeProductId = product;
+    try {
+      const stripe = await getStripe();
+      const fetched = await stripe.products.retrieve(product);
+      if (fetched && !fetched.deleted) {
+        planName = fetched.name || planName;
+      }
+    } catch {}
   }
 
   const status =

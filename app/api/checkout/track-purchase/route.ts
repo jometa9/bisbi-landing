@@ -1,6 +1,8 @@
 import { getCurrentUser } from "@/lib/auth/session";
+import { getUserById, updateUserById } from "@/lib/db/queries";
 import { trackSubscriptionPurchase } from "@/lib/meta/track-subscription-purchase";
 import { getStripe } from "@/lib/payments/stripe";
+import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
 import { getStripeSubscription } from "@/lib/subscriptions/reconcile";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -46,6 +48,19 @@ export async function POST(request: NextRequest) {
   const stripeSub = await getStripeSubscription(subscriptionId);
   if (!stripeSub) {
     return NextResponse.json({ skipped: "no_subscription" }, { status: 200 });
+  }
+
+  const stripeCustomerId =
+    typeof stripeSession.customer === "string"
+      ? stripeSession.customer
+      : stripeSession.customer?.id ?? null;
+
+  if (stripeCustomerId) {
+    const dbUser = await getUserById(sessionUser.id);
+    if (dbUser && dbUser.stripeCustomerId !== stripeCustomerId) {
+      await updateUserById(sessionUser.id, { stripeCustomerId });
+    }
+    await reconcileUserFromStripe(sessionUser.id, stripeCustomerId);
   }
 
   const productKey = stripeSession.metadata?.productKey || "bisbi";

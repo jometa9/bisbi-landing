@@ -10,8 +10,6 @@ import { Inbox, Settings } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-const REDIRECT_DELAY_MS = 4000;
-
 function interpolate(str: string, vars: Record<string, string>) {
   return str.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
 }
@@ -81,7 +79,7 @@ function DashboardContent() {
     if (!isPostCheckout) return;
     let cancelled = false;
 
-    const redirectToApp = async () => {
+    const openAppSilently = async () => {
       let target = "bisbi://login";
       try {
         const res = await fetch("/api/web-login", {
@@ -97,15 +95,19 @@ function DashboardContent() {
           }
         }
       } catch {}
-      if (!cancelled) {
-        window.location.href = target;
-      }
+      if (cancelled) return;
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = target;
+      document.body.appendChild(iframe);
+      setTimeout(() => {
+        iframe.remove();
+      }, 2000);
     };
 
-    const timer = setTimeout(redirectToApp, REDIRECT_DELAY_MS);
+    openAppSilently();
     return () => {
       cancelled = true;
-      clearTimeout(timer);
     };
   }, [isPostCheckout]);
 
