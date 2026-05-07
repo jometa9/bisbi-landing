@@ -1,6 +1,11 @@
 import { getAppUrl } from "@/lib/app-url";
 import { getAppSettings, getUserByApiKey } from "@/lib/db/queries";
 import { getStripe } from "@/lib/payments/stripe";
+import {
+  checkRateLimit,
+  getRateLimitKey,
+  rateLimitResponse,
+} from "@/lib/rate-limit";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -8,6 +13,14 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  const { key } = getRateLimitKey(request);
+  const rl = checkRateLimit(key, {
+    scope: "checkout",
+    windowMs: 60_000,
+    max: 5,
+  });
+  if (!rl.ok) return rateLimitResponse(rl);
+
   const authHeader = request.headers.get("authorization");
   const apiKey =
     authHeader?.startsWith("Bearer ") ? authHeader.slice(7).trim() : null;

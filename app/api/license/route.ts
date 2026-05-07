@@ -9,12 +9,25 @@ import {
   isActiveSubscription,
 } from "@/lib/db/queries";
 import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
+import {
+  checkRateLimit,
+  getRateLimitKey,
+  rateLimitResponse,
+} from "@/lib/rate-limit";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
+  const { key } = getRateLimitKey(request);
+  const rl = checkRateLimit(key, {
+    scope: "license",
+    windowMs: 60_000,
+    max: 30,
+  });
+  if (!rl.ok) return rateLimitResponse(rl);
+
   const authHeader = request.headers.get("authorization");
   const apiKey =
     authHeader?.startsWith("Bearer ") ? authHeader.slice(7).trim() : null;

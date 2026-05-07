@@ -54,7 +54,7 @@ export default async function DashboardLayout({
           </div>
         </header>
 
-        <main className="relative flex-1 w-full max-w-5xl mx-auto flex flex-col">
+        <main className="relative flex-1 w-full max-w-5xl mx-auto flex flex-col pb-5 min-h-[70vh]">
           {children}
         </main>
       </div>
