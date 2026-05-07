@@ -34,26 +34,18 @@ export const userProductSubscription = pgTable("userProductSubscription", {
     .references(() => user.id, { onDelete: "cascade" }),
   productKey: varchar("productKey", { length: 20 }).notNull(),
   tier: varchar("tier", { length: 20 }).notNull().default("free"),
-  accountLimit: integer("accountLimit"),
   status: varchar("status", { length: 20 }).notNull().default("active"),
   billingPeriod: varchar("billingPeriod", { length: 10 }),
   stripeSubscriptionId: text("stripeSubscriptionId").unique(),
   stripeProductId: text("stripeProductId"),
   planName: varchar("planName", { length: 50 }),
   expiresAt: timestamp("expiresAt"),
-  metaPurchaseEventId: text("metaPurchaseEventId"),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
 
 export const appSettings = pgTable("appSettings", {
   id: serial("id").primaryKey(),
-  multiVersion: varchar("multiVersion", { length: 20 })
-    .notNull()
-    .default("1.0.0"),
-  multiWindowsDownloadUrl: text("multiWindowsDownloadUrl"),
-  multiMacDownloadUrl: text("multiMacDownloadUrl"),
-  localCopierSubscriptionLimits: text("localCopierSubscriptionLimits"),
   resendApiKey: text("resendApiKey"),
   resendTestEmail: text("resendTestEmail"),
   emailFrom: text("emailFrom"),
@@ -180,8 +172,8 @@ export type NewUserMonthlyUsage = typeof userMonthlyUsage.$inferInsert;
 export type CronLock = typeof cronLock.$inferSelect;
 export type NewCronLock = typeof cronLock.$inferInsert;
 
-export type ProductKey = "multi" | "bisbi";
-export type SubscriptionTier = "free" | "pro" | "unlimited";
+export type ProductKey = "bisbi";
+export type SubscriptionTier = "free" | "pro";
 export type SubscriptionStatus =
   | "active"
   | "trialing"

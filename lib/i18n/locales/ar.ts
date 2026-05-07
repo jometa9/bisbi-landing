@@ -14,11 +14,12 @@ export const ar: LandingTranslations = {
     headline2: "هي عدم الكتابة.",
     subheadline:
       "تكلّم. يكتب Bisbi ما تقوله — في أي تطبيق، بأي لغة.",
-    freeBadge: "مجاني للبدء. بدون بطاقة ائتمان. Mac و Windows.",
+    freeBadge: "مجاني للبدء. بدون بطاقة ائتمان. Mac و Windows و Linux.",
   },
   download: {
     mac: "تنزيل لـ Mac",
     windows: "تنزيل لـ Windows",
+    linux: "تنزيل لـ Linux",
     starting: "جارٍ بدء التنزيل…",
   },
   howItWorks: {
@@ -77,9 +78,9 @@ export const ar: LandingTranslations = {
           "كشف تلقائي. تكلّم بواحدة، اكتب بأخرى.",
       },
       {
-        title: "Mac و Windows",
+        title: "Mac و Windows و Linux",
         description:
-          "تطبيقات أصلية للمنصتين. نفس التجربة، نفس الاختصار، نفس النتيجة.",
+          "تطبيقات أصلية للمنصات الثلاث. نفس التجربة، نفس الاختصار، نفس النتيجة.",
       },
     ],
   },
@@ -87,7 +88,7 @@ export const ar: LandingTranslations = {
     title: "ابدأ التكلم",
     titleHighlight: "اليوم.",
     description:
-      "حمّل Bisbi مجاناً. يعمل على Mac و Windows. لا تحتاج اشتراكاً للبدء.",
+      "حمّل Bisbi مجاناً. يعمل على Mac و Windows و Linux. لا تحتاج اشتراكاً للبدء.",
     signInHint: "لديك حساب؟",
     signIn: "تسجيل الدخول",
   },
@@ -133,10 +134,17 @@ export const ar: LandingTranslations = {
     ready: "حسابك جاهز. نزّل Bisbi وابدأ الإملاء.",
     downloadMac: "تنزيل لـ Mac",
     downloadWindows: "تنزيل لـ Windows",
+    downloadLinux: "تنزيل لـ Linux",
     starting: "جارٍ بدء التنزيل…",
     hint: "اشتراكك وإعداداتك تُدار داخل التطبيق.",
     signOut: "تسجيل الخروج",
     signingOut: "جارٍ الخروج…",
+    checkoutSuccessTitle: "مرحباً بك في Pro!",
+    checkoutSuccessSubtitle: "تم تفعيل الإملاء بلا حدود. تكلّم كما تشاء.",
+    checkoutCancelTitle: "لا مشكلة",
+    checkoutCancelSubtitle: "لا تزال على الخطة المجانية. يمكنك الترقية في أي وقت من Bisbi.",
+    planFreeBadge: "الخطة المجانية · جاهز للحديث بلا حدود؟ ترقَّ إلى Pro",
+    planProBadge: "خطة Pro فعّالة · تكلّم كما تشاء",
   },
   login: {
     welcome: "مرحباً بك في Bisbi",

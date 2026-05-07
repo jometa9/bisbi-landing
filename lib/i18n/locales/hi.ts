@@ -14,11 +14,12 @@ export const hi: LandingTranslations = {
     headline2: "है न लिखना।",
     subheadline:
       "बोलें। Bisbi वही लिखता है जो आप कहते हैं — किसी भी ऐप में, किसी भी भाषा में।",
-    freeBadge: "मुफ्त शुरू करें। क्रेडिट कार्ड नहीं चाहिए। Mac और Windows।",
+    freeBadge: "मुफ्त शुरू करें। क्रेडिट कार्ड नहीं चाहिए। Mac, Windows और Linux।",
   },
   download: {
     mac: "Mac के लिए डाउनलोड",
     windows: "Windows के लिए डाउनलोड",
+    linux: "Linux के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
   },
   howItWorks: {
@@ -79,9 +80,9 @@ export const hi: LandingTranslations = {
           "स्वतः पहचान। एक में बोलें, दूसरे में लिखें।",
       },
       {
-        title: "Mac और Windows",
+        title: "Mac, Windows और Linux",
         description:
-          "दोनों प्लेटफॉर्म के लिए नेटिव ऐप। एक ही अनुभव, एक ही शॉर्टकट, एक ही नतीजा।",
+          "तीनों प्लेटफॉर्म के लिए नेटिव ऐप। एक ही अनुभव, एक ही शॉर्टकट, एक ही नतीजा।",
       },
     ],
   },
@@ -89,7 +90,7 @@ export const hi: LandingTranslations = {
     title: "बोलना शुरू करें",
     titleHighlight: "आज।",
     description:
-      "Bisbi मुफ्त डाउनलोड करें। Mac और Windows पर काम करता है। शुरू करने के लिए कोई सदस्यता नहीं।",
+      "Bisbi मुफ्त डाउनलोड करें। Mac, Windows और Linux पर काम करता है। शुरू करने के लिए कोई सदस्यता नहीं।",
     signInHint: "पहले से खाता है?",
     signIn: "साइन इन",
   },
@@ -136,10 +137,17 @@ export const hi: LandingTranslations = {
       "आपका खाता तैयार है। Bisbi डाउनलोड करें और डिक्टेट करना शुरू करें।",
     downloadMac: "Mac के लिए डाउनलोड",
     downloadWindows: "Windows के लिए डाउनलोड",
+    downloadLinux: "Linux के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
     hint: "आपकी सदस्यता और सेटिंग्स ऐप के अंदर मैनेज की जाती हैं।",
     signOut: "साइन आउट",
     signingOut: "साइन आउट हो रहा है…",
+    checkoutSuccessTitle: "Pro में आपका स्वागत है!",
+    checkoutSuccessSubtitle: "असीमित डिक्टेशन चालू है। जितना चाहें बात करें।",
+    checkoutCancelTitle: "कोई बात नहीं",
+    checkoutCancelSubtitle: "आप अभी भी फ्री प्लान पर हैं। आप कभी भी Bisbi से अपग्रेड कर सकते हैं।",
+    planFreeBadge: "फ्री प्लान · बिना सीमा बात करने के लिए तैयार? Pro बनें",
+    planProBadge: "Pro प्लान सक्रिय · जितना चाहें बात करें",
   },
   login: {
     welcome: "Bisbi में आपका स्वागत है",

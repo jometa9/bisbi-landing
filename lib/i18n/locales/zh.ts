@@ -14,11 +14,12 @@ export const zh: LandingTranslations = {
     headline2: "是不写。",
     subheadline:
       "说话。Bisbi 写下你说的内容 — 任意应用，任意语言。",
-    freeBadge: "免费开始。无需信用卡。Mac 和 Windows。",
+    freeBadge: "免费开始。无需信用卡。Mac、Windows 和 Linux。",
   },
   download: {
     mac: "下载 Mac 版",
     windows: "下载 Windows 版",
+    linux: "下载 Linux 版",
     starting: "开始下载…",
   },
   howItWorks: {
@@ -76,9 +77,9 @@ export const zh: LandingTranslations = {
           "自动检测。说一种，打另一种。",
       },
       {
-        title: "Mac 和 Windows",
+        title: "Mac、Windows 和 Linux",
         description:
-          "两个平台的原生应用。相同体验，相同快捷键，相同效果。",
+          "三个平台的原生应用。相同体验，相同快捷键，相同效果。",
       },
     ],
   },
@@ -86,7 +87,7 @@ export const zh: LandingTranslations = {
     title: "开始说话,",
     titleHighlight: "就在今天。",
     description:
-      "免费下载 Bisbi。适用于 Mac 和 Windows。无需订阅即可开始。",
+      "免费下载 Bisbi。适用于 Mac、Windows 和 Linux。无需订阅即可开始。",
     signInHint: "已有账户？",
     signIn: "登录",
   },
@@ -132,10 +133,17 @@ export const zh: LandingTranslations = {
     ready: "你的账户已准备好。下载 Bisbi 开始听写。",
     downloadMac: "下载 Mac 版",
     downloadWindows: "下载 Windows 版",
+    downloadLinux: "下载 Linux 版",
     starting: "开始下载…",
     hint: "你的订阅和设置在应用内管理。",
     signOut: "退出登录",
     signingOut: "退出中…",
+    checkoutSuccessTitle: "欢迎加入 Pro！",
+    checkoutSuccessSubtitle: "无限听写已开启。尽情说话吧。",
+    checkoutCancelTitle: "没问题",
+    checkoutCancelSubtitle: "你仍在免费计划。随时可以在 Bisbi 中升级。",
+    planFreeBadge: "免费计划 · 想无限畅说？升级到 Pro",
+    planProBadge: "Pro 计划已激活 · 想说多少说多少",
   },
   login: {
     welcome: "欢迎来到 Bisbi",

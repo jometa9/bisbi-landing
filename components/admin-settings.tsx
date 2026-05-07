@@ -14,7 +14,7 @@ import { useState } from "react";
 export default function AdminSettings() {
   const [isAssigningSubscription, setIsAssigningSubscription] = useState(false);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
-  const subscriptionProduct = "multi" as const;
+  const subscriptionProduct = "bisbi" as const;
   const [subscriptionPlan, setSubscriptionPlan] = useState("");
   const [subscriptionDuration, setSubscriptionDuration] = useState("1");
   const [buttonStatus, setButtonStatus] = useState<"success" | "error" | null>(

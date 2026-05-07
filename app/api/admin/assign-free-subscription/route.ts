@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json();
-    const { email, productKey, plan, duration, accountLimit } = data;
+    const { email, productKey, plan, duration } = data;
 
     if (plan === "none") {
       const result = await revokeSubscription({
@@ -48,7 +48,6 @@ export async function POST(req: NextRequest) {
       productKey: productKey as ProductKey,
       plan,
       duration,
-      accountLimit,
     });
 
     if (!result.ok) {

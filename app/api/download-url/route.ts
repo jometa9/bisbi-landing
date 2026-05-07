@@ -1,22 +1,19 @@
-import { getDownloadInfo, getAppSettings } from "@/lib/db/queries";
-import { ProductKey } from "@/lib/db/schema";
 import {
   extractClientInfo,
   extractFacebookCookies,
   trackLead,
 } from "@/lib/meta";
+import { getLatestBisbiAssetUrl } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const productKey = searchParams.get("productKey") as ProductKey | null;
-    const os = searchParams.get("os") as "windows" | "mac" | null;
+    const os = searchParams.get("os") as "windows" | "mac" | "linux" | null;
     const metaEventId = searchParams.get("metaEventId") ?? undefined;
 
-    if (productKey === "multi") {
-      const osValue = os === "mac" ? "mac" : "windows";
-      const downloadInfo = await getDownloadInfo("multi", osValue);
+    if (os === "windows" || os === "mac" || os === "linux") {
+      const downloadUrl = await getLatestBisbiAssetUrl(os);
 
       try {
         const { fbc, fbp } = extractFacebookCookies(request);
@@ -36,31 +33,23 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.json({
-        productKey: "multi",
-        os: osValue,
-        version: downloadInfo.version,
-        downloadUrl: downloadInfo.downloadUrl || "",
+        productKey: "bisbi",
+        os,
+        downloadUrl: downloadUrl || "",
       });
     }
 
-    if (productKey !== null && productKey !== "") {
-      return NextResponse.json(
-        { error: "Invalid productKey. Only 'multi' is supported." },
-        { status: 400 }
-      );
-    }
+    const [windowsUrl, macUrl, linuxUrl] = await Promise.all([
+      getLatestBisbiAssetUrl("windows"),
+      getLatestBisbiAssetUrl("mac"),
+      getLatestBisbiAssetUrl("linux"),
+    ]);
 
-    const settings = await getAppSettings();
     return NextResponse.json({
-      multi: {
-        windows: {
-          version: settings.multiVersion,
-          downloadUrl: settings.multiWindowsDownloadUrl || "",
-        },
-        mac: {
-          version: settings.multiVersion,
-          downloadUrl: settings.multiMacDownloadUrl || "",
-        },
+      bisbi: {
+        windows: { downloadUrl: windowsUrl || "" },
+        mac: { downloadUrl: macUrl || "" },
+        linux: { downloadUrl: linuxUrl || "" },
       },
     });
   } catch {

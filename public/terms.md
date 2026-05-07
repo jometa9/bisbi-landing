@@ -1,137 +1,145 @@
-# Terms of Use
+# Términos de Uso
 
-These Terms of Use govern your use of IPTRADE software and services operated by IPTRADE COPIER LLC.
+Estos Términos de Uso regulan el uso del software y los servicios de Bisbi, operado por **IPTRADE COPIER LLC** (Delaware, EE. UU.), con domicilio en 131 Continental Dr, Suite 305, Newark, DE 19713, Estados Unidos.
 
-By using IPTRADE, you agree to these terms. If you don't agree, don't use our software.
-
----
-
-## 1. Service Description
-
-IPTRADE is trade copying software.
-
-**Local Product (IPTRADE Multi):**
-- Runs on your computer (Windows or macOS)
-- All trading data stays local
-- Windows: MT4, MT5, and cTrader. macOS: MetaTrader 5 (direct connection) and cTrader.
+Al usar Bisbi, aceptás estos términos. Si no estás de acuerdo, no uses el software. Toda referencia a "Bisbi", "nosotros" o "nuestro" en este documento se refiere a IPTRADE COPIER LLC actuando bajo la marca Bisbi.
 
 ---
 
-## 2. Eligibility
+## 1. Descripción del servicio
 
-You must be:
-- At least 18 years old
-- Legally capable of entering this agreement
-- Not prohibited from using the software under applicable laws
+Bisbi es una aplicación de **dictado por voz local** para Mac, Windows y Linux.
 
----
-
-## 3. License
-
-We grant you a personal, non-exclusive, non-transferable license to use the software.
-
-**You may not:**
-- Copy, modify, or distribute the software
-- Reverse engineer or decompile the software
-- Share your license with others
-- Use the software for illegal activities
-- Resell or sublicense the software
+- Apretás un atajo, hablás, soltás el atajo y el texto aparece pegado en la app activa.
+- La transcripción se procesa en tu computadora, con tecnología de Bisbi que se ejecuta on-device.
+- El audio y el texto resultante **no salen de tu equipo**.
+- Plataformas soportadas: macOS (Apple Silicon ARM64 y x64), Windows 10/11 64-bit y Linux 64-bit (AppImage).
 
 ---
 
-## 4. Subscriptions and Payments
+## 2. Elegibilidad
 
-- Subscriptions renew automatically unless canceled
-- Cancel anytime - access continues until period ends
-- No refunds for current billing period
-- Payments processed securely by Stripe
+Para usar Bisbi tenés que:
 
----
-
-## 5. User Responsibilities
-
-You are responsible for:
-- Correct software configuration
-- All trading decisions
-- Compliance with broker and prop firm terms
-- Compliance with all applicable laws
-- Maintaining account security
+- Tener al menos 18 años.
+- Tener capacidad legal para celebrar este acuerdo.
+- No estar impedido de usar el software bajo las leyes aplicables.
 
 ---
 
-## 6. Prop Firms and Third-Party Rules
+## 3. Licencia
 
-**IP restrictions only.** When we refer to being compliant or suitable for use with prop firms, we mean **only** that our software is designed to help you comply with **IP address / IP restrictions rules**: all copying runs locally on your machine, and all connected accounts use the same IP address (yours). We do not represent that we are compliant with every rule or policy of any specific prop firm.
+Te otorgamos una licencia personal, no exclusiva e intransferible para usar el software.
 
-**Other rules depend on the prop firm.** Each prop firm has its own terms, rules, and policies (e.g. copy trading, EA usage, account limits, household rules). These vary by firm and may change. We do not guarantee that using IPTRADE complies with any particular prop firm’s full set of rules.
+**No podés:**
 
-**Your responsibility.** You must read and understand your prop firm’s terms and rules before using our software. You are solely responsible for ensuring your use of IPTRADE complies with those terms. We are not responsible for any suspension, termination, or loss of profits or payouts resulting from a prop firm’s application of its rules.
-
----
-
-## 7. Prohibited Uses
-
-You may not:
-- Engage in illegal activities
-- Violate broker or prop firm terms
-- Share your account credentials
-- Exceed your plan's account limits
-- Use stolen payment methods
-- Attempt to hack or disrupt our services
-
-**Violations may result in immediate termination without refund.**
+- Copiar, modificar ni distribuir el software.
+- Hacer ingeniería inversa ni descompilar el software.
+- Compartir tu cuenta o tu licencia con terceros.
+- Usar el software para actividades ilegales.
+- Revender ni sublicenciar el software.
 
 ---
 
-## 8. Intellectual Property
+## 4. Suscripciones y pagos
 
-All software, content, and materials are owned by IPTRADE COPIER LLC and protected by copyright, trademark, and other intellectual property laws.
-
----
-
-## 9. Termination
-
-**By You:** Cancel anytime. Access continues until period ends.
-
-**By Us:** We may suspend or terminate your account immediately for:
-- Violation of these terms
-- Fraudulent activity
-- Non-payment
-
-**Effect:** Upon termination, you must uninstall all copies of the software.
+- **Plan gratuito:** dictado limitado a una cantidad de palabras por mes.
+- **Plan Pro:** dictado sin límite de palabras.
+- Las suscripciones se renuevan automáticamente salvo que las canceles.
+- Podés cancelar cuando quieras: el acceso continúa hasta que termine el período pago.
+- No emitimos reembolsos por el período en curso, salvo lo previsto en la Política de Reembolsos.
+- Los pagos los procesa Stripe de forma segura.
 
 ---
 
-## 10. Dispute Resolution
+## 5. Responsabilidades del usuario
 
-**Contact us first:** Before legal action, contact us at [support@iptradecopier.com](mailto:support@iptradecopier.com) to resolve disputes.
+Sos responsable de:
 
-**Arbitration:** If we can't resolve informally, disputes will be resolved by binding arbitration with the American Arbitration Association (AAA), not in court.
-
-**Exception:** Small claims court disputes are allowed.
-
-**Class Action Waiver:** No class actions. Disputes resolved individually only.
-
----
-
-## 11. Governing Law
-
-These terms are governed by Delaware law, without regard to conflict of law provisions.
-
-Jurisdiction: New Castle County, Delaware (subject to arbitration provision above).
+- Configurar correctamente el software (atajo, micrófono, permisos del sistema).
+- Conceder los permisos del sistema operativo necesarios (micrófono y, en macOS, Accesibilidad para que Bisbi pueda pegar el texto).
+- Revisar el texto transcripto antes de usarlo en contextos sensibles (mails, contratos, mensajes médicos, etc.).
+- Cumplir con todas las leyes aplicables.
+- Mantener la seguridad de tu cuenta y de tu equipo.
+- Usar el software respetando la privacidad de terceros (no grabar a personas sin su consentimiento cuando la ley lo requiera).
 
 ---
 
-## 12. Changes to Terms
+## 6. Uso del micrófono y consentimiento
 
-We may update these terms. Material changes will be communicated via email. Continued use after changes means you accept them.
+Bisbi sólo activa el micrófono mientras mantenés presionado el atajo de grabación.
+
+Sos vos quien controla cuándo el micrófono está activo y qué se dicta. Es tu responsabilidad obtener el consentimiento de cualquier otra persona presente en el entorno cuando la ley así lo exija.
 
 ---
 
-## 13. General
+## 7. Usos prohibidos
 
-**Entire Agreement:** These terms, together with our Privacy Policy and other legal documents, constitute the entire agreement.
+No podés:
 
-**Severability:** If any provision is invalid, the rest remains in effect.
+- Usar el software para actividades ilegales.
+- Dictar o transcribir contenido para acosar, dañar o suplantar a terceros.
+- Compartir las credenciales de tu cuenta.
+- Usar métodos de pago robados o no autorizados.
+- Intentar vulnerar, hackear o interferir con nuestros servicios.
+- Usar Bisbi para crear bases de datos masivas de voces de terceros sin su consentimiento.
 
-**No Waiver:** Our failure to enforce any right doesn't waive that right.
+**Cualquier violación puede dar lugar a la terminación inmediata de la cuenta sin reembolso.**
+
+---
+
+## 8. Propiedad intelectual
+
+El software, el contenido y todos los materiales asociados son propiedad de IPTRADE COPIER LLC y están protegidos por las leyes de derechos de autor, marcas registradas y demás normas de propiedad intelectual aplicables. "Bisbi" es una marca operada por IPTRADE COPIER LLC.
+
+El contenido que vos dictás y el texto transcripto son tuyos. Bisbi no se atribuye ningún derecho sobre ese contenido.
+
+---
+
+## 9. Terminación
+
+**Por tu parte:** podés cancelar cuando quieras. El acceso continúa hasta que termine el período pago.
+
+**Por nuestra parte:** podemos suspender o terminar tu cuenta de inmediato si:
+
+- Violás estos términos.
+- Detectamos actividad fraudulenta.
+- Hay impagos.
+
+**Efecto:** al terminar el acuerdo, tenés que desinstalar todas las copias del software.
+
+---
+
+## 10. Resolución de disputas
+
+**Contactanos primero:** antes de iniciar acciones legales, escribinos a [hello@bisbi.io](mailto:hello@bisbi.io) para intentar resolver el conflicto.
+
+**Arbitraje:** si no podemos resolverlo de manera informal, las disputas se resolverán mediante arbitraje vinculante ante la American Arbitration Association (AAA), no en sede judicial.
+
+**Excepción:** las disputas que correspondan a tribunales de menor cuantía pueden seguir esa vía.
+
+**Renuncia a acciones colectivas:** las disputas se resuelven de forma individual; no se admiten acciones colectivas (class actions).
+
+---
+
+## 11. Ley aplicable
+
+Estos términos se rigen por las leyes del estado de Delaware (EE. UU.), sin tener en cuenta sus normas sobre conflicto de leyes.
+
+Jurisdicción: New Castle County, Delaware (sujeto a la cláusula de arbitraje del punto anterior).
+
+---
+
+## 12. Cambios en los términos
+
+Podemos actualizar estos términos. Cuando los cambios sean materiales, te avisaremos por email. Si seguís usando el servicio después de la actualización, se entiende que aceptás los nuevos términos.
+
+---
+
+## 13. Disposiciones generales
+
+**Acuerdo completo:** estos términos, junto con la Política de Privacidad y los demás documentos legales, constituyen el acuerdo completo entre vos y Bisbi.
+
+**Divisibilidad:** si alguna cláusula es declarada inválida, el resto sigue en vigor.
+
+**No renuncia:** que no ejerzamos un derecho en una situación puntual no implica que renunciemos a él.

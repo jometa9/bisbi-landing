@@ -36,13 +36,12 @@ export interface AssignFreeSubscriptionInput {
   productKey: ProductKey;
   plan: AssignFreeSubscriptionPlan;
   duration: number;
-  accountLimit?: number | null;
 }
 
 export async function assignFreeSubscription(
   input: AssignFreeSubscriptionInput
 ): Promise<AssignFreeSubscriptionResult> {
-  const { email, productKey, plan, duration, accountLimit } = input;
+  const { email, productKey, plan, duration } = input;
 
   if (!email || !productKey || !duration || !plan) {
     return {
@@ -52,8 +51,8 @@ export async function assignFreeSubscription(
     };
   }
 
-  if (productKey !== "multi") {
-    return { ok: false, status: 400, error: "Invalid productKey. Must be 'multi'" };
+  if (productKey !== "bisbi") {
+    return { ok: false, status: 400, error: "Invalid productKey. Must be 'bisbi'" };
   }
 
   if (plan !== "pro") {
@@ -123,19 +122,14 @@ export async function assignFreeSubscription(
 
   const planName = `${plan.charAt(0).toUpperCase() + plan.slice(1)} (Admin Assigned)`;
 
-  const upsertData: Parameters<typeof upsertProductSubscription>[2] = {
+  await upsertProductSubscription(foundUser.id, productKey, {
     tier: plan,
     status: "admin_assigned",
     stripeSubscriptionId: null,
     stripeProductId: null,
     planName,
     expiresAt: expiryDate,
-  };
-  if (accountLimit !== undefined) {
-    upsertData.accountLimit = accountLimit;
-  }
-
-  await upsertProductSubscription(foundUser.id, productKey, upsertData);
+  });
 
   const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
   const recipientName = foundUser.name || email.split("@")[0];
@@ -208,8 +202,8 @@ export async function revokeSubscription(
     };
   }
 
-  if (productKey !== "multi") {
-    return { ok: false, status: 400, error: "Invalid productKey. Must be 'multi'" };
+  if (productKey !== "bisbi") {
+    return { ok: false, status: 400, error: "Invalid productKey. Must be 'bisbi'" };
   }
 
   const existing = await db

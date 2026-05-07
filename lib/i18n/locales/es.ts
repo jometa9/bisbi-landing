@@ -14,11 +14,12 @@ export const es: LandingTranslations = {
     headline2: "es no escribir.",
     subheadline:
       "Hablá. Bisbi escribe lo que decís — en cualquier app, en cualquier idioma.",
-    freeBadge: "Gratis para empezar. Sin tarjeta de crédito. Mac y Windows.",
+    freeBadge: "Gratis para empezar. Sin tarjeta de crédito. Mac, Windows y Linux.",
   },
   download: {
     mac: "Descargar para Mac",
     windows: "Descargar para Windows",
+    linux: "Descargar para Linux",
     starting: "Iniciando descarga…",
   },
   howItWorks: {
@@ -80,9 +81,9 @@ export const es: LandingTranslations = {
           "Detección automática. Hablá en uno, escribí en otro.",
       },
       {
-        title: "Mac y Windows",
+        title: "Mac, Windows y Linux",
         description:
-          "Apps nativas para las dos plataformas. Misma experiencia, mismo atajo, mismo resultado.",
+          "Apps nativas para las tres plataformas. Misma experiencia, mismo atajo, mismo resultado.",
       },
     ],
   },
@@ -90,7 +91,7 @@ export const es: LandingTranslations = {
     title: "Empezá a hablar",
     titleHighlight: "hoy.",
     description:
-      "Descargá Bisbi gratis. Funciona en Mac y Windows. Sin suscripción para empezar.",
+      "Descargá Bisbi gratis. Funciona en Mac, Windows y Linux. Sin suscripción para empezar.",
     signInHint: "¿Ya tenés cuenta?",
     signIn: "Iniciar sesión",
   },
@@ -136,10 +137,17 @@ export const es: LandingTranslations = {
     ready: "Tu cuenta está lista. Descargá Bisbi y empezá a dictar.",
     downloadMac: "Descargar para Mac",
     downloadWindows: "Descargar para Windows",
+    downloadLinux: "Descargar para Linux",
     starting: "Iniciando descarga…",
     hint: "Tu suscripción y ajustes se gestionan dentro de la app.",
     signOut: "Cerrar sesión",
     signingOut: "Cerrando sesión…",
+    checkoutSuccessTitle: "¡Bienvenido a Pro!",
+    checkoutSuccessSubtitle: "Dictado ilimitado activado. Hablá todo lo que quieras.",
+    checkoutCancelTitle: "Sin problema",
+    checkoutCancelSubtitle: "Seguís en el plan gratuito. Podés mejorarlo cuando quieras desde Bisbi.",
+    planFreeBadge: "Plan gratuito · ¿Listo para hablar sin límites? Volvete Pro",
+    planProBadge: "Plan Pro activo · Hablá todo lo que quieras",
   },
   login: {
     welcome: "Bienvenido a Bisbi",

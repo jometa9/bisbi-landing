@@ -1,86 +1,97 @@
-# Complaints Policy
+# Política de Reclamos
 
-We're committed to excellent service. If you have a complaint, we want to hear from you and resolve it fairly.
-
----
-
-## How to File a Complaint
-
-### Email (Recommended)
-**Email:** [support@iptradecopier.com](mailto:support@iptradecopier.com)  
-**Subject:** "Complaint - [Brief Description]"
-
-### Mail
-IPTRADE COPIER LLC  
-131 Continental Dr, Suite 305  
-Newark, DE 19713, United States
+Nos importa brindar un excelente servicio. Si tenés un reclamo, queremos escucharlo y resolverlo de forma justa.
 
 ---
 
-## What to Include
+## Cómo presentar un reclamo
 
-**Required:**
-- Your name and account email
-- Product you're using (IPTRADE Multi)
-- Clear description of the issue
-- When it occurred
-- How it affected you
-- Your desired resolution
+### Por email (recomendado)
 
-**Supporting evidence (if applicable):**
-- Screenshots or error messages
-- Transaction IDs
-- Relevant correspondence
+**Email:** [hello@bisbi.io](mailto:hello@bisbi.io)
+**Asunto:** "Reclamo - [Descripción breve]"
+
+### Por correo postal
+
+IPTRADE COPIER LLC (Bisbi)
+131 Continental Dr, Suite 305
+Newark, DE 19713, Estados Unidos
 
 ---
 
-## Our Process
+## Qué incluir
 
-### Step 1: Acknowledgment (within 24 hours)
-We'll confirm receipt and assign a case number.
+**Datos requeridos:**
 
-### Step 2: Investigation (3-7 business days)
-We'll investigate thoroughly and may contact you for clarification.
+- Nombre y email asociados a tu cuenta.
+- Producto que estás usando (Bisbi para Mac o Windows) y versión instalada.
+- Descripción clara del problema.
+- Cuándo ocurrió.
+- Cómo te afectó.
+- Resolución que pretendés.
 
-### Step 3: Resolution (within 10 business days)
-We'll communicate our findings and proposed solution.
+**Evidencia complementaria (si corresponde):**
 
-**Complex complaints** may take longer. We'll keep you updated.
-
----
-
-## Escalation
-
-Not satisfied with the resolution?
-
-**Level 1:** Customer Support (first contact)  
-**Level 2:** Support Manager (after 10 days or if unsatisfied)  
-**Level 3:** Senior Management (serious or unresolved complaints)
-
-To escalate, email [support@iptradecopier.com](mailto:support@iptradecopier.com) with subject "Escalation Request" and include your case number.
+- Capturas de pantalla o mensajes de error.
+- IDs de transacción.
+- Correspondencia previa relacionada.
+- Logs de la aplicación (podés exportarlos desde Bisbi → Configuración → Soporte).
 
 ---
 
-## Regulatory Authorities
+## Nuestro proceso
 
-If we can't resolve your complaint, you may contact:
+### Paso 1: Acuse de recibo (en 24 horas)
 
-- **US:** FTC ([ftc.gov](https://www.ftc.gov)), BBB ([bbb.org](https://www.bbb.org))
-- **EU:** Your local consumer protection authority, ECC-Net
-- **UK:** Citizens Advice, Financial Ombudsman (payment disputes)
+Confirmamos que recibimos el reclamo y le asignamos un número de caso.
+
+### Paso 2: Investigación (3 a 7 días hábiles)
+
+Revisamos la situación y, si necesitamos información adicional, te contactamos.
+
+### Paso 3: Resolución (dentro de 10 días hábiles)
+
+Te comunicamos las conclusiones y la solución propuesta.
+
+**Reclamos complejos** pueden requerir más tiempo. En ese caso, te mantenemos informado del avance.
 
 ---
 
-## Your Rights
+## Escalación
 
-You have the right to:
-- Be treated fairly and respectfully
-- Have your complaint investigated thoroughly
-- Receive clear communication about your complaint status
-- Escalate if unsatisfied
-- Seek external dispute resolution
+Si no estás conforme con la resolución, podés escalar el reclamo:
 
-**We will not:**
-- Retaliate for filing a complaint
-- Suspend your account solely for complaining
-- Share your complaint details without your consent (except as required by law)
+**Nivel 1:** Soporte al cliente (primer contacto).
+**Nivel 2:** Responsable de soporte (después de 10 días o si no estás conforme).
+**Nivel 3:** Dirección (reclamos serios o no resueltos).
+
+Para escalar, escribinos a [hello@bisbi.io](mailto:hello@bisbi.io) con el asunto "Pedido de escalación" e incluí tu número de caso.
+
+---
+
+## Autoridades reguladoras
+
+Si no logramos resolver tu reclamo, podés contactar a:
+
+- **EE. UU.:** FTC ([ftc.gov](https://www.ftc.gov)), BBB ([bbb.org](https://www.bbb.org)).
+- **UE:** la autoridad local de protección al consumidor o ECC-Net.
+- **Reino Unido:** Citizens Advice.
+- **Argentina y otros países LATAM:** las autoridades locales de defensa del consumidor de tu jurisdicción.
+
+---
+
+## Tus derechos
+
+Tenés derecho a:
+
+- Recibir un trato justo y respetuoso.
+- Que tu reclamo se investigue de manera diligente.
+- Recibir comunicación clara sobre el estado del reclamo.
+- Escalar el caso si no estás conforme.
+- Recurrir a vías externas de resolución de disputas.
+
+**No vamos a:**
+
+- Tomar represalias por presentar un reclamo.
+- Suspender tu cuenta sólo por reclamar.
+- Compartir los detalles de tu reclamo sin tu consentimiento (excepto cuando una ley lo exija).

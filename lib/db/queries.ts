@@ -205,14 +205,12 @@ export async function upsertProductSubscription(
   productKey: ProductKey,
   data: {
     tier?: string;
-    accountLimit?: number | null;
     status?: string;
     billingPeriod?: "monthly" | "annual" | null;
     stripeSubscriptionId?: string | null;
     stripeProductId?: string | null;
     planName?: string | null;
     expiresAt?: Date | null;
-    metaPurchaseEventId?: string | null;
   }
 ): Promise<UserProductSubscription> {
   const existing = await getUserProductSubscription(userId, productKey);
@@ -234,14 +232,12 @@ export async function upsertProductSubscription(
         userId,
         productKey,
         tier: data.tier || "free",
-        accountLimit: data.accountLimit ?? null,
         status: data.status || "active",
         billingPeriod: data.billingPeriod ?? null,
         stripeSubscriptionId: data.stripeSubscriptionId,
         stripeProductId: data.stripeProductId,
         planName: data.planName,
         expiresAt: data.expiresAt,
-        metaPurchaseEventId: data.metaPurchaseEventId,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -269,15 +265,12 @@ export async function getUserEntitlements(userId: string) {
   const subscriptions = await getUserProductSubscriptions(userId);
 
   const entitlements: {
-    multi: UserProductSubscription | null;
     bisbi: UserProductSubscription | null;
   } = {
-    multi: null,
     bisbi: null,
   };
 
   for (const sub of subscriptions) {
-    if (sub.productKey === "multi") entitlements.multi = sub;
     if (sub.productKey === "bisbi") entitlements.bisbi = sub;
   }
 
@@ -401,7 +394,6 @@ export async function updateUserById(
     apiKey: string | null;
     resetToken: string | null;
     resetTokenExpiry: Date | null;
-    metaPurchaseEventId: string | null;
   }>
 ) {
   try {
@@ -479,34 +471,14 @@ export async function getUserDataForDashboard(userId: string) {
 
   if (!userData) return null;
 
-  const subscriptionLimits = getSubscriptionLimits(settings);
-  
-  const getLimitsForTier = (tier: string) => {
-    if (tier === "unlimited") {
-      return {
-        accountLimit: subscriptionLimits.unlimited?.accountLimit ?? null,
-        fixedLotSize: subscriptionLimits.unlimited?.fixedLotSize ?? null,
-      };
-    }
-    if (tier === "pro" || userData.role === "admin") {
-      return {
-        accountLimit: subscriptionLimits.pro?.accountLimit ?? 8,
-        fixedLotSize: subscriptionLimits.pro?.fixedLotSize ?? null,
-      };
-    }
-    return {
-      accountLimit: subscriptionLimits.free?.accountLimit ?? 1,
-      fixedLotSize: subscriptionLimits.free?.fixedLotSize ?? 0.01,
-    };
-  };
-
-  const sub = entitlements.multi;
+  const sub = entitlements.bisbi;
   const isExpired =
     sub &&
     ["canceled", "expired"].includes(sub.status) &&
     (!sub.expiresAt || sub.expiresAt <= new Date());
   const rawTier = userData.role === "admin" ? "pro" : getSubscriptionTier(sub);
-  const multiTier = rawTier;
+  const bisbiTier = rawTier;
+  const freeMonthlyWordLimit = getBisbiFreeMonthlyWordLimit(settings);
 
   return {
     userId: userData.id,
@@ -514,32 +486,20 @@ export async function getUserDataForDashboard(userId: string) {
     name: userData.name || userData.email.split("@")[0],
     isAdmin: userData.role === "admin",
     entitlements: {
-      multi: isExpired
+      bisbi: isExpired
         ? null
         : {
             active: userData.role === "admin" || isActiveSubscription(sub),
-            tier: multiTier,
+            tier: bisbiTier,
             originalTier: sub?.tier || "free",
             status: sub?.status || "none",
             expiresAt: sub?.expiresAt?.toISOString() || null,
-            limits: getLimitsForTier(multiTier),
+            freeMonthlyWordLimit,
             billingPeriod: ((): "monthly" | "annual" | null => {
               const p = sub?.billingPeriod;
               return p === "monthly" || p === "annual" ? p : null;
             })(),
           },
-    },
-    downloads: {
-      multi: {
-        windows: {
-          version: settings.multiVersion,
-          downloadUrl: settings.multiWindowsDownloadUrl || null,
-        },
-        mac: {
-          version: settings.multiVersion,
-          downloadUrl: settings.multiMacDownloadUrl || null,
-        },
-      },
     },
   };
 }
@@ -552,18 +512,9 @@ export async function getAppSettings() {
     .limit(1);
 
   if (settings.length === 0) {
-    const defaultLimits = JSON.stringify({
-      free: { accountLimit: 1, fixedLotSize: 0.01 },
-      pro: { accountLimit: 8, fixedLotSize: null },
-      unlimited: { accountLimit: null, fixedLotSize: null },
-    });
     const defaultSettings = await db
       .insert(appSettings)
       .values({
-        multiVersion: "1.0.0",
-        multiWindowsDownloadUrl: "",
-        multiMacDownloadUrl: "",
-        localCopierSubscriptionLimits: defaultLimits,
         internalApiKey: generateInternalApiKey(),
         updatedAt: new Date(),
       })
@@ -587,52 +538,9 @@ export async function getAppSettings() {
   return settings[0];
 }
 
-export function getSubscriptionLimits(
-  settings: typeof appSettings.$inferSelect
-) {
-  if (!settings.localCopierSubscriptionLimits) {
-    return {
-      free: { accountLimit: 1, fixedLotSize: 0.01 },
-      pro: { accountLimit: 8, fixedLotSize: null },
-      unlimited: { accountLimit: null, fixedLotSize: null },
-    };
-  }
-
-  try {
-    return JSON.parse(settings.localCopierSubscriptionLimits);
-  } catch {
-    return {
-      free: { accountLimit: 1, fixedLotSize: 0.01 },
-      pro: { accountLimit: 8, fixedLotSize: null },
-      unlimited: { accountLimit: null, fixedLotSize: null },
-    };
-  }
-}
-
-export async function getDownloadInfo(
-  productKey: ProductKey,
-  os: "windows" | "mac"
-): Promise<{ version: string; downloadUrl: string | null }> {
-  const settings = await getAppSettings();
-  if (os === "mac") {
-    return {
-      version: settings.multiVersion,
-      downloadUrl: settings.multiMacDownloadUrl,
-    };
-  }
-  return {
-    version: settings.multiVersion,
-    downloadUrl: settings.multiWindowsDownloadUrl,
-  };
-}
-
 export async function updateAppSettings(
   userId: string,
   data: Partial<{
-    multiVersion: string;
-    multiWindowsDownloadUrl: string;
-    multiMacDownloadUrl: string;
-    localCopierSubscriptionLimits: string;
     resendApiKey: string | null;
     resendTestEmail: string | null;
     emailFrom: string | null;
@@ -659,20 +567,9 @@ export async function updateAppSettings(
 
   try {
     if (settings.length === 0) {
-      const defaultLimits =
-        data.localCopierSubscriptionLimits ||
-        JSON.stringify({
-          free: { accountLimit: 1, fixedLotSize: 0.01 },
-          pro: { accountLimit: 8, fixedLotSize: null },
-          unlimited: { accountLimit: null, fixedLotSize: null },
-        });
       const result = await db
         .insert(appSettings)
         .values({
-          multiVersion: data.multiVersion || "1.0.0",
-          multiWindowsDownloadUrl: data.multiWindowsDownloadUrl || "",
-          multiMacDownloadUrl: data.multiMacDownloadUrl || "",
-          localCopierSubscriptionLimits: defaultLimits,
           resendApiKey: data.resendApiKey ?? null,
           resendTestEmail: data.resendTestEmail ?? null,
           emailFrom: data.emailFrom ?? null,
@@ -693,19 +590,6 @@ export async function updateAppSettings(
         updatedBy: userId,
       };
 
-      if (data.multiVersion !== undefined) {
-        updateData.multiVersion = data.multiVersion;
-      }
-      if (data.multiWindowsDownloadUrl !== undefined) {
-        updateData.multiWindowsDownloadUrl = data.multiWindowsDownloadUrl;
-      }
-      if (data.multiMacDownloadUrl !== undefined) {
-        updateData.multiMacDownloadUrl = data.multiMacDownloadUrl;
-      }
-      if (data.localCopierSubscriptionLimits !== undefined) {
-        updateData.localCopierSubscriptionLimits =
-          data.localCopierSubscriptionLimits;
-      }
       if (data.resendApiKey !== undefined) {
         updateData.resendApiKey = data.resendApiKey ?? null;
       }

@@ -1,12 +1,13 @@
 import { ProductKey } from "@/lib/db/schema";
 
-export type DownloadOS = "windows" | "mac";
+export type DownloadOS = "windows" | "mac" | "linux";
 
 export const detectOS = (): DownloadOS => {
   if (typeof window === "undefined") return "windows";
 
   const userAgent = window.navigator.userAgent.toLowerCase();
   if (userAgent.includes("mac")) return "mac";
+  if (userAgent.includes("linux") || userAgent.includes("x11")) return "linux";
   return "windows";
 };
 
@@ -31,7 +32,7 @@ export const trackDownloadEvent = (
 };
 
 export const handleDownload = async (
-  productKey: ProductKey = "multi",
+  productKey: ProductKey = "bisbi",
   os?: DownloadOS
 ) => {
   try {
@@ -60,9 +61,12 @@ export const handleDownload = async (
     const link = document.createElement("a");
     link.href = downloadUrl;
 
-    const fileName = detectedOS === "mac"
-      ? "Bisbi-Setup.dmg"
-      : "Bisbi-Setup.exe";
+    const fileName =
+      detectedOS === "mac"
+        ? "Bisbi-Setup.dmg"
+        : detectedOS === "linux"
+          ? "Bisbi-Setup.AppImage"
+          : "Bisbi-Setup.exe";
 
     link.download = fileName;
     link.target = "_blank";

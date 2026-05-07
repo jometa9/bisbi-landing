@@ -1,17 +1,20 @@
 export function WindowsIcon({ className }: { className?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 16 16"
+    <span
+      aria-hidden
       className={className}
-    >
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M0 0h7.584v7.584H0zm8.416 0h7.583v7.584H8.416zm-.832 8.416H0V16h7.584zm.832 0h7.583V16H8.416z"
-        clipRule="evenodd"
-      />
-    </svg>
+      style={{
+        display: "inline-block",
+        backgroundColor: "currentColor",
+        WebkitMaskImage: "url(/windows-174-svgrepo-com.svg)",
+        maskImage: "url(/windows-174-svgrepo-com.svg)",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+        WebkitMaskSize: "contain",
+        maskSize: "contain",
+      }}
+    />
   );
 }

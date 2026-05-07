@@ -1,4 +1,4 @@
-export function MacOSIcon({ className }: { className?: string }) {
+export function LinuxIcon({ className }: { className?: string }) {
   return (
     <span
       aria-hidden
@@ -6,8 +6,8 @@ export function MacOSIcon({ className }: { className?: string }) {
       style={{
         display: "inline-block",
         backgroundColor: "currentColor",
-        WebkitMaskImage: "url(/apple-173-svgrepo-com.svg)",
-        maskImage: "url(/apple-173-svgrepo-com.svg)",
+        WebkitMaskImage: "url(/linux-svgrepo-com.svg)",
+        maskImage: "url(/linux-svgrepo-com.svg)",
         WebkitMaskRepeat: "no-repeat",
         maskRepeat: "no-repeat",
         WebkitMaskPosition: "center",

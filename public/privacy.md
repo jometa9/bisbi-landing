@@ -1,124 +1,141 @@
-# Privacy Policy
+# Política de Privacidad
 
-This Privacy Policy explains how IPTRADE COPIER LLC collects, uses, and protects your information.
+Esta Política de Privacidad explica cómo Bisbi recopila, usa y protege tu información.
 
----
+Bisbi es un producto operado por **IPTRADE COPIER LLC** (Delaware, EE. UU.), con domicilio en 131 Continental Dr, Suite 305, Newark, DE 19713, Estados Unidos. Toda referencia a "Bisbi", "nosotros" o "nuestro" en este documento se refiere a IPTRADE COPIER LLC actuando bajo la marca Bisbi.
 
-## What We Collect
-
-### Account Information
-- Name and email address
-- Payment information (processed by Stripe - we don't store card details)
-- Subscription details
-
-### Usage Information
-- Software version used
-- Technical error logs
-- Preference settings
-
-### What We DON'T Collect
-
-**Local Product (IPTRADE Multi):**
-- Trading operations or history
-- Trading strategies
-- Account balances
-- Broker credentials
-- Any trading data (stays on your computer)
+Bisbi es una aplicación de dictado por voz local. La transcripción se procesa íntegramente en tu computadora mediante la tecnología de Bisbi, que se ejecuta on-device. El audio que dictás **no se envía a nuestros servidores ni a terceros**.
 
 ---
 
-## How We Use Your Information
+## Qué recopilamos
 
-- Process payments and manage subscriptions
-- Provide technical support
-- Send important service updates
-- Comply with legal obligations
+### Información de tu cuenta
 
-**We never sell your personal information.**
+- Nombre y dirección de email.
+- Información de pago (procesada por Stripe — no guardamos los datos de la tarjeta).
+- Datos de la suscripción.
 
----
+### Información de uso
 
-## Third-Party Services
+- Versión del software instalado.
+- Logs técnicos de errores (sólo si elegís compartirlos con soporte).
+- Cantidad de palabras transcriptas por mes (para aplicar el límite del plan gratuito).
+- Preferencias y configuración de la cuenta.
 
-We share data only with trusted service providers:
+### Lo que NO recopilamos
 
-**Stripe** - Payment processing (PCI-compliant, we don't store cards)  
-**Resend** - Transactional emails  
-**OpenAI** - AI customer support assistant (optional)  
-**Meta Pixel** - Website analytics and advertising
+**Producto local (app Bisbi):**
 
----
+- El audio que grabás.
+- El texto transcripto.
+- Tu historial de transcripciones.
+- El contenido de lo que dictás.
 
-## Data Security
-
-We protect your data with:
-- Encryption of sensitive information
-- Secure payment processing
-- Restricted access to personal data
-- Regular security audits
-
-**Local Products:** Your trading data never leaves your computer.
+Toda esa información se mantiene en tu computadora, en una base de datos local. No la enviamos, no la procesamos en la nube y no tenemos acceso a ella.
 
 ---
 
-## Your Rights
+## Cómo usamos tu información
 
-You have the right to:
-- Access your personal information
-- Correct inaccurate data
-- Delete your personal information
-- Export your data
-- Opt-out of marketing emails
-- Withdraw consent
+- Procesar pagos y administrar suscripciones.
+- Brindar soporte técnico.
+- Enviar avisos importantes del servicio (por ejemplo, cambios en la cuenta).
+- Cumplir con obligaciones legales.
+- Aplicar los límites de uso del plan gratuito (palabras por mes).
 
-**To exercise rights:** Email [support@iptradecopier.com](mailto:support@iptradecopier.com)
+**Nunca vendemos tu información personal.**
 
 ---
 
-## GDPR (EU/UK/Swiss Residents)
+## Servicios de terceros
 
-**Legal basis for processing:**
-- Contractual necessity (account, payments, service delivery)
-- Legitimate interests (security, analytics, improvements)
-- Legal obligations (tax, compliance)
+Compartimos datos solamente con proveedores de confianza:
 
-**Your additional rights:**
-- Right to lodge a complaint with your supervisory authority
-- Right to object to processing based on legitimate interests
-
----
-
-## CCPA/CPRA (California Residents)
-
-**Your rights:**
-- Right to know what data we collect
-- Right to delete your data
-- Right to opt-out of sharing for targeted advertising
-- Right to non-discrimination
-
-**We do not sell your personal information.**
+**Stripe** — Procesamiento de pagos (cumple PCI; no almacenamos tarjetas).
+**Resend** — Envío de emails transaccionales (confirmaciones, recibos).
+**Meta Pixel** — Analítica del sitio web y publicidad.
+**Google Sign-In** — Autenticación opcional con Google.
+**GitHub Releases** — Distribución de los instaladores y actualizaciones de la app.
 
 ---
 
-## Data Retention
+## Seguridad de los datos
 
-- **Active accounts:** Data retained while your account is active
-- **After cancellation:** Personal data deleted 90 days after cancellation
+Protegemos tus datos con:
 
----
+- Cifrado de la información sensible.
+- Procesamiento seguro de pagos.
+- Acceso restringido a los datos personales.
+- Auditorías de seguridad periódicas.
 
-## International Data Transfers
-
-We're based in the United States. Your data may be transferred to and processed in the US.
-
----
-
-## Children's Privacy
-
-Our service is not for anyone under 18. We don't knowingly collect information from minors.
+**App local:** tu audio y tus transcripciones nunca salen de tu computadora.
 
 ---
 
-## Changes to This Policy
+## Tus derechos
 
-We may update this policy. Material changes will be communicated via email.
+Tenés derecho a:
+
+- Acceder a tu información personal.
+- Corregir datos inexactos.
+- Eliminar tu información personal.
+- Exportar tus datos.
+- Cancelar la suscripción a emails de marketing.
+- Retirar el consentimiento.
+
+**Para ejercer estos derechos:** escribinos a [hello@bisbi.io](mailto:hello@bisbi.io).
+
+---
+
+## RGPD (residentes de la UE / Reino Unido / Suiza)
+
+**Bases legales del tratamiento:**
+
+- Necesidad contractual (cuenta, pagos, prestación del servicio).
+- Intereses legítimos (seguridad, analítica, mejoras del producto).
+- Obligaciones legales (impuestos, cumplimiento normativo).
+
+**Derechos adicionales:**
+
+- Derecho a presentar una reclamación ante tu autoridad de control.
+- Derecho a oponerte al tratamiento basado en intereses legítimos.
+
+---
+
+## CCPA / CPRA (residentes de California)
+
+**Tus derechos:**
+
+- Saber qué datos recopilamos.
+- Pedir que eliminemos tus datos.
+- Optar por no compartirlos para publicidad dirigida.
+- No ser objeto de discriminación por ejercer tus derechos.
+
+**No vendemos tu información personal.**
+
+---
+
+## Conservación de datos
+
+- **Cuentas activas:** se conservan los datos mientras tu cuenta esté activa.
+- **Tras la cancelación:** los datos personales se eliminan 90 días después de cancelar.
+- **Datos locales (en tu PC):** quedan bajo tu control. Podés borrarlos desde la app o desinstalándola.
+
+---
+
+## Transferencias internacionales de datos
+
+Operamos desde Estados Unidos. Tus datos pueden transferirse y procesarse allí.
+
+---
+
+## Privacidad de menores
+
+Nuestro servicio no está dirigido a personas menores de 18 años. No recopilamos información de menores de manera consciente.
+
+---
+
+## Cambios en esta política
+
+Podemos actualizar esta política en el futuro. Cuando los cambios sean materiales, te avisaremos por email.

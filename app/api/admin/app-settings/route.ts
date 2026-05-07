@@ -1,7 +1,6 @@
 import {
   getAppSettings,
   getBisbiFreeMonthlyWordLimit,
-  getSubscriptionLimits,
   getUser,
   updateAppSettings,
 } from "@/lib/db/queries";
@@ -16,13 +15,8 @@ export async function GET() {
     }
 
     const settings = await getAppSettings();
-    const subscriptionLimits = getSubscriptionLimits(settings);
 
     return NextResponse.json({
-      multiVersion: settings.multiVersion,
-      multiWindowsDownloadUrl: settings.multiWindowsDownloadUrl || "",
-      multiMacDownloadUrl: settings.multiMacDownloadUrl || "",
-      subscriptionLimits,
       resendApiKey: settings.resendApiKey || "",
       resendTestEmail: settings.resendTestEmail || "",
       emailFrom: settings.emailFrom || "",
@@ -58,10 +52,6 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const {
-      multiVersion,
-      multiWindowsDownloadUrl,
-      multiMacDownloadUrl,
-      subscriptionLimits,
       resendApiKey,
       resendTestEmail,
       emailFrom,
@@ -80,17 +70,7 @@ export async function POST(req: NextRequest) {
       bisbiFreeMonthlyWordLimit,
     } = body;
 
-    let subscriptionLimitsJson: string | undefined;
-    if (subscriptionLimits && typeof subscriptionLimits === "object") {
-      subscriptionLimitsJson = JSON.stringify(subscriptionLimits);
-    }
-
-    const updateData: Parameters<typeof updateAppSettings>[1] = {
-      multiVersion: multiVersion?.trim(),
-      multiWindowsDownloadUrl: multiWindowsDownloadUrl?.trim(),
-      multiMacDownloadUrl: multiMacDownloadUrl?.trim(),
-      localCopierSubscriptionLimits: subscriptionLimitsJson,
-    };
+    const updateData: Parameters<typeof updateAppSettings>[1] = {};
 
     if (resendApiKey !== undefined) {
       updateData.resendApiKey = resendApiKey?.trim() || null;
@@ -156,14 +136,8 @@ export async function POST(req: NextRequest) {
 
     const updatedSettings = await updateAppSettings(user.id, updateData);
 
-    const updatedSubscriptionLimits = getSubscriptionLimits(updatedSettings);
-
     return NextResponse.json({
       success: true,
-      multiVersion: updatedSettings.multiVersion,
-      multiWindowsDownloadUrl: updatedSettings.multiWindowsDownloadUrl,
-      multiMacDownloadUrl: updatedSettings.multiMacDownloadUrl,
-      subscriptionLimits: updatedSubscriptionLimits,
       resendApiKey: updatedSettings.resendApiKey || "",
       resendTestEmail: updatedSettings.resendTestEmail || "",
       emailFrom: updatedSettings.emailFrom || "",

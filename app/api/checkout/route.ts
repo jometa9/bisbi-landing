@@ -63,8 +63,8 @@ export async function POST(request: NextRequest) {
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${baseUrl}/checkout/success`,
-    cancel_url: `${baseUrl}/checkout/cancel`,
+    success_url: `${baseUrl}/dashboard?checkout=success`,
+    cancel_url: `${baseUrl}/dashboard?checkout=cancel`,
     metadata: { userId: foundUser.id, productKey: "bisbi" },
     subscription_data: {
       metadata: { userId: foundUser.id, productKey: "bisbi", billingPeriod },

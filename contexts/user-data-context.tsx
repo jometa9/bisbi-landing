@@ -10,25 +10,8 @@ interface ProductSubscription {
   originalTier?: string;
   status: string;
   expiresAt: string | null;
-  limits?: {
-    accountLimit: number | null;
-    fixedLotSize: number | null;
-  };
+  freeMonthlyWordLimit?: number;
   billingPeriod?: "monthly" | "annual" | null;
-  accountLimit?: number | null;
-}
-
-interface Downloads {
-  multi: {
-    windows: {
-      version: string;
-      downloadUrl: string | null;
-    };
-    mac: {
-      version: string;
-      downloadUrl: string | null;
-    };
-  };
 }
 
 export interface UserData {
@@ -37,9 +20,8 @@ export interface UserData {
   name: string;
   isAdmin: boolean;
   entitlements: {
-    multi: ProductSubscription | null;
+    bisbi: ProductSubscription | null;
   };
-  downloads: Downloads;
 }
 
 interface UserDataContextType {

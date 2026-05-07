@@ -41,7 +41,7 @@ export async function POST(request: Request) {
         if (session.mode !== "subscription") break;
 
         const userId = session.metadata?.userId;
-        const productKey = (session.metadata?.productKey as "bisbi" | "multi") || "bisbi";
+        const productKey = "bisbi" as const;
         if (!userId) break;
 
         const customerId = session.customer as string | null;
@@ -98,7 +98,7 @@ export async function POST(request: Request) {
         if (!existing) break;
         await upsertProductSubscription(
           existing.userId,
-          existing.productKey as "bisbi" | "multi",
+          "bisbi",
           { status: "past_due" }
         );
         break;

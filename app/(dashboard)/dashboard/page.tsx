@@ -1,30 +1,142 @@
 "use client";
 
-import { handleDownload } from "@/lib/download-handler";
+import { LinuxIcon } from "@/components/icons/linux-icon";
+import { MacOSIcon } from "@/components/icons/macos-icon";
+import { WindowsIcon } from "@/components/icons/windows-icon";
+import { detectOS, handleDownload, type DownloadOS } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { useUserData } from "@/contexts/user-data-context";
 import { Inbox, Settings } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+
+const REDIRECT_DELAY_MS = 4000;
 
 function interpolate(str: string, vars: Record<string, string>) {
   return str.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
 }
 
-export default function DashboardPage() {
+function DashboardContent() {
   const { data } = useUserData();
   const { t } = useI18n();
   const router = useRouter();
-  const [downloading, setDownloading] = useState<"mac" | "windows" | null>(null);
+  const searchParams = useSearchParams();
+  const checkoutResult = searchParams.get("checkout");
+  const isCheckoutSuccess = checkoutResult === "success";
+  const isCheckoutCancel = checkoutResult === "cancel";
+  const isPostCheckout = isCheckoutSuccess || isCheckoutCancel;
+
+  const [downloading, setDownloading] = useState<DownloadOS | null>(null);
+  const [detectedOS, setDetectedOS] = useState<DownloadOS>("mac");
+
+  useEffect(() => {
+    setDetectedOS(detectOS());
+  }, []);
 
   const userName =
     data?.name?.split(" ")[0] || data?.email?.split("@")[0] || "there";
 
-  const handleClick = async (platform: "mac" | "windows") => {
+  const isPro =
+    data?.entitlements?.bisbi?.active === true &&
+    data?.entitlements?.bisbi?.tier === "pro";
+
+  useEffect(() => {
+    if (!isPostCheckout) return;
+    let cancelled = false;
+
+    const redirectToApp = async () => {
+      let target = "bisbi://login";
+      try {
+        const res = await fetch("/api/web-login", {
+          method: "POST",
+          credentials: "include",
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json?.user?.apiKey) {
+            const url = new URL("bisbi://login");
+            url.searchParams.set("apiKey", json.user.apiKey);
+            target = url.toString();
+          }
+        }
+      } catch {}
+      if (!cancelled) {
+        window.location.href = target;
+      }
+    };
+
+    const timer = setTimeout(redirectToApp, REDIRECT_DELAY_MS);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [isPostCheckout]);
+
+  const handleClick = async (platform: DownloadOS) => {
     setDownloading(platform);
-    await handleDownload("multi", platform);
+    await handleDownload("bisbi", platform);
     setTimeout(() => setDownloading(null), 3000);
   };
+
+  const platformIcon = {
+    mac: MacOSIcon,
+    windows: WindowsIcon,
+    linux: LinuxIcon,
+  } as const;
+
+  const renderDownloadButton = (
+    platform: DownloadOS,
+    variant: "primary" | "secondary"
+  ) => {
+    const Icon = platformIcon[platform];
+    const label =
+      platform === "mac"
+        ? t.dashboard.downloadMac
+        : platform === "windows"
+          ? t.dashboard.downloadWindows
+          : t.dashboard.downloadLinux;
+    const isPrimary = variant === "primary";
+    const baseBg = isPrimary ? "#7BA89C" : "#F0EDE6";
+    const hoverBg = isPrimary ? "#5A8C83" : "#E6EFED";
+    const textColor = isPrimary ? "#FFFFFF" : "#1A1A18";
+
+    return (
+      <button
+        key={platform}
+        onClick={() => handleClick(platform)}
+        disabled={downloading !== null}
+        className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
+        style={{ backgroundColor: baseBg, color: textColor }}
+        onMouseEnter={(e) => {
+          if (!downloading)
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+              hoverBg;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+            baseBg;
+        }}
+      >
+        <Icon className="h-[18px] w-[18px]" />
+        {downloading === platform ? t.dashboard.starting : label}
+      </button>
+    );
+  };
+
+  const variantFor = (platform: DownloadOS) =>
+    platform === detectedOS ? "primary" : "secondary";
+
+  const title = isCheckoutSuccess
+    ? t.dashboard.checkoutSuccessTitle
+    : isCheckoutCancel
+      ? t.dashboard.checkoutCancelTitle
+      : interpolate(t.dashboard.greeting, { name: userName });
+
+  const subtitle = isCheckoutSuccess
+    ? t.dashboard.checkoutSuccessSubtitle
+    : isCheckoutCancel
+      ? t.dashboard.checkoutCancelSubtitle
+      : t.dashboard.ready;
 
   return (
     <div className="relative flex-1 flex items-center justify-center">
@@ -33,104 +145,90 @@ export default function DashboardPage() {
           className="text-3xl md:text-4xl font-semibold mb-4"
           style={{ color: "#1A1A18" }}
         >
-          {interpolate(t.dashboard.greeting, { name: userName })}
+          {title}
         </h1>
 
         <p
           className="text-base md:text-lg mb-12 max-w-5xl mx-auto"
           style={{ color: "#5C5C57" }}
         >
-          {t.dashboard.ready}
+          {subtitle}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button
-            onClick={() => handleClick("mac")}
-            disabled={downloading !== null}
-            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
-            style={{ backgroundColor: "#7BA89C" }}
-            onMouseEnter={(e) => {
-              if (!downloading)
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#5A8C83";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#7BA89C";
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-            </svg>
-            {downloading === "mac" ? t.dashboard.starting : t.dashboard.downloadMac}
-          </button>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
+            <div className="flex justify-center">
+              {renderDownloadButton("mac", variantFor("mac"))}
+            </div>
+            <div className="flex flex-col sm:flex-row gap-6 sm:justify-center">
+              {renderDownloadButton("windows", variantFor("windows"))}
+              {renderDownloadButton("linux", variantFor("linux"))}
+            </div>
+          </div>
 
-          <button
-            onClick={() => handleClick("windows")}
-            disabled={downloading !== null}
-            className="inline-flex items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
-            style={{ backgroundColor: "#E6EFED", color: "#1A1A18" }}
-            onMouseEnter={(e) => {
-              if (!downloading)
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#D9E8E5";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#E6EFED";
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 12V6.75l6-1.32v6.57H3zM20 3v8.75h-8V5.05L20 3zM3 13h6v6.43l-6-1.43V13zm17 0v8.75l-8-2V13h8z" />
-            </svg>
-            {downloading === "windows"
-              ? t.dashboard.starting
-              : t.dashboard.downloadWindows}
-          </button>
+          <div className="flex sm:justify-center">
+            <span
+              className="inline-flex w-full sm:w-auto items-center justify-center rounded-full px-4 py-1.5 text-xs font-medium"
+              style={{
+                backgroundColor: isPro ? "#E6EFED" : "#F0EDE6",
+                color: isPro ? "#5A8C83" : "#5C5C57",
+              }}
+            >
+              {isPro ? t.dashboard.planProBadge : t.dashboard.planFreeBadge}
+            </span>
+          </div>
+
+          {data?.isAdmin && (
+            <div className="flex flex-col sm:flex-row gap-6 sm:justify-center">
+              <button
+                onClick={() => router.push("/dashboard/admin/inbox")}
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
+                style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                    "#E6EFED";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                    "#F0EDE6";
+                }}
+              >
+                <Inbox size={16} />
+                Inbox
+              </button>
+
+              <button
+                onClick={() => router.push("/dashboard/admin/settings")}
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
+                style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                    "#E6EFED";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                    "#F0EDE6";
+                }}
+              >
+                <Settings size={16} />
+                Settings
+              </button>
+            </div>
+          )}
         </div>
 
-        {data?.isAdmin && (
-          <div className="mt-3 flex flex-col sm:flex-row gap-3 justify-center">
-            <button
-              onClick={() => router.push("/dashboard/admin/inbox")}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
-              style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#E6EFED";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#F0EDE6";
-              }}
-            >
-              <Inbox size={16} />
-              Inbox
-            </button>
-
-            <button
-              onClick={() => router.push("/dashboard/admin/settings")}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
-              style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#E6EFED";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#F0EDE6";
-              }}
-            >
-              <Settings size={16} />
-              Settings
-            </button>
-          </div>
-        )}
-
-        <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
+        <p className="mt-6 text-xs" style={{ color: "#A8A8A2" }}>
           {t.dashboard.hint}
         </p>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense>
+      <DashboardContent />
+    </Suspense>
   );
 }

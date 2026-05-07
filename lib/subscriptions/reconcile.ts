@@ -10,7 +10,6 @@ export interface ReconcileResult {
     status?: boolean;
     expiresAt?: boolean;
     billingPeriod?: boolean;
-    accountLimit?: boolean;
     tier?: boolean;
   };
   error?: string;
@@ -39,14 +38,12 @@ export async function reconcileSubscriptionWithStripe(
     stripeBillingPeriod = "monthly";
   }
 
-  let stripeTier: "unlimited" | "pro" | "free" = "free";
-  if (sub.productKey === "multi") {
+  let stripeTier: "pro" | "free" = "free";
+  if (sub.productKey === "bisbi") {
     const product = price?.product;
     if (product && typeof product === "object" && "name" in product) {
       const productName = (product.name as string).toLowerCase();
-      if (productName.includes("unlimited")) {
-        stripeTier = "unlimited";
-      } else if (productName.includes("pro")) {
+      if (productName.includes("pro")) {
         stripeTier = "pro";
       }
     }
@@ -79,7 +76,7 @@ export async function reconcileSubscriptionWithStripe(
     needsUpdate = true;
   }
 
-  if (sub.productKey === "multi" && stripeTier !== "free" && sub.tier !== stripeTier) {
+  if (sub.productKey === "bisbi" && stripeTier !== "free" && sub.tier !== stripeTier) {
     updateData.tier = stripeTier;
     changes.tier = true;
     needsUpdate = true;

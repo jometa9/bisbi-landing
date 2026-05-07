@@ -12,11 +12,12 @@ export const en = {
     headline2: "is not to write.",
     subheadline:
       "Speak. Bisbi types what you say — in any app, in any language.",
-    freeBadge: "Free to start. No credit card. Mac & Windows.",
+    freeBadge: "Free to start. No credit card. Mac, Windows & Linux.",
   },
   download: {
     mac: "Download for Mac",
     windows: "Download for Windows",
+    linux: "Download for Linux",
     starting: "Starting download…",
   },
   howItWorks: {
@@ -77,9 +78,9 @@ export const en = {
           "Automatic detection. Speak in one, type in another.",
       },
       {
-        title: "Mac & Windows",
+        title: "Mac, Windows & Linux",
         description:
-          "Native apps for both platforms. Same experience, same shortcut, same result.",
+          "Native apps for all three platforms. Same experience, same shortcut, same result.",
       },
     ],
   },
@@ -87,7 +88,7 @@ export const en = {
     title: "Start speaking",
     titleHighlight: "today.",
     description:
-      "Download Bisbi free. Works on Mac and Windows. No subscription to get started.",
+      "Download Bisbi free. Works on Mac, Windows and Linux. No subscription to get started.",
     signInHint: "Already have an account?",
     signIn: "Sign in",
   },
@@ -133,10 +134,17 @@ export const en = {
     ready: "Your account is ready. Download Bisbi and start dictating.",
     downloadMac: "Download for Mac",
     downloadWindows: "Download for Windows",
+    downloadLinux: "Download for Linux",
     starting: "Starting download…",
     hint: "Your subscription and settings are managed inside the app.",
     signOut: "Sign out",
     signingOut: "Signing out…",
+    checkoutSuccessTitle: "Welcome to Pro!",
+    checkoutSuccessSubtitle: "Unlimited dictation is on. You can talk all you want.",
+    checkoutCancelTitle: "No worries",
+    checkoutCancelSubtitle: "You're still on the free plan. You can upgrade anytime from Bisbi.",
+    planFreeBadge: "Free plan · Ready to talk without limits? Go Pro",
+    planProBadge: "Pro plan active · Speak as much as you want",
   },
   login: {
     welcome: "Welcome to Bisbi",

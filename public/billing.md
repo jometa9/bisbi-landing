@@ -1,95 +1,97 @@
-# Billing Policy
+# Política de Facturación
 
-This policy explains how IPTRADE COPIER LLC bills and charges for our software and services.
-
----
-
-## Subscription Plans
-
-### IPTRADE Multi
-
-**Free Plan:** $0
-- 3 accounts max
-- Fixed lot 0.01
-- No payment required
-
-**Pro Plan:**
-- Monthly: $19/month
-- Annual: $182/year (20% discount)
-- Up to 10 accounts
-- Full configuration
-
-**Unlimited Plan:**
-- Monthly: $50/month
-- Annual: $480/year (20% discount)
-- Unlimited accounts
-- Full configuration
+Esta política explica cómo Bisbi (operado por **IPTRADE COPIER LLC**, Delaware, EE. UU.) factura y cobra el uso de su software y servicios. Las facturas y comprobantes se emiten a nombre de IPTRADE COPIER LLC.
 
 ---
 
-## Billing Cycles
+## Planes de suscripción
 
-- **Monthly:** Charged on the same day each month
-- **Annual:** Charged once per year (20% discount)
-- **Auto-renewal:** Subscriptions renew automatically unless canceled
+### Plan gratuito
 
----
+- **Costo:** $0.
+- **Uso:** dictado limitado a una cantidad de palabras por mes (el límite vigente se muestra dentro de la app y en el dashboard).
+- **Incluye:** todas las funciones principales de la app (transcripción local, atajo configurable, historial local).
+- **Duración:** sin vencimiento. Podés usarlo todo el tiempo que quieras dentro del límite mensual.
 
-## Payment Methods
+### Plan Pro
 
-We accept:
-- Credit/debit cards (Visa, Mastercard, Amex, Discover)
-- Digital wallets (Apple Pay, Google Pay)
-- Bank transfers (annual plans only)
+- **Uso:** dictado **sin límite de palabras**.
+- **Facturación:** mensual o anual (con descuento sobre la mensual).
+- **Soporte:** prioritario por email.
 
-**Payment Processing:** All payments processed securely by Stripe. We don't store your card information.
-
----
-
-## Auto-Renewal
-
-All subscriptions renew automatically at the end of each billing period.
-
-**Renewal reminders:** We'll email you 7 days before annual renewals.
-
-**Cancel anytime:** Disable auto-renewal through account settings or contact us.
+Los precios vigentes y las opciones de facturación están publicados en bisbi.io y en el flujo de checkout dentro de la app.
 
 ---
 
-## Cancellation
+## Ciclos de facturación
 
-**How to cancel:**
-- Billing > Manage > Cancel
-- Or email: [support@iptradecopier.com](mailto:support@iptradecopier.com)
-
-**After cancellation:**
-- Access continues until period ends
-- No charge for next period
-- No refunds for current period
+- **Mensual:** se cobra el mismo día de cada mes.
+- **Anual:** se cobra una vez al año, con descuento sobre la modalidad mensual.
+- **Renovación automática:** las suscripciones se renuevan solas hasta que las canceles.
 
 ---
 
-## Plan Changes
+## Medios de pago
 
-### Upgrading
-- Takes effect immediately
-- Prorated charge for remaining time
-- New features activate instantly
+Aceptamos:
 
-### Downgrading
-- Takes effect at period end (or contact support)
-- No prorated credit for downgrading to Free
+- Tarjetas de crédito y débito (Visa, Mastercard, American Express, Discover).
+- Billeteras digitales (Apple Pay, Google Pay).
+- Transferencia bancaria (sólo planes anuales).
 
----
-
-## Billing Disputes
-
-**Contact us first** before filing a chargeback: [support@iptradecopier.com](mailto:support@iptradecopier.com)
-
-**Chargebacks:** Filing a chargeback will result in immediate account suspension.
+**Procesamiento de pagos:** todos los pagos los procesa Stripe de forma segura. No guardamos los datos de tu tarjeta.
 
 ---
 
-## Price Changes
+## Renovación automática
 
-We may change pricing with 30 days' notice. Changes take effect on your next renewal. Cancel before renewal if you don't agree.
+Todas las suscripciones se renuevan automáticamente al final del período facturado.
+
+**Recordatorios:** te enviamos un email 7 días antes de cada renovación anual.
+
+**Podés cancelar cuando quieras** desde la sección de facturación de tu cuenta o escribiendo a [hello@bisbi.io](mailto:hello@bisbi.io).
+
+---
+
+## Cancelación
+
+**Cómo cancelar:**
+
+- Desde la sección de facturación dentro de tu cuenta.
+- O escribinos a [hello@bisbi.io](mailto:hello@bisbi.io).
+
+**Después de cancelar:**
+
+- El acceso al plan pago continúa hasta que termine el período facturado.
+- No te cobramos el período siguiente.
+- No emitimos reembolso por el período en curso (ver Política de Reembolsos).
+- Al finalizar el período, tu cuenta vuelve al plan gratuito y se aplican los límites correspondientes.
+
+---
+
+## Cambios de plan
+
+### Subir de plan
+
+- Tiene efecto inmediato.
+- Se cobra de forma prorrateada por el tiempo restante del período actual.
+- Las funciones nuevas se activan al instante.
+
+### Bajar de plan
+
+- Tiene efecto al final del período actual (o antes, si lo coordinás con soporte).
+- No se entrega crédito en efectivo al pasar al plan gratuito.
+
+---
+
+## Disputas de facturación
+
+**Contactanos primero** antes de iniciar un contracargo: [hello@bisbi.io](mailto:hello@bisbi.io).
+
+**Contracargos:** abrir un contracargo (chargeback) sin contactarnos antes generará la suspensión inmediata de la cuenta.
+
+---
+
+## Cambios de precio
+
+Podemos modificar los precios con un aviso previo de 30 días. Los cambios se aplican en tu próxima renovación. Si no estás de acuerdo, podés cancelar antes de que se renueve.

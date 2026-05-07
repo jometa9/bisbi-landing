@@ -1,24 +1,28 @@
-import { getDownloadInfo } from "@/lib/db/queries";
+import { getLatestBisbiAssetUrl } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 
-function inferOSFromUserAgent(request: NextRequest): "windows" | "mac" {
+function inferOSFromUserAgent(
+  request: NextRequest
+): "windows" | "mac" | "linux" {
   const ua = request.headers.get("user-agent")?.toLowerCase() ?? "";
-  return ua.includes("mac") ? "mac" : "windows";
+  if (ua.includes("mac")) return "mac";
+  if (ua.includes("linux") || ua.includes("x11")) return "linux";
+  return "windows";
 }
 
 export async function GET(request: NextRequest) {
   try {
     const osParam = request.nextUrl.searchParams.get("os")?.toLowerCase();
-    const os: "windows" | "mac" =
-      osParam === "windows" || osParam === "mac"
+    const os: "windows" | "mac" | "linux" =
+      osParam === "windows" || osParam === "mac" || osParam === "linux"
         ? osParam
         : inferOSFromUserAgent(request);
 
-    const { downloadUrl } = await getDownloadInfo("multi", os);
+    const downloadUrl = await getLatestBisbiAssetUrl(os);
 
-    if (!downloadUrl?.trim()) {
+    if (!downloadUrl) {
       return NextResponse.json(
-        { error: "Download is not configured for this platform. Please try again later or contact support." },
+        { error: "Download is not available right now. Please try again later." },
         { status: 503 }
       );
     }

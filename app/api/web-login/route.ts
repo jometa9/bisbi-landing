@@ -44,11 +44,11 @@ export async function POST() {
       apiKey: user.apiKey,
       avatar: user.image || null,
       entitlements: {
-        multi: {
-          active: user.role === "admin" || isActiveSubscription(entitlements.multi),
-          tier: user.role === "admin" ? "pro" : getSubscriptionTier(entitlements.multi),
-          status: entitlements.multi?.status || "none",
-          expiresAt: entitlements.multi?.expiresAt?.toISOString() || null,
+        bisbi: {
+          active: user.role === "admin" || isActiveSubscription(entitlements.bisbi),
+          tier: user.role === "admin" ? "pro" : getSubscriptionTier(entitlements.bisbi),
+          status: entitlements.bisbi?.status || "none",
+          expiresAt: entitlements.bisbi?.expiresAt?.toISOString() || null,
         },
       },
     };

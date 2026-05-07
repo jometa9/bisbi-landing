@@ -1,49 +1,62 @@
-# Cookies Policy
+# Política de Cookies
 
-This policy explains how IPTRADE COPIER LLC uses cookies and similar technologies.
-
----
-
-## What Are Cookies?
-
-Cookies are small text files stored on your device when you visit our website. They help maintain your session and improve your experience.
+Esta política explica cómo Bisbi (operado por **IPTRADE COPIER LLC**) usa cookies y tecnologías similares en su sitio web.
 
 ---
 
-## Cookies We Use
+## ¿Qué son las cookies?
 
-### Essential Cookies (Always Active)
-Required for the website to function properly:
-- Login session management
-- Security and authentication
-
-These cookies are strictly necessary and cannot be disabled.
-
-### Marketing Cookies
-Used for advertising and analytics:
-- **Meta (Facebook) Pixel** - Conversion tracking and ad performance measurement
+Las cookies son pequeños archivos de texto que se guardan en tu dispositivo cuando visitás nuestro sitio web. Sirven para mantener tu sesión y mejorar tu experiencia de navegación.
 
 ---
 
-## Third-Party Cookies
+## Cookies que usamos
+
+### Cookies esenciales (siempre activas)
+
+Son necesarias para que el sitio funcione correctamente:
+
+- Gestión de la sesión y del login
+- Seguridad y autenticación
+
+Estas cookies son estrictamente necesarias y no se pueden desactivar.
+
+### Cookies de marketing y analítica
+
+Se usan para publicidad y métricas:
+
+- **Meta (Facebook) Pixel** — Seguimiento de conversiones y medición de rendimiento de anuncios.
+
+---
+
+## Cookies de terceros
 
 **Meta (Facebook) Pixel:**
-- Tracks conversions and measures ad performance
-- [Meta Privacy Policy](https://www.facebook.com/privacy/policy/)
-- Opt-out: [Facebook Ad Preferences](https://www.facebook.com/adpreferences)
+
+- Mide conversiones y el rendimiento de los anuncios.
+- [Política de privacidad de Meta](https://www.facebook.com/privacy/policy/)
+- Para optar por no participar: [Preferencias de anuncios de Facebook](https://www.facebook.com/adpreferences)
 
 **Stripe:**
-- Payment processing cookies
-- Required for subscriptions
-- [Stripe Privacy Policy](https://stripe.com/privacy)
+
+- Cookies usadas para procesar pagos.
+- Necesarias para gestionar las suscripciones.
+- [Política de privacidad de Stripe](https://stripe.com/privacy)
 
 ---
 
-## Browser Settings
+## Configuración del navegador
 
-Most browsers let you:
-- Block all cookies
-- Delete existing cookies
-- Allow cookies only from specific sites
+La mayoría de los navegadores te permiten:
 
-**Note:** Blocking essential cookies may prevent the site from working properly.
+- Bloquear todas las cookies.
+- Borrar las cookies existentes.
+- Permitir cookies sólo desde sitios específicos.
+
+**Nota:** Si bloqueás las cookies esenciales, es probable que el sitio deje de funcionar correctamente.
+
+---
+
+## Bisbi en tu computadora
+
+Bisbi es una aplicación de escritorio. La aplicación instalada en tu Mac, Windows o Linux **no usa cookies**: las cookies sólo aplican al sitio web bisbi.io. Las preferencias y el historial de transcripciones se guardan localmente en tu equipo, no en cookies.

@@ -1,108 +1,115 @@
-# Refund Policy
+# Política de Reembolsos
 
-This policy explains when IPTRADE COPIER LLC provides refunds.
-
----
-
-## General Policy
-
-**All sales are final. We do not offer refunds except in specific cases below.**
-
-### Why No Refunds?
-
-We provide:
-- **Free Plan** to test before buying (local products)
-- Detailed product information and documentation
-- Cancel anytime (stops future billing)
-- Technical support to resolve issues
+Esta política explica cuándo Bisbi (operado por **IPTRADE COPIER LLC**, Delaware, EE. UU.) otorga reembolsos. Los reembolsos, cuando corresponden, se procesan desde IPTRADE COPIER LLC al medio de pago original.
 
 ---
 
-## No Refunds For
+## Política general
 
-- Change of mind  
-- Forgot to cancel before renewal  
-- Didn't use the software  
-- Trading losses  
-- Technical issues on your end (internet, VPS, broker issues)  
-- Misconfiguration or user error  
-- Canceling mid-cycle  
-- Downgrading plans (you get account credit instead)  
-- Violations of our terms  
+**Todas las ventas son finales. No emitimos reembolsos salvo en los casos específicos que se detallan más abajo.**
 
----
+### ¿Por qué no hay reembolsos por defecto?
 
-## Refund Exceptions
+Porque ofrecemos:
 
-We MAY provide refunds at our discretion in these cases:
-
-### 1. Billing Errors
-**Our mistake** - We charged you incorrectly, twice, or after you canceled.
-
-### 2. Unauthorized Charges
-Your payment method was used without your authorization (requires proof).
-
-### 3. Legal Requirements
-Where required by law (e.g., EU consumer rights - see below).
+- **Plan gratuito** para que pruebes Bisbi antes de pagar.
+- Información detallada del producto en la web.
+- Cancelación en cualquier momento (corta el cobro futuro).
+- Soporte técnico para resolver problemas.
 
 ---
 
-## EU Consumer Rights
+## Casos en los que NO hay reembolso
 
-**14-Day Withdrawal Right (EU/UK/Swiss residents):**
-
-You can withdraw from your purchase within 14 days without giving a reason.
-
-**However:** If you activate and use the software during the 14-day period, you waive your right to withdrawal.
-
-**Note:** The Free Plan lets you test risk-free before purchasing.
-
----
-
-## How to Request a Refund
-
-**1. Contact support first** to resolve the issue:  
-Email: [support@iptradecopier.com](mailto:support@iptradecopier.com)
-
-**2. If unresolved, submit refund request:**  
-Email: [support@iptradecopier.com](mailto:support@iptradecopier.com)  
-Subject: "Refund Request"  
-Include:
-- Your account email
-- Transaction date and amount
-- Reason for refund
-- Supporting evidence
-
-**3. Review process:**  
-We'll review within 10 business days and notify you of our decision.
+- Cambio de opinión.
+- Olvidaste cancelar antes de la renovación.
+- No usaste el software durante el período pagado.
+- Problemas técnicos del lado tuyo (internet, micrófono que no funciona, sistema operativo desactualizado, falta de permisos del SO).
+- Errores de configuración o de uso.
+- Cancelación a mitad del ciclo de facturación.
+- Bajadas de plan (se aplica crédito en cuenta, no reembolso en efectivo).
+- Insatisfacción con la calidad de la transcripción cuando se usó fuera de las condiciones recomendadas (micrófono de baja calidad, mucho ruido ambiente, idiomas o acentos no soportados).
+- Violaciones de nuestros Términos de Uso.
 
 ---
 
-## Refund Processing
+## Excepciones (puede haber reembolso)
 
-**If approved:**
-- Refunded to original payment method
-- Processed within 5-10 business days
-- Your subscription will be canceled
-- You must uninstall the software
+Podemos otorgar un reembolso, a nuestro criterio, en estos casos:
 
----
+### 1. Errores de facturación
 
-## Chargebacks
+**Error nuestro** — Te cobramos mal, dos veces o después de que cancelaste.
 
-**Contact us first** before filing a chargeback.
+### 2. Cargos no autorizados
 
-**Filing a chargeback will:**
-- Immediately suspend your account
-- Revoke access to the software
-- May result in a $25 administrative fee if we win the dispute
+Tu medio de pago se usó sin tu autorización (requiere comprobantes).
 
-**Fraudulent chargebacks** may result in permanent ban and legal action.
+### 3. Requisitos legales
+
+Cuando una ley lo exija (por ejemplo, derechos del consumidor en la UE — ver más abajo).
 
 ---
 
-## Plan Changes
+## Derechos del consumidor en la UE
 
-**Downgrades** give you account credit (not cash refund). Credit is applied to future invoices automatically.
+**Derecho de desistimiento de 14 días (residentes de UE / Reino Unido / Suiza):**
 
-**We do not provide cash refunds for plan changes.** The proration system ensures you're not paying for unused time.
+Podés desistir de la compra dentro de los 14 días sin necesidad de justificarlo.
+
+**Sin embargo:** si activás y usás el software durante ese período de 14 días (transcribís palabras consumiendo el plan pago), renunciás al derecho de desistimiento por la naturaleza digital del servicio.
+
+**Nota:** el plan gratuito te permite probar Bisbi sin riesgo antes de comprar el plan Pro.
+
+---
+
+## Cómo pedir un reembolso
+
+**1. Contactá primero a soporte** para intentar resolver el problema:
+Email: [hello@bisbi.io](mailto:hello@bisbi.io)
+
+**2. Si no se resuelve, enviá la solicitud de reembolso:**
+Email: [hello@bisbi.io](mailto:hello@bisbi.io)
+Asunto: "Solicitud de reembolso"
+Incluí:
+
+- El email de tu cuenta.
+- Fecha y monto de la transacción.
+- Motivo del pedido.
+- Documentación de respaldo, si corresponde.
+
+**3. Proceso de revisión:**
+Revisamos el caso dentro de los 10 días hábiles y te comunicamos la decisión.
+
+---
+
+## Procesamiento del reembolso
+
+**Si se aprueba:**
+
+- Se reembolsa al medio de pago original.
+- El procesamiento toma entre 5 y 10 días hábiles.
+- Tu suscripción se cancela.
+- Debés desinstalar el software.
+
+---
+
+## Contracargos (chargebacks)
+
+**Contactanos primero** antes de iniciar un contracargo.
+
+**Iniciar un contracargo sin avisar:**
+
+- Suspende inmediatamente tu cuenta.
+- Revoca el acceso al software.
+- Puede generar un cargo administrativo de 25 USD si ganamos la disputa.
+
+**Contracargos fraudulentos** pueden derivar en una baja permanente y en acciones legales.
+
+---
+
+## Cambios de plan
+
+Las **bajadas de plan** generan crédito en cuenta (no reembolso en efectivo). El crédito se aplica automáticamente a tus facturas futuras.
+
+**No emitimos reembolsos en efectivo por cambios de plan.** El sistema de prorrateo asegura que no estés pagando por tiempo no consumido.

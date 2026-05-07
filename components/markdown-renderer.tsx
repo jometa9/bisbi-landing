@@ -25,7 +25,8 @@ function DownloadLink({
       {...props}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-gray-400 hover:text-gray-600 underline"
+      className="underline hover:opacity-80 transition-opacity"
+      style={{ color: "#7BA89C" }}
     >
       {children}
     </a>
@@ -102,7 +103,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   };
 
   return (
-    <div className="markdown-content max-w-none">
+    <div className="markdown-content max-w-none" style={{ color: "#5C5C57" }}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug]}
@@ -110,35 +111,42 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           h1: ({ id, ...props }) => (
             <h1
               id={id}
-              className="text-3xl font-bold my-2 scroll-mt-24"
+              className="text-3xl md:text-4xl font-semibold tracking-tight mt-8 mb-4 scroll-mt-24 leading-tight"
+              style={{ color: "#1A1A18" }}
               {...props}
             />
           ),
           h2: ({ id, ...props }) => (
             <h2
               id={id}
-              className="text-2xl font-bold my-2 scroll-mt-24"
+              className="text-2xl md:text-3xl font-semibold tracking-tight mt-6 mb-3 scroll-mt-24"
+              style={{ color: "#1A1A18" }}
               {...props}
             />
           ),
           h3: ({ id, ...props }) => (
             <h3
               id={id}
-              className="text-xl font-semibold my-2 scroll-mt-24"
+              className="text-xl font-semibold tracking-tight mt-5 mb-2 scroll-mt-24"
+              style={{ color: "#1A1A18" }}
               {...props}
             />
           ),
           h4: ({ id, ...props }) => (
             <h4
               id={id}
-              className="text-lg font-semibold my-2 scroll-mt-24"
+              className="text-lg font-semibold tracking-tight mt-4 mb-2 scroll-mt-24"
+              style={{ color: "#1A1A18" }}
               {...props}
             />
           ),
           p: ({ children, ...props }) => (
-            <p className="my-2 leading-7" {...props}>
+            <p className="my-3 leading-relaxed" style={{ color: "#5C5C57" }} {...props}>
               {children}
             </p>
+          ),
+          strong: ({ ...props }) => (
+            <strong style={{ color: "#1A1A18" }} {...props} />
           ),
           a: ({ href, children, ...props }) => {
             const isExternal = href?.startsWith("http");
@@ -150,9 +158,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               return (
                 <MailtoAnchor
                   href={href}
-                  className="text-gray-400 hover:text-gray-600 underline cursor-pointer"
+                  className="underline cursor-pointer hover:opacity-80 transition-opacity"
                 >
-                  {children}
+                  <span style={{ color: "#7BA89C" }}>{children}</span>
                 </MailtoAnchor>
               );
             }
@@ -175,22 +183,30 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 }}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="text-gray-400 hover:text-gray-600 underline cursor-pointer"
+                className="underline cursor-pointer hover:opacity-80 transition-opacity"
+                style={{ color: "#7BA89C" }}
               >
                 {children}
               </a>
             );
           },
           ul: ({ ...props }) => (
-            <ul className="list-disc list-inside space-y-2 ml-4 mt-0.5" {...props} />
-          ),
-          ol: ({ ...props }) => (
-            <ol
-              className="list-decimal list-inside space-y-2 ml-4 mt-0.5"
+            <ul
+              className="list-disc list-inside space-y-2 ml-4 mt-0.5 leading-relaxed"
+              style={{ color: "#5C5C57" }}
               {...props}
             />
           ),
-          li: ({ ...props }) => <li {...props} className="my-2" />,
+          ol: ({ ...props }) => (
+            <ol
+              className="list-decimal list-inside space-y-2 ml-4 mt-0.5 leading-relaxed"
+              style={{ color: "#5C5C57" }}
+              {...props}
+            />
+          ),
+          li: ({ ...props }) => (
+            <li {...props} className="my-2 leading-relaxed" style={{ color: "#5C5C57" }} />
+          ),
           img: ({ src, alt, ...props }) => {
             const videoId = typeof src === "string" ? getYouTubeVideoId(src) : null;
             if (videoId) {
@@ -216,29 +232,44 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             <div className="overflow-x-auto my-4">
               <table
                 {...props}
-                className="min-w-full border-collapse border border-border"
+                className="min-w-full border-collapse"
+                style={{ border: "1px solid #E8E6E1" }}
               />
             </div>
           ),
           th: ({ ...props }) => (
             <th
               {...props}
-              className="border border-border px-3 py-2 bg-muted font-semibold text-left"
+              className="px-3 py-2 font-semibold text-left"
+              style={{
+                border: "1px solid #E8E6E1",
+                backgroundColor: "#F7F5F0",
+                color: "#1A1A18",
+              }}
             />
           ),
           td: ({ ...props }) => (
-            <td {...props} className="border border-border px-3 py-2" />
+            <td
+              {...props}
+              className="px-3 py-2"
+              style={{ border: "1px solid #E8E6E1", color: "#5C5C57" }}
+            />
           ),
           hr: ({ ...props }) => (
-            <hr className="my-6 border-border" {...props} />
+            <hr className="my-6" style={{ borderColor: "#E8E6E1" }} {...props} />
           ),
           pre: ({ children }) => (
-            <div className="my-2 whitespace-pre-wrap text-sm text-foreground/90">
+            <div
+              className="my-2 whitespace-pre-wrap text-sm leading-relaxed"
+              style={{ color: "#5C5C57" }}
+            >
               {children}
             </div>
           ),
           code: ({ children }) => (
-            <span className="font-mono text-sm">{children}</span>
+            <span className="font-mono text-sm" style={{ color: "#1A1A18" }}>
+              {children}
+            </span>
           ),
         }}
       >
