@@ -22,7 +22,7 @@ export default function AuthLayout({
           aria-hidden="true"
         />
         <AuthHeader />
-        <div className="relative flex min-h-screen flex-col items-center justify-center px-3 py-12 pt-28">
+        <div className="relative flex min-h-[80vh] flex-col items-center justify-center px-3 pt-28">
           <div className="relative w-full max-w-5xl">{children}</div>
         </div>
       </div>
