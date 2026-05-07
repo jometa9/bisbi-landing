@@ -134,7 +134,7 @@ function DashboardContent() {
           : t.dashboard.downloadLinux;
     const isPrimary = variant === "primary";
     const baseBg = isPrimary ? "#7BA89C" : "#F0EDE6";
-    const hoverBg = isPrimary ? "#5A8C83" : "#E6EFED";
+    const hoverBg = isPrimary ? "#5A8C83" : "#F0F5F3";
     const textColor = isPrimary ? "#FFFFFF" : "#1A1A18";
 
     return (
@@ -143,7 +143,11 @@ function DashboardContent() {
         onClick={() => handleClick(platform)}
         disabled={downloading !== null}
         className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
-        style={{ backgroundColor: baseBg, color: textColor }}
+        style={{
+          backgroundColor: baseBg,
+          color: textColor,
+          border: isPrimary ? undefined : "1px solid rgba(26, 26, 24, 0.08)",
+        }}
         onMouseEnter={(e) => {
           if (!downloading)
             (e.currentTarget as HTMLButtonElement).style.backgroundColor =
@@ -209,6 +213,7 @@ function DashboardContent() {
               style={{
                 backgroundColor: isPro ? "#E6EFED" : "#F0EDE6",
                 color: isPro ? "#5A8C83" : "#5C5C57",
+                border: "1px solid rgba(26, 26, 24, 0.08)",
               }}
             >
               {isPro ? t.dashboard.planProBadge : t.dashboard.planFreeBadge}
@@ -220,10 +225,14 @@ function DashboardContent() {
               <button
                 onClick={() => router.push("/dashboard/admin/inbox")}
                 className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
-                style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+                style={{
+                  backgroundColor: "#F0EDE6",
+                  color: "#1A1A18",
+                  border: "1px solid rgba(26, 26, 24, 0.08)",
+                }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#E6EFED";
+                    "#F0F5F3";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
@@ -237,10 +246,14 @@ function DashboardContent() {
               <button
                 onClick={() => router.push("/dashboard/admin/settings")}
                 className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer"
-                style={{ backgroundColor: "#F0EDE6", color: "#1A1A18" }}
+                style={{
+                  backgroundColor: "#F0EDE6",
+                  color: "#1A1A18",
+                  border: "1px solid rgba(26, 26, 24, 0.08)",
+                }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#E6EFED";
+                    "#F0F5F3";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
