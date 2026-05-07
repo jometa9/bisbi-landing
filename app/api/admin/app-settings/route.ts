@@ -18,13 +18,10 @@ export async function GET() {
 
     return NextResponse.json({
       resendApiKey: settings.resendApiKey || "",
-      resendTestEmail: settings.resendTestEmail || "",
       emailFrom: settings.emailFrom || "",
       resendInboundWebhookSecret: settings.resendInboundWebhookSecret || "",
       discordWebhookUrl: settings.discordWebhookUrl || "",
       discordDailyReportWebhookUrl: settings.discordDailyReportWebhookUrl || "",
-      openaiApiKey: settings.openaiApiKey || "",
-      openaiModel: settings.openaiModel || "",
       internalApiKey: settings.internalApiKey || "",
       stripeSecretKey: settings.stripeSecretKey || "",
       stripeWebhookSecret: settings.stripeWebhookSecret || "",
@@ -33,6 +30,9 @@ export async function GET() {
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: settings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(settings),
+      bisbiWindowsDownloadUrl: settings.bisbiWindowsDownloadUrl || "",
+      bisbiMacDownloadUrl: settings.bisbiMacDownloadUrl || "",
+      bisbiLinuxDownloadUrl: settings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(
@@ -53,13 +53,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
       resendApiKey,
-      resendTestEmail,
       emailFrom,
       resendInboundWebhookSecret,
       discordWebhookUrl,
       discordDailyReportWebhookUrl,
-      openaiApiKey,
-      openaiModel,
       internalApiKey,
       stripeSecretKey,
       stripeWebhookSecret,
@@ -68,15 +65,15 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount,
       bisbiProAnnualAmount,
       bisbiFreeMonthlyWordLimit,
+      bisbiWindowsDownloadUrl,
+      bisbiMacDownloadUrl,
+      bisbiLinuxDownloadUrl,
     } = body;
 
     const updateData: Parameters<typeof updateAppSettings>[1] = {};
 
     if (resendApiKey !== undefined) {
       updateData.resendApiKey = resendApiKey?.trim() || null;
-    }
-    if (resendTestEmail !== undefined) {
-      updateData.resendTestEmail = resendTestEmail?.trim() || null;
     }
     if (emailFrom !== undefined) {
       updateData.emailFrom = emailFrom?.trim() || null;
@@ -91,12 +88,6 @@ export async function POST(req: NextRequest) {
     if (discordDailyReportWebhookUrl !== undefined) {
       updateData.discordDailyReportWebhookUrl =
         discordDailyReportWebhookUrl?.trim() || null;
-    }
-    if (openaiApiKey !== undefined) {
-      updateData.openaiApiKey = openaiApiKey?.trim() || null;
-    }
-    if (openaiModel !== undefined) {
-      updateData.openaiModel = openaiModel?.trim() || null;
     }
     if (internalApiKey !== undefined) {
       updateData.internalApiKey = internalApiKey?.trim() || null;
@@ -126,6 +117,17 @@ export async function POST(req: NextRequest) {
           ? bisbiFreeMonthlyWordLimit
           : null;
     }
+    if (bisbiWindowsDownloadUrl !== undefined) {
+      updateData.bisbiWindowsDownloadUrl =
+        bisbiWindowsDownloadUrl?.trim() || null;
+    }
+    if (bisbiMacDownloadUrl !== undefined) {
+      updateData.bisbiMacDownloadUrl = bisbiMacDownloadUrl?.trim() || null;
+    }
+    if (bisbiLinuxDownloadUrl !== undefined) {
+      updateData.bisbiLinuxDownloadUrl =
+        bisbiLinuxDownloadUrl?.trim() || null;
+    }
 
     const [{ clearEmailConfigCache }, { clearStripeCache }] = await Promise.all([
       import("@/lib/email/config"),
@@ -139,13 +141,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       resendApiKey: updatedSettings.resendApiKey || "",
-      resendTestEmail: updatedSettings.resendTestEmail || "",
       emailFrom: updatedSettings.emailFrom || "",
       resendInboundWebhookSecret: updatedSettings.resendInboundWebhookSecret || "",
       discordWebhookUrl: updatedSettings.discordWebhookUrl || "",
       discordDailyReportWebhookUrl: updatedSettings.discordDailyReportWebhookUrl || "",
-      openaiApiKey: updatedSettings.openaiApiKey || "",
-      openaiModel: updatedSettings.openaiModel || "",
       internalApiKey: updatedSettings.internalApiKey || "",
       stripeSecretKey: updatedSettings.stripeSecretKey || "",
       stripeWebhookSecret: updatedSettings.stripeWebhookSecret || "",
@@ -154,6 +153,9 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: updatedSettings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(updatedSettings),
+      bisbiWindowsDownloadUrl: updatedSettings.bisbiWindowsDownloadUrl || "",
+      bisbiMacDownloadUrl: updatedSettings.bisbiMacDownloadUrl || "",
+      bisbiLinuxDownloadUrl: updatedSettings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(

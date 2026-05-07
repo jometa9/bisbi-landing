@@ -8,7 +8,6 @@ const CACHE_TTL = 60 * 1000;
 
 interface EmailConfig {
   apiKey: string | null;
-  testEmail: string;
   emailFrom: string;
 }
 
@@ -23,7 +22,6 @@ export async function getEmailConfig(): Promise<EmailConfig> {
     const [settings] = await db
       .select({
         apiKey: appSettings.resendApiKey,
-        testEmail: appSettings.resendTestEmail,
         emailFrom: appSettings.emailFrom,
       })
       .from(appSettings)
@@ -33,7 +31,6 @@ export async function getEmailConfig(): Promise<EmailConfig> {
 
     cachedConfig = {
       apiKey,
-      testEmail: settings?.testEmail || "onboarding@resend.dev",
       emailFrom: settings?.emailFrom || "no-reply@bisbi.io",
     };
     cacheTime = now;
@@ -43,7 +40,6 @@ export async function getEmailConfig(): Promise<EmailConfig> {
     console.error("[EmailConfig] Error fetching config from DB:", error);
     return {
       apiKey: null,
-      testEmail: "onboarding@resend.dev",
       emailFrom: "no-reply@bisbi.io",
     };
   }
@@ -77,24 +73,6 @@ export async function getResendClient(): Promise<Resend | null> {
 }
 
 
-const getSafeResendEmail = (email: string, testEmail: string): string => {
-  const invalidTestDomains = [
-    "@test.com",
-    "@example.com",
-    "@testing.com",
-    "@sample.com",
-  ];
-
-  const isInvalidTestDomain = invalidTestDomains.some((domain) =>
-    email.toLowerCase().endsWith(domain)
-  );
-
-  if (isInvalidTestDomain) {
-    return testEmail;
-  }
-  return email;
-};
-
 export async function sendEmail({
   to,
   subject,
@@ -110,7 +88,7 @@ export async function sendEmail({
 }  ) {
   try {
     const config = await getEmailConfig();
-    
+
     if (!config.apiKey || config.apiKey.trim() === "") {
       console.error("[Email] Resend API key is missing or empty in app settings");
       throw new Error("No email service configured. Please configure Resend API key in settings.");
@@ -124,12 +102,11 @@ export async function sendEmail({
     }
 
     const fromAddress = from || config.emailFrom;
-    const safeRecipient = getSafeResendEmail(to, config.testEmail);
 
     try {
       const { data, error } = await resendInstance.emails.send({
         from: fromAddress,
-        to: safeRecipient,
+        to,
         subject,
         html,
         text,
@@ -138,8 +115,7 @@ export async function sendEmail({
       if (error) {
         console.error(`[Email] Resend error:`, {
           error,
-          originalRecipient: to,
-          actualRecipient: safeRecipient,
+          recipient: to,
           timestamp: new Date().toISOString(),
         });
         throw error;
@@ -148,8 +124,7 @@ export async function sendEmail({
       return {
         id: data?.id,
         provider: "resend",
-        originalRecipient: to,
-        actualRecipient: safeRecipient,
+        recipient: to,
       };
     } catch (resendError) {
       throw resendError;
@@ -183,7 +158,6 @@ export async function testEmailConfiguration() {
       },
       config: {
         hasApiKey: !!config.apiKey,
-        testEmail: config.testEmail,
         emailFrom: config.emailFrom,
       },
     };

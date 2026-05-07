@@ -2,8 +2,12 @@ import AdminSubscriptionLimits from "@/components/admin-subscription-limits";
 import AdminDeleteUser from "@/components/admin-delete-user";
 import AdminSettings from "@/components/admin-settings";
 import AdminInboxSettings from "@/components/admin-inbox-settings";
+import AdminStripeSettings from "@/components/admin-stripe-settings";
+import AdminIntegrationsSettings from "@/components/admin-integrations-settings";
 import { getCurrentUserFromSession } from "@/lib/db/queries";
 import {
+  CreditCard,
+  Download,
   Gift,
   Mail,
   Sliders,
@@ -61,6 +65,30 @@ export default async function AdminSettingsPage() {
                 <p className="text-lg">Email & Inbox Configuration</p>
               </div>
               <AdminInboxSettings />
+            </div>
+          </section>
+
+          <section>
+            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                  <CreditCard className="h-5 w-5 text-gray-700" />
+                </div>
+                <p className="text-lg">Stripe Configuration</p>
+              </div>
+              <AdminStripeSettings />
+            </div>
+          </section>
+
+          <section>
+            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-3 bg-white rounded-lg border border-gray-200">
+                  <Download className="h-5 w-5 text-gray-700" />
+                </div>
+                <p className="text-lg">App Download URLs</p>
+              </div>
+              <AdminIntegrationsSettings />
             </div>
           </section>
 

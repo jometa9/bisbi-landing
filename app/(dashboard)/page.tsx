@@ -235,7 +235,7 @@ export default function HomePage() {
               {t.cta.signInHint}{" "}
               <button
                 onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-                className="underline underline-offset-2 cursor-pointer"
+                className="cursor-pointer font-medium hover:opacity-80 transition-opacity"
                 style={{ color: "#7BA89C" }}
               >
                 {t.cta.signIn}

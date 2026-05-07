@@ -38,7 +38,8 @@ export function Footer() {
                     href="https://api2labs.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-2 transition-colors hover:text-[#1A1A18] cursor-pointer"
+                    className="transition-colors hover:text-[#1A1A18] cursor-pointer font-medium"
+                    style={{ color: "#7BA89C" }}
                   >
                     API2LABS.COM
                   </a>

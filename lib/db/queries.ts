@@ -542,13 +542,10 @@ export async function updateAppSettings(
   userId: string,
   data: Partial<{
     resendApiKey: string | null;
-    resendTestEmail: string | null;
     emailFrom: string | null;
     resendInboundWebhookSecret: string | null;
     discordWebhookUrl: string | null;
     discordDailyReportWebhookUrl: string | null;
-    openaiApiKey: string | null;
-    openaiModel: string | null;
     internalApiKey: string | null;
     stripeSecretKey: string | null;
     stripeWebhookSecret: string | null;
@@ -557,6 +554,9 @@ export async function updateAppSettings(
     bisbiProMonthlyAmount: number | null;
     bisbiProAnnualAmount: number | null;
     bisbiFreeMonthlyWordLimit: number | null;
+    bisbiWindowsDownloadUrl: string | null;
+    bisbiMacDownloadUrl: string | null;
+    bisbiLinuxDownloadUrl: string | null;
   }>
 ) {
   const settings = await db
@@ -571,13 +571,13 @@ export async function updateAppSettings(
         .insert(appSettings)
         .values({
           resendApiKey: data.resendApiKey ?? null,
-          resendTestEmail: data.resendTestEmail ?? null,
           emailFrom: data.emailFrom ?? null,
           resendInboundWebhookSecret: data.resendInboundWebhookSecret ?? null,
           discordDailyReportWebhookUrl: data.discordDailyReportWebhookUrl ?? null,
-          openaiApiKey: data.openaiApiKey ?? null,
-          openaiModel: data.openaiModel ?? null,
           internalApiKey: data.internalApiKey ?? generateInternalApiKey(),
+          bisbiWindowsDownloadUrl: data.bisbiWindowsDownloadUrl ?? null,
+          bisbiMacDownloadUrl: data.bisbiMacDownloadUrl ?? null,
+          bisbiLinuxDownloadUrl: data.bisbiLinuxDownloadUrl ?? null,
           updatedAt: new Date(),
           updatedBy: userId,
         })
@@ -593,9 +593,6 @@ export async function updateAppSettings(
       if (data.resendApiKey !== undefined) {
         updateData.resendApiKey = data.resendApiKey ?? null;
       }
-      if (data.resendTestEmail !== undefined) {
-        updateData.resendTestEmail = data.resendTestEmail ?? null;
-      }
       if (data.emailFrom !== undefined) {
         updateData.emailFrom = data.emailFrom ?? null;
       }
@@ -609,11 +606,17 @@ export async function updateAppSettings(
         updateData.discordDailyReportWebhookUrl =
           data.discordDailyReportWebhookUrl ?? null;
       }
-      if (data.openaiApiKey !== undefined) {
-        updateData.openaiApiKey = data.openaiApiKey?.trim() || null;
+      if (data.bisbiWindowsDownloadUrl !== undefined) {
+        updateData.bisbiWindowsDownloadUrl =
+          data.bisbiWindowsDownloadUrl?.trim() || null;
       }
-      if (data.openaiModel !== undefined) {
-        updateData.openaiModel = data.openaiModel?.trim() || null;
+      if (data.bisbiMacDownloadUrl !== undefined) {
+        updateData.bisbiMacDownloadUrl =
+          data.bisbiMacDownloadUrl?.trim() || null;
+      }
+      if (data.bisbiLinuxDownloadUrl !== undefined) {
+        updateData.bisbiLinuxDownloadUrl =
+          data.bisbiLinuxDownloadUrl?.trim() || null;
       }
       if (data.internalApiKey !== undefined) {
         updateData.internalApiKey = data.internalApiKey?.trim() || null;

@@ -40,6 +40,7 @@ export const userProductSubscription = pgTable("userProductSubscription", {
   stripeProductId: text("stripeProductId"),
   planName: varchar("planName", { length: 50 }),
   expiresAt: timestamp("expiresAt"),
+  metaPurchaseEventId: text("metaPurchaseEventId"),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
@@ -47,13 +48,10 @@ export const userProductSubscription = pgTable("userProductSubscription", {
 export const appSettings = pgTable("appSettings", {
   id: serial("id").primaryKey(),
   resendApiKey: text("resendApiKey"),
-  resendTestEmail: text("resendTestEmail"),
   emailFrom: text("emailFrom"),
   resendInboundWebhookSecret: text("resendInboundWebhookSecret"),
   discordWebhookUrl: text("discordWebhookUrl"),
   discordDailyReportWebhookUrl: text("discordDailyReportWebhookUrl"),
-  openaiApiKey: text("openaiApiKey"),
-  openaiModel: text("openaiModel"),
   internalApiKey: text("internalApiKey"),
   stripeSecretKey: text("stripeSecretKey"),
   stripeWebhookSecret: text("stripeWebhookSecret"),
@@ -62,6 +60,9 @@ export const appSettings = pgTable("appSettings", {
   bisbiProMonthlyAmount: integer("bisbiProMonthlyAmount"),
   bisbiProAnnualAmount: integer("bisbiProAnnualAmount"),
   bisbiFreeMonthlyWordLimit: integer("bisbiFreeMonthlyWordLimit"),
+  bisbiWindowsDownloadUrl: text("bisbiWindowsDownloadUrl"),
+  bisbiMacDownloadUrl: text("bisbiMacDownloadUrl"),
+  bisbiLinuxDownloadUrl: text("bisbiLinuxDownloadUrl"),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
   updatedBy: uuid("updatedBy").references(() => user.id),
 });
