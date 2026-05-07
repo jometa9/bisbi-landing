@@ -1,3 +1,4 @@
+import { AdminSection } from "@/components/admin/admin-section";
 import AdminSubscriptionLimits from "@/components/admin-subscription-limits";
 import AdminDeleteUser from "@/components/admin-delete-user";
 import AdminSettings from "@/components/admin-settings";
@@ -32,78 +33,47 @@ export default async function AdminSettingsPage() {
     <div className="px-3 w-full pb-20 pt-1">
       <div className="w-full space-y-3">
         <div className="space-y-6">
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Gift className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Assign Product Subscription</p>
-              </div>
-              <AdminSettings />
-            </div>
-          </section>
+          <AdminSection
+            titleKey="sectionAssignSubscription"
+            icon={<Gift className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminSettings />
+          </AdminSection>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200 w-full">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Sliders className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Subscription Limits</p>
-              </div>
-              <AdminSubscriptionLimits />
-            </div>
-          </section>
+          <AdminSection
+            titleKey="sectionLimits"
+            icon={<Sliders className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminSubscriptionLimits />
+          </AdminSection>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Mail className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Email & Inbox Configuration</p>
-              </div>
-              <AdminInboxSettings />
-            </div>
-          </section>
+          <AdminSection
+            titleKey="sectionEmailInbox"
+            icon={<Mail className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminInboxSettings />
+          </AdminSection>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <CreditCard className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Stripe Configuration</p>
-              </div>
-              <AdminStripeSettings />
-            </div>
-          </section>
+          <AdminSection
+            titleKey="sectionStripe"
+            icon={<CreditCard className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminStripeSettings />
+          </AdminSection>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Download className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">App Download URLs</p>
-              </div>
-              <AdminIntegrationsSettings />
-            </div>
-          </section>
+          <AdminSection
+            titleKey="sectionDownloads"
+            icon={<Download className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminIntegrationsSettings />
+          </AdminSection>
 
-          <section>
-            <div className="group rounded-lg bg-gray-100 p-3 transition-all duration-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white rounded-lg border border-gray-200">
-                  <Trash2 className="h-5 w-5 text-gray-700" />
-                </div>
-                <p className="text-lg">Delete User</p>
-              </div>
-              <AdminDeleteUser />
-            </div>
-          </section>
-
+          <AdminSection
+            titleKey="sectionDeleteUser"
+            icon={<Trash2 className="h-5 w-5 text-gray-700" />}
+          >
+            <AdminDeleteUser />
+          </AdminSection>
         </div>
       </div>
     </div>

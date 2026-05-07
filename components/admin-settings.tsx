@@ -9,21 +9,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useI18n } from "@/lib/i18n";
+import { SUPPORTED_EMAIL_LANGS, type EmailLang } from "@/lib/email/translations";
 import { useState } from "react";
 
+const EMAIL_LANG_LABELS: Record<EmailLang, string> = {
+  es: "Español",
+  en: "English",
+  zh: "中文",
+  hi: "हिंदी",
+  ar: "العربية",
+};
+
 export default function AdminSettings() {
+  const { t } = useI18n();
   const [isAssigningSubscription, setIsAssigningSubscription] = useState(false);
   const [subscriptionEmail, setSubscriptionEmail] = useState("");
   const subscriptionProduct = "bisbi" as const;
   const [subscriptionPlan, setSubscriptionPlan] = useState("");
   const [subscriptionDuration, setSubscriptionDuration] = useState("1");
+  const [emailLang, setEmailLang] = useState<EmailLang>("es");
   const [buttonStatus, setButtonStatus] = useState<"success" | "error" | null>(
     null
   );
 
   const availablePlans = [
-    { value: "none", label: "Free (Remove Subscription)" },
-    { value: "pro", label: "Pro" },
+    { value: "none", label: t.admin.assignSubscription.planFreeRemove },
+    { value: "pro", label: t.admin.assignSubscription.planPro },
   ];
 
   const handleAssignFreeSubscription = async () => {
@@ -53,6 +65,7 @@ export default function AdminSettings() {
           productKey: subscriptionProduct,
           plan: subscriptionPlan,
           duration: parseInt(subscriptionDuration, 10),
+          lang: emailLang,
         }),
       });
 
@@ -76,20 +89,25 @@ export default function AdminSettings() {
     }
   };
 
+  const buttonLabel = t.admin.assignSubscription.button.replace(
+    "{product}",
+    subscriptionProduct.toUpperCase()
+  );
+
   return (
     <div className="space-y-3">
-        <Input
-          id="sub-email"
-          placeholder="user@example.com"
-          value={subscriptionEmail}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSubscriptionEmail(e.target.value)
-          }
-          className="shadow-none bg-white"
-        />
+      <Input
+        id="sub-email"
+        placeholder={t.admin.assignSubscription.emailPlaceholder}
+        value={subscriptionEmail}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSubscriptionEmail(e.target.value)
+        }
+        className="shadow-none bg-white"
+      />
       <Select value={subscriptionPlan} onValueChange={setSubscriptionPlan}>
         <SelectTrigger>
-          <SelectValue placeholder="Select plan" />
+          <SelectValue placeholder={t.admin.assignSubscription.selectPlan} />
         </SelectTrigger>
         <SelectContent>
           {availablePlans.map((plan) => (
@@ -100,22 +118,36 @@ export default function AdminSettings() {
         </SelectContent>
       </Select>
 
-        <Select
-          value={subscriptionDuration}
-          onValueChange={setSubscriptionDuration}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select duration" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="1">1 month</SelectItem>
-            <SelectItem value="3">3 months</SelectItem>
-            <SelectItem value="6">6 months</SelectItem>
-            <SelectItem value="12">1 year</SelectItem>
-            <SelectItem value="24">2 years</SelectItem>
-            <SelectItem value="1200">100 years</SelectItem>
-          </SelectContent>
-        </Select>
+      <Select
+        value={subscriptionDuration}
+        onValueChange={setSubscriptionDuration}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder={t.admin.assignSubscription.selectDuration} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="1">{t.admin.assignSubscription.duration1m}</SelectItem>
+          <SelectItem value="3">{t.admin.assignSubscription.duration3m}</SelectItem>
+          <SelectItem value="6">{t.admin.assignSubscription.duration6m}</SelectItem>
+          <SelectItem value="12">{t.admin.assignSubscription.duration1y}</SelectItem>
+          <SelectItem value="24">{t.admin.assignSubscription.duration2y}</SelectItem>
+          <SelectItem value="1200">{t.admin.assignSubscription.duration100y}</SelectItem>
+        </SelectContent>
+      </Select>
+
+      <Select value={emailLang} onValueChange={(v) => setEmailLang(v as EmailLang)}>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {SUPPORTED_EMAIL_LANGS.map((lang) => (
+            <SelectItem key={lang} value={lang}>
+              {EMAIL_LANG_LABELS[lang]}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
       <Button
         onClick={handleAssignFreeSubscription}
         disabled={
@@ -128,12 +160,12 @@ export default function AdminSettings() {
         className="w-full"
       >
         {isAssigningSubscription
-          ? "Assigning..."
+          ? t.admin.assignSubscription.buttonLoading
           : buttonStatus === "success"
-            ? "Success"
+            ? t.admin.assignSubscription.buttonSuccess
             : buttonStatus === "error"
-              ? "Error"
-              : `Assign ${subscriptionProduct.toUpperCase()} Subscription`}
+              ? t.admin.assignSubscription.buttonError
+              : buttonLabel}
       </Button>
     </div>
   );

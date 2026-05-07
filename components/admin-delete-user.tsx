@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 import { useState } from "react";
 
 export default function AdminDeleteUser() {
+  const { t } = useI18n();
   const [isDeleting, setIsDeleting] = useState(false);
   const [email, setEmail] = useState("");
   const [buttonStatus, setButtonStatus] = useState<"success" | "error" | null>(
@@ -48,16 +49,16 @@ export default function AdminDeleteUser() {
 
   return (
     <div className="space-y-3">
-        <Input
-          id="delete-email"
-          placeholder="user@example.com"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          className="shadow-none bg-white"
-          disabled={isDeleting}
-        />
+      <Input
+        id="delete-email"
+        placeholder={t.admin.deleteUser.placeholder}
+        value={email}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value)
+        }
+        className="shadow-none bg-white"
+        disabled={isDeleting}
+      />
 
       <Button
         onClick={handleDeleteUser}
@@ -65,12 +66,12 @@ export default function AdminDeleteUser() {
         className="w-full"
       >
         {isDeleting
-          ? "Deleting..."
+          ? t.admin.deleteUser.buttonLoading
           : buttonStatus === "success"
-            ? "Success"
+            ? t.admin.deleteUser.buttonSuccess
             : buttonStatus === "error"
-              ? "Error"
-              : "Delete User"}
+              ? t.admin.deleteUser.buttonError
+              : t.admin.deleteUser.button}
       </Button>
     </div>
   );

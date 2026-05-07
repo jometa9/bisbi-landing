@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 import { useState, useEffect } from "react";
 
 interface StripeSettings {
@@ -18,6 +19,7 @@ const DEFAULT_MONTHLY_AMOUNT = 1000;
 const DEFAULT_ANNUAL_AMOUNT = 9600;
 
 export default function AdminStripeSettings() {
+  const { t } = useI18n();
   const [settings, setSettings] = useState<StripeSettings>({
     stripeSecretKey: "",
     stripeWebhookSecret: "",
@@ -88,7 +90,7 @@ export default function AdminStripeSettings() {
   return (
     <div className="space-y-3">
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="stripe-secret-key">Stripe Secret Key</Label>
+        <Label htmlFor="stripe-secret-key">{t.admin.stripeSettings.secretKey}</Label>
         <div className="flex gap-3">
           <Input
             id="stripe-secret-key"
@@ -106,16 +108,14 @@ export default function AdminStripeSettings() {
             onClick={() => setShowSecretKey(!showSecretKey)}
             className="shadow-none whitespace-nowrap"
           >
-            {showSecretKey ? "Hide" : "Show"}
+            {showSecretKey ? t.admin.stripeSettings.hide : t.admin.stripeSettings.show}
           </Button>
         </div>
-        <p className="text-xs text-gray-600">
-          Stripe API secret key. Required for checkout and webhooks.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.stripeSettings.secretKeyHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="stripe-webhook-secret">Stripe Webhook Secret</Label>
+        <Label htmlFor="stripe-webhook-secret">{t.admin.stripeSettings.webhookSecret}</Label>
         <div className="flex gap-3">
           <Input
             id="stripe-webhook-secret"
@@ -136,16 +136,14 @@ export default function AdminStripeSettings() {
             onClick={() => setShowWebhookSecret(!showWebhookSecret)}
             className="shadow-none whitespace-nowrap"
           >
-            {showWebhookSecret ? "Hide" : "Show"}
+            {showWebhookSecret ? t.admin.stripeSettings.hide : t.admin.stripeSettings.show}
           </Button>
         </div>
-        <p className="text-xs text-gray-600">
-          Signing secret of the Stripe webhook endpoint pointing to /api/stripe/webhook.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.stripeSettings.webhookSecretHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="bisbi-pro-monthly-price">Bisbi Pro — Monthly Price ID</Label>
+        <Label htmlFor="bisbi-pro-monthly-price">{t.admin.stripeSettings.monthlyPriceId}</Label>
         <Input
           id="bisbi-pro-monthly-price"
           type="text"
@@ -162,7 +160,7 @@ export default function AdminStripeSettings() {
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="bisbi-pro-annual-price">Bisbi Pro — Annual Price ID</Label>
+        <Label htmlFor="bisbi-pro-annual-price">{t.admin.stripeSettings.annualPriceId}</Label>
         <Input
           id="bisbi-pro-annual-price"
           type="text"
@@ -180,7 +178,7 @@ export default function AdminStripeSettings() {
 
       <div className="grid grid-cols-2 gap-3">
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="bisbi-pro-monthly-amount">Monthly Amount (cents)</Label>
+          <Label htmlFor="bisbi-pro-monthly-amount">{t.admin.stripeSettings.monthlyAmount}</Label>
           <Input
             id="bisbi-pro-monthly-amount"
             type="number"
@@ -198,7 +196,7 @@ export default function AdminStripeSettings() {
         </div>
 
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="bisbi-pro-annual-amount">Annual Amount (cents)</Label>
+          <Label htmlFor="bisbi-pro-annual-amount">{t.admin.stripeSettings.annualAmount}</Label>
           <Input
             id="bisbi-pro-annual-amount"
             type="number"
@@ -218,12 +216,12 @@ export default function AdminStripeSettings() {
 
       <Button onClick={handleSave} disabled={isSaving} className="w-full">
         {isSaving
-          ? "Saving..."
+          ? t.admin.stripeSettings.saveLoading
           : saveStatus === "success"
-            ? "Saved!"
+            ? t.admin.stripeSettings.saveSuccess
             : saveStatus === "error"
-              ? "Error"
-              : "Save Stripe Settings"}
+              ? t.admin.stripeSettings.saveError
+              : t.admin.stripeSettings.save}
       </Button>
     </div>
   );

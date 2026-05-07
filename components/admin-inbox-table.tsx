@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TableLoading } from "@/components/ui/table-loading";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import {
   Archive,
@@ -67,6 +68,13 @@ type SortColumn = "from" | "subject" | "receivedAt" | null;
 type FilterStatus = "all" | "unread" | "read" | "archived";
 
 export function AdminInboxTable() {
+  const { t } = useI18n();
+  const filterLabels: Record<FilterStatus, string> = {
+    all: t.admin.inboxTable.filterAll,
+    unread: t.admin.inboxTable.filterUnread,
+    read: t.admin.inboxTable.filterRead,
+    archived: t.admin.inboxTable.filterArchived,
+  };
   const [data, setData] = useState<InboxResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -282,7 +290,7 @@ export function AdminInboxTable() {
   };
 
   const truncateText = (text: string | null, maxLength: number) => {
-    if (!text) return "(No Subject)";
+    if (!text) return t.admin.inboxTable.noSubject;
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
@@ -298,7 +306,7 @@ export function AdminInboxTable() {
         <div className="p-3 bg-gray-50 border-b border-gray-200">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
             <Button className="flex items-center shadow-none gap-1 text-sm bg-white rounded-lg px-3 py-2 border border-gray-200 pointer-events-none cursor-default">
-              <span className="text-gray-400">Unread:</span>
+              <span className="text-gray-400">{t.admin.inboxTable.unread}</span>
               <span className="text-gray-400 font-medium">
                 {data?.stats.unread || 0}
               </span>
@@ -307,7 +315,7 @@ export function AdminInboxTable() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Search by sender or subject..."
+                placeholder={t.admin.inboxTable.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setSearchQuery(e.target.value)
@@ -345,7 +353,7 @@ export function AdminInboxTable() {
                           : "text-gray-400 hover:text-gray-600"
                       )}
                     >
-                      {status}
+                      {filterLabels[status]}
                     </button>
                   )
                 )}
@@ -369,7 +377,7 @@ export function AdminInboxTable() {
               <Link href="/dashboard/admin/inbox/new">
                 <Button className="flex items-center gap-2 text-sm h-9">
                   <Plus className="h-4 w-4" />
-                  New Email
+                  {t.admin.inboxTable.newEmail}
                 </Button>
               </Link>
             </div>
@@ -385,7 +393,7 @@ export function AdminInboxTable() {
                   onClick={() => handleSort("subject")}
                 >
                   <div className="flex items-center gap-3">
-                    Subject
+                    {t.admin.inboxTable.colSubject}
                     {sortColumn === "subject" &&
                       (sortDirection === "asc" ? (
                         <ArrowUp className="h-3 w-3" />
@@ -399,7 +407,7 @@ export function AdminInboxTable() {
                   onClick={() => handleSort("from")}
                 >
                   <div className="flex items-center gap-3">
-                    From
+                    {t.admin.inboxTable.colFrom}
                     {sortColumn === "from" &&
                       (sortDirection === "asc" ? (
                         <ArrowUp className="h-3 w-3" />
@@ -408,13 +416,13 @@ export function AdminInboxTable() {
                       ))}
                   </div>
                 </TableHead>
-                <TableHead className="whitespace-nowrap hidden md:table-cell px-3">To</TableHead>
+                <TableHead className="whitespace-nowrap hidden md:table-cell px-3">{t.admin.inboxTable.colTo}</TableHead>
                 <TableHead
                   className="whitespace-nowrap cursor-pointer hover:bg-gray-50 select-none hidden md:table-cell px-3"
                   onClick={() => handleSort("receivedAt")}
                 >
                   <div className="flex items-center gap-3">
-                    Received
+                    {t.admin.inboxTable.colReceived}
                     {sortColumn === "receivedAt" &&
                       (sortDirection === "asc" ? (
                         <ArrowUp className="h-3 w-3" />
@@ -442,8 +450,8 @@ export function AdminInboxTable() {
                     className="text-center text-muted-foreground py-8 bg-white rounded-b-md"
                   >
                     {searchQuery
-                      ? "No emails found matching your search"
-                      : "No emails in inbox"}
+                      ? t.admin.inboxTable.emptySearch
+                      : t.admin.inboxTable.empty}
                   </TableCell>
                 </TableRow>
               ) : (
@@ -566,32 +574,32 @@ export function AdminInboxTable() {
                             <div className="bg-gray-100 p-3 rounded-lg">
                               <div className="flex flex-col items-center justify-center py-8 text-center gap-1">
                                 <p className="text-lg">
-                                  Are you sure you want to delete this email?
+                                  {t.admin.inboxTable.deleteTitle}
                                 </p>
                                 <p className="text-sm text-gray-400">
-                                  This will permanently remove the email from{" "}
+                                  {t.admin.inboxTable.deleteBody}{" "}
                                   <span className="font-semibold">
                                     {email.mailFrom}
                                   </span>
                                   {email.subject && (
                                     <>
                                       {" "}
-                                      with subject{" "}
+                                      {t.admin.inboxTable.deleteBodySubject}{" "}
                                       <span className="font-semibold">
                                         "{email.subject}"
                                       </span>
                                     </>
                                   )}
-                                  . This action cannot be undone.
+                                  {t.admin.inboxTable.deleteBodyEnd}
                                   {email.attachmentCount > 0 && (
                                     <>
                                       {" "}
-                                      This email has{" "}
-                                      <span className="font-semibold">
-                                        {email.attachmentCount} attachment
-                                        {email.attachmentCount > 1 ? "s" : ""}
-                                      </span>{" "}
-                                      that will also be deleted.
+                                      {email.attachmentCount === 1
+                                        ? t.admin.inboxTable.deleteAttachmentSingle
+                                        : t.admin.inboxTable.deleteAttachmentPlural.replace(
+                                            "{count}",
+                                            String(email.attachmentCount)
+                                          )}
                                     </>
                                   )}
                                 </p>
@@ -600,13 +608,15 @@ export function AdminInboxTable() {
                                     className="flex items-center justify-center rounded-lg bg-white border border-gray-200 px-3 py-2 text-sm font-medium h-9 cursor-pointer hover:text-gray-400 w-full"
                                     onClick={() => setDeletingEmailId(null)}
                                   >
-                                    Cancel
+                                    {t.admin.inboxTable.cancel}
                                   </div>
                                   <div
                                     className="flex items-center justify-center rounded-lg bg-black px-3 py-2 text-sm font-medium h-9 cursor-pointer hover:bg-gray-600 text-white w-full"
                                     onClick={() => handleDeleteEmail(email.id)}
                                   >
-                                    {isUpdating ? "Deleting..." : "Delete"}
+                                    {isUpdating
+                                      ? t.admin.inboxTable.deleting
+                                      : t.admin.inboxTable.delete}
                                   </div>
                                 </div>
                               </div>
@@ -625,8 +635,10 @@ export function AdminInboxTable() {
         {data && data.pagination.totalPages > 1 && (
           <div className="p-3 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
             <p className="text-sm text-gray-600">
-              Page {data.pagination.page} of {data.pagination.totalPages} (
-              {data.pagination.total} emails)
+              {t.admin.inboxTable.pagination
+                .replace("{page}", String(data.pagination.page))
+                .replace("{total}", String(data.pagination.totalPages))
+                .replace("{count}", String(data.pagination.total))}
             </p>
             <div className="flex items-center gap-3">
               <Button

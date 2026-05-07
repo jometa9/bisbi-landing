@@ -10,6 +10,7 @@ import {
   sendSubscriptionChangeEmail,
   sendWelcomeWithSubscriptionEmail,
 } from "@/lib/email/services";
+import { DEFAULT_EMAIL_LANG, type EmailLang } from "@/lib/email/translations";
 import { ProductKey, user } from "@/lib/db/schema";
 import { getStripe } from "@/lib/payments/stripe";
 import { generateRandomPassword } from "@/lib/utils";
@@ -36,12 +37,14 @@ export interface AssignFreeSubscriptionInput {
   productKey: ProductKey;
   plan: AssignFreeSubscriptionPlan;
   duration: number;
+  lang?: EmailLang;
 }
 
 export async function assignFreeSubscription(
   input: AssignFreeSubscriptionInput
 ): Promise<AssignFreeSubscriptionResult> {
   const { email, productKey, plan, duration } = input;
+  const lang: EmailLang = input.lang ?? DEFAULT_EMAIL_LANG;
 
   if (!email || !productKey || !duration || !plan) {
     return {
@@ -133,11 +136,21 @@ export async function assignFreeSubscription(
 
   const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
   const recipientName = foundUser.name || email.split("@")[0];
-  const formattedExpiry = expiryDate.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const dateLocaleByLang: Record<EmailLang, string> = {
+    es: "es-ES",
+    en: "en-US",
+    zh: "zh-CN",
+    hi: "hi-IN",
+    ar: "ar",
+  };
+  const formattedExpiry = expiryDate.toLocaleDateString(
+    dateLocaleByLang[lang] || "es-ES",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  );
 
   let emailSent = false;
   try {
@@ -148,6 +161,7 @@ export async function assignFreeSubscription(
         password: generatedPassword,
         planName: `${planLabel} (Free, Admin Assigned)`,
         expiryDate: formattedExpiry,
+        lang,
       });
     } else {
       await sendSubscriptionChangeEmail({
@@ -156,6 +170,7 @@ export async function assignFreeSubscription(
         planName: `${planLabel} (Free, Admin Assigned)`,
         status: "active",
         expiryDate: formattedExpiry,
+        lang,
       });
     }
     emailSent = true;

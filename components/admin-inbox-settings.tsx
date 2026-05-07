@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 import { useState, useEffect } from "react";
 
 interface EmailSettings {
@@ -14,6 +15,7 @@ interface EmailSettings {
 }
 
 export default function AdminInboxSettings() {
+  const { t } = useI18n();
   const [settings, setSettings] = useState<EmailSettings>({
     resendApiKey: "",
     emailFrom: "",
@@ -101,7 +103,7 @@ export default function AdminInboxSettings() {
       if (!response.ok) {
         setDailyReportFeedback({
           type: "error",
-          text: data.error || "Could not send the report.",
+          text: data.error || t.admin.inboxSettings.reportError,
         });
         return;
       }
@@ -110,14 +112,12 @@ export default function AdminInboxSettings() {
         const reason = data.reason || "";
         let text = reason;
         if (reason.includes("discordDailyReportWebhookUrl not configured")) {
-          text =
-            "Set the report webhook above and save before running.";
+          text = t.admin.inboxSettings.reportNotConfigured;
         } else if (
           reason.includes("Another instance") ||
           reason.includes("running")
         ) {
-          text =
-            "Another process is running the report; try again in a few seconds.";
+          text = t.admin.inboxSettings.reportRunning;
         }
         setDailyReportFeedback({ type: "info", text });
         return;
@@ -125,12 +125,12 @@ export default function AdminInboxSettings() {
 
       setDailyReportFeedback({
         type: "success",
-        text: "Report sent to Discord.",
+        text: t.admin.inboxSettings.reportSuccess,
       });
     } catch {
       setDailyReportFeedback({
         type: "error",
-        text: "Network error while running the report.",
+        text: t.admin.inboxSettings.reportNetworkError,
       });
     } finally {
       setIsRunningDailyReport(false);
@@ -140,14 +140,14 @@ export default function AdminInboxSettings() {
   return (
     <div className="space-y-3">
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="resend-api-key">Resend API Key</Label>
+        <Label htmlFor="resend-api-key">{t.admin.inboxSettings.resendApiKey}</Label>
         <div className="flex gap-3">
           <Input
             id="resend-api-key"
             type={showApiKey ? "text" : "password"}
             placeholder="re_..."
             value={settings.resendApiKey}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSettings((prev) => ({
                 ...prev,
                 resendApiKey: e.target.value,
@@ -161,22 +161,20 @@ export default function AdminInboxSettings() {
             onClick={() => setShowApiKey(!showApiKey)}
             className="shadow-none whitespace-nowrap"
           >
-            {showApiKey ? "Hide" : "Show"}
+            {showApiKey ? t.admin.inboxSettings.hide : t.admin.inboxSettings.show}
           </Button>
         </div>
-        <p className="text-xs text-gray-600">
-          Your Resend API key from the Resend dashboard. Required for sending emails.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.inboxSettings.resendApiKeyHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="email-from">Default From Address</Label>
+        <Label htmlFor="email-from">{t.admin.inboxSettings.emailFrom}</Label>
         <Input
           id="email-from"
           type="email"
           placeholder="noreply@bisbi.io"
           value={settings.emailFrom}
-          onChange={(e) =>
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSettings((prev) => ({
               ...prev,
               emailFrom: e.target.value,
@@ -184,20 +182,18 @@ export default function AdminInboxSettings() {
           }
           className="bg-white shadow-none"
         />
-        <p className="text-xs text-gray-600">
-          The default &quot;from&quot; email address for outgoing emails.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.inboxSettings.emailFromHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="webhook-secret">Inbound Webhook Secret</Label>
+        <Label htmlFor="webhook-secret">{t.admin.inboxSettings.webhookSecret}</Label>
         <div className="flex gap-3">
           <Input
             id="webhook-secret"
             type={showWebhookSecret ? "text" : "password"}
             placeholder="whsec_..."
             value={settings.resendInboundWebhookSecret}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSettings((prev) => ({
                 ...prev,
                 resendInboundWebhookSecret: e.target.value,
@@ -211,22 +207,20 @@ export default function AdminInboxSettings() {
             onClick={() => setShowWebhookSecret(!showWebhookSecret)}
             className="shadow-none whitespace-nowrap"
           >
-            {showWebhookSecret ? "Hide" : "Show"}
+            {showWebhookSecret ? t.admin.inboxSettings.hide : t.admin.inboxSettings.show}
           </Button>
         </div>
-        <p className="text-xs text-gray-600">
-          The Svix signing secret from Resend dashboard (Webhooks section). Required for receiving inbound emails.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.inboxSettings.webhookSecretHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="discord-webhook">Discord Webhook URL</Label>
+        <Label htmlFor="discord-webhook">{t.admin.inboxSettings.discord}</Label>
         <Input
           id="discord-webhook"
           type="url"
           placeholder="https://discord.com/api/webhooks/..."
           value={settings.discordWebhookUrl}
-          onChange={(e) =>
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSettings((prev) => ({
               ...prev,
               discordWebhookUrl: e.target.value,
@@ -234,14 +228,12 @@ export default function AdminInboxSettings() {
           }
           className="bg-white shadow-none font-mono text-sm"
         />
-        <p className="text-xs text-gray-600">
-          Optional: Discord webhook URL to receive notifications when new emails arrive. Get this from Discord Server Settings → Integrations → Webhooks.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.inboxSettings.discordHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="discord-daily-report-webhook">
-          Discord daily report
+          {t.admin.inboxSettings.discordDailyReport}
         </Label>
         <div className="flex gap-2 w-full items-center">
           <Input
@@ -249,7 +241,7 @@ export default function AdminInboxSettings() {
             type="url"
             placeholder="https://discord.com/api/webhooks/..."
             value={settings.discordDailyReportWebhookUrl}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSettings((prev) => ({
                 ...prev,
                 discordDailyReportWebhookUrl: e.target.value,
@@ -264,28 +256,25 @@ export default function AdminInboxSettings() {
             disabled={isRunningDailyReport}
             className="shrink-0 shadow-none whitespace-nowrap"
           >
-            {isRunningDailyReport ? "…" : "Run"}
+            {isRunningDailyReport
+              ? t.admin.inboxSettings.runLoading
+              : t.admin.inboxSettings.run}
           </Button>
         </div>
-        <p className="text-xs text-gray-600">
-          Separate from the inbox webhook above. The automatic report uses the
-          same ~24h in-process scheduler as subscription checks (runs while the
-          Node server is up).
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.inboxSettings.discordDailyReportHint}</p>
+        {dailyReportFeedback && (
+          <p className="text-xs text-gray-600">{dailyReportFeedback.text}</p>
+        )}
       </div>
 
-      <Button
-        onClick={handleSave}
-        disabled={isSaving}
-        className="w-full"
-      >
+      <Button onClick={handleSave} disabled={isSaving} className="w-full">
         {isSaving
-          ? "Saving..."
+          ? t.admin.inboxSettings.saveLoading
           : saveStatus === "success"
-            ? "Saved!"
+            ? t.admin.inboxSettings.saveSuccess
             : saveStatus === "error"
-              ? "Error"
-              : "Save Settings"}
+              ? t.admin.inboxSettings.saveError
+              : t.admin.inboxSettings.save}
       </Button>
     </div>
   );

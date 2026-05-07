@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 import { useState, useEffect } from "react";
 
 interface DownloadUrls {
@@ -12,6 +13,7 @@ interface DownloadUrls {
 }
 
 export default function AdminIntegrationsSettings() {
+  const { t } = useI18n();
   const [urls, setUrls] = useState<DownloadUrls>({
     bisbiWindowsDownloadUrl: "",
     bisbiMacDownloadUrl: "",
@@ -65,7 +67,7 @@ export default function AdminIntegrationsSettings() {
   return (
     <div className="space-y-3">
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="windows-download-url">Windows Download URL</Label>
+        <Label htmlFor="windows-download-url">{t.admin.downloads.windows}</Label>
         <Input
           id="windows-download-url"
           type="url"
@@ -82,7 +84,7 @@ export default function AdminIntegrationsSettings() {
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="mac-download-url">macOS Download URL</Label>
+        <Label htmlFor="mac-download-url">{t.admin.downloads.mac}</Label>
         <Input
           id="mac-download-url"
           type="url"
@@ -99,7 +101,7 @@ export default function AdminIntegrationsSettings() {
       </div>
 
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="linux-download-url">Linux Download URL</Label>
+        <Label htmlFor="linux-download-url">{t.admin.downloads.linux}</Label>
         <Input
           id="linux-download-url"
           type="url"
@@ -113,19 +115,17 @@ export default function AdminIntegrationsSettings() {
           }
           className="bg-white shadow-none font-mono text-sm"
         />
-        <p className="text-xs text-gray-600">
-          Update these URLs each time you publish a new release.
-        </p>
+        <p className="text-xs text-gray-600">{t.admin.downloads.hint}</p>
       </div>
 
       <Button onClick={handleSave} disabled={isSaving} className="w-full">
         {isSaving
-          ? "Saving..."
+          ? t.admin.downloads.saveLoading
           : saveStatus === "success"
-            ? "Saved!"
+            ? t.admin.downloads.saveSuccess
             : saveStatus === "error"
-              ? "Error"
-              : "Save Download URLs"}
+              ? t.admin.downloads.saveError
+              : t.admin.downloads.save}
       </Button>
     </div>
   );

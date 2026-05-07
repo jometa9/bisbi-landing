@@ -3,11 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 import { useEffect, useState } from "react";
 
 const DEFAULT_FREE_WORD_LIMIT = 2000;
 
 export default function AdminSubscriptionLimits() {
+  const { t } = useI18n();
   const [freeMonthlyWordLimit, setFreeMonthlyWordLimit] =
     useState<number>(DEFAULT_FREE_WORD_LIMIT);
   const [originalFreeMonthlyWordLimit, setOriginalFreeMonthlyWordLimit] =
@@ -79,7 +81,7 @@ export default function AdminSubscriptionLimits() {
     <div className="space-y-4 h-full justify-between">
       <div className="space-y-1">
         <Label htmlFor="free-word-limit" className="text-xs">
-          Free Plan — Monthly Word Limit
+          {t.admin.limits.freeLabel}
         </Label>
         <Input
           id="free-word-limit"
@@ -96,12 +98,12 @@ export default function AdminSubscriptionLimits() {
       </div>
 
       <div className="space-y-1">
-        <Label className="text-xs">Pro Plan</Label>
+        <Label className="text-xs">{t.admin.limits.proLabel}</Label>
         <div
           className="rounded-md border px-3 py-2 text-sm bg-white"
           style={{ borderColor: "#D9E8E5", color: "#5C5C57" }}
         >
-          Unlimited words
+          {t.admin.limits.proValue}
         </div>
       </div>
 
@@ -111,12 +113,12 @@ export default function AdminSubscriptionLimits() {
         className="w-full"
       >
         {isLoading
-          ? "Updating..."
+          ? t.admin.limits.buttonLoading
           : buttonStatus === "success"
-            ? "Success"
+            ? t.admin.limits.buttonSuccess
             : buttonStatus === "error"
-              ? "Error"
-              : "Update Free Word Limit"}
+              ? t.admin.limits.buttonError
+              : t.admin.limits.button}
       </Button>
     </div>
   );

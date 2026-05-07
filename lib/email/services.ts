@@ -2,14 +2,11 @@ import { getAppUrl } from "@/lib/app-url";
 import { sendEmail } from "./config";
 import {
   broadcastEmailTemplate,
-  passwordResetEmailTemplate,
   richContentEmailTemplate,
   subscriptionChangeEmailTemplate,
-  versionUpdateEmailTemplate,
-  welcomeEmailTemplate,
   welcomeWithSubscriptionTemplate,
-  accountConnectionErrorEmailTemplate,
 } from "./templates";
+import { DEFAULT_EMAIL_LANG, type EmailLang } from "./translations";
 
 async function withRetry<T>(
   operation: () => Promise<T>,
@@ -30,34 +27,6 @@ async function withRetry<T>(
   }
 }
 
-export async function sendWelcomeEmail({
-  email,
-  name,
-  loginUrl = getAppUrl(),
-}: {
-  email: string;
-  name: string;
-  loginUrl?: string;
-}) {
-  const { html, text } = await welcomeEmailTemplate({
-    name,
-    loginUrl,
-  });
-
-  return withRetry(
-    () =>
-      sendEmail({
-        to: email,
-        subject: "¡Bienvenido a Bisbi!",
-        html,
-        text,
-      }),
-    3,
-    500,
-    `Welcome email to ${email}`
-  );
-}
-
 export async function sendWelcomeWithSubscriptionEmail({
   email,
   name,
@@ -65,6 +34,7 @@ export async function sendWelcomeWithSubscriptionEmail({
   planName,
   expiryDate,
   loginUrl = `${getAppUrl()}/sign-in`,
+  lang = DEFAULT_EMAIL_LANG,
 }: {
   email: string;
   name: string;
@@ -72,21 +42,23 @@ export async function sendWelcomeWithSubscriptionEmail({
   planName: string;
   expiryDate?: string;
   loginUrl?: string;
+  lang?: EmailLang;
 }) {
-  const { html, text } = await welcomeWithSubscriptionTemplate({
+  const { html, text, subject } = await welcomeWithSubscriptionTemplate({
     name,
     email,
     password,
     planName,
     expiryDate,
     loginUrl,
+    lang,
   });
 
   return withRetry(
     () =>
       sendEmail({
         to: email,
-        subject: "¡Bienvenido a Bisbi!",
+        subject,
         html,
         text,
       }),
@@ -103,6 +75,7 @@ export async function sendSubscriptionChangeEmail({
   status,
   expiryDate,
   dashboardUrl = `${getAppUrl()}/dashboard`,
+  lang = DEFAULT_EMAIL_LANG,
 }: {
   email: string;
   name: string;
@@ -110,117 +83,33 @@ export async function sendSubscriptionChangeEmail({
   status: string;
   expiryDate?: string;
   dashboardUrl?: string;
+  lang?: EmailLang;
 }) {
-  try {
-    if (!email) {
-      throw new Error("Email address is missing");
-    }
-
-    const { html, text } = await subscriptionChangeEmailTemplate({
-      name,
-      plan: planName,
-      status,
-      renewalDate: expiryDate,
-      dashboardUrl,
-    });
-
-    let subject = "Tu suscripción de Bisbi se actualizó";
-    if (status === "active") {
-      subject = "Tu suscripción de Bisbi está activa";
-    } else if (status === "trialing") {
-      subject = "Empezó tu prueba de Bisbi";
-    } else if (status === "canceled") {
-      subject = "Tu suscripción de Bisbi fue cancelada";
-    } else if (status === "canceling") {
-      subject = "Se programó la cancelación de tu suscripción de Bisbi";
-    } else if (status === "plan_changed") {
-      subject = "Tu plan de Bisbi se cambió";
-    } else if (status === "unpaid") {
-      subject = "Hubo un problema con el pago de tu suscripción de Bisbi";
-    } else if (status === "expired") {
-      subject = "Tu suscripción de Bisbi expiró";
-    }
-
-    return await withRetry(
-      () =>
-        sendEmail({
-          to: email,
-          subject,
-          html,
-          text,
-        }),
-      3,
-      500,
-      `Subscription email to ${email}`
-    );
-  } catch (error) {
-    throw error;
+  if (!email) {
+    throw new Error("Email address is missing");
   }
-}
 
-export async function sendPasswordResetEmail({
-  email,
-  name,
-  token,
-  expiryMinutes = 60,
-}: {
-  email: string;
-  name: string;
-  token: string;
-  expiryMinutes?: number;
-}) {
-  const resetUrl = `${getAppUrl()}/reset-password?token=${token}`;
-
-  const { html, text } = await passwordResetEmailTemplate({
+  const { html, text, subject } = await subscriptionChangeEmailTemplate({
     name,
-    resetUrl,
-    expiryMinutes,
+    plan: planName,
+    status,
+    renewalDate: expiryDate,
+    dashboardUrl,
+    lang,
   });
 
-  return sendEmail({
-    to: email,
-    subject: "Restablecé la contraseña de tu cuenta de Bisbi",
-    html,
-    text,
-  });
-}
-
-export async function sendVersionUpdateEmail({
-  email,
-  name,
-  currentVersion,
-  newVersion,
-  releaseNotes,
-  downloadUrl,
-  isCritical = false,
-}: {
-  email: string;
-  name: string;
-  currentVersion: string;
-  newVersion: string;
-  releaseNotes?: string;
-  downloadUrl?: string;
-  isCritical?: boolean;
-}) {
-  const { html, text } = await versionUpdateEmailTemplate({
-    name,
-    currentVersion,
-    newVersion,
-    releaseNotes,
-    downloadUrl,
-    isCritical,
-  });
-
-  const subject = isCritical
-    ? `[ACTUALIZACIÓN CRÍTICA] Nueva versión ${newVersion} disponible`
-    : `Nueva versión ${newVersion} disponible para Bisbi`;
-
-  return sendEmail({
-    to: email,
-    subject,
-    html,
-    text,
-  });
+  return withRetry(
+    () =>
+      sendEmail({
+        to: email,
+        subject,
+        html,
+        text,
+      }),
+    3,
+    500,
+    `Subscription email to ${email}`
+  );
 }
 
 export async function sendBroadcastEmail({
@@ -245,7 +134,7 @@ export async function sendBroadcastEmail({
 
   return sendEmail({
     to: email,
-    subject: subject,
+    subject,
     html,
     text,
   });
@@ -262,59 +151,22 @@ export async function sendRichContentEmail({
   subject: string;
   markdownContent: string;
 }) {
-  try {
-    const { html, text } = await richContentEmailTemplate({
-      name,
-      subject,
-      markdownContent,
-    });
-
-    const result = await withRetry(
-      () => {
-        return sendEmail({
-          to: email,
-          subject,
-          html,
-          text,
-        });
-      },
-      3,
-      500,
-      `Rich content email to ${email}`
-    );
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-
-export async function sendAccountConnectionErrorEmail({
-  email,
-  name,
-  dashboardUrl,
-}: {
-  email: string;
-  name: string;
-  dashboardUrl?: string;
-}) {
-  const { html, text } = await accountConnectionErrorEmailTemplate({
+  const { html, text } = await richContentEmailTemplate({
     name,
-    dashboardUrl,
+    subject,
+    markdownContent,
   });
 
   return withRetry(
     () =>
       sendEmail({
         to: email,
-        subject: "Error de conexión de cuenta",
+        subject,
         html,
         text,
       }),
     3,
     500,
-    `Account connection error email to ${email}`
+    `Rich content email to ${email}`
   );
 }

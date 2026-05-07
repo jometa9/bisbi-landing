@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth/config";
 import { getUserById } from "@/lib/db/queries";
 import { ProductKey } from "@/lib/db/schema";
+import { isEmailLang } from "@/lib/email/translations";
 import {
   assignFreeSubscription,
   revokeSubscription,
@@ -25,7 +26,8 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json();
-    const { email, productKey, plan, duration } = data;
+    const { email, productKey, plan, duration, lang } = data;
+    const emailLang = isEmailLang(lang) ? lang : undefined;
 
     if (plan === "none") {
       const result = await revokeSubscription({
@@ -48,6 +50,7 @@ export async function POST(req: NextRequest) {
       productKey: productKey as ProductKey,
       plan,
       duration,
+      lang: emailLang,
     });
 
     if (!result.ok) {

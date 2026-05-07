@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import {
   Archive,
@@ -62,6 +63,7 @@ function sanitizeHtml(html: string): string {
 }
 
 export function AdminInboxDetail({ emailId }: Props) {
+  const { t } = useI18n();
   const [email, setEmail] = useState<EmailDetail | null>(null);
   const [attachments, setAttachments] = useState<EmailAttachment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,14 +82,14 @@ export function AdminInboxDetail({ emailId }: Props) {
       const response = await fetch(`/api/admin/inbox/${emailId}`);
 
       if (!response.ok) {
-        throw new Error("Failed to load email");
+        throw new Error(t.admin.inboxDetail.notFound);
       }
 
       const data = await response.json();
       setEmail(data.email);
       setAttachments(data.attachments || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load email");
+      setError(err instanceof Error ? err.message : t.admin.inboxDetail.notFound);
     } finally {
       setIsLoading(false);
     }
@@ -127,11 +129,16 @@ export function AdminInboxDetail({ emailId }: Props) {
         window.location.href = "/dashboard/admin/inbox";
       } else {
         const data = await response.json();
-        alert(`Failed to delete email: ${data.error || 'Unknown error'}`);
+        alert(
+          t.admin.inboxDetail.deleteFailedWithReason.replace(
+            "{reason}",
+            data.error || t.admin.inboxDetail.deleteFailedUnknown
+          )
+        );
       }
     } catch (error) {
       console.error("Error deleting email:", error);
-      alert("Failed to delete email");
+      alert(t.admin.inboxDetail.deleteFailed);
     } finally {
       setIsDeleting(false);
       setIsConfirmingDelete(false);
@@ -179,7 +186,7 @@ export function AdminInboxDetail({ emailId }: Props) {
   };
 
   const formatFileSize = (bytes: number | null) => {
-    if (!bytes) return "Unknown size";
+    if (!bytes) return t.admin.inboxDetail.unknownSize;
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -200,7 +207,7 @@ export function AdminInboxDetail({ emailId }: Props) {
   if (isLoading) {
     return (
       <div className="rounded-lg flex items-center justify-center min-h-[25vh] text-center">
-        <p className="text-gray-400">Loading email...</p>
+        <p className="text-gray-400">{t.admin.inboxDetail.loading}</p>
       </div>
     );
   }
@@ -208,7 +215,7 @@ export function AdminInboxDetail({ emailId }: Props) {
   if (error || !email) {
     return (
       <div className="rounded-lg bg-gray-100 p-8 text-center">
-        <p className="text-gray-600">{error || "Email not found"}</p>
+        <p className="text-gray-600">{error || t.admin.inboxDetail.notFound}</p>
       </div>
     );
   }
@@ -227,7 +234,7 @@ export function AdminInboxDetail({ emailId }: Props) {
                   className="shadow-none"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to inbox
+                  {t.admin.inboxDetail.back}
                 </Button>
               </Link>
               {isConfirmingDelete ? (
@@ -239,7 +246,7 @@ export function AdminInboxDetail({ emailId }: Props) {
                     size="sm"
                     className="shadow-none"
                   >
-                    Cancel
+                    {t.admin.inboxDetail.cancel}
                   </Button>
                   <Button
                     onClick={handleDeleteEmail}
@@ -247,13 +254,15 @@ export function AdminInboxDetail({ emailId }: Props) {
                     size="sm"
                     className="shadow-none"
                   >
-                    {isDeleting ? "Deleting..." : "Confirm"}
+                    {isDeleting
+                      ? t.admin.inboxDetail.deleting
+                      : t.admin.inboxDetail.confirm}
                   </Button>
                 </>
               ) : (
                 <>
                   <Link
-                    href={`/dashboard/admin/inbox/new?to=${encodeURIComponent(email.mailFrom || "")}&subject=${encodeURIComponent(email.subject?.toLowerCase().startsWith("re:") ? email.subject : `Re: ${email.subject || "(No Subject)"}`)}&replyTo=${encodeURIComponent(email.id)}`}
+                    href={`/dashboard/admin/inbox/new?to=${encodeURIComponent(email.mailFrom || "")}&subject=${encodeURIComponent(email.subject?.toLowerCase().startsWith("re:") ? email.subject : `Re: ${email.subject || t.admin.inboxDetail.noSubject}`)}&replyTo=${encodeURIComponent(email.id)}`}
                   >
                     <Button
                       variant="outline"
@@ -321,15 +330,15 @@ export function AdminInboxDetail({ emailId }: Props) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             <div>
-              <span className="text-gray-600">Subject:</span>{" "}
-              <span className="font-medium">{email.subject || "(No Subject)"}</span>
+              <span className="text-gray-600">{t.admin.inboxDetail.subject}</span>{" "}
+              <span className="font-medium">{email.subject || t.admin.inboxDetail.noSubject}</span>
             </div>
             <div>
-              <span className="text-gray-600">From:</span>{" "}
+              <span className="text-gray-600">{t.admin.inboxDetail.from}</span>{" "}
               <span className="font-medium">{email.mailFrom}</span>
             </div>
             <div>
-              <span className="text-gray-600">To:</span>{" "}
+              <span className="text-gray-600">{t.admin.inboxDetail.to}</span>{" "}
               <span className="font-medium">
                 {Array.isArray(email.rcptTo)
                   ? email.rcptTo.join(", ")
@@ -337,7 +346,7 @@ export function AdminInboxDetail({ emailId }: Props) {
               </span>
             </div>
             <div>
-              <span className="text-gray-600">Received:</span>{" "}
+              <span className="text-gray-600">{t.admin.inboxDetail.received}</span>{" "}
               <span>{formatDate(email.receivedAt)}</span>
             </div>
           </div>
@@ -402,7 +411,7 @@ export function AdminInboxDetail({ emailId }: Props) {
                     : "text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-50"
                 )}
               >
-                HTML
+                {t.admin.inboxDetail.htmlTab}
               </Button>
                 <Button
                 onClick={() => setViewMode("text")}
@@ -413,7 +422,7 @@ export function AdminInboxDetail({ emailId }: Props) {
                     : "text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-50"
                 )}
               >
-                Plain Text
+                {t.admin.inboxDetail.textTab}
               </Button>
             </div>
           </div>
@@ -434,14 +443,14 @@ export function AdminInboxDetail({ emailId }: Props) {
               </pre>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-400 italic">No content available</p>
+                <p className="text-gray-400 italic">{t.admin.inboxDetail.noContent}</p>
               </div>
             )}
           </div>
 
           {previewedImages.size > 0 && (
             <div className="space-y-3 border-t pt-4">
-              <h3 className="text-sm font-medium text-gray-600">Image Previews</h3>
+              <h3 className="text-sm font-medium text-gray-600">{t.admin.inboxDetail.imagePreviews}</h3>
               <div className="space-y-3">
                 {attachments
                   .filter((att) => previewedImages.has(att.id))

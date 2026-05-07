@@ -69,7 +69,9 @@ function DashboardContent() {
   }, [isCheckoutSuccess, checkoutSessionId]);
 
   const userName =
-    data?.name?.split(" ")[0] || data?.email?.split("@")[0] || "there";
+    data?.name?.split(" ")[0] ||
+    data?.email?.split("@")[0] ||
+    t.dashboard.fallbackName;
 
   const isPro =
     data?.entitlements?.bisbi?.active === true &&
@@ -229,7 +231,7 @@ function DashboardContent() {
                 }}
               >
                 <Inbox size={16} />
-                Inbox
+                {t.dashboard.inboxButton}
               </button>
 
               <button
@@ -246,7 +248,7 @@ function DashboardContent() {
                 }}
               >
                 <Settings size={16} />
-                Settings
+                {t.dashboard.settingsButton}
               </button>
             </div>
           )}

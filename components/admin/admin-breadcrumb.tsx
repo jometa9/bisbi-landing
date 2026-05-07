@@ -1,17 +1,19 @@
 "use client";
 
+import { useI18n } from "@/lib/i18n";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function AdminBreadcrumb() {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   const getCurrentPageTitle = () => {
     if (pathname?.includes("/inbox")) {
-      return "Inbox";
+      return t.admin.breadcrumb.inbox;
     }
     if (pathname?.includes("/settings")) {
-      return "Settings";
+      return t.admin.breadcrumb.settings;
     }
     return null;
   };
@@ -27,10 +29,10 @@ export function AdminBreadcrumb() {
           href="/dashboard/admin/inbox"
           className="text-sm text-gray-400 hover:text-gray-800 cursor-pointer"
         >
-          Inbox
+          {t.admin.breadcrumb.inbox}
         </Link>
         <span className="text-sm text-gray-400">/</span>
-        <span className="text-sm text-gray-400">Email</span>
+        <span className="text-sm text-gray-400">{t.admin.breadcrumb.email}</span>
       </div>
     );
   }
@@ -42,10 +44,10 @@ export function AdminBreadcrumb() {
           href="/dashboard/admin/inbox"
           className="text-sm text-gray-400 hover:text-gray-800 cursor-pointer"
         >
-          Inbox
+          {t.admin.breadcrumb.inbox}
         </Link>
         <span className="text-sm text-gray-400">/</span>
-        <span className="text-sm text-gray-400">New</span>
+        <span className="text-sm text-gray-400">{t.admin.breadcrumb.new}</span>
       </div>
     );
   }
