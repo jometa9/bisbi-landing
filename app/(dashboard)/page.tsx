@@ -123,6 +123,17 @@ export default function HomePage() {
             />
           </div>
 
+          {/*
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/Trustpilot_ratings_5star-RGB.png"
+              alt="Trustpilot 5 stars rating"
+              width={160}
+              height={30}
+            />
+          </div>
+          */}
+
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
             style={{ color: "#1A1A18" }}
