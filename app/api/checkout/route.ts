@@ -7,9 +7,6 @@ import Stripe from "stripe";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-// Called by the Bisbi desktop app to get a Stripe Checkout URL.
-// Auth: Authorization: Bearer {apiKey}
-// Body: { billingPeriod: "monthly" | "annual" } or { priceId: "price_xxx" }
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const apiKey =
@@ -32,7 +29,6 @@ export async function POST(request: NextRequest) {
   const billingPeriod: "monthly" | "annual" =
     body.billingPeriod === "annual" ? "annual" : "monthly";
 
-  // Accept priceId from app store (already fetched from /api/license), or resolve from DB
   let priceId: string | undefined | null = body.priceId;
   if (!priceId) {
     priceId =
@@ -48,7 +44,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Validate priceId is one of ours
   const validPriceIds = [
     settings.bisbiProMonthlyPriceId,
     settings.bisbiProAnnualPriceId,

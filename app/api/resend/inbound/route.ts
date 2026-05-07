@@ -257,9 +257,6 @@ export async function POST(request: NextRequest) {
 
     const { data } = event;
 
-    // Only accept emails addressed to our app's domain. Resend may deliver
-    // events for other domains on the same account, and we don't want those
-    // polluting this database.
     const appHost = (() => {
       try {
         return new URL(getAppUrl()).hostname.replace(/^www\./, "").toLowerCase();

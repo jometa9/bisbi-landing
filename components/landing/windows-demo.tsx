@@ -4,11 +4,6 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { useI18n, type Lang } from "@/lib/i18n";
 import "./windows-demo.css";
 
-// Static, frozen-in-time replica of the Bisbi Electron app, used to show
-// visitors what the product looks like once installed. The whole tree is
-// inert (pointer-events: none) — no real handlers, no IPC, no data fetching.
-// User shows up logged-in on the Pro plan with mocked stats and history.
-
 type Platform = "mac" | "win";
 
 function detectPlatform(): Platform {

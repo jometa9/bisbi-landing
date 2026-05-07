@@ -1,6 +1,3 @@
-/* Scoped copy of the Bisbi Electron app styles, frozen on Home tab.
-   All selectors live under .bisbi-demo so nothing leaks to the landing. */
-
 .bisbi-demo-frame {
   position: relative;
   width: 100%;
@@ -64,8 +61,6 @@
   transform: scale(min(1, calc(100cqi / 1080px)));
   border-radius: 14px;
   overflow: hidden;
-  /* Floating effect: hairline border, soft dark drop for gravity, and a
-     wide green halo radiating on every side from the brand color. */
   box-shadow:
     0 0 0 1px rgba(26, 26, 24, 0.06),
     0 -20px 60px -20px rgba(123, 168, 156, 0.35),
@@ -87,12 +82,10 @@
   box-sizing: border-box;
 }
 
-/* The whole demo is non-interactive. */
 .bisbi-demo {
   pointer-events: none;
 }
 
-/* Windows-style title bar */
 .bisbi-demo-titlebar {
   display: flex;
   align-items: center;
@@ -140,7 +133,6 @@
   color: var(--text);
 }
 
-/* Shell */
 .bisbi-demo .app {
   display: flex;
   flex-direction: row;
@@ -332,7 +324,6 @@
 .bisbi-demo .sidebar-account-plan.plan-pro { color: var(--primary-dark); }
 .bisbi-demo .sidebar-account-plan.plan-free { color: var(--text-soft); }
 
-/* Content */
 .bisbi-demo .content {
   flex: 1;
   overflow: hidden;
@@ -345,7 +336,6 @@
   margin: 0 auto;
 }
 
-/* Home */
 .bisbi-demo .home {
   display: flex;
   flex-direction: column;
@@ -536,7 +526,6 @@
   color: var(--primary-dark);
 }
 
-/* Transcription list */
 .bisbi-demo .tx-list {
   display: flex;
   flex-direction: column;

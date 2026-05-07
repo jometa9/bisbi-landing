@@ -164,8 +164,6 @@ textarea,
   display: none;
 }
 
-/* ===== Product demo (mirrors the Bisbi app UI) ===== */
-
 .demo-stack {
   display: flex;
   flex-direction: column;
@@ -276,7 +274,6 @@ textarea,
   justify-content: center;
 }
 
-/* Hotkey card — mirrors .home-hotkey */
 .demo-hotkey {
   position: relative;
   display: flex;
@@ -387,7 +384,6 @@ textarea,
   margin-top: 2px;
 }
 
-/* Recording pill — exact copy of .recording-pill, scaled up, sits below the home card */
 .demo-pill {
   margin: 18px auto 0;
   display: flex;
@@ -472,7 +468,6 @@ textarea,
   letter-spacing: -0.02em;
 }
 
-/* Editor mock — step 3, Apple Notes-inspired */
 .demo-editor {
   width: 100%;
   border: 1px solid rgba(26, 26, 24, 0.08);
@@ -599,7 +594,6 @@ textarea,
   .demo-pill-indicator { width: 10px; height: 10px; }
 }
 
-/* ===== Features cards — hotkey-style with watermark icon ===== */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -679,7 +673,6 @@ textarea,
   .feature-card { min-height: 0; padding: 24px 20px; }
 }
 
-/* ===== CTA highlight — cream marker on a green word ===== */
 .cta-highlight {
   color: #7BA89C;
   background-image: linear-gradient(180deg, #F0EDE6 0%, #F0EDE6 100%);
@@ -706,7 +699,6 @@ textarea,
   }
 }
 
-/* ===== Footer card with watermark ===== */
 .footer-card {
   position: relative;
   background: #F0EDE6;
@@ -750,15 +742,12 @@ textarea,
   .footer-card-watermark { width: 70%; left: -20%; bottom: -30%; }
 }
 
-/* Dashboard owl watermark — silhouette mask, no fill, not rotated */
 .dashboard-owl-watermark {
   left: 0;
   bottom: 0;
   width: 70%;
   max-width: 480px;
   aspect-ratio: 1;
-  /* Anchor relative to its own size so the visible portion is consistent
-     across viewport heights (mobile/desktop). */
   transform: translate(-20%, 30%);
   background-color: #1A1A18;
   -webkit-mask-image: url(/owl_head.svg);
@@ -780,10 +769,6 @@ textarea,
   }
 }
 
-/* Hero — highlighter effect on the green word.
-   A cream band grows left-to-right behind the text on first render,
-   simulating someone running a marker over it. Adapts to text width in
-   any language and survives line wraps via box-decoration-break. */
 .hero-highlight {
   background-image: linear-gradient(180deg, #F0EDE6 0%, #F0EDE6 100%);
   background-repeat: no-repeat;
@@ -792,8 +777,6 @@ textarea,
   padding: 0 0.08em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  /* Delay tuned so the user finishes reading line 1 (~1s) and their eyes
-     have just landed on line 2 before the marker stroke kicks in. */
   animation: hero-highlight-mark 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
 }
 

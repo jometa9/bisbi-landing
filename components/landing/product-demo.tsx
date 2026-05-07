@@ -141,7 +141,6 @@ function HomeMock({
 }) {
   const isRecording = mode === "recording";
 
-  // Step 1: cycle the kbd between idle and pressed state.
   const [cyclePressed, setCyclePressed] = useState(false);
   useEffect(() => {
     if (mode !== "press-cycle") return;

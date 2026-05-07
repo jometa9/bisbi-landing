@@ -14,7 +14,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-// Called by the Bisbi desktop app with Authorization: Bearer {apiKey}
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const apiKey =

@@ -14,9 +14,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-// Called by the Bisbi desktop app after each successful transcription.
-// Authorization: Bearer {apiKey}
-// Body: { words: number, audioSeconds: number, transcribedAt?: string }
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const apiKey =
@@ -92,7 +89,6 @@ export async function POST(request: NextRequest) {
   });
 }
 
-// Called to read current usage without incrementing it.
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const apiKey =

@@ -11,23 +11,19 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const featureWatermarks = [
-  // any app — large monitor
   <svg key="app" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <rect x="2" y="3" width="20" height="14" rx="2" />
     <path d="M8 21h8M12 17v4" />
   </svg>,
-  // mic
   <svg key="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z" />
     <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
     <line x1="12" y1="19" x2="12" y2="22" />
   </svg>,
-  // globe
   <svg key="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <circle cx="12" cy="12" r="10" />
     <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
   </svg>,
-  // mac + windows monitor
   <svg key="monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
     <rect x="2" y="3" width="20" height="14" rx="2" />
     <path d="M8 21h8M12 17v4" />
@@ -111,7 +107,6 @@ export default function HomePage() {
       <LandingHeader />
       <main style={{ backgroundColor: "#FFFFFF" }}>
 
-        {/* Hero */}
         <section className="max-w-4xl mx-auto px-6 pt-32 pb-16 text-center">
           <div className="flex justify-center mb-8">
             <Image
@@ -122,17 +117,6 @@ export default function HomePage() {
               priority
             />
           </div>
-
-          {/*
-          <div className="flex justify-center mb-4">
-            <Image
-              src="/Trustpilot_ratings_5star-RGB.png"
-              alt="Trustpilot 5 stars rating"
-              width={160}
-              height={30}
-            />
-          </div>
-          */}
 
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
@@ -162,12 +146,10 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* Live product demo — frozen on Home, Pro plan, fully static */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 md:pb-24">
           <WindowsDemo />
         </section>
 
-        {/* How it works — full body width, no wrapping card */}
         <section
           id="how-it-works"
           className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
@@ -188,7 +170,6 @@ export default function HomePage() {
           <ProductDemo />
         </section>
 
-        {/* Features */}
         <section
           id="features"
           className="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
@@ -224,7 +205,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Final CTA */}
         <section className="py-8 md:py-12 pt-16 md:pt-24" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
