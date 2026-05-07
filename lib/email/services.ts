@@ -48,7 +48,7 @@ export async function sendWelcomeEmail({
     () =>
       sendEmail({
         to: email,
-        subject: "Welcome to Bisbi!",
+        subject: "¡Bienvenido a Bisbi!",
         html,
         text,
       }),
@@ -86,7 +86,7 @@ export async function sendWelcomeWithSubscriptionEmail({
     () =>
       sendEmail({
         to: email,
-        subject: "Welcome to Bisbi!",
+        subject: "¡Bienvenido a Bisbi!",
         html,
         text,
       }),
@@ -124,21 +124,21 @@ export async function sendSubscriptionChangeEmail({
       dashboardUrl,
     });
 
-    let subject = "Your Bisbi subscription has been updated";
+    let subject = "Tu suscripción de Bisbi se actualizó";
     if (status === "active") {
-      subject = "Your Bisbi subscription is active";
+      subject = "Tu suscripción de Bisbi está activa";
     } else if (status === "trialing") {
-      subject = "Your Bisbi trial has started";
+      subject = "Empezó tu prueba de Bisbi";
     } else if (status === "canceled") {
-      subject = "Your Bisbi subscription has been canceled";
+      subject = "Tu suscripción de Bisbi fue cancelada";
     } else if (status === "canceling") {
-      subject = "Your Bisbi subscription cancellation has been scheduled";
+      subject = "Se programó la cancelación de tu suscripción de Bisbi";
     } else if (status === "plan_changed") {
-      subject = "Your Bisbi plan has been changed";
+      subject = "Tu plan de Bisbi se cambió";
     } else if (status === "unpaid") {
-      subject = "There was a payment issue with your Bisbi subscription";
+      subject = "Hubo un problema con el pago de tu suscripción de Bisbi";
     } else if (status === "expired") {
-      subject = "Your Bisbi subscription has expired";
+      subject = "Tu suscripción de Bisbi expiró";
     }
 
     return await withRetry(
@@ -179,7 +179,7 @@ export async function sendPasswordResetEmail({
 
   return sendEmail({
     to: email,
-    subject: "Reset password for your Bisbi account",
+    subject: "Restablecé la contraseña de tu cuenta de Bisbi",
     html,
     text,
   });
@@ -212,8 +212,8 @@ export async function sendVersionUpdateEmail({
   });
 
   const subject = isCritical
-    ? `[CRITICAL UPDATE] New version ${newVersion} available`
-    : `New version ${newVersion} available for Bisbi`;
+    ? `[ACTUALIZACIÓN CRÍTICA] Nueva versión ${newVersion} disponible`
+    : `Nueva versión ${newVersion} disponible para Bisbi`;
 
   return sendEmail({
     to: email,
@@ -309,7 +309,7 @@ export async function sendAccountConnectionErrorEmail({
     () =>
       sendEmail({
         to: email,
-        subject: "Account connection error",
+        subject: "Error de conexión de cuenta",
         html,
         text,
       }),

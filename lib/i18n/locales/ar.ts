@@ -1,4 +1,4 @@
-import type { LandingTranslations } from "./en";
+import { en, type LandingTranslations } from "./en";
 
 export const ar: LandingTranslations = {
   nav: {
@@ -131,6 +131,7 @@ export const ar: LandingTranslations = {
   },
   dashboard: {
     greeting: "مرحباً {name}!",
+    fallbackName: "صديقي",
     ready: "حسابك جاهز. نزّل Bisbi وابدأ الإملاء.",
     downloadMac: "تنزيل لـ Mac",
     downloadWindows: "تنزيل لـ Windows",
@@ -145,6 +146,8 @@ export const ar: LandingTranslations = {
     checkoutCancelSubtitle: "لا تزال على الخطة المجانية. يمكنك الترقية في أي وقت من Bisbi.",
     planFreeBadge: "الخطة المجانية · جاهز للحديث بلا حدود؟ ترقَّ إلى Pro",
     planProBadge: "خطة Pro فعّالة · تكلّم كما تشاء",
+    inboxButton: "البريد الوارد",
+    settingsButton: "الإعدادات",
   },
   login: {
     welcome: "مرحباً بك في Bisbi",
@@ -159,4 +162,5 @@ export const ar: LandingTranslations = {
     openingHint: "سيُفتح تلقائياً، أو اضغط الزر أعلاه",
     backToApp: "العودة إلى التطبيق",
   },
+  admin: en.admin,
 };

@@ -1,4 +1,4 @@
-import type { LandingTranslations } from "./en";
+import { en, type LandingTranslations } from "./en";
 
 export const zh: LandingTranslations = {
   nav: {
@@ -130,6 +130,7 @@ export const zh: LandingTranslations = {
   },
   dashboard: {
     greeting: "你好 {name}!",
+    fallbackName: "朋友",
     ready: "你的账户已准备好。下载 Bisbi 开始听写。",
     downloadMac: "下载 Mac 版",
     downloadWindows: "下载 Windows 版",
@@ -144,6 +145,8 @@ export const zh: LandingTranslations = {
     checkoutCancelSubtitle: "你仍在免费计划。随时可以在 Bisbi 中升级。",
     planFreeBadge: "免费计划 · 想无限畅说？升级到 Pro",
     planProBadge: "Pro 计划已激活 · 想说多少说多少",
+    inboxButton: "收件箱",
+    settingsButton: "设置",
   },
   login: {
     welcome: "欢迎来到 Bisbi",
@@ -158,4 +161,5 @@ export const zh: LandingTranslations = {
     openingHint: "正在自动打开，或点击上方按钮",
     backToApp: "返回应用",
   },
+  admin: en.admin,
 };

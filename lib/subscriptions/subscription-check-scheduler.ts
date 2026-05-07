@@ -9,6 +9,8 @@ import {
   markSubscriptionAsCanceled,
 } from "./reconcile";
 import { executeWithLock } from "@/lib/cron/distributed-lock";
+import { trackSubscriptionPurchase } from "@/lib/meta/track-subscription-purchase";
+import { getAppUrl } from "@/lib/app-url";
 
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
@@ -56,6 +58,26 @@ async function reconcileSubscription(
 
   try {
     const result = await reconcileSubscriptionWithStripe(sub, stripeSub);
+
+    if (sub.productKey === "bisbi") {
+      try {
+        await trackSubscriptionPurchase({
+          userId: sub.userId,
+          productKey: sub.productKey,
+          stripeSub,
+          context: {
+            eventSourceUrl: `${getAppUrl()}/dashboard?checkout=success`,
+          },
+        });
+      } catch (metaError: unknown) {
+        const metaErrorMessage =
+          metaError instanceof Error ? metaError.message : String(metaError);
+        console.error(
+          `[Subscription Check] Meta Purchase tracking failed for ${sub.id}:`,
+          metaErrorMessage
+        );
+      }
+    }
 
     return {
       updated: result.updated,

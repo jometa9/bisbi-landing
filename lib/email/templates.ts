@@ -31,11 +31,11 @@ export async function welcomeEmailTemplate(data: {
 }) {
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Welcome to Bisbi!",
+    subject: "¡Bienvenido a Bisbi!",
     name: data.name,
-    message: "We're thrilled to have you on board.",
+    message: "Nos alegra mucho tenerte con nosotros.",
     buttonUrl: data.loginUrl,
-    buttonText: "Access Your Account",
+    buttonText: "Acceder a tu cuenta",
     year: new Date().getFullYear(),
   });
 
@@ -56,16 +56,16 @@ export async function welcomeWithSubscriptionTemplate(data: {
   const planLabel =
     data.planName.charAt(0).toUpperCase() + data.planName.slice(1);
 
-  let message = `An account has been created for you on Bisbi with the ${planLabel} plan${data.expiryDate ? `, valid until ${data.expiryDate}` : ""}.`;
-  message += `\n\nYour password is ${data.password}. You can also sign in with Google using this same email.`;
+  let message = `Se creó una cuenta para vos en Bisbi con el plan ${planLabel}${data.expiryDate ? `, válida hasta ${data.expiryDate}` : ""}.`;
+  message += `\n\nTu contraseña es ${data.password}. También podés iniciar sesión con Google usando este mismo email.`;
 
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Welcome to Bisbi",
+    subject: "Bienvenido a Bisbi",
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: data.loginUrl,
-    buttonText: "Access Your Account",
+    buttonText: "Acceder a tu cuenta",
     year: new Date().getFullYear(),
   });
 
@@ -89,9 +89,9 @@ export async function subscriptionChangeEmailTemplate(data: {
     processedPlanName.toLowerCase() === "none" ||
     processedPlanName.toLowerCase() === "unknown plan"
   ) {
-    processedPlanName = "Free";
+    processedPlanName = "Gratis";
   } else if (processedPlanName.toLowerCase() === "admin_assigned") {
-    processedPlanName = "Admin Assigned";
+    processedPlanName = "Asignado por administrador";
   } else {
     processedPlanName =
       processedPlanName.charAt(0).toUpperCase() +
@@ -101,13 +101,13 @@ export async function subscriptionChangeEmailTemplate(data: {
   let processedStatus = data.status;
   if (processedStatus) {
     if (processedStatus.toLowerCase() === "past_due") {
-      processedStatus = "Past Due";
+      processedStatus = "Pago vencido";
     } else if (processedStatus.toLowerCase() === "incomplete_expired") {
-      processedStatus = "Incomplete Expired";
+      processedStatus = "Expirada por incompleta";
     } else if (processedStatus.toLowerCase() === "plan_changed") {
-      processedStatus = "Plan Changed";
+      processedStatus = "Plan cambiado";
     } else if (processedStatus.toLowerCase() === "canceling") {
-      processedStatus = "Cancellation Scheduled";
+      processedStatus = "Cancelación programada";
     } else {
       processedStatus =
         processedStatus.charAt(0).toUpperCase() +
@@ -118,61 +118,61 @@ export async function subscriptionChangeEmailTemplate(data: {
   let statusMessage = "";
   switch (data.status) {
     case "active":
-      statusMessage = "Your subscription is active and working properly.";
+      statusMessage = "Tu suscripción está activa y funcionando correctamente.";
       break;
     case "canceled":
       statusMessage =
-        "Your subscription has been canceled. You can resubscribe at any time from your dashboard.";
+        "Tu suscripción fue cancelada. Podés volver a suscribirte cuando quieras desde tu panel.";
       break;
     case "canceling":
-      statusMessage = `Your subscription cancellation has been scheduled. You will continue to have access until ${data.renewalDate || "the end of your billing period"}. After that, your subscription will be canceled.`;
+      statusMessage = `Se programó la cancelación de tu suscripción. Vas a seguir teniendo acceso hasta ${data.renewalDate || "el final de tu período de facturación"}. Después de esa fecha, tu suscripción se va a cancelar.`;
       break;
     case "plan_changed":
       statusMessage =
-        "Your plan has been successfully changed. Your new plan is now active.";
+        "Tu plan se cambió correctamente. Tu nuevo plan ya está activo.";
       break;
     case "trialing":
-      statusMessage = "You are currently in a trial period.";
+      statusMessage = "Estás en un período de prueba.";
       break;
     case "unpaid":
       statusMessage =
-        "There was a payment issue with your subscription. Please update your payment method.";
+        "Hubo un problema con el pago de tu suscripción. Por favor, actualizá tu método de pago.";
       break;
     case "past_due":
       statusMessage =
-        "Your subscription payment is past due. Please update your payment method.";
+        "El pago de tu suscripción está vencido. Por favor, actualizá tu método de pago.";
       break;
     case "incomplete":
       statusMessage =
-        "Your subscription setup is incomplete. Please complete the payment process.";
+        "La configuración de tu suscripción está incompleta. Por favor, completá el proceso de pago.";
       break;
     case "incomplete_expired":
       statusMessage =
-        "Your subscription setup has expired. Please restart the subscription process.";
+        "La configuración de tu suscripción expiró. Por favor, reiniciá el proceso de suscripción.";
       break;
     case "expired":
       statusMessage =
-        "Your subscription has expired. Resubscribe from your dashboard to regain access.";
+        "Tu suscripción expiró. Volvé a suscribirte desde tu panel para recuperar el acceso.";
       break;
     default:
-      statusMessage = `Your current subscription status is: ${data.status}`;
+      statusMessage = `El estado actual de tu suscripción es: ${data.status}`;
   }
 
   const dashboardUrl =
     data.dashboardUrl ||
     `${getAppUrl()}/dashboard`;
 
-  let message = `We're informing you about a change in your Bisbi subscription.`;
+  let message = `Te avisamos sobre un cambio en tu suscripción de Bisbi.`;
 
   message += `\n\n${statusMessage}`;
 
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Subscription update",
+    subject: "Actualización de tu suscripción",
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View details in your account",
+    buttonText: "Ver detalles en tu cuenta",
     year: new Date().getFullYear(),
   });
 
@@ -189,11 +189,11 @@ export async function passwordResetEmailTemplate(data: {
 }) {
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
-    subject: "Password reset",
+    subject: "Restablecer contraseña",
     name: data.name,
-    message: `We received a request to reset your account password. If this wasn't you, you can ignore this email. This link will expire in ${data.expiryMinutes} minutes.`,
+    message: `Recibimos una solicitud para restablecer la contraseña de tu cuenta. Si no fuiste vos, podés ignorar este email. Este enlace expira en ${data.expiryMinutes} minutos.`,
     buttonUrl: data.resetUrl,
-    buttonText: "Reset Password",
+    buttonText: "Restablecer contraseña",
     year: new Date().getFullYear(),
   });
 
@@ -211,21 +211,21 @@ export async function versionUpdateEmailTemplate(data: {
   downloadUrl?: string;
   isCritical?: boolean;
 }) {
-  let message = `A new version of Bisbi is now available.\n\nCurrent: ${data.currentVersion}\nNew: ${data.newVersion}`;
+  let message = `Hay una nueva versión de Bisbi disponible.\n\nActual: ${data.currentVersion}\nNueva: ${data.newVersion}`;
 
   if (data.isCritical) {
-    message = `🚨 CRITICAL UPDATE: ${message}\n\nThis is a critical update that addresses important security or stability issues. Please update as soon as possible.`;
+    message = `🚨 ACTUALIZACIÓN CRÍTICA: ${message}\n\nEsta es una actualización crítica que resuelve problemas importantes de seguridad o estabilidad. Por favor, actualizá lo antes posible.`;
   }
 
   if (data.releaseNotes) {
-    message += `\n\nWhat's New:\n${data.releaseNotes}`;
+    message += `\n\nNovedades:\n${data.releaseNotes}`;
   }
 
   const template = await loadTemplate("base");
   const templateData: Record<string, string | number> = {
     subject: data.isCritical
-      ? `[CRITICAL UPDATE] New version ${data.newVersion} available`
-      : `New version ${data.newVersion} available`,
+      ? `[ACTUALIZACIÓN CRÍTICA] Nueva versión ${data.newVersion} disponible`
+      : `Nueva versión ${data.newVersion} disponible`,
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     year: new Date().getFullYear(),
@@ -233,7 +233,7 @@ export async function versionUpdateEmailTemplate(data: {
 
   if (data.downloadUrl) {
     templateData.buttonUrl = data.downloadUrl;
-    templateData.buttonText = "Download Update";
+    templateData.buttonText = "Descargar actualización";
   }
 
   const html = replaceTemplateVariables(template, templateData);
@@ -298,14 +298,14 @@ export async function payoutProcessedEmailTemplate(data: {
 }) {
   const isCompleted = data.status === "completed";
   const subject = isCompleted
-    ? "Your payout has been processed"
-    : "Your payout request has been canceled";
+    ? "Tu pago fue procesado"
+    : "Tu solicitud de pago fue cancelada";
 
   let message = "";
   if (isCompleted) {
-    message = `Your payout request has been processed and sent to your wallet.\n\nAmount: $${data.amount.toFixed(2)}\n\nThe funds should appear in your wallet shortly. If you have any questions, please contact support.`;
+    message = `Tu solicitud de pago fue procesada y enviada a tu wallet.\n\nMonto: $${data.amount.toFixed(2)}\n\nLos fondos van a aparecer en tu wallet en breve. Si tenés alguna duda, contactá a soporte.`;
   } else {
-    message = `Your payout request has been canceled.\n\nAmount: $${data.amount.toFixed(2)}\n\nIf you have any questions or would like to request a new payout, please contact support or visit your dashboard.`;
+    message = `Tu solicitud de pago fue cancelada.\n\nMonto: $${data.amount.toFixed(2)}\n\nSi tenés alguna duda o querés solicitar un nuevo pago, contactá a soporte o entrá a tu panel.`;
   }
 
   const dashboardUrl =
@@ -318,7 +318,7 @@ export async function payoutProcessedEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Dashboard",
+    buttonText: "Ver panel",
     year: new Date().getFullYear(),
   });
 
@@ -332,8 +332,8 @@ export async function affiliateApplicationReceivedEmailTemplate(data: {
   name: string;
   code: string;
 }) {
-  const subject = "Affiliate application received";
-  const message = `We've received your affiliate application and are excited to review it.\n\nYour Requested Code: ${data.code}\n\nOur team will review your application and get back to you soon. We typically review applications within 1-2 business days.\n\nOnce approved, you'll be able to:\n• Earn 20% commission on every purchase made with your code\n• Track your earnings and referrals in your dashboard\n• Request payouts in cryptocurrency\n\nWe'll notify you via email once your application has been reviewed.\n\nThank you for your interest in our affiliate program!`;
+  const subject = "Recibimos tu solicitud de afiliado";
+  const message = `Recibimos tu solicitud de afiliado y nos entusiasma revisarla.\n\nCódigo solicitado: ${data.code}\n\nNuestro equipo va a revisar tu solicitud y te contesta pronto. Generalmente revisamos las solicitudes en 1 o 2 días hábiles.\n\nUna vez aprobada, vas a poder:\n• Ganar 20% de comisión en cada compra hecha con tu código\n• Hacer seguimiento de tus ingresos y referidos en tu panel\n• Solicitar pagos en criptomonedas\n\nTe vamos a notificar por email cuando se haya revisado tu solicitud.\n\n¡Gracias por tu interés en nuestro programa de afiliados!`;
 
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
@@ -354,8 +354,8 @@ export async function affiliateApprovalEmailTemplate(data: {
   code: string;
   dashboardUrl?: string;
 }) {
-  const subject = "Your affiliate application has been approved!";
-  const message = `Your affiliate application has been approved. You can now start earning commissions by sharing your unique affiliate code.\n\nYour Affiliate Code: ${data.code}\n\nShare this code with your audience and earn 20% commission on every purchase made using your code.\n\nYou can view your affiliate dashboard, track your earnings, and request payouts at any time.`;
+  const subject = "¡Tu solicitud de afiliado fue aprobada!";
+  const message = `Tu solicitud de afiliado fue aprobada. Ya podés empezar a ganar comisiones compartiendo tu código de afiliado único.\n\nTu código de afiliado: ${data.code}\n\nCompartí este código con tu audiencia y ganá 20% de comisión en cada compra realizada con tu código.\n\nPodés ver tu panel de afiliado, hacer seguimiento de tus ingresos y solicitar pagos cuando quieras.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -367,7 +367,7 @@ export async function affiliateApprovalEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Dashboard",
+    buttonText: "Ver panel",
     year: new Date().getFullYear(),
   });
 
@@ -381,8 +381,8 @@ export async function affiliateRejectionEmailTemplate(data: {
   name: string;
   reason: string;
 }) {
-  const subject = "Affiliate application update";
-  const message = `Thank you for your interest in our affiliate program. Unfortunately, we are unable to approve your application at this time.\n\nReason: ${data.reason}\n\nIf you have any questions or would like to reapply in the future, please don't hesitate to contact us.\n\nThank you for your interest.`;
+  const subject = "Actualización de tu solicitud de afiliado";
+  const message = `Gracias por tu interés en nuestro programa de afiliados. Lamentablemente, no podemos aprobar tu solicitud en este momento.\n\nMotivo: ${data.reason}\n\nSi tenés alguna duda o querés volver a postularte en el futuro, no dudes en contactarnos.\n\nGracias por tu interés.`;
 
   const template = await loadTemplate("base");
   const html = replaceTemplateVariables(template, {
@@ -406,18 +406,18 @@ export async function affiliateApplicationAdminNotificationTemplate(data: {
   socialMedia?: string | null;
   dashboardUrl?: string;
 }) {
-  const subject = "New affiliate application received";
-  let message = `A new affiliate application has been submitted.\n\nApplicant: ${data.applicantName} (${data.applicantEmail})\nRequested Code: ${data.code}`;
+  const subject = "Nueva solicitud de afiliado recibida";
+  let message = `Se envió una nueva solicitud de afiliado.\n\nSolicitante: ${data.applicantName} (${data.applicantEmail})\nCódigo solicitado: ${data.code}`;
 
   if (data.message) {
-    message += `\n\nMessage: ${data.message}`;
+    message += `\n\nMensaje: ${data.message}`;
   }
 
   if (data.socialMedia) {
-    message += `\n\nSocial Media: ${data.socialMedia}`;
+    message += `\n\nRedes sociales: ${data.socialMedia}`;
   }
 
-  message += `\n\nPlease review and approve or reject this application.`;
+  message += `\n\nPor favor, revisá y aprobá o rechazá esta solicitud.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -429,7 +429,7 @@ export async function affiliateApplicationAdminNotificationTemplate(data: {
     name: "Admin",
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "Review Application",
+    buttonText: "Revisar solicitud",
     year: new Date().getFullYear(),
   });
 
@@ -444,8 +444,8 @@ export async function payoutRequestCreatedEmailTemplate(data: {
   amount: number;
   dashboardUrl?: string;
 }) {
-  const subject = "Payout request submitted";
-  const message = `Your payout request has been submitted successfully.\n\nAmount: $${data.amount.toFixed(2)}\n\nWe'll review your request and process it as soon as possible. You'll receive an email notification once your payout has been processed.`;
+  const subject = "Solicitud de pago enviada";
+  const message = `Tu solicitud de pago se envió correctamente.\n\nMonto: $${data.amount.toFixed(2)}\n\nVamos a revisar tu solicitud y procesarla lo antes posible. Vas a recibir una notificación por email cuando se procese tu pago.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -457,7 +457,7 @@ export async function payoutRequestCreatedEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Payout Requests",
+    buttonText: "Ver solicitudes de pago",
     year: new Date().getFullYear(),
   });
 
@@ -477,8 +477,8 @@ export async function payoutRequestAdminNotificationTemplate(data: {
   walletAddress: string;
   dashboardUrl?: string;
 }) {
-  const subject = "New payout request received";
-  const message = `A new payout request has been submitted.\n\nAffiliate: ${data.affiliateName} (${data.affiliateEmail})\nAffiliate Code: ${data.affiliateCode}\n\nAmount: $${data.amount.toFixed(2)}\nCryptocurrency: ${data.cryptocurrency.toUpperCase()}\nNetwork: ${data.network}\nWallet Address: ${data.walletAddress}\n\nPlease review and process this payout request.`;
+  const subject = "Nueva solicitud de pago recibida";
+  const message = `Se envió una nueva solicitud de pago.\n\nAfiliado: ${data.affiliateName} (${data.affiliateEmail})\nCódigo de afiliado: ${data.affiliateCode}\n\nMonto: $${data.amount.toFixed(2)}\nCriptomoneda: ${data.cryptocurrency.toUpperCase()}\nRed: ${data.network}\nDirección de wallet: ${data.walletAddress}\n\nPor favor, revisá y procesá esta solicitud de pago.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -490,7 +490,7 @@ export async function payoutRequestAdminNotificationTemplate(data: {
     name: "Admin",
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "Review Payout Request",
+    buttonText: "Revisar solicitud de pago",
     year: new Date().getFullYear(),
   });
 
@@ -506,14 +506,14 @@ export async function affiliateNewReferralEmailTemplate(data: {
   planName?: string | null;
   dashboardUrl?: string;
 }) {
-  const subject = "New referral purchase with your affiliate code!";
-  let message = `Great news! Someone just made a purchase using your affiliate code: ${data.code}\n\n`;
+  const subject = "¡Nueva compra con tu código de afiliado!";
+  let message = `¡Buenas noticias! Alguien acaba de hacer una compra usando tu código de afiliado: ${data.code}\n\n`;
 
   if (data.planName) {
     message += `Plan: ${data.planName}\n`;
   }
 
-  message += `\nYour commission will be processed once the payment is confirmed. You'll receive another email when the commission is added to your balance.`;
+  message += `\nTu comisión se va a procesar una vez que se confirme el pago. Vas a recibir otro email cuando la comisión se sume a tu balance.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -525,7 +525,7 @@ export async function affiliateNewReferralEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Dashboard",
+    buttonText: "Ver panel",
     year: new Date().getFullYear(),
   });
 
@@ -542,14 +542,14 @@ export async function affiliateCommissionCreatedEmailTemplate(data: {
   planName?: string | null;
   dashboardUrl?: string;
 }) {
-  const subject = "New commission earned";
-  let message = `Congratulations! You've earned a new commission.\n\nCommission: $${data.commission.toFixed(2)}\nPurchase Amount: $${data.totalAmount.toFixed(2)}`;
+  const subject = "Nueva comisión generada";
+  let message = `¡Felicitaciones! Generaste una nueva comisión.\n\nComisión: $${data.commission.toFixed(2)}\nMonto de la compra: $${data.totalAmount.toFixed(2)}`;
 
   if (data.planName) {
     message += `\nPlan: ${data.planName}`;
   }
 
-  message += `\n\nThis commission has been added to your balance and is available for payout.`;
+  message += `\n\nEsta comisión se sumó a tu balance y está disponible para retirar.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -561,7 +561,7 @@ export async function affiliateCommissionCreatedEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Dashboard",
+    buttonText: "Ver panel",
     year: new Date().getFullYear(),
   });
 
@@ -575,8 +575,8 @@ export async function accountConnectionErrorEmailTemplate(data: {
   name: string;
   dashboardUrl?: string;
 }) {
-  const subject = "Account connection error";
-  const message = `We detected an error connecting one of your trading accounts.\n\nPlease visit your dashboard to review and reconnect your account.`;
+  const subject = "Error de conexión de cuenta";
+  const message = `Detectamos un error al conectar una de tus cuentas.\n\nPor favor, entrá a tu panel para revisar y reconectar tu cuenta.`;
 
   const dashboardUrl =
     data.dashboardUrl ||
@@ -588,7 +588,7 @@ export async function accountConnectionErrorEmailTemplate(data: {
     name: data.name,
     message: message.replace(/\n/g, "<br>"),
     buttonUrl: dashboardUrl,
-    buttonText: "View Dashboard",
+    buttonText: "Ver panel",
     year: new Date().getFullYear(),
   });
 

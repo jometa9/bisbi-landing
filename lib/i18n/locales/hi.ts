@@ -1,4 +1,4 @@
-import type { LandingTranslations } from "./en";
+import { en, type LandingTranslations } from "./en";
 
 export const hi: LandingTranslations = {
   nav: {
@@ -133,6 +133,7 @@ export const hi: LandingTranslations = {
   },
   dashboard: {
     greeting: "नमस्ते {name}!",
+    fallbackName: "दोस्त",
     ready:
       "आपका खाता तैयार है। Bisbi डाउनलोड करें और डिक्टेट करना शुरू करें।",
     downloadMac: "Mac के लिए डाउनलोड",
@@ -148,6 +149,8 @@ export const hi: LandingTranslations = {
     checkoutCancelSubtitle: "आप अभी भी फ्री प्लान पर हैं। आप कभी भी Bisbi से अपग्रेड कर सकते हैं।",
     planFreeBadge: "फ्री प्लान · बिना सीमा बात करने के लिए तैयार? Pro बनें",
     planProBadge: "Pro प्लान सक्रिय · जितना चाहें बात करें",
+    inboxButton: "इनबॉक्स",
+    settingsButton: "सेटिंग्स",
   },
   login: {
     welcome: "Bisbi में आपका स्वागत है",
@@ -162,4 +165,5 @@ export const hi: LandingTranslations = {
     openingHint: "अपने आप खुल रहा है, या ऊपर बटन पर क्लिक करें",
     backToApp: "एप्लिकेशन पर वापस जाएं",
   },
+  admin: en.admin,
 };

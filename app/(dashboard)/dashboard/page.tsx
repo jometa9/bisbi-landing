@@ -22,6 +22,7 @@ function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const checkoutResult = searchParams.get("checkout");
+  const checkoutSessionId = searchParams.get("session_id");
   const isCheckoutSuccess = checkoutResult === "success";
   const isCheckoutCancel = checkoutResult === "cancel";
   const isPostCheckout = isCheckoutSuccess || isCheckoutCancel;
@@ -32,6 +33,40 @@ function DashboardContent() {
   useEffect(() => {
     setDetectedOS(detectOS());
   }, []);
+
+  useEffect(() => {
+    if (!isCheckoutSuccess || !checkoutSessionId) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/checkout/track-purchase", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId: checkoutSessionId }),
+        });
+        if (!res.ok || cancelled) return;
+        const json = await res.json();
+        if (!json?.eventId) return;
+        if (typeof window !== "undefined" && window.fbq) {
+          window.fbq(
+            "track",
+            "Purchase",
+            {
+              value: json.value,
+              currency: json.currency,
+              content_name: "bisbi",
+              content_ids: [json.eventId.split("_")[1]].filter(Boolean),
+            },
+            { eventID: json.eventId }
+          );
+        }
+      } catch {}
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [isCheckoutSuccess, checkoutSessionId]);
 
   const userName =
     data?.name?.split(" ")[0] || data?.email?.split("@")[0] || "there";
