@@ -24,7 +24,6 @@ export async function GET() {
       discordDailyReportWebhookUrl: settings.discordDailyReportWebhookUrl || "",
       internalApiKey: settings.internalApiKey || "",
       stripeSecretKey: settings.stripeSecretKey || "",
-      stripeWebhookSecret: settings.stripeWebhookSecret || "",
       bisbiProMonthlyPriceId: settings.bisbiProMonthlyPriceId || "",
       bisbiProAnnualPriceId: settings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
@@ -59,7 +58,6 @@ export async function POST(req: NextRequest) {
       discordDailyReportWebhookUrl,
       internalApiKey,
       stripeSecretKey,
-      stripeWebhookSecret,
       bisbiProMonthlyPriceId,
       bisbiProAnnualPriceId,
       bisbiProMonthlyAmount,
@@ -94,9 +92,6 @@ export async function POST(req: NextRequest) {
     }
     if (stripeSecretKey !== undefined) {
       updateData.stripeSecretKey = stripeSecretKey?.trim() || null;
-    }
-    if (stripeWebhookSecret !== undefined) {
-      updateData.stripeWebhookSecret = stripeWebhookSecret?.trim() || null;
     }
     if (bisbiProMonthlyPriceId !== undefined) {
       updateData.bisbiProMonthlyPriceId = bisbiProMonthlyPriceId?.trim() || null;
@@ -147,7 +142,6 @@ export async function POST(req: NextRequest) {
       discordDailyReportWebhookUrl: updatedSettings.discordDailyReportWebhookUrl || "",
       internalApiKey: updatedSettings.internalApiKey || "",
       stripeSecretKey: updatedSettings.stripeSecretKey || "",
-      stripeWebhookSecret: updatedSettings.stripeWebhookSecret || "",
       bisbiProMonthlyPriceId: updatedSettings.bisbiProMonthlyPriceId || "",
       bisbiProAnnualPriceId: updatedSettings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,

@@ -8,6 +8,7 @@ import {
   getUserProductSubscription,
   isActiveSubscription,
 } from "@/lib/db/queries";
+import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -31,6 +32,8 @@ export async function GET(request: NextRequest) {
   if (!foundUser) {
     return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
   }
+
+  await reconcileUserFromStripe(foundUser.id, foundUser.stripeCustomerId);
 
   const monthKey = currentMonthKey();
   const [sub, usage] = await Promise.all([

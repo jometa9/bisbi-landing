@@ -238,10 +238,7 @@ export const es: LandingTranslations = {
     stripeSettings: {
       secretKey: "Clave secreta de Stripe",
       secretKeyHint:
-        "Clave secreta de la API de Stripe. Necesaria para checkout y webhooks.",
-      webhookSecret: "Secreto del webhook de Stripe",
-      webhookSecretHint:
-        "Secreto de firma del endpoint del webhook de Stripe que apunta a /api/stripe/webhook.",
+        "Clave secreta de la API de Stripe. Necesaria para checkout y reconciliación de suscripciones on-demand.",
       monthlyPriceId: "Bisbi Pro — Price ID mensual",
       annualPriceId: "Bisbi Pro — Price ID anual",
       monthlyAmount: "Monto mensual (centavos)",

@@ -30,7 +30,7 @@ export default async function AdminSettingsPage() {
   }
 
   return (
-    <div className="px-3 w-full pb-20 pt-1">
+    <div className="px-6 w-full pb-20 pt-1">
       <div className="w-full space-y-3">
         <div className="space-y-6">
           <AdminSection

@@ -1,19 +1,6 @@
-=======
-==MT5==
-=======
-33671828
-awxHY30##
-FundedNext-Server3
-=======
+10usd price_1TUQPeA3C4QniATDIZ6MEfA5
+96 price_1TUQQLA3C4QniATDQyB20HXn
 
-=======
-61503025
-IPTRADEcopier2!
-Pepperstone-demo01
 
-=======
-==MT4==
-=======
-85338746
-IPTRADEcopier1!
-Pepperstone-demo02
+TEST Mensual ($10/mes): price_1TUQSNAlGm834neIBQLGYWQP
+Anual ($96/año): price_1TUQSOAlGm834neIVdjMKOau

@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 
 interface StripeSettings {
   stripeSecretKey: string;
-  stripeWebhookSecret: string;
   bisbiProMonthlyPriceId: string;
   bisbiProAnnualPriceId: string;
   bisbiProMonthlyAmount: number;
@@ -22,7 +21,6 @@ export default function AdminStripeSettings() {
   const { t } = useI18n();
   const [settings, setSettings] = useState<StripeSettings>({
     stripeSecretKey: "",
-    stripeWebhookSecret: "",
     bisbiProMonthlyPriceId: "",
     bisbiProAnnualPriceId: "",
     bisbiProMonthlyAmount: DEFAULT_MONTHLY_AMOUNT,
@@ -31,7 +29,6 @@ export default function AdminStripeSettings() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"success" | "error" | null>(null);
   const [showSecretKey, setShowSecretKey] = useState(false);
-  const [showWebhookSecret, setShowWebhookSecret] = useState(false);
 
   useEffect(() => {
     loadSettings();
@@ -44,7 +41,6 @@ export default function AdminStripeSettings() {
         const data = await response.json();
         setSettings({
           stripeSecretKey: data.stripeSecretKey || "",
-          stripeWebhookSecret: data.stripeWebhookSecret || "",
           bisbiProMonthlyPriceId: data.bisbiProMonthlyPriceId || "",
           bisbiProAnnualPriceId: data.bisbiProAnnualPriceId || "",
           bisbiProMonthlyAmount:
@@ -112,34 +108,6 @@ export default function AdminStripeSettings() {
           </Button>
         </div>
         <p className="text-xs text-gray-600">{t.admin.stripeSettings.secretKeyHint}</p>
-      </div>
-
-      <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="stripe-webhook-secret">{t.admin.stripeSettings.webhookSecret}</Label>
-        <div className="flex gap-3">
-          <Input
-            id="stripe-webhook-secret"
-            type={showWebhookSecret ? "text" : "password"}
-            placeholder="whsec_..."
-            value={settings.stripeWebhookSecret}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSettings((prev) => ({
-                ...prev,
-                stripeWebhookSecret: e.target.value,
-              }))
-            }
-            className="bg-white shadow-none font-mono text-sm"
-          />
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => setShowWebhookSecret(!showWebhookSecret)}
-            className="shadow-none whitespace-nowrap"
-          >
-            {showWebhookSecret ? t.admin.stripeSettings.hide : t.admin.stripeSettings.show}
-          </Button>
-        </div>
-        <p className="text-xs text-gray-600">{t.admin.stripeSettings.webhookSecretHint}</p>
       </div>
 
       <div className="grid w-full items-center gap-1.5">

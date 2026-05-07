@@ -235,10 +235,7 @@ export const en = {
     stripeSettings: {
       secretKey: "Stripe Secret Key",
       secretKeyHint:
-        "Stripe API secret key. Required for checkout and webhooks.",
-      webhookSecret: "Stripe Webhook Secret",
-      webhookSecretHint:
-        "Signing secret of the Stripe webhook endpoint pointing to /api/stripe/webhook.",
+        "Stripe API secret key. Required for checkout and on-demand subscription reconciliation.",
       monthlyPriceId: "Bisbi Pro — Monthly Price ID",
       annualPriceId: "Bisbi Pro — Annual Price ID",
       monthlyAmount: "Monthly Amount (cents)",
