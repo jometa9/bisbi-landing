@@ -6,6 +6,7 @@ import { AppDemo } from "@/components/landing/app-demo";
 import { DocsDemo } from "@/components/landing/docs-demo";
 import { SpeedComparison } from "@/components/landing/speed-comparison";
 import { SocialProof } from "@/components/landing/social-proof";
+import { Pricing } from "@/components/landing/pricing";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
 import Image from "next/image";
@@ -198,6 +199,13 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section
+          id="pricing"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16"
+        >
+          <Pricing />
         </section>
 
         <section
