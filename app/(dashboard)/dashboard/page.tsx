@@ -170,17 +170,18 @@ function DashboardContent() {
               disabled={downloadingOs !== null}
               className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
               style={{
-                backgroundColor: "#1A1A18",
-                color: "#FFFFFF",
+                backgroundColor: "#F0EDE6",
+                color: "#1A1A18",
+                border: "1px solid rgba(26, 26, 24, 0.08)",
               }}
               onMouseEnter={(e) => {
                 if (downloadingOs === null)
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#3A3A36";
+                    "#F0F5F3";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                  "#1A1A18";
+                  "#F0EDE6";
               }}
             >
               <WindowsIcon className="h-[16px] w-[16px]" />
