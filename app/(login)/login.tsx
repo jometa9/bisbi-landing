@@ -111,7 +111,7 @@ export function Login() {
           {t.login.successTitle}
         </h1>
         <p
-          className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+          className="text-lg md:text-xl max-w-6xl mx-auto mb-10 leading-relaxed"
           style={{ color: "#5C5C57" }}
         >
           {interpolate(t.login.successSubtitle, { appName })}
@@ -155,7 +155,7 @@ export function Login() {
           {isFromApp ? interpolate(t.login.accessAccount, { appName }) : t.login.welcome}
         </h1>
         <p
-          className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+          className="text-lg md:text-xl max-w-6xl mx-auto mb-10 leading-relaxed"
           style={{ color: "#5C5C57" }}
         >
           {t.login.subtitle}
@@ -183,7 +183,7 @@ export function Login() {
         {isFromApp ? interpolate(t.login.accessAccount, { appName }) : t.login.welcome}
       </h1>
       <p
-        className="text-lg md:text-xl max-w-5xl mx-auto mb-10 leading-relaxed"
+        className="text-lg md:text-xl max-w-6xl mx-auto mb-10 leading-relaxed"
         style={{ color: "#5C5C57" }}
       >
         {t.login.subtitle}

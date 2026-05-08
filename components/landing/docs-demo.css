@@ -1,6 +1,5 @@
 .docs-demo-shell {
   width: 100%;
-  max-width: 1040px;
   margin: 0 auto;
   padding: 32px;
   background: #7BA89C;
@@ -10,7 +9,6 @@
 .docs-demo-frame {
   position: relative;
   width: 100%;
-  max-width: 980px;
   margin: 0 auto;
   aspect-ratio: 1080 / 700;
   container-type: inline-size;
@@ -37,7 +35,7 @@
   height: 700px;
   max-width: none;
   transform-origin: top left;
-  transform: scale(min(1, calc(100cqi / 1080px)));
+  transform: scale(calc(100cqi / 1080px));
   border: 1px solid rgba(26, 26, 24, 0.08);
   border-radius: 14px;
   overflow: hidden;

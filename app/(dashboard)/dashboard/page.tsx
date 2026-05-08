@@ -124,7 +124,7 @@ function DashboardContent() {
 
   return (
     <div className="relative flex-1 flex items-center justify-center">
-      <div className="relative w-full max-w-5xl mx-auto px-6 py-20 text-center">
+      <div className="relative w-full max-w-6xl mx-auto px-6 py-20 text-center">
         <h1
           className="text-3xl md:text-4xl font-semibold mb-4"
           style={{ color: "#1A1A18" }}
@@ -133,7 +133,7 @@ function DashboardContent() {
         </h1>
 
         <p
-          className="text-base md:text-lg mb-12 max-w-5xl mx-auto"
+          className="text-base md:text-lg mb-12 max-w-6xl mx-auto"
           style={{ color: "#5C5C57" }}
         >
           {subtitle}

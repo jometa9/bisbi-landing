@@ -126,11 +126,11 @@ export default function HomePage() {
       <LandingHeader />
       <main style={{ backgroundColor: "#FFFFFF" }}>
 
-        <section className="max-w-4xl mx-auto px-6 pt-32 pb-16 text-center">
+        <section className="max-w-6xl mx-auto px-6 pt-32 pb-6 text-left">
 
 
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]"
+            className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 leading-[1.05]"
             style={{ color: "#1A1A18" }}
           >
             {t.hero.headline1}
@@ -142,49 +142,45 @@ export default function HomePage() {
           </h1>
 
           <p
-            className="text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed"
+            className="text-base md:text-lg  mb-6 leading-relaxed"
             style={{ color: "#5C5C57" }}
           >
             {t.hero.subheadline}
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex justify-start">
             <DownloadButtons variant="hero" />
           </div>
-
-          <p className="mt-5 text-sm" style={{ color: "#A8A8A2" }}>
-            {t.hero.freeBadge}
-          </p>
         </section>
 
         <section
           ref={docsRef}
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <DocsDemo />
         </section>
 
         <section
           id="how-it-works"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <ProductDemo />
         </section>
 
         <section
           id="speed"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <SpeedComparison />
         </section>
 
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-3">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-3">
           <AppDemo />
         </section>
 
         <section
           id="features"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <div className="feature-grid">
             {t.features.items.map((feature, i) => (
@@ -206,13 +202,13 @@ export default function HomePage() {
 
         <section
           id="social-proof"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <SocialProof />
         </section>
 
         <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
               <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />
             </div>
