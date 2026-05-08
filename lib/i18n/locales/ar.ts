@@ -50,13 +50,15 @@ export const ar: LandingTranslations = {
       transcribing: "يكتب",
       previousTranscript: "أحبّ استخدام Bisbi.",
       transcript:
-        "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
+        "عزيزي Bisbi، يجب أن أعترف لك: لقد غيّرت حياتي. كنت أكتب بإصبعين فقط وكثير من الصبر.",
       transcriptLong:
-        "أرسل إلى مارتا ملاحظات مراجعة التصميم وأكّد لها أن اجتماع صباح الخميس سيعقد كما هو مخطط له.",
+        "الآن أتحدّث فقط، ويحدث السحر — وداعًا لآلام المعصمين، وأهلًا بالإنتاجية والقليل من البهجة في يومي.",
+      transcriptOwl:
+        "إليك صورة لبومتي المفضّلة التي تذكّرني بشعاركم:",
       editorTitle: "ملاحظات الاجتماع — ملاحظات",
       editorPlaceholder: "اكتب رسالة…",
       pasteHint: "يتم لصق النص تلقائيًا حيث تكتب.",
-      docsTitle: "ملاحظات المشروع",
+      docsTitle: "رسالة حبّ إلى Bisbi",
     },
   },
   features: {
@@ -176,7 +178,7 @@ export const ar: LandingTranslations = {
     seeMore: "اعرض الكل في السجل",
     badgeIdle: "جاهز",
     plan: { pro: "احترافي" },
-    user: { name: "ليلى أحمد", initial: "ل" },
+    user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "اليوم", yesterday: "أمس" },
     recent: [
       "أرسل ملاحظات مراجعة التصميم إلى مارتا وأكّد موعدنا يوم الخميس.",

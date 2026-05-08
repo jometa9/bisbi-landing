@@ -127,15 +127,7 @@ export default function HomePage() {
       <main style={{ backgroundColor: "#FFFFFF" }}>
 
         <section className="max-w-4xl mx-auto px-6 pt-32 pb-16 text-center">
-          <div className="flex justify-center mb-8">
-            <Image
-              src="/assets/bisbi.png"
-              alt="Bisbi"
-              width={96}
-              height={96}
-              priority
-            />
-          </div>
+
 
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]"
@@ -219,7 +211,7 @@ export default function HomePage() {
           <SocialProof />
         </section>
 
-        <section className="py-8 md:py-12 pt-16 md:pt-24" style={{ backgroundColor: "#FFFFFF" }}>
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
               <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />

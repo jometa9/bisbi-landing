@@ -53,13 +53,15 @@ export const es: LandingTranslations = {
       transcribing: "Transcribiendo",
       previousTranscript: "Bisbi me encanta.",
       transcript:
-        "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
+        "Querido Bisbi, tengo que confesártelo: me cambiaste la vida. Antes escribía con dos dedos y mucha paciencia.",
       transcriptLong:
-        "Mandale a Marta las notas de la revisión de diseño y confirmale que seguimos para la reunión del jueves a la mañana.",
+        "Ahora simplemente hablo y la magia ocurre — adiós muñecas doloridas, hola productividad y un poco de magia en mi día.",
+      transcriptOwl:
+        "Aquí te dejo una foto de mi búho favorito que me hace acordar a tu logo:",
       editorTitle: "Notas de reunión — Notas",
       editorPlaceholder: "Escribí un mensaje…",
       pasteHint: "El texto se pega automáticamente donde estés escribiendo.",
-      docsTitle: "Notas del proyecto",
+      docsTitle: "Carta a Bisbi que me encanta esta app",
     },
   },
   features: {
@@ -179,7 +181,7 @@ export const es: LandingTranslations = {
     seeMore: "Ver todo en Historial",
     badgeIdle: "Listo",
     plan: { pro: "Pro" },
-    user: { name: "Lucía García", initial: "L" },
+    user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "Hoy", yesterday: "Ayer" },
     recent: [
       "Mandale las notas de la revisión de diseño a Marta y confirmá que seguimos para el jueves.",

@@ -603,7 +603,10 @@ textarea,
 
 .feature-card:nth-child(1) { grid-column: span 1; }
 .feature-card:nth-child(2) { grid-column: span 2; }
-.feature-card:nth-child(3) { grid-column: 1 / span 2; }
+.feature-card:nth-child(3) {
+  grid-column: 1 / -1;
+  background: #F7F6F3;
+}
 
 .feature-card {
   position: relative;
@@ -931,7 +934,7 @@ textarea,
 }
 
 .speed-card--keyboard {
-  background: #F0EDE6;
+  background: #F7F6F3;
 }
 
 .speed-card--bisbi {

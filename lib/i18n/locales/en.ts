@@ -50,13 +50,15 @@ export const en = {
       transcribing: "Transcribing",
       previousTranscript: "I love using Bisbi.",
       transcript:
-        "Hey team — quick heads up. The launch is on track for Friday.",
+        "Dear Bisbi, I have to confess: you changed my life. I used to type with two fingers and a lot of patience.",
       transcriptLong:
-        "Send Marta the design review notes and let her know we are still on for the Thursday morning sync.",
+        "Now I just talk and the magic happens — goodbye sore wrists, hello productivity and a little bit of joy in my day.",
+      transcriptOwl:
+        "Here is a photo of my favorite owl that reminds me of your logo:",
       editorTitle: "Meeting notes — Notes",
       editorPlaceholder: "Type a message…",
       pasteHint: "The text is pasted automatically wherever you are typing.",
-      docsTitle: "Project notes",
+      docsTitle: "A love letter to Bisbi",
     },
   },
   features: {
@@ -176,7 +178,7 @@ export const en = {
     seeMore: "See all in History",
     badgeIdle: "Ready",
     plan: { pro: "Pro" },
-    user: { name: "Jane Doe", initial: "J" },
+    user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "Today", yesterday: "Yesterday" },
     recent: [
       "Send the design review notes to Marta and confirm we are still on for Thursday.",

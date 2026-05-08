@@ -20,7 +20,7 @@ function phaseDuration(phase: Phase, wordCount: number): number {
     case "idle":
       return 900;
     case "recording":
-      return Math.max(2200, wordCount * 320 + 700);
+      return Math.max(1600, wordCount * 180 + 500);
     case "transcribing":
       return 1300;
     case "typing":
@@ -35,9 +35,13 @@ export function DocsDemo() {
   const demo = t.howItWorks.demo;
 
   const transcripts = useMemo(
-    () => [demo.transcript, demo.transcriptLong].filter(Boolean) as string[],
-    [demo.transcript, demo.transcriptLong]
+    () =>
+      [demo.transcript, demo.transcriptLong, demo.transcriptOwl].filter(
+        Boolean
+      ) as string[],
+    [demo.transcript, demo.transcriptLong, demo.transcriptOwl]
   );
+  const owlSentence = demo.transcriptOwl ?? "";
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [sentenceIdx, setSentenceIdx] = useState(0);
@@ -110,7 +114,7 @@ export function DocsDemo() {
     }
     setSpokenCount(0);
     const total = phaseDuration("recording", words.length);
-    const interval = Math.max(140, total / (words.length + 2));
+    const interval = Math.max(85, total / (words.length + 2));
     let i = 0;
     const id = window.setInterval(() => {
       i += 1;
@@ -135,7 +139,7 @@ export function DocsDemo() {
     return () => window.clearInterval(id);
   }, [phase, words.length]);
 
-  const spokenText = words.slice(0, spokenCount).join(" ");
+  const spokenWords = words.slice(0, spokenCount);
   const partialTyped = words.slice(0, typedCount).join(" ");
   const isTyping = phase === "typing";
 
@@ -146,20 +150,22 @@ export function DocsDemo() {
     : committedText;
   const showCursor = isTyping && typedCount < words.length;
   const showInitialCursor = !docText;
+  const showOwlGif = !!owlSentence && committedText.includes(owlSentence);
 
   const kbdPressed = phase === "recording";
   const pillVisible = phase === "recording" || phase === "transcribing";
-  const captionsVisible = phase === "recording" && spokenText.length > 0;
+  const captionsVisible = phase === "recording" && spokenWords.length > 0;
   const keyGlyph = isMac ? "⌘" : "Alt";
   const pillState: "recording" | "transcribing" =
     phase === "transcribing" ? "transcribing" : "recording";
 
   return (
-    <div
-      ref={rootRef}
-      className="docs-demo-frame"
-      data-docs-demo-visible={active ? "true" : "false"}
-    >
+    <div className="docs-demo-shell">
+      <div
+        ref={rootRef}
+        className="docs-demo-frame"
+        data-docs-demo-visible={active ? "true" : "false"}
+      >
       <div className={`docs-demo docs-demo--${phase}`}>
         <DocsTitleBar title={demo.docsTitle} />
         <DocsToolbar title={demo.docsTitle} />
@@ -168,7 +174,7 @@ export function DocsDemo() {
           <div className="docs-demo-page">
             <div className="docs-demo-page-meta">
               <span className="docs-demo-page-date">May 8, 2026</span>
-              <span className="docs-demo-page-author">Jane Doe</span>
+              <span className="docs-demo-page-author">Joaquin</span>
             </div>
             <h1 className="docs-demo-doc-heading">{demo.docsTitle}</h1>
             <div className="docs-demo-doc-body">
@@ -183,6 +189,11 @@ export function DocsDemo() {
                 <p className="docs-demo-doc-text docs-demo-doc-text--empty">
                   {showInitialCursor && <span className="docs-demo-cursor" />}
                 </p>
+              )}
+              {showOwlGif && (
+                <figure className="docs-demo-doc-gif">
+                  <img src="/assets/giphy.gif" alt="" />
+                </figure>
               )}
             </div>
           </div>
@@ -211,7 +222,15 @@ export function DocsDemo() {
               className={`docs-demo-captions${captionsVisible ? " docs-demo-captions--visible" : ""}`}
             >
               <span className="docs-demo-captions-text">
-                {spokenText}
+                {spokenWords.map((w, i) => (
+                  <span
+                    key={`${sentenceIdx}-${i}`}
+                    className="docs-demo-captions-word"
+                  >
+                    {i > 0 ? " " : ""}
+                    {w}
+                  </span>
+                ))}
                 <span className="docs-demo-captions-caret" />
               </span>
             </div>
@@ -222,13 +241,13 @@ export function DocsDemo() {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 }
 
 function DocsPill({
   state,
-  transcribingLabel,
 }: {
   state: "recording" | "transcribing";
   transcribingLabel: string;
@@ -237,24 +256,35 @@ function DocsPill({
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    let frame = 0;
-    const id = window.setInterval(() => {
-      frame += 1;
-      setBars((prev) => {
-        const next = prev.slice(1);
-        const x = frame / 4;
-        const v =
-          state === "transcribing"
-            ? 0.3 + 0.18 * Math.abs(Math.sin(x * 0.6 + 1.1))
-            : 0.25 +
-              0.55 *
-                Math.abs(Math.sin(x * 0.9)) *
-                (0.6 + 0.4 * Math.abs(Math.sin(x * 0.31)));
-        next.push(v);
-        return next;
-      });
-    }, 70);
-    return () => window.clearInterval(id);
+    if (state === "recording") {
+      const id = window.setInterval(() => {
+        setBars((prev) => {
+          const next = prev.slice(1);
+          const burst = Math.random() < 0.18 ? 0.1 : 0.25 + Math.random() * 0.7;
+          next.push(burst);
+          return next;
+        });
+      }, 70);
+      return () => window.clearInterval(id);
+    }
+    if (state === "transcribing") {
+      let frame = 0;
+      const id = window.setInterval(() => {
+        frame += 1;
+        setBars((prev) => {
+          const next = prev.slice(1);
+          const x = frame / 4;
+          const v =
+            0.25 +
+            0.55 *
+              Math.abs(Math.sin(x * 0.9)) *
+              (0.6 + 0.4 * Math.abs(Math.sin(x * 0.31)));
+          next.push(v);
+          return next;
+        });
+      }, 70);
+      return () => window.clearInterval(id);
+    }
   }, [state]);
 
   useEffect(() => {
@@ -285,9 +315,7 @@ function DocsPill({
           />
         ))}
       </span>
-      <span className="docs-demo-pill-label">
-        {state === "transcribing" ? transcribingLabel : time}
-      </span>
+      <span className="docs-demo-pill-label">{time}</span>
     </div>
   );
 }
@@ -295,13 +323,27 @@ function DocsPill({
 function DocsTitleBar({ title }: { title: string }) {
   return (
     <div className="docs-demo-titlebar" aria-hidden="true">
-      <span className="docs-demo-traffic">
-        <span className="docs-demo-traffic-dot docs-demo-traffic-dot--red" />
-        <span className="docs-demo-traffic-dot docs-demo-traffic-dot--yellow" />
-        <span className="docs-demo-traffic-dot docs-demo-traffic-dot--green" />
-      </span>
-      <span className="docs-demo-titlebar-title">{title} — Docs</span>
-      <span />
+      <div className="docs-demo-titlebar-left">
+        <span>{title} — Docs</span>
+      </div>
+      <div className="docs-demo-titlebar-controls">
+        <span className="docs-demo-titlebar-btn">
+          <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+            <line x1="0" y1="5" x2="10" y2="5" />
+          </svg>
+        </span>
+        <span className="docs-demo-titlebar-btn">
+          <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+            <rect x="0.5" y="0.5" width="9" height="9" />
+          </svg>
+        </span>
+        <span className="docs-demo-titlebar-btn docs-demo-titlebar-btn--close">
+          <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+            <line x1="0" y1="0" x2="10" y2="10" />
+            <line x1="10" y1="0" x2="0" y2="10" />
+          </svg>
+        </span>
+      </div>
     </div>
   );
 }
@@ -310,21 +352,31 @@ function DocsToolbar({ title }: { title: string }) {
   return (
     <div className="docs-demo-topbar" aria-hidden="true">
       <div className="docs-demo-doc-icon">
-        <svg viewBox="0 0 24 24" width="28" height="28">
+        <svg viewBox="0 0 47 65" width="28" height="38" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
-            fill="#1a73e8"
+            d="M29.375 0H4.4063C1.9824 0 0 1.9824 0 4.4063V60.5938C0 63.0176 1.9824 65 4.4063 65H42.5938C45.0176 65 47 63.0176 47 60.5938V17.625L36.7188 10.2812L29.375 0Z"
+            fill="#4285F4"
           />
-          <path d="M14 2v6h6" fill="#a3c5f7" />
-          <rect x="7" y="12" width="10" height="1.4" fill="#fff" rx="0.5" />
-          <rect x="7" y="15" width="10" height="1.4" fill="#fff" rx="0.5" />
-          <rect x="7" y="18" width="6" height="1.4" fill="#fff" rx="0.5" />
+          <path
+            d="M12.4688 47.4688H34.5313V44.5313H12.4688V47.4688ZM12.4688 53.3438H29.375V50.4063H12.4688V53.3438ZM12.4688 35.7188H34.5313V32.7813H12.4688V35.7188ZM12.4688 41.5938H34.5313V38.6563H12.4688V41.5938ZM12.4688 26.9063V29.8438H34.5313V26.9063H12.4688Z"
+            fill="#F1F1F1"
+          />
+          <path
+            d="M30.8438 16.1563L47 32.3125V17.625L30.8438 16.1563Z"
+            fill="#1A65C1"
+          />
+          <path
+            d="M29.375 0V13.2188C29.375 15.6512 31.3488 17.625 33.7813 17.625H47L29.375 0Z"
+            fill="#A1C2FA"
+          />
         </svg>
       </div>
       <div className="docs-demo-titlecol">
         <div className="docs-demo-doctitle">
           <span>{title}</span>
-          <span className="docs-demo-star">☆</span>
+          <span className="docs-demo-titleicon material-symbols-outlined" aria-hidden="true">star</span>
+          <span className="docs-demo-titleicon material-symbols-outlined" aria-hidden="true">drive_file_move</span>
+          <span className="docs-demo-titleicon material-symbols-outlined" aria-hidden="true">cloud_done</span>
         </div>
         <div className="docs-demo-menubar">
           <span>File</span>
@@ -338,49 +390,95 @@ function DocsToolbar({ title }: { title: string }) {
         </div>
       </div>
       <div className="docs-demo-toolbar-actions">
-        <button type="button" className="docs-demo-share" tabIndex={-1}>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-          Share
+        <button type="button" className="docs-demo-iconbtn" tabIndex={-1} aria-label="Version history">
+          <span className="material-symbols-outlined">history</span>
         </button>
-        <span className="docs-demo-avatar">J</span>
+        <button type="button" className="docs-demo-iconbtn" tabIndex={-1} aria-label="Comments">
+          <span className="material-symbols-outlined">chat</span>
+        </button>
+        <button type="button" className="docs-demo-iconbtn docs-demo-iconbtn--combo" tabIndex={-1} aria-label="Video call">
+          <span className="material-symbols-outlined">videocam</span>
+          <span className="material-symbols-outlined docs-demo-iconbtn-chev">arrow_drop_down</span>
+        </button>
+        <span className="docs-demo-share-group">
+          <button type="button" className="docs-demo-share" tabIndex={-1}>
+            <span className="material-symbols-outlined">lock</span>
+            Share
+          </button>
+          <span className="docs-demo-share-sep" />
+          <button type="button" className="docs-demo-share-chev" tabIndex={-1} aria-label="Share options">
+            <span className="material-symbols-outlined">arrow_drop_down</span>
+          </button>
+        </span>
+        <button type="button" className="docs-demo-iconbtn" tabIndex={-1} aria-label="Gemini">
+          <span className="material-symbols-outlined">auto_awesome</span>
+        </button>
+        <span className="docs-demo-avatar">
+          <img src="/assets/founder4.png" alt="" />
+        </span>
       </div>
     </div>
   );
 }
 
 function DocsRuler() {
+  const chev = (
+    <span className="material-symbols-outlined docs-demo-ruler-chev">arrow_drop_down</span>
+  );
+  const RB = ({ icon, label, combo }: { icon: string; label: string; combo?: boolean }) => (
+    <button
+      type="button"
+      tabIndex={-1}
+      className={`docs-demo-ruler-btn${combo ? " docs-demo-ruler-btn--combo" : ""}`}
+      aria-label={label}
+    >
+      <span className="material-symbols-outlined">{icon}</span>
+      {combo ? chev : null}
+    </button>
+  );
   return (
     <div className="docs-demo-ruler" aria-hidden="true">
       <div className="docs-demo-ruler-bar">
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-btn" aria-label="Undo">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 7v6h6" />
-            <path d="M21 17a9 9 0 0 0-15-6.7L3 13" />
-          </svg>
-        </button>
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-btn" aria-label="Redo">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 7v6h-6" />
-            <path d="M3 17a9 9 0 0 1 15-6.7L21 13" />
-          </svg>
-        </button>
+        <RB icon="search" label="Search" />
+        <RB icon="undo" label="Undo" />
+        <RB icon="redo" label="Redo" />
+        <RB icon="print" label="Print" />
+        <RB icon="spellcheck" label="Spellcheck" />
+        <RB icon="format_paint" label="Paint format" />
         <span className="docs-demo-ruler-divider" />
-        <span className="docs-demo-ruler-style">100%</span>
+        <button type="button" tabIndex={-1} className="docs-demo-ruler-style">100% {chev}</button>
         <span className="docs-demo-ruler-divider" />
-        <span className="docs-demo-ruler-style">Normal text</span>
+        <button type="button" tabIndex={-1} className="docs-demo-ruler-style">Normal text {chev}</button>
         <span className="docs-demo-ruler-divider" />
-        <span className="docs-demo-ruler-style docs-demo-ruler-style--font">Arial</span>
+        <button type="button" tabIndex={-1} className="docs-demo-ruler-style docs-demo-ruler-style--font">Arial {chev}</button>
         <span className="docs-demo-ruler-divider" />
-        <span className="docs-demo-ruler-num">11</span>
+        <RB icon="remove" label="Decrease font size" />
+        <span className="docs-demo-ruler-numbox">11</span>
+        <RB icon="add" label="Increase font size" />
         <span className="docs-demo-ruler-divider" />
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-btn docs-demo-ruler-btn--bold">B</button>
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-btn docs-demo-ruler-btn--italic">I</button>
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-btn docs-demo-ruler-btn--underline">U</button>
+        <RB icon="format_bold" label="Bold" />
+        <RB icon="format_italic" label="Italic" />
+        <RB icon="format_underlined" label="Underline" />
+        <RB icon="format_color_text" label="Text color" />
+        <RB icon="border_color" label="Highlight" />
         <span className="docs-demo-ruler-divider" />
+        <RB icon="add_link" label="Insert link" />
+        <RB icon="add_comment" label="Add comment" />
+        <RB icon="add_photo_alternate" label="Insert image" />
+        <span className="docs-demo-ruler-divider" />
+        <RB icon="format_align_left" label="Align" combo />
+        <RB icon="format_line_spacing" label="Line spacing" combo />
+        <RB icon="checklist" label="Checklist" combo />
+        <RB icon="format_list_bulleted" label="Bulleted list" combo />
+        <RB icon="format_list_numbered" label="Numbered list" combo />
+        <RB icon="format_indent_decrease" label="Decrease indent" />
+        <RB icon="format_indent_increase" label="Increase indent" />
+        <RB icon="format_clear" label="Clear formatting" />
+        <span className="docs-demo-ruler-divider" />
+        <button type="button" tabIndex={-1} className="docs-demo-ruler-style docs-demo-ruler-style--lang">Es {chev}</button>
         <span className="docs-demo-ruler-spacer" />
+        <RB icon="edit" label="Editing mode" combo />
+        <RB icon="keyboard_arrow_up" label="Hide toolbar" />
       </div>
     </div>
   );

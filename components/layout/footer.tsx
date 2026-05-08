@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-16 md:mt-24"
+      className="w-full"
       style={{ backgroundColor: "#FFFFFF" }}
       role="contentinfo"
     >

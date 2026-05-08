@@ -49,13 +49,15 @@ export const zh: LandingTranslations = {
       recordingHint: "自然说话，Bisbi 正在监听。",
       transcribing: "转写中",
       previousTranscript: "我很喜欢用 Bisbi。",
-      transcript: "团队你好——简短更新一下，发布按计划周五上线。",
+      transcript: "亲爱的 Bisbi，我必须坦白：你改变了我的生活。以前我只能用两根手指慢慢打字。",
       transcriptLong:
-        "把设计评审的笔记发给 Marta，并告诉她我们周四上午的同步会照常进行。",
+        "现在我只要开口说话，奇迹就发生了——告别酸痛的手腕，欢迎效率与每天一点点的快乐。",
+      transcriptOwl:
+        "这是我最喜欢的猫头鹰照片，让我想起你们的 logo：",
       editorTitle: "会议笔记——笔记",
       editorPlaceholder: "输入消息…",
       pasteHint: "文本会自动粘贴到你正在输入的位置。",
-      docsTitle: "项目笔记",
+      docsTitle: "写给 Bisbi 的情书",
     },
   },
   features: {
@@ -175,7 +177,7 @@ export const zh: LandingTranslations = {
     seeMore: "在历史中查看全部",
     badgeIdle: "就绪",
     plan: { pro: "专业版" },
-    user: { name: "李娜", initial: "李" },
+    user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "今天", yesterday: "昨天" },
     recent: [
       "把设计评审笔记发给 Marta，确认我们周四的安排。",
