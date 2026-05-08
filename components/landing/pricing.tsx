@@ -146,19 +146,19 @@ export function Pricing() {
             <thead>
               <tr>
                 <th aria-hidden="true"></th>
-                <th className="is-bisbi">
+                <th className="is-bisbi px-6">
                   <span className="pricing-compare-bisbi-mark">
                     {p.comparison.columns.bisbi}
                   </span>
                 </th>
-                <th>
+                <th className="px-6">
                   <img
                     src="/assets/wispr-logo.svg"
                     alt={p.comparison.columns.wispr}
                     className="pricing-compare-logo"
                   />
                 </th>
-                <th>
+                <th className="px-6">
                   <img
                     src="/assets/vibetyper-logo.webp"
                     alt={p.comparison.columns.vibetyper}
@@ -171,13 +171,13 @@ export function Pricing() {
               {p.comparison.rows.map((row, i) => (
                 <tr key={i}>
                   <th scope="row">{row.label}</th>
-                  <td className="is-bisbi">
+                  <td className="is-bisbi px-6">
                     {row.bisbi === "true" ? <CheckIcon /> : row.bisbi === "false" ? <DashIcon /> : row.bisbi}
                   </td>
-                  <td>
+                  <td className="px-6">
                     {row.wispr === "true" ? <CheckIcon /> : row.wispr === "false" ? <DashIcon /> : row.wispr}
                   </td>
-                  <td>
+                  <td className="px-6">
                     {row.vibetyper === "true" ? <CheckIcon /> : row.vibetyper === "false" ? <DashIcon /> : row.vibetyper}
                   </td>
                 </tr>

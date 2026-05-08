@@ -184,26 +184,31 @@ export default function HomePage() {
           className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <div className="feature-grid">
-            {t.features.items.map((feature, i) => (
-              <div
-                key={i}
-                className={`feature-card${i % 2 === 1 ? " feature-card--tint" : ""}`}
-              >
-                <div className="feature-card-watermark" aria-hidden="true">
-                  {featureWatermarks[i]}
+            {[...t.features.items, ...t.features.items].map((feature, i) => {
+              const originalIndex = i % t.features.items.length;
+              const isClone = i >= t.features.items.length;
+              return (
+                <div
+                  key={i}
+                  aria-hidden={isClone || undefined}
+                  className={`feature-card${originalIndex % 2 === 1 ? " feature-card--tint" : ""}${isClone ? " feature-card--clone" : ""}`}
+                >
+                  <div className="feature-card-watermark" aria-hidden="true">
+                    {featureWatermarks[originalIndex]}
+                  </div>
+                  <div className="feature-card-content">
+                    <h3 className="feature-card-title">{feature.title}</h3>
+                    <p className="feature-card-desc">{feature.description}</p>
+                  </div>
                 </div>
-                <div className="feature-card-content">
-                  <h3 className="feature-card-title">{feature.title}</h3>
-                  <p className="feature-card-desc">{feature.description}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
         <section
           id="pricing"
-          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
+        className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <Pricing />
         </section>
