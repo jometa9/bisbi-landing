@@ -14,6 +14,7 @@ import {
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
+import { releaseInfoFromSettings } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -94,6 +95,7 @@ export async function POST(request: NextRequest) {
         wordsLimit,
         exceeded: true,
         remaining: 0,
+        release: releaseInfoFromSettings(settings),
       },
       { status: 429 }
     );
@@ -119,6 +121,7 @@ export async function POST(request: NextRequest) {
     wordsLimit: isFree ? wordsLimit : null,
     exceeded,
     remaining,
+    release: releaseInfoFromSettings(settings),
   });
 }
 
@@ -172,5 +175,6 @@ export async function GET(request: NextRequest) {
     wordsLimit: isFree ? wordsLimit : null,
     exceeded,
     remaining: isFree ? Math.max(0, wordsLimit - wordsUsed) : null,
+    release: releaseInfoFromSettings(settings),
   });
 }

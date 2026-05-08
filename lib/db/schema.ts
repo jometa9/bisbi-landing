@@ -59,7 +59,10 @@ export const appSettings = pgTable("appSettings", {
   bisbiProMonthlyAmount: integer("bisbiProMonthlyAmount"),
   bisbiProAnnualAmount: integer("bisbiProAnnualAmount"),
   bisbiFreeMonthlyWordLimit: integer("bisbiFreeMonthlyWordLimit"),
+  bisbiAppVersion: text("bisbiAppVersion"),
   bisbiMacDownloadUrl: text("bisbiMacDownloadUrl"),
+  bisbiWindowsDownloadUrl: text("bisbiWindowsDownloadUrl"),
+  bisbiLinuxDownloadUrl: text("bisbiLinuxDownloadUrl"),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
   updatedBy: uuid("updatedBy").references(() => user.id),
 });

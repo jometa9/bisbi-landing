@@ -914,9 +914,10 @@ textarea,
 
 .speed-grid {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 18px;
+  grid-template-columns: 2fr 3fr;
+  gap: 24px;
   width: 100%;
+  align-items: stretch;
 }
 
 .speed-card {
@@ -925,12 +926,12 @@ textarea,
   border: 1px solid rgba(26, 26, 24, 0.08);
   overflow: hidden;
   isolation: isolate;
-  min-height: 380px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 48px 28px;
+  padding: 40px 36px;
 }
 
 .speed-card--keyboard {
@@ -942,7 +943,6 @@ textarea,
     radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 60%),
     linear-gradient(135deg, #7BA89C 0%, #5A8C83 100%);
   border-color: rgba(90, 140, 131, 0.3);
-  min-height: 440px;
 }
 
 .speed-card-content {

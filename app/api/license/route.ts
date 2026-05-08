@@ -9,6 +9,7 @@ import {
   isActiveSubscription,
 } from "@/lib/db/queries";
 import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
+import { releaseInfoFromSettings } from "@/lib/releases/github";
 import {
   checkRateLimit,
   getRateLimitKey,
@@ -106,5 +107,6 @@ export async function GET(request: NextRequest) {
         },
       },
     },
+    release: releaseInfoFromSettings(settings),
   });
 }

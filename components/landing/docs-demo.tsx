@@ -7,8 +7,6 @@ import "./docs-demo.css";
 type Phase = "idle" | "recording" | "transcribing" | "typing" | "done";
 
 const BARS = 14;
-const CHUNK_SIZE = 4;
-const CHUNK_INTERVAL = 240;
 
 function detectMac(): boolean {
   if (typeof navigator === "undefined") return true;
@@ -24,7 +22,7 @@ function phaseDuration(phase: Phase, wordCount: number): number {
     case "transcribing":
       return 1300;
     case "typing":
-      return Math.max(700, Math.ceil(wordCount / CHUNK_SIZE) * CHUNK_INTERVAL + 200);
+      return 900;
     case "done":
       return 2400;
   }
@@ -129,14 +127,7 @@ export function DocsDemo() {
       setTypedCount(0);
       return;
     }
-    setTypedCount(0);
-    let i = 0;
-    const id = window.setInterval(() => {
-      i = Math.min(i + CHUNK_SIZE, words.length);
-      setTypedCount(i);
-      if (i >= words.length) window.clearInterval(id);
-    }, CHUNK_INTERVAL);
-    return () => window.clearInterval(id);
+    setTypedCount(words.length);
   }, [phase, words.length]);
 
   const spokenWords = words.slice(0, spokenCount);

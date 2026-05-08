@@ -6,6 +6,7 @@ import {
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
+import { getReleaseInfo } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -48,5 +49,8 @@ export async function POST(request: NextRequest) {
     return_url: `${baseUrl}/dashboard`,
   });
 
-  return NextResponse.json({ portalUrl: session.url });
+  return NextResponse.json({
+    portalUrl: session.url,
+    release: await getReleaseInfo(),
+  });
 }

@@ -29,7 +29,10 @@ export async function GET() {
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: settings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(settings),
+      bisbiAppVersion: settings.bisbiAppVersion || "",
       bisbiMacDownloadUrl: settings.bisbiMacDownloadUrl || "",
+      bisbiWindowsDownloadUrl: settings.bisbiWindowsDownloadUrl || "",
+      bisbiLinuxDownloadUrl: settings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(
@@ -61,7 +64,10 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount,
       bisbiProAnnualAmount,
       bisbiFreeMonthlyWordLimit,
+      bisbiAppVersion,
       bisbiMacDownloadUrl,
+      bisbiWindowsDownloadUrl,
+      bisbiLinuxDownloadUrl,
     } = body;
 
     const updateData: Parameters<typeof updateAppSettings>[1] = {};
@@ -108,8 +114,17 @@ export async function POST(req: NextRequest) {
           ? bisbiFreeMonthlyWordLimit
           : null;
     }
+    if (bisbiAppVersion !== undefined) {
+      updateData.bisbiAppVersion = bisbiAppVersion?.trim() || null;
+    }
     if (bisbiMacDownloadUrl !== undefined) {
       updateData.bisbiMacDownloadUrl = bisbiMacDownloadUrl?.trim() || null;
+    }
+    if (bisbiWindowsDownloadUrl !== undefined) {
+      updateData.bisbiWindowsDownloadUrl = bisbiWindowsDownloadUrl?.trim() || null;
+    }
+    if (bisbiLinuxDownloadUrl !== undefined) {
+      updateData.bisbiLinuxDownloadUrl = bisbiLinuxDownloadUrl?.trim() || null;
     }
     const [{ clearEmailConfigCache }, { clearStripeCache }] = await Promise.all([
       import("@/lib/email/config"),
@@ -134,7 +149,10 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: updatedSettings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(updatedSettings),
+      bisbiAppVersion: updatedSettings.bisbiAppVersion || "",
       bisbiMacDownloadUrl: updatedSettings.bisbiMacDownloadUrl || "",
+      bisbiWindowsDownloadUrl: updatedSettings.bisbiWindowsDownloadUrl || "",
+      bisbiLinuxDownloadUrl: updatedSettings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(

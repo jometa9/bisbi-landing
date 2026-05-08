@@ -553,7 +553,10 @@ export async function updateAppSettings(
     bisbiProMonthlyAmount: number | null;
     bisbiProAnnualAmount: number | null;
     bisbiFreeMonthlyWordLimit: number | null;
+    bisbiAppVersion: string | null;
     bisbiMacDownloadUrl: string | null;
+    bisbiWindowsDownloadUrl: string | null;
+    bisbiLinuxDownloadUrl: string | null;
   }>
 ) {
   const settings = await db
