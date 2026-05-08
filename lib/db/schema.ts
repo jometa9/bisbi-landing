@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  index,
   integer,
   jsonb,
   pgTable,
@@ -141,6 +142,25 @@ export const cronLock = pgTable("cronLock", {
   createdAt: timestamp("createdAt").notNull().defaultNow(),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
 });
+
+export const seenBatch = pgTable(
+  "seenBatch",
+  {
+    batchId: text("batchId").primaryKey(),
+    userId: uuid("userId")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    productKey: varchar("productKey", { length: 20 }).notNull(),
+    expiresAt: timestamp("expiresAt").notNull(),
+    createdAt: timestamp("createdAt").notNull().defaultNow(),
+  },
+  (table) => ({
+    expiresAtIdx: index("seenBatch_expiresAt_idx").on(table.expiresAt),
+  })
+);
+
+export type SeenBatch = typeof seenBatch.$inferSelect;
+export type NewSeenBatch = typeof seenBatch.$inferInsert;
 
 
 export const userRelations = relations(user, ({ many }) => ({

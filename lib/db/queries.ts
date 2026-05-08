@@ -8,6 +8,7 @@ import { db } from "./drizzle";
 import {
   appSettings,
   ProductKey,
+  seenBatch,
   user,
   userMonthlyUsage,
   UserMonthlyUsage,
@@ -54,11 +55,18 @@ export async function getUserMonthlyUsage(
 export async function addUserMonthlyUsage(
   userId: string,
   productKey: ProductKey,
-  delta: { words: number; audioSeconds: number }
+  delta: {
+    words: number;
+    audioSeconds: number;
+    transcriptionsCount?: number;
+  }
 ): Promise<UserMonthlyUsage> {
   const monthKey = currentMonthKey();
   const words = Math.max(0, Math.floor(delta.words || 0));
   const audioSeconds = Math.max(0, Math.floor(delta.audioSeconds || 0));
+  const rawCount = Number(delta.transcriptionsCount);
+  const transcriptionsCount =
+    Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
 
   const result = await db
     .insert(userMonthlyUsage)
@@ -68,7 +76,7 @@ export async function addUserMonthlyUsage(
       monthKey,
       wordsUsed: words,
       audioSeconds,
-      transcriptionsCount: 1,
+      transcriptionsCount,
     })
     .onConflictDoUpdate({
       target: [
@@ -79,13 +87,48 @@ export async function addUserMonthlyUsage(
       set: {
         wordsUsed: sql`${userMonthlyUsage.wordsUsed} + ${words}`,
         audioSeconds: sql`${userMonthlyUsage.audioSeconds} + ${audioSeconds}`,
-        transcriptionsCount: sql`${userMonthlyUsage.transcriptionsCount} + 1`,
+        transcriptionsCount: sql`${userMonthlyUsage.transcriptionsCount} + ${transcriptionsCount}`,
         updatedAt: new Date(),
       },
     })
     .returning();
 
   return result[0];
+}
+
+const SEEN_BATCH_TTL_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * Atomically claims a batchId for the given user/product. Returns true if the
+ * batch is new (i.e. should be processed), false if it was seen within the TTL
+ * window and the caller should treat the request as a no-op replay.
+ */
+export async function tryClaimBatch(
+  batchId: string,
+  userId: string,
+  productKey: ProductKey
+): Promise<boolean> {
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + SEEN_BATCH_TTL_MS);
+
+  const inserted = await db
+    .insert(seenBatch)
+    .values({ batchId, userId, productKey, expiresAt })
+    .onConflictDoNothing({ target: seenBatch.batchId })
+    .returning({ batchId: seenBatch.batchId });
+
+  if (inserted.length > 0) return true;
+
+  // Existing row — reclaim only if it has expired (rotates the window).
+  const reclaimed = await db
+    .update(seenBatch)
+    .set({ expiresAt, userId, productKey })
+    .where(
+      and(eq(seenBatch.batchId, batchId), sql`${seenBatch.expiresAt} <= ${now}`)
+    )
+    .returning({ batchId: seenBatch.batchId });
+
+  return reclaimed.length > 0;
 }
 
 export async function getUser() {
@@ -575,7 +618,10 @@ export async function updateAppSettings(
           resendInboundWebhookSecret: data.resendInboundWebhookSecret ?? null,
           discordDailyReportWebhookUrl: data.discordDailyReportWebhookUrl ?? null,
           internalApiKey: data.internalApiKey ?? generateInternalApiKey(),
+          bisbiAppVersion: data.bisbiAppVersion ?? null,
           bisbiMacDownloadUrl: data.bisbiMacDownloadUrl ?? null,
+          bisbiWindowsDownloadUrl: data.bisbiWindowsDownloadUrl ?? null,
+          bisbiLinuxDownloadUrl: data.bisbiLinuxDownloadUrl ?? null,
           updatedAt: new Date(),
           updatedBy: userId,
         })
@@ -629,6 +675,17 @@ export async function updateAppSettings(
       if (data.bisbiFreeMonthlyWordLimit !== undefined) {
         updateData.bisbiFreeMonthlyWordLimit =
           data.bisbiFreeMonthlyWordLimit ?? null;
+      }
+      if (data.bisbiAppVersion !== undefined) {
+        updateData.bisbiAppVersion = data.bisbiAppVersion?.trim() || null;
+      }
+      if (data.bisbiWindowsDownloadUrl !== undefined) {
+        updateData.bisbiWindowsDownloadUrl =
+          data.bisbiWindowsDownloadUrl?.trim() || null;
+      }
+      if (data.bisbiLinuxDownloadUrl !== undefined) {
+        updateData.bisbiLinuxDownloadUrl =
+          data.bisbiLinuxDownloadUrl?.trim() || null;
       }
 
       const result = await db

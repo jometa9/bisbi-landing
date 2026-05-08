@@ -8,6 +8,7 @@ import {
   getUserMonthlyUsage,
   getUserProductSubscription,
   isActiveSubscription,
+  tryClaimBatch,
 } from "@/lib/db/queries";
 import {
   checkRateLimit,
@@ -49,7 +50,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const raw = (body ?? {}) as { words?: unknown; audioSeconds?: unknown };
+  const raw = (body ?? {}) as {
+    words?: unknown;
+    audioSeconds?: unknown;
+    transcriptionsCount?: unknown;
+    batchId?: unknown;
+  };
   const words = Number(raw.words);
   const audioSeconds = Number(raw.audioSeconds);
 
@@ -69,6 +75,17 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  const rawCount = Number(raw.transcriptionsCount);
+  const transcriptionsCount =
+    Number.isFinite(rawCount) && rawCount > 0 && rawCount <= 10_000
+      ? Math.floor(rawCount)
+      : 1;
+
+  const batchId =
+    typeof raw.batchId === "string" && raw.batchId.length > 0 && raw.batchId.length <= 64
+      ? raw.batchId
+      : null;
 
   const monthKey = currentMonthKey();
   const [existing, settings, sub] = await Promise.all([
@@ -101,9 +118,36 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Idempotency: if a batchId was sent and we've already processed it within
+  // the TTL window, return the current state without re-incrementing. Lets the
+  // client safely retry batches whose response was lost.
+  if (batchId) {
+    const claimed = await tryClaimBatch(batchId, foundUser.id, "bisbi");
+    if (!claimed) {
+      const wordsUsedNow = existing?.wordsUsed ?? 0;
+      const audioSecondsNow = existing?.audioSeconds ?? 0;
+      const transcriptionsCountNow = existing?.transcriptionsCount ?? 0;
+      const exceededNow = isFree && wordsUsedNow >= wordsLimit;
+      return NextResponse.json({
+        ok: true,
+        deduped: true,
+        tier: effectiveTier,
+        monthKey,
+        wordsUsed: wordsUsedNow,
+        audioSeconds: audioSecondsNow,
+        transcriptionsCount: transcriptionsCountNow,
+        wordsLimit: isFree ? wordsLimit : null,
+        exceeded: exceededNow,
+        remaining: isFree ? Math.max(0, wordsLimit - wordsUsedNow) : null,
+        release: releaseInfoFromSettings(settings),
+      });
+    }
+  }
+
   const updated = await addUserMonthlyUsage(foundUser.id, "bisbi", {
     words: Math.floor(words),
     audioSeconds: Math.floor(audioSeconds),
+    transcriptionsCount,
   });
 
   const exceeded = isFree && updated.wordsUsed >= wordsLimit;
