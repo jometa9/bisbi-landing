@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { userProductSubscription } from "@/lib/db/schema";
-import { and, or, lt, eq, isNotNull } from "drizzle-orm";
+import { and, or, lt, eq, isNotNull, isNull } from "drizzle-orm";
 import { getStripe } from "@/lib/payments/stripe";
 import type Stripe from "stripe";
 import {
@@ -137,7 +137,7 @@ export async function runSubscriptionCheck(): Promise<SubscriptionCheckResult> {
             eq(userProductSubscription.status, "active"),
             eq(userProductSubscription.status, "trialing")
           ),
-          eq(userProductSubscription.stripeSubscriptionId, null as unknown as string)
+          isNull(userProductSubscription.stripeSubscriptionId)
         )
       );
 

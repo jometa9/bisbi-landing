@@ -10,6 +10,7 @@ import {
   isActiveSubscription,
   tryClaimBatch,
 } from "@/lib/db/queries";
+import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
 import { db } from "@/lib/db/drizzle";
 import {
   checkRateLimit,
@@ -87,6 +88,8 @@ export async function POST(request: NextRequest) {
     typeof raw.batchId === "string" && raw.batchId.length > 0 && raw.batchId.length <= 64
       ? raw.batchId
       : null;
+
+  await reconcileUserFromStripe(foundUser.id, foundUser.stripeCustomerId);
 
   const monthKey = currentMonthKey();
   const [existing, settings, sub] = await Promise.all([
