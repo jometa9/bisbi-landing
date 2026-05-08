@@ -159,9 +159,22 @@ export function DocsDemo() {
         data-docs-demo-visible={active ? "true" : "false"}
       >
       <div className={`docs-demo docs-demo--${phase}`}>
-        <DocsTitleBar title={demo.docsTitle} />
-        <DocsToolbar title={demo.docsTitle} />
-        <DocsRuler />
+        <DocsTitleBar title={demo.docsTitle} docsLabel={demo.docsLabel} />
+        <DocsToolbar
+          title={demo.docsTitle}
+          menu={{
+            file: demo.menuFile,
+            edit: demo.menuEdit,
+            view: demo.menuView,
+            insert: demo.menuInsert,
+            format: demo.menuFormat,
+            tools: demo.menuTools,
+            extensions: demo.menuExtensions,
+            help: demo.menuHelp,
+          }}
+          shareLabel={demo.share}
+        />
+        <DocsRuler normalTextLabel={demo.normalText} />
         <div className="docs-demo-canvas">
           <div className="docs-demo-page">
             <div className="docs-demo-page-meta">
@@ -312,11 +325,11 @@ function DocsPill({
   );
 }
 
-function DocsTitleBar({ title }: { title: string }) {
+function DocsTitleBar({ title, docsLabel }: { title: string; docsLabel: string }) {
   return (
     <div className="docs-demo-titlebar" aria-hidden="true">
       <div className="docs-demo-titlebar-left">
-        <span>{title} — Docs</span>
+        <span>{title} — {docsLabel}</span>
       </div>
       <div className="docs-demo-titlebar-controls">
         <span className="docs-demo-titlebar-btn">
@@ -340,7 +353,24 @@ function DocsTitleBar({ title }: { title: string }) {
   );
 }
 
-function DocsToolbar({ title }: { title: string }) {
+function DocsToolbar({
+  title,
+  menu,
+  shareLabel,
+}: {
+  title: string;
+  menu: {
+    file: string;
+    edit: string;
+    view: string;
+    insert: string;
+    format: string;
+    tools: string;
+    extensions: string;
+    help: string;
+  };
+  shareLabel: string;
+}) {
   return (
     <div className="docs-demo-topbar" aria-hidden="true">
       <div className="docs-demo-doc-icon">
@@ -371,14 +401,14 @@ function DocsToolbar({ title }: { title: string }) {
           <span className="docs-demo-titleicon material-symbols-outlined" aria-hidden="true">cloud_done</span>
         </div>
         <div className="docs-demo-menubar">
-          <span>File</span>
-          <span>Edit</span>
-          <span>View</span>
-          <span>Insert</span>
-          <span>Format</span>
-          <span>Tools</span>
-          <span>Extensions</span>
-          <span>Help</span>
+          <span>{menu.file}</span>
+          <span>{menu.edit}</span>
+          <span>{menu.view}</span>
+          <span>{menu.insert}</span>
+          <span>{menu.format}</span>
+          <span>{menu.tools}</span>
+          <span>{menu.extensions}</span>
+          <span>{menu.help}</span>
         </div>
       </div>
       <div className="docs-demo-toolbar-actions">
@@ -395,7 +425,7 @@ function DocsToolbar({ title }: { title: string }) {
         <span className="docs-demo-share-group">
           <button type="button" className="docs-demo-share" tabIndex={-1}>
             <span className="material-symbols-outlined">lock</span>
-            Share
+            {shareLabel}
           </button>
           <span className="docs-demo-share-sep" />
           <button type="button" className="docs-demo-share-chev" tabIndex={-1} aria-label="Share options">
@@ -413,7 +443,7 @@ function DocsToolbar({ title }: { title: string }) {
   );
 }
 
-function DocsRuler() {
+function DocsRuler({ normalTextLabel }: { normalTextLabel: string }) {
   const chev = (
     <span className="material-symbols-outlined docs-demo-ruler-chev">arrow_drop_down</span>
   );
@@ -440,7 +470,7 @@ function DocsRuler() {
         <span className="docs-demo-ruler-divider" />
         <button type="button" tabIndex={-1} className="docs-demo-ruler-style">100% {chev}</button>
         <span className="docs-demo-ruler-divider" />
-        <button type="button" tabIndex={-1} className="docs-demo-ruler-style">Normal text {chev}</button>
+        <button type="button" tabIndex={-1} className="docs-demo-ruler-style">{normalTextLabel} {chev}</button>
         <span className="docs-demo-ruler-divider" />
         <button type="button" tabIndex={-1} className="docs-demo-ruler-style docs-demo-ruler-style--font">Arial {chev}</button>
         <span className="docs-demo-ruler-divider" />
