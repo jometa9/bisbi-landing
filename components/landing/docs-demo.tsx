@@ -161,6 +161,7 @@ export function DocsDemo() {
 
   return (
     <div className="docs-demo-shell">
+      <div className="docs-demo-shell-watermark" aria-hidden="true" />
       <div
         ref={rootRef}
         className="docs-demo-frame"

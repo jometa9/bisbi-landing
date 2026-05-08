@@ -1,9 +1,33 @@
 .docs-demo-shell {
+  position: relative;
   width: 100%;
   margin: 0 auto;
   padding: 32px;
   background: #7BA89C;
   border-radius: 18px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.docs-demo-shell-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200%;
+  aspect-ratio: 1;
+  background-color: #1A1A18;
+  -webkit-mask-image: url(/owl_head.svg);
+  mask-image: url(/owl_head.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .docs-demo-frame {
@@ -12,6 +36,7 @@
   margin: 0 auto;
   aspect-ratio: 1080 / 700;
   container-type: inline-size;
+  z-index: 1;
 }
 
 .docs-demo {
