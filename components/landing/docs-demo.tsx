@@ -24,7 +24,7 @@ function phaseDuration(phase: Phase, wordCount: number): number {
     case "typing":
       return 900;
     case "done":
-      return 2400;
+      return 10000;
   }
 }
 
@@ -43,7 +43,7 @@ export function DocsDemo() {
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [sentenceIdx, setSentenceIdx] = useState(0);
-  const [committedText, setCommittedText] = useState("");
+  const [committedSentences, setCommittedSentences] = useState<string[]>([]);
   const [spokenCount, setSpokenCount] = useState(0);
   const [typedCount, setTypedCount] = useState(0);
   const [isMac, setIsMac] = useState(true);
@@ -80,7 +80,7 @@ export function DocsDemo() {
 
       if (phase === "typing") {
         const justTyped = currentSentence;
-        setCommittedText((prev) => (prev ? `${prev} ${justTyped}` : justTyped));
+        setCommittedSentences((prev) => [...prev, justTyped]);
         if (isLast) {
           setPhase("done");
         } else {
@@ -91,7 +91,7 @@ export function DocsDemo() {
       }
 
       if (phase === "done") {
-        setCommittedText("");
+        setCommittedSentences([]);
         setSentenceIdx(0);
         setPhase("idle");
         return;
@@ -106,10 +106,11 @@ export function DocsDemo() {
   }, [phase, active, sentenceIdx, transcripts.length, currentSentence, words.length]);
 
   useEffect(() => {
-    if (phase !== "recording") {
+    if (phase === "idle" || phase === "done") {
       setSpokenCount(0);
       return;
     }
+    if (phase !== "recording") return;
     setSpokenCount(0);
     const total = phaseDuration("recording", words.length);
     const interval = Math.max(85, total / (words.length + 2));
@@ -134,18 +135,17 @@ export function DocsDemo() {
   const partialTyped = words.slice(0, typedCount).join(" ");
   const isTyping = phase === "typing";
 
-  const docText = isTyping
-    ? committedText
-      ? `${committedText} ${partialTyped}`
-      : partialTyped
-    : committedText;
-  const showCursor = isTyping && typedCount < words.length;
-  const showInitialCursor = !docText;
-  const showOwlGif = !!owlSentence && committedText.includes(owlSentence);
+  const displayedSentences = isTyping && partialTyped
+    ? [...committedSentences, partialTyped]
+    : committedSentences;
+  const hasText = displayedSentences.length > 0;
+  const showOwlGif = !!owlSentence && committedSentences.includes(owlSentence);
 
   const kbdPressed = phase === "recording";
   const pillVisible = phase === "recording" || phase === "transcribing";
-  const captionsVisible = phase === "recording" && spokenWords.length > 0;
+  const captionsVisible =
+    (phase === "recording" || phase === "transcribing") &&
+    spokenWords.length > 0;
   const keyGlyph = isMac ? "⌘" : "Alt";
   const pillState: "recording" | "transcribing" =
     phase === "transcribing" ? "transcribing" : "recording";
@@ -183,16 +183,24 @@ export function DocsDemo() {
             </div>
             <h1 className="docs-demo-doc-heading">{demo.docsTitle}</h1>
             <div className="docs-demo-doc-body">
-              {docText ? (
-                <p className="docs-demo-doc-text">
-                  <span className="docs-demo-doc-typed">{docText}</span>
-                  {showCursor && (
-                    <span className="docs-demo-cursor docs-demo-cursor--inline" />
-                  )}
-                </p>
+              {hasText ? (
+                displayedSentences.map((sentence, i) => {
+                  const isLastSentence = i === displayedSentences.length - 1;
+                  return (
+                    <p key={i} className="docs-demo-doc-text">
+                      <span className="docs-demo-doc-typed">{sentence}</span>
+                      {isLastSentence && (
+                        <span
+                          className="docs-demo-doc-caret"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </p>
+                  );
+                })
               ) : (
                 <p className="docs-demo-doc-text docs-demo-doc-text--empty">
-                  {showInitialCursor && <span className="docs-demo-cursor" />}
+                  <span className="docs-demo-doc-caret" aria-hidden="true" />
                 </p>
               )}
               {showOwlGif && (
@@ -236,7 +244,6 @@ export function DocsDemo() {
                     {w}
                   </span>
                 ))}
-                <span className="docs-demo-captions-caret" />
               </span>
             </div>
             <DocsPill
