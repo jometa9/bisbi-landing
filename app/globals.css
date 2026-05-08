@@ -1159,29 +1159,61 @@ textarea,
 .pricing-wrap {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   width: 100%;
 }
 
-.pricing-head {
+.pricing-shell {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  text-align: left;
+  gap: 28px;
+  padding: 32px;
+  border: 1px solid rgba(26, 26, 24, 0.08);
+  border-radius: 18px;
+  background: #F0EDE6;
+  isolation: isolate;
+  overflow: hidden;
 }
 
-.pricing-badge {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #5C5C57;
+.pricing-shell::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200%;
+  aspect-ratio: 1;
+  background-color: #1A1A18;
+  -webkit-mask-image: url(/owl_head_rec.svg);
+  mask-image: url(/owl_head_rec.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pricing-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-shell-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
 }
 
 .pricing-title {
   margin: 0;
-  font-size: clamp(28px, 4.6vw, 48px);
+  font-size: clamp(28px, 4.6vw, 44px);
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -1192,15 +1224,15 @@ textarea,
 
 .pricing-desc {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.55;
   color: #5C5C57;
-  max-width: 560px;
+  max-width: 520px;
 }
 
 .pricing-toggle-wrap {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .pricing-toggle {
@@ -1208,7 +1240,7 @@ textarea,
   gap: 4px;
   padding: 4px;
   border-radius: 999px;
-  background: #F0EDE6;
+  background: rgba(26, 26, 24, 0.04);
   border: 1px solid rgba(26, 26, 24, 0.08);
 }
 
@@ -1218,20 +1250,29 @@ textarea,
   align-items: center;
   gap: 8px;
   padding: 8px 18px;
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 500;
   color: #5C5C57;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pricing-toggle-btn:hover {
+  color: #1A1A18;
 }
 
 .pricing-toggle-btn.is-active {
   background: #FFFFFF;
   color: #1A1A18;
-  box-shadow: 0 1px 2px rgba(26, 26, 24, 0.08);
+  border-color: rgba(26, 26, 24, 0.10);
+  box-shadow: 0 1px 2px rgba(26, 26, 24, 0.06);
+}
+
+.pricing-toggle-btn.is-active:hover {
+  color: #1A1A18;
 }
 
 .pricing-save {
@@ -1249,7 +1290,7 @@ textarea,
 .pricing-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
 }
 
@@ -1260,14 +1301,14 @@ textarea,
   gap: 18px;
   padding: 28px 28px 24px;
   border: 1px solid rgba(26, 26, 24, 0.08);
-  border-radius: 18px;
-  background: #F7F6F3;
+  border-radius: 14px;
+  background: #FFFFFF;
   isolation: isolate;
   overflow: hidden;
 }
 
 .pricing-card--free {
-  background: #F0EDE6;
+  background: #FFFFFF;
 }
 
 .pricing-card--pro {
@@ -1288,9 +1329,9 @@ textarea,
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.18);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: #F0EDE6;
+  color: #1A1A18;
+  border: 1px solid rgba(26, 26, 24, 0.14);
 }
 
 .pricing-card-head {
@@ -1406,26 +1447,28 @@ textarea,
   transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 
-.pricing-cta--ghost {
-  background: transparent;
+.pricing-cta--free {
+  background: #F0EDE6;
   color: #1A1A18;
-  border-color: rgba(26, 26, 24, 0.18);
+  border-color: rgba(26, 26, 24, 0.14);
 }
 
-.pricing-cta--ghost:hover {
-  background: #1A1A18;
+.pricing-cta--free:hover {
+  background: #7BA89C;
   color: #FFFFFF;
-  border-color: #1A1A18;
+  border-color: #7BA89C;
 }
 
-.pricing-cta--primary {
+.pricing-cta--pro {
   background: #FFFFFF;
   color: #1A1A18;
+  border-color: rgba(26, 26, 24, 0.14);
 }
 
-.pricing-cta--primary:hover {
-  background: #1A1A18;
-  color: #FFFFFF;
+.pricing-cta--pro:hover {
+  background: #F0EDE6;
+  color: #1A1A18;
+  border-color: rgba(26, 26, 24, 0.14);
 }
 
 /* Comparison table */
@@ -1433,11 +1476,11 @@ textarea,
 .pricing-compare {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 28px;
+  padding: 0;
   border-radius: 18px;
   border: 1px solid rgba(26, 26, 24, 0.08);
-  background: #FFFFFF;
+  background: #FAFAF7;
+  overflow: hidden;
 }
 
 .pricing-compare-head {
@@ -1480,10 +1523,10 @@ textarea,
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #5C5C57;
-  padding: 12px 14px;
+  padding: 14px 14px;
   text-align: center;
   border-bottom: 1px solid rgba(26, 26, 24, 0.08);
-  background: transparent;
+  background: #F0EDE6;
 }
 
 .pricing-compare-table thead th:first-child {
@@ -1491,9 +1534,39 @@ textarea,
 }
 
 .pricing-compare-table thead th.is-bisbi {
-  color: #5A8C83;
+  color: #FFFFFF;
   font-weight: 700;
+  background: #7BA89C;
+  border-bottom-color: #7BA89C;
 }
+
+.pricing-compare-logo {
+  display: inline-block;
+  height: 18px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.55;
+  vertical-align: middle;
+}
+
+.pricing-compare-logo--vibetyper {
+  height: 28px;
+  max-width: 130px;
+}
+
+.pricing-compare-bisbi-mark {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+}
+
 
 .pricing-compare-table tbody th {
   font-weight: 500;
@@ -1501,6 +1574,7 @@ textarea,
   text-align: left;
   padding: 12px 14px;
   border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+  background: #FAFAF7;
 }
 
 .pricing-compare-table tbody td {
@@ -1508,12 +1582,22 @@ textarea,
   text-align: center;
   color: #1A1A18;
   border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+  background: #FAFAF7;
+}
+
+.pricing-compare-table tbody tr:nth-child(even) th,
+.pricing-compare-table tbody tr:nth-child(even) td {
+  background: #F4F2EC;
 }
 
 .pricing-compare-table tbody td.is-bisbi {
-  background: rgba(123, 168, 156, 0.10);
-  font-weight: 500;
-  color: #1A1A18;
+  background: rgba(123, 168, 156, 0.18);
+  font-weight: 600;
+  color: #2F4F49;
+}
+
+.pricing-compare-table tbody tr:nth-child(even) td.is-bisbi {
+  background: rgba(123, 168, 156, 0.26);
 }
 
 .pricing-compare-table tbody tr:last-child th,
@@ -1544,8 +1628,9 @@ textarea,
 }
 
 @media (max-width: 760px) {
+  .pricing-shell { padding: 32px 20px 24px; gap: 24px; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-card { padding: 24px 22px 22px; }
   .pricing-card-price { font-size: 36px; }
-  .pricing-compare { padding: 22px; }
+  .pricing-compare { padding: 0; }
 }

@@ -162,7 +162,7 @@ export const ar: LandingTranslations = {
     saveBadge: "وفر 20%",
     free: {
       name: "مجاني",
-      price: "US$ 0",
+      price: "$0",
       period: "إلى الأبد",
       tagline: "كل ما تحتاجه لتتعلق بـ Bisbi.",
       features: [
@@ -176,10 +176,10 @@ export const ar: LandingTranslations = {
     pro: {
       name: "Pro",
       ribbon: "الأكثر شعبية",
-      monthlyPrice: "US$ 10",
-      annualPrice: "US$ 8",
+      monthlyPrice: "$10",
+      annualPrice: "$8",
       monthlyBilling: "فاتورة شهرية",
-      annualBilling: "فاتورة سنوية · US$ 96 / سنة",
+      annualBilling: "فاتورة سنوية · $96 / سنة",
       month: "شهر",
       features: [
         "إملاء غير محدود",
@@ -201,9 +201,9 @@ export const ar: LandingTranslations = {
       rows: [
         {
           label: "السعر / شهر",
-          bisbi: "US$ 10",
-          wispr: "US$ 15",
-          vibetyper: "US$ 10",
+          bisbi: "$10",
+          wispr: "$15",
+          vibetyper: "$10",
         },
         {
           label: "خطة مجانية",

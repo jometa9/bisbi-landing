@@ -161,7 +161,7 @@ export const zh: LandingTranslations = {
     saveBadge: "省 20%",
     free: {
       name: "免费版",
-      price: "US$ 0",
+      price: "$0",
       period: "永久免费",
       tagline: "足够让你爱上它。",
       features: [
@@ -175,10 +175,10 @@ export const zh: LandingTranslations = {
     pro: {
       name: "Pro",
       ribbon: "最受欢迎",
-      monthlyPrice: "US$ 10",
-      annualPrice: "US$ 8",
+      monthlyPrice: "$10",
+      annualPrice: "$8",
       monthlyBilling: "按月计费",
-      annualBilling: "按年计费 · US$ 96 / 年",
+      annualBilling: "按年计费 · $96 / 年",
       month: "月",
       features: [
         "无限听写",
@@ -200,9 +200,9 @@ export const zh: LandingTranslations = {
       rows: [
         {
           label: "每月价格",
-          bisbi: "US$ 10",
-          wispr: "US$ 15",
-          vibetyper: "US$ 10",
+          bisbi: "$10",
+          wispr: "$15",
+          vibetyper: "$10",
         },
         {
           label: "免费方案",

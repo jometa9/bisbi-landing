@@ -164,7 +164,7 @@ export const hi: LandingTranslations = {
     saveBadge: "20% बचाएं",
     free: {
       name: "मुफ्त",
-      price: "US$ 0",
+      price: "$0",
       period: "हमेशा के लिए",
       tagline: "आदी होने के लिए सब कुछ।",
       features: [
@@ -178,10 +178,10 @@ export const hi: LandingTranslations = {
     pro: {
       name: "Pro",
       ribbon: "सबसे लोकप्रिय",
-      monthlyPrice: "US$ 10",
-      annualPrice: "US$ 8",
+      monthlyPrice: "$10",
+      annualPrice: "$8",
       monthlyBilling: "मासिक बिलिंग",
-      annualBilling: "वार्षिक बिलिंग · US$ 96 / वर्ष",
+      annualBilling: "वार्षिक बिलिंग · $96 / वर्ष",
       month: "महीना",
       features: [
         "असीमित डिक्टेशन",
@@ -203,9 +203,9 @@ export const hi: LandingTranslations = {
       rows: [
         {
           label: "मूल्य / माह",
-          bisbi: "US$ 10",
-          wispr: "US$ 15",
-          vibetyper: "US$ 10",
+          bisbi: "$10",
+          wispr: "$15",
+          vibetyper: "$10",
         },
         {
           label: "मुफ्त प्लान",

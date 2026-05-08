@@ -203,7 +203,7 @@ export default function HomePage() {
 
         <section
           id="pricing"
-          className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
           <Pricing />
         </section>

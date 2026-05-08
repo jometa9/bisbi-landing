@@ -165,7 +165,7 @@ export const es: LandingTranslations = {
     saveBadge: "Ahorrá 20%",
     free: {
       name: "Gratis",
-      price: "US$ 0",
+      price: "$0",
       period: "para siempre",
       tagline: "Todo lo que necesitás para engancharte.",
       features: [
@@ -179,10 +179,10 @@ export const es: LandingTranslations = {
     pro: {
       name: "Pro",
       ribbon: "El más elegido",
-      monthlyPrice: "US$ 10",
-      annualPrice: "US$ 8",
+      monthlyPrice: "$10",
+      annualPrice: "$8",
       monthlyBilling: "Facturado mensualmente",
-      annualBilling: "Facturado anualmente · US$ 96 / año",
+      annualBilling: "Facturado anualmente · $96 / año",
       month: "mes",
       features: [
         "Dictado ilimitado",
@@ -204,9 +204,9 @@ export const es: LandingTranslations = {
       rows: [
         {
           label: "Precio / mes",
-          bisbi: "US$ 10",
-          wispr: "US$ 15",
-          vibetyper: "US$ 10",
+          bisbi: "$10",
+          wispr: "$15",
+          vibetyper: "$10",
         },
         {
           label: "Plan gratis",
