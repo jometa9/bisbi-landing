@@ -37,9 +37,6 @@
   margin: 0 auto;
   aspect-ratio: 1080 / 676;
   container-type: inline-size;
-  border: 1px solid rgba(26, 26, 24, 0.08);
-  border-radius: 14px;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -95,6 +92,9 @@
   margin: 0;
   transform-origin: top left;
   transform: scale(min(1, calc(100cqi / 1080px)));
+  border: 1px solid rgba(26, 26, 24, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
   background: var(--bg);
   font-family: var(--font-body);
   font-size: 14px;
