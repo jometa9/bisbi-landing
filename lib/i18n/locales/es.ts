@@ -54,9 +54,12 @@ export const es: LandingTranslations = {
       previousTranscript: "Bisbi me encanta.",
       transcript:
         "Hola equipo — un update rápido. El lanzamiento sale el viernes.",
+      transcriptLong:
+        "Mandale a Marta las notas de la revisión de diseño y confirmale que seguimos para la reunión del jueves a la mañana.",
       editorTitle: "Notas de reunión — Notas",
       editorPlaceholder: "Escribí un mensaje…",
       pasteHint: "El texto se pega automáticamente donde estés escribiendo.",
+      docsTitle: "Notas del proyecto",
     },
   },
   features: {
@@ -78,10 +81,33 @@ export const es: LandingTranslations = {
         description:
           "Reconoce tu voz en cualquier idioma, automáticamente.",
       },
+    ],
+  },
+  socialProof: {
+    badge: "Voces",
+    title: "Hecho para tu forma de hablar.",
+    items: [
       {
-        title: "App nativa y liviana",
-        description:
-          "Hecha para sentirse como en casa. Rápida, liviana y sin estorbar.",
+        quote:
+          "Pienso más rápido de lo que tipeo. Ya no hay distancia entre la idea y la pantalla.",
+        role: "Alguien que escribe",
+      },
+      {
+        quote: "Respuestas largas, en segundos.",
+        role: "Una bandeja de entrada ocupada",
+      },
+      {
+        quote:
+          "Dicto mientras camino. Las notas me esperan cuando me siento.",
+        role: "Alguien en movimiento",
+      },
+      {
+        quote: "Dos idiomas, un atajo. Sin menús, sin cambiar nada.",
+        role: "Alguien bilingüe",
+      },
+      {
+        quote: "Mis muñecas me lo agradecen.",
+        role: "Alguien que tipea mucho",
       },
     ],
   },
@@ -92,10 +118,12 @@ export const es: LandingTranslations = {
       "Tu voz va más rápido que tus dedos. Bisbi convierte lo que decís en texto al instante — donde sea que estés escribiendo.",
     unit: "ppm",
     unitFull: "palabras por minuto",
-    keyboardLabel: "Tipear",
-    keyboardHint: "El promedio de un teclista.",
-    bisbiLabel: "Bisbi",
-    bisbiHint: "La velocidad natural del habla.",
+    keyboardLabel: "Tipeando",
+    keyboardHint: "El promedio de cualquier persona en un teclado.",
+    keyboardFooter: "La mayoría del tiempo",
+    bisbiLabel: "Hablando con Bisbi",
+    bisbiHint: "Tu voz al ritmo natural de pensamiento.",
+    bisbiFooter: "5× más rápido",
     phrases: [
       "Mandale el contrato firmado al cliente.",
       "function calculateTotal(items) { return ...",

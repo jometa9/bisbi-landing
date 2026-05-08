@@ -65,7 +65,7 @@ export function Footer() {
               </div>
             </div>
 
-            <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
+            <p className="text-xs" style={{ color: "#A8A8A2" }}>
               &copy; {new Date().getFullYear()} Bisbi. {t.footer.rights}
             </p>
           </div>

@@ -51,9 +51,12 @@ export const en = {
       previousTranscript: "I love using Bisbi.",
       transcript:
         "Hey team — quick heads up. The launch is on track for Friday.",
+      transcriptLong:
+        "Send Marta the design review notes and let her know we are still on for the Thursday morning sync.",
       editorTitle: "Meeting notes — Notes",
       editorPlaceholder: "Type a message…",
       pasteHint: "The text is pasted automatically wherever you are typing.",
+      docsTitle: "Project notes",
     },
   },
   features: {
@@ -75,10 +78,33 @@ export const en = {
         description:
           "Recognizes your voice in any language, automatically.",
       },
+    ],
+  },
+  socialProof: {
+    badge: "Voices",
+    title: "Made for the way you talk.",
+    items: [
       {
-        title: "Native and lightweight",
-        description:
-          "Built to feel right at home on your machine. Fast, lightweight, and out of your way.",
+        quote:
+          "I think faster than I type. Now there's no gap between the idea and the screen.",
+        role: "A writer",
+      },
+      {
+        quote: "Long replies, in seconds.",
+        role: "A busy inbox",
+      },
+      {
+        quote:
+          "I dictate on the walk home. The notes are ready when I sit down.",
+        role: "On the go",
+      },
+      {
+        quote: "Two languages, one shortcut. No menus, no switching.",
+        role: "A bilingual user",
+      },
+      {
+        quote: "My wrists thank me.",
+        role: "A heavy keyboard user",
       },
     ],
   },
@@ -90,9 +116,11 @@ export const en = {
     unit: "wpm",
     unitFull: "words per minute",
     keyboardLabel: "Typing",
-    keyboardHint: "The average typist's speed.",
-    bisbiLabel: "Bisbi",
-    bisbiHint: "The natural speed of speech.",
+    keyboardHint: "The average person at a keyboard.",
+    keyboardFooter: "Most of the time",
+    bisbiLabel: "Talking to Bisbi",
+    bisbiHint: "Your voice at the natural pace of thought.",
+    bisbiFooter: "5× faster",
     phrases: [
       "Send the signed contract to the client.",
       "function calculateTotal(items) { return ...",

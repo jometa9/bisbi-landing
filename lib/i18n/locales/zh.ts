@@ -50,9 +50,12 @@ export const zh: LandingTranslations = {
       transcribing: "转写中",
       previousTranscript: "我很喜欢用 Bisbi。",
       transcript: "团队你好——简短更新一下，发布按计划周五上线。",
+      transcriptLong:
+        "把设计评审的笔记发给 Marta，并告诉她我们周四上午的同步会照常进行。",
       editorTitle: "会议笔记——笔记",
       editorPlaceholder: "输入消息…",
       pasteHint: "文本会自动粘贴到你正在输入的位置。",
+      docsTitle: "项目笔记",
     },
   },
   features: {
@@ -74,10 +77,33 @@ export const zh: LandingTranslations = {
         description:
           "自动识别任何语言的语音。",
       },
+    ],
+  },
+  socialProof: {
+    badge: "声音",
+    title: "为你说话的方式而生。",
+    items: [
       {
-        title: "原生轻量应用",
-        description:
-          "为你的设备量身打造，就像在家一样自然。快速、轻量、毫不打扰。",
+        quote:
+          "我想得比打字快。从此想法与屏幕之间不再有距离。",
+        role: "一位写作者",
+      },
+      {
+        quote: "长回复，几秒搞定。",
+        role: "繁忙的收件箱",
+      },
+      {
+        quote:
+          "我边走边口述，坐下时笔记已就绪。",
+        role: "在路上",
+      },
+      {
+        quote: "两种语言，一个快捷键。无需菜单，无需切换。",
+        role: "双语用户",
+      },
+      {
+        quote: "我的手腕感谢我。",
+        role: "重度键盘用户",
       },
     ],
   },
@@ -89,9 +115,11 @@ export const zh: LandingTranslations = {
     unit: "wpm",
     unitFull: "每分钟字数",
     keyboardLabel: "打字",
-    keyboardHint: "普通打字员的速度。",
-    bisbiLabel: "Bisbi",
-    bisbiHint: "说话的自然速度。",
+    keyboardHint: "键盘前的普通人。",
+    keyboardFooter: "大多数时候",
+    bisbiLabel: "和 Bisbi 说话",
+    bisbiHint: "你的声音以自然的思考速度。",
+    bisbiFooter: "快 5×",
     phrases: [
       "把签好的合同发给客户。",
       "function calculateTotal(items) { return ...",

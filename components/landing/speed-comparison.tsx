@@ -22,9 +22,10 @@ export function SpeedComparison() {
           <span className="speed-card-label">{c.keyboardLabel}</span>
           <div className="speed-card-value">
             <span className="speed-card-number">40</span>
-            <span className="speed-card-unit">{c.unit}</span>
+            <span className="speed-card-unit">{c.unitFull}</span>
           </div>
           <p className="speed-card-hint">{c.keyboardHint}</p>
+          <span className="speed-card-footer">{c.keyboardFooter}</span>
         </div>
       </div>
 
@@ -76,7 +77,7 @@ export function SpeedComparison() {
               220
             </span>
             <span className="speed-card-unit speed-card-unit--bisbi">
-              {c.unit}
+              {c.unitFull}
             </span>
           </div>
           <div className="speed-card-wave" aria-hidden="true">
@@ -85,6 +86,9 @@ export function SpeedComparison() {
             ))}
           </div>
           <p className="speed-card-hint speed-card-hint--bisbi">{c.bisbiHint}</p>
+          <span className="speed-card-footer speed-card-footer--bisbi">
+            {c.bisbiFooter}
+          </span>
         </div>
       </div>
     </div>

@@ -3,7 +3,9 @@
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
 import { AppDemo } from "@/components/landing/app-demo";
+import { DocsDemo } from "@/components/landing/docs-demo";
 import { SpeedComparison } from "@/components/landing/speed-comparison";
+import { SocialProof } from "@/components/landing/social-proof";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
 import Image from "next/image";
@@ -103,6 +105,21 @@ function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
 
 export default function HomePage() {
   const { t } = useI18n();
+  const docsRef = useRef<HTMLElement | null>(null);
+  const [docsInView, setDocsInView] = useState(false);
+
+  useEffect(() => {
+    const el = docsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) setDocsInView(e.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "-20% 0px -20% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <>
@@ -148,73 +165,35 @@ export default function HomePage() {
           </p>
         </section>
 
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 md:pb-24">
-          <AppDemo />
+        <section
+          ref={docsRef}
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+        >
+          <DocsDemo />
         </section>
 
         <section
           id="how-it-works"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
         >
-          <p
-            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-            style={{ color: "#7BA89C" }}
-          >
-            {t.howItWorks.badge}
-          </p>
-          <h2
-            className="text-3xl md:text-5xl font-semibold text-center mb-16 md:mb-20"
-            style={{ color: "#1A1A18" }}
-          >
-            {t.howItWorks.title}
-          </h2>
-
           <ProductDemo />
         </section>
 
         <section
           id="speed"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
         >
-          <p
-            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-            style={{ color: "#7BA89C" }}
-          >
-            {t.speedComparison.badge}
-          </p>
-          <h2
-            className="text-3xl md:text-5xl font-semibold text-center mb-4"
-            style={{ color: "#1A1A18" }}
-          >
-            {t.speedComparison.title}
-          </h2>
-          <p
-            className="text-lg text-center max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed"
-            style={{ color: "#5C5C57" }}
-          >
-            {t.speedComparison.description}
-          </p>
-
           <SpeedComparison />
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-3">
+          <AppDemo />
         </section>
 
         <section
           id="features"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
         >
-          <p
-            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-            style={{ color: "#7BA89C" }}
-          >
-            {t.features.badge}
-          </p>
-          <h2
-            className="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16"
-            style={{ color: "#1A1A18" }}
-          >
-            {t.features.title}
-          </h2>
-
           <div className="feature-grid">
             {t.features.items.map((feature, i) => (
               <div
@@ -231,6 +210,13 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section
+          id="social-proof"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-3"
+        >
+          <SocialProof />
         </section>
 
         <section className="py-8 md:py-12 pt-16 md:pt-24" style={{ backgroundColor: "#FFFFFF" }}>
@@ -259,7 +245,16 @@ export default function HomePage() {
 
       <Footer />
 
-      <RecordingPill floating />
+      <div
+        aria-hidden={docsInView}
+        style={{
+          opacity: docsInView ? 0 : 1,
+          pointerEvents: docsInView ? "none" : "auto",
+          transition: "opacity 240ms ease",
+        }}
+      >
+        <RecordingPill floating />
+      </div>
     </>
   );
 }

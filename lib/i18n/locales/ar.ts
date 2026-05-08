@@ -51,9 +51,12 @@ export const ar: LandingTranslations = {
       previousTranscript: "أحبّ استخدام Bisbi.",
       transcript:
         "مرحبًا بالفريق — تحديث سريع: الإطلاق في موعده يوم الجمعة.",
+      transcriptLong:
+        "أرسل إلى مارتا ملاحظات مراجعة التصميم وأكّد لها أن اجتماع صباح الخميس سيعقد كما هو مخطط له.",
       editorTitle: "ملاحظات الاجتماع — ملاحظات",
       editorPlaceholder: "اكتب رسالة…",
       pasteHint: "يتم لصق النص تلقائيًا حيث تكتب.",
+      docsTitle: "ملاحظات المشروع",
     },
   },
   features: {
@@ -75,10 +78,33 @@ export const ar: LandingTranslations = {
         description:
           "يتعرّف على صوتك بأي لغة، تلقائيًا.",
       },
+    ],
+  },
+  socialProof: {
+    badge: "أصوات",
+    title: "صُمّم لطريقتك في الكلام.",
+    items: [
       {
-        title: "تطبيق أصلي وخفيف",
-        description:
-          "مصمم ليبدو وكأنه في بيته على جهازك. سريع وخفيف ولا يعترض طريقك.",
+        quote:
+          "أفكاري أسرع من أصابعي. لم تعد هناك مسافة بين الفكرة والشاشة.",
+        role: "شخص يكتب",
+      },
+      {
+        quote: "ردود طويلة، في ثوانٍ.",
+        role: "صندوق بريد مزدحم",
+      },
+      {
+        quote:
+          "أُملي وأنا أمشي. الملاحظات تنتظرني حين أجلس.",
+        role: "في الطريق",
+      },
+      {
+        quote: "لغتان، اختصار واحد. بدون قوائم، بدون تبديل.",
+        role: "مستخدم ثنائي اللغة",
+      },
+      {
+        quote: "رسغاي يشكرانني.",
+        role: "مستخدم كثير الكتابة",
       },
     ],
   },
@@ -90,9 +116,11 @@ export const ar: LandingTranslations = {
     unit: "كلمة/د",
     unitFull: "كلمة في الدقيقة",
     keyboardLabel: "الكتابة",
-    keyboardHint: "متوسط سرعة الكاتب على لوحة المفاتيح.",
-    bisbiLabel: "Bisbi",
-    bisbiHint: "السرعة الطبيعية للكلام.",
+    keyboardHint: "متوسط أي شخص على لوحة المفاتيح.",
+    keyboardFooter: "معظم الوقت",
+    bisbiLabel: "التحدّث مع Bisbi",
+    bisbiHint: "صوتك بإيقاع التفكير الطبيعي.",
+    bisbiFooter: "أسرع 5×",
     phrases: [
       "أرسل العقد الموقّع إلى العميل.",
       "function calculateTotal(items) { return ...",
