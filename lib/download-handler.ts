@@ -1,23 +1,11 @@
 import { ProductKey } from "@/lib/db/schema";
 
-export type DownloadOS = "windows" | "mac" | "linux";
-
-export const detectOS = (): DownloadOS => {
-  if (typeof window === "undefined") return "windows";
-
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  if (userAgent.includes("mac")) return "mac";
-  if (userAgent.includes("linux") || userAgent.includes("x11")) return "linux";
-  return "windows";
-};
-
 export function getDownloadEventId(): string {
   return `download-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
 }
 
 export const trackDownloadEvent = (
   productKey: ProductKey,
-  os: DownloadOS,
   eventId: string
 ) => {
   if (typeof window !== "undefined" && window.fbq) {
@@ -25,22 +13,18 @@ export const trackDownloadEvent = (
       content_name: `Bisbi Download`,
       content_category: "app_download",
       content_ids: [productKey],
-      custom_data: { productKey, os },
+      custom_data: { productKey, os: "mac" },
       eventID: eventId,
     });
   }
 };
 
-export const handleDownload = async (
-  productKey: ProductKey = "bisbi",
-  os?: DownloadOS
-) => {
+export const handleDownload = async (productKey: ProductKey = "bisbi") => {
   try {
-    const detectedOS = os || detectOS();
     const eventId = getDownloadEventId();
 
     const response = await fetch(
-      `/api/download-url?productKey=${productKey}&os=${detectedOS}&metaEventId=${encodeURIComponent(eventId)}`
+      `/api/download-url?productKey=${productKey}&metaEventId=${encodeURIComponent(eventId)}`
     );
 
     if (!response.ok) {
@@ -55,20 +39,11 @@ export const handleDownload = async (
       return;
     }
 
-    trackDownloadEvent(productKey, detectedOS, eventId);
-
+    trackDownloadEvent(productKey, eventId);
 
     const link = document.createElement("a");
     link.href = downloadUrl;
-
-    const fileName =
-      detectedOS === "mac"
-        ? "Bisbi-Setup.dmg"
-        : detectedOS === "linux"
-          ? "Bisbi-Setup.AppImage"
-          : "Bisbi-Setup.exe";
-
-    link.download = fileName;
+    link.download = "Bisbi-Setup.dmg";
     link.target = "_blank";
 
     document.body.appendChild(link);

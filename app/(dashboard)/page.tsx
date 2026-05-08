@@ -2,7 +2,7 @@
 
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
-import { WindowsDemo } from "@/components/landing/windows-demo";
+import { AppDemo } from "@/components/landing/app-demo";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
 import { signIn } from "next-auth/react";
@@ -147,7 +147,7 @@ export default function HomePage() {
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 md:pb-24">
-          <WindowsDemo />
+          <AppDemo />
         </section>
 
         <section

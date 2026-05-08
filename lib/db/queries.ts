@@ -553,9 +553,7 @@ export async function updateAppSettings(
     bisbiProMonthlyAmount: number | null;
     bisbiProAnnualAmount: number | null;
     bisbiFreeMonthlyWordLimit: number | null;
-    bisbiWindowsDownloadUrl: string | null;
     bisbiMacDownloadUrl: string | null;
-    bisbiLinuxDownloadUrl: string | null;
   }>
 ) {
   const settings = await db
@@ -574,9 +572,7 @@ export async function updateAppSettings(
           resendInboundWebhookSecret: data.resendInboundWebhookSecret ?? null,
           discordDailyReportWebhookUrl: data.discordDailyReportWebhookUrl ?? null,
           internalApiKey: data.internalApiKey ?? generateInternalApiKey(),
-          bisbiWindowsDownloadUrl: data.bisbiWindowsDownloadUrl ?? null,
           bisbiMacDownloadUrl: data.bisbiMacDownloadUrl ?? null,
-          bisbiLinuxDownloadUrl: data.bisbiLinuxDownloadUrl ?? null,
           updatedAt: new Date(),
           updatedBy: userId,
         })
@@ -605,17 +601,9 @@ export async function updateAppSettings(
         updateData.discordDailyReportWebhookUrl =
           data.discordDailyReportWebhookUrl ?? null;
       }
-      if (data.bisbiWindowsDownloadUrl !== undefined) {
-        updateData.bisbiWindowsDownloadUrl =
-          data.bisbiWindowsDownloadUrl?.trim() || null;
-      }
       if (data.bisbiMacDownloadUrl !== undefined) {
         updateData.bisbiMacDownloadUrl =
           data.bisbiMacDownloadUrl?.trim() || null;
-      }
-      if (data.bisbiLinuxDownloadUrl !== undefined) {
-        updateData.bisbiLinuxDownloadUrl =
-          data.bisbiLinuxDownloadUrl?.trim() || null;
       }
       if (data.internalApiKey !== undefined) {
         updateData.internalApiKey = data.internalApiKey?.trim() || null;

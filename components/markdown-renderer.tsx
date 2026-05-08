@@ -1,7 +1,6 @@
 "use client";
 
-import { detectOS } from "@/lib/download-handler";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
@@ -12,16 +11,9 @@ function DownloadLink({
   children,
   ...props
 }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; children?: React.ReactNode }) {
-  const [resolvedHref, setResolvedHref] = useState(href);
-  useEffect(() => {
-    const url = new URL(href, window.location.origin);
-    if (!url.searchParams.has("os")) {
-      setResolvedHref(`/api/download?os=${detectOS()}`);
-    }
-  }, [href]);
   return (
     <a
-      href={resolvedHref}
+      href={href}
       {...props}
       target="_blank"
       rel="noopener noreferrer"

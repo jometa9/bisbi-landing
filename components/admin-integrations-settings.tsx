@@ -7,17 +7,13 @@ import { useI18n } from "@/lib/i18n";
 import { useState, useEffect } from "react";
 
 interface DownloadUrls {
-  bisbiWindowsDownloadUrl: string;
   bisbiMacDownloadUrl: string;
-  bisbiLinuxDownloadUrl: string;
 }
 
 export default function AdminIntegrationsSettings() {
   const { t } = useI18n();
   const [urls, setUrls] = useState<DownloadUrls>({
-    bisbiWindowsDownloadUrl: "",
     bisbiMacDownloadUrl: "",
-    bisbiLinuxDownloadUrl: "",
   });
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"success" | "error" | null>(null);
@@ -29,9 +25,7 @@ export default function AdminIntegrationsSettings() {
         if (response.ok) {
           const data = await response.json();
           setUrls({
-            bisbiWindowsDownloadUrl: data.bisbiWindowsDownloadUrl || "",
             bisbiMacDownloadUrl: data.bisbiMacDownloadUrl || "",
-            bisbiLinuxDownloadUrl: data.bisbiLinuxDownloadUrl || "",
           });
         }
       } catch (error) {
@@ -67,23 +61,6 @@ export default function AdminIntegrationsSettings() {
   return (
     <div className="space-y-3">
       <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="windows-download-url">{t.admin.downloads.windows}</Label>
-        <Input
-          id="windows-download-url"
-          type="url"
-          placeholder="https://.../Bisbi-Setup.exe"
-          value={urls.bisbiWindowsDownloadUrl}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUrls((prev) => ({
-              ...prev,
-              bisbiWindowsDownloadUrl: e.target.value,
-            }))
-          }
-          className="bg-white shadow-none font-mono text-sm"
-        />
-      </div>
-
-      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="mac-download-url">{t.admin.downloads.mac}</Label>
         <Input
           id="mac-download-url"
@@ -100,23 +77,7 @@ export default function AdminIntegrationsSettings() {
         />
       </div>
 
-      <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="linux-download-url">{t.admin.downloads.linux}</Label>
-        <Input
-          id="linux-download-url"
-          type="url"
-          placeholder="https://.../Bisbi.AppImage"
-          value={urls.bisbiLinuxDownloadUrl}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUrls((prev) => ({
-              ...prev,
-              bisbiLinuxDownloadUrl: e.target.value,
-            }))
-          }
-          className="bg-white shadow-none font-mono text-sm"
-        />
-        <p className="text-xs text-gray-600">{t.admin.downloads.hint}</p>
-      </div>
+      <p className="text-xs text-gray-600">{t.admin.downloads.hint}</p>
 
       <Button onClick={handleSave} disabled={isSaving} className="w-full">
         {isSaving

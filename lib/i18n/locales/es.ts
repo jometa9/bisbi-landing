@@ -14,12 +14,10 @@ export const es: LandingTranslations = {
     headline2: "es no escribir.",
     subheadline:
       "Hablá. Bisbi escribe lo que decís — en cualquier app, en cualquier idioma.",
-    freeBadge: "Gratis para empezar. Sin tarjeta de crédito. Mac, Windows y Linux.",
+    freeBadge: "Gratis para empezar. Sin tarjeta de crédito. Mac.",
   },
   download: {
     mac: "Descargar para Mac",
-    windows: "Descargar para Windows",
-    linux: "Descargar para Linux",
     starting: "Iniciando descarga…",
   },
   howItWorks: {
@@ -78,12 +76,12 @@ export const es: LandingTranslations = {
       {
         title: "99 idiomas",
         description:
-          "Detección automática. Hablá en uno, escribí en otro.",
+          "Reconoce tu voz en cualquier idioma, automáticamente.",
       },
       {
-        title: "Mac, Windows y Linux",
+        title: "App nativa para Mac",
         description:
-          "Apps nativas para las tres plataformas. Misma experiencia, mismo atajo, mismo resultado.",
+          "Hecha para macOS. Rápida, liviana y se siente como en casa.",
       },
     ],
   },
@@ -91,7 +89,7 @@ export const es: LandingTranslations = {
     title: "Empezá a hablar",
     titleHighlight: "hoy.",
     description:
-      "Descargá Bisbi gratis. Funciona en Mac, Windows y Linux. Sin suscripción para empezar.",
+      "Descargá Bisbi gratis para Mac. Sin suscripción para empezar.",
     signInHint: "¿Ya tenés cuenta?",
     signIn: "Iniciar sesión",
   },
@@ -137,8 +135,6 @@ export const es: LandingTranslations = {
     fallbackName: "amigo",
     ready: "Tu cuenta está lista. Descargá Bisbi y empezá a dictar.",
     downloadMac: "Descargar para Mac",
-    downloadWindows: "Descargar para Windows",
-    downloadLinux: "Descargar para Linux",
     starting: "Iniciando descarga…",
     hint: "Tu suscripción y ajustes se gestionan dentro de la app.",
     signOut: "Cerrar sesión",
@@ -251,9 +247,7 @@ export const es: LandingTranslations = {
       saveError: "Error",
     },
     downloads: {
-      windows: "URL de descarga para Windows",
       mac: "URL de descarga para macOS",
-      linux: "URL de descarga para Linux",
       hint: "Actualizá estas URLs cada vez que publiques una nueva versión.",
       save: "Guardar URLs de descarga",
       saveLoading: "Guardando...",

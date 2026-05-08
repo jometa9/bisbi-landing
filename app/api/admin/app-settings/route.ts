@@ -29,9 +29,7 @@ export async function GET() {
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: settings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(settings),
-      bisbiWindowsDownloadUrl: settings.bisbiWindowsDownloadUrl || "",
       bisbiMacDownloadUrl: settings.bisbiMacDownloadUrl || "",
-      bisbiLinuxDownloadUrl: settings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(
@@ -63,9 +61,7 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount,
       bisbiProAnnualAmount,
       bisbiFreeMonthlyWordLimit,
-      bisbiWindowsDownloadUrl,
       bisbiMacDownloadUrl,
-      bisbiLinuxDownloadUrl,
     } = body;
 
     const updateData: Parameters<typeof updateAppSettings>[1] = {};
@@ -112,18 +108,9 @@ export async function POST(req: NextRequest) {
           ? bisbiFreeMonthlyWordLimit
           : null;
     }
-    if (bisbiWindowsDownloadUrl !== undefined) {
-      updateData.bisbiWindowsDownloadUrl =
-        bisbiWindowsDownloadUrl?.trim() || null;
-    }
     if (bisbiMacDownloadUrl !== undefined) {
       updateData.bisbiMacDownloadUrl = bisbiMacDownloadUrl?.trim() || null;
     }
-    if (bisbiLinuxDownloadUrl !== undefined) {
-      updateData.bisbiLinuxDownloadUrl =
-        bisbiLinuxDownloadUrl?.trim() || null;
-    }
-
     const [{ clearEmailConfigCache }, { clearStripeCache }] = await Promise.all([
       import("@/lib/email/config"),
       import("@/lib/payments/stripe"),
@@ -147,9 +134,7 @@ export async function POST(req: NextRequest) {
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
       bisbiProAnnualAmount: updatedSettings.bisbiProAnnualAmount ?? 9600,
       bisbiFreeMonthlyWordLimit: getBisbiFreeMonthlyWordLimit(updatedSettings),
-      bisbiWindowsDownloadUrl: updatedSettings.bisbiWindowsDownloadUrl || "",
       bisbiMacDownloadUrl: updatedSettings.bisbiMacDownloadUrl || "",
-      bisbiLinuxDownloadUrl: updatedSettings.bisbiLinuxDownloadUrl || "",
     });
   } catch {
     return NextResponse.json(

@@ -14,12 +14,10 @@ export const ar: LandingTranslations = {
     headline2: "هي عدم الكتابة.",
     subheadline:
       "تكلّم. يكتب Bisbi ما تقوله — في أي تطبيق، بأي لغة.",
-    freeBadge: "مجاني للبدء. بدون بطاقة ائتمان. Mac و Windows و Linux.",
+    freeBadge: "مجاني للبدء. بدون بطاقة ائتمان. Mac.",
   },
   download: {
     mac: "تنزيل لـ Mac",
-    windows: "تنزيل لـ Windows",
-    linux: "تنزيل لـ Linux",
     starting: "جارٍ بدء التنزيل…",
   },
   howItWorks: {
@@ -75,12 +73,12 @@ export const ar: LandingTranslations = {
       {
         title: "99 لغة",
         description:
-          "كشف تلقائي. تكلّم بواحدة، اكتب بأخرى.",
+          "يتعرّف على صوتك بأي لغة، تلقائيًا.",
       },
       {
-        title: "Mac و Windows و Linux",
+        title: "تطبيق أصلي لـ Mac",
         description:
-          "تطبيقات أصلية للمنصات الثلاث. نفس التجربة، نفس الاختصار، نفس النتيجة.",
+          "مصمم لـ macOS. سريع وخفيف ويبدو وكأنه في بيته.",
       },
     ],
   },
@@ -88,7 +86,7 @@ export const ar: LandingTranslations = {
     title: "ابدأ التكلم",
     titleHighlight: "اليوم.",
     description:
-      "حمّل Bisbi مجاناً. يعمل على Mac و Windows و Linux. لا تحتاج اشتراكاً للبدء.",
+      "حمّل Bisbi مجاناً لـ Mac. لا تحتاج اشتراكاً للبدء.",
     signInHint: "لديك حساب؟",
     signIn: "تسجيل الدخول",
   },
@@ -134,8 +132,6 @@ export const ar: LandingTranslations = {
     fallbackName: "صديقي",
     ready: "حسابك جاهز. نزّل Bisbi وابدأ الإملاء.",
     downloadMac: "تنزيل لـ Mac",
-    downloadWindows: "تنزيل لـ Windows",
-    downloadLinux: "تنزيل لـ Linux",
     starting: "جارٍ بدء التنزيل…",
     hint: "اشتراكك وإعداداتك تُدار داخل التطبيق.",
     signOut: "تسجيل الخروج",

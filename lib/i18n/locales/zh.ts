@@ -14,12 +14,10 @@ export const zh: LandingTranslations = {
     headline2: "是不写。",
     subheadline:
       "说话。Bisbi 写下你说的内容 — 任意应用，任意语言。",
-    freeBadge: "免费开始。无需信用卡。Mac、Windows 和 Linux。",
+    freeBadge: "免费开始。无需信用卡。仅限 Mac。",
   },
   download: {
     mac: "下载 Mac 版",
-    windows: "下载 Windows 版",
-    linux: "下载 Linux 版",
     starting: "开始下载…",
   },
   howItWorks: {
@@ -74,12 +72,12 @@ export const zh: LandingTranslations = {
       {
         title: "99 种语言",
         description:
-          "自动检测。说一种，打另一种。",
+          "自动识别任何语言的语音。",
       },
       {
-        title: "Mac、Windows 和 Linux",
+        title: "Mac 原生应用",
         description:
-          "三个平台的原生应用。相同体验，相同快捷键，相同效果。",
+          "为 macOS 打造。快速、轻量、就像在家一样自然。",
       },
     ],
   },
@@ -87,7 +85,7 @@ export const zh: LandingTranslations = {
     title: "开始说话,",
     titleHighlight: "就在今天。",
     description:
-      "免费下载 Bisbi。适用于 Mac、Windows 和 Linux。无需订阅即可开始。",
+      "免费下载 Bisbi for Mac。无需订阅即可开始。",
     signInHint: "已有账户？",
     signIn: "登录",
   },
@@ -133,8 +131,6 @@ export const zh: LandingTranslations = {
     fallbackName: "朋友",
     ready: "你的账户已准备好。下载 Bisbi 开始听写。",
     downloadMac: "下载 Mac 版",
-    downloadWindows: "下载 Windows 版",
-    downloadLinux: "下载 Linux 版",
     starting: "开始下载…",
     hint: "你的订阅和设置在应用内管理。",
     signOut: "退出登录",

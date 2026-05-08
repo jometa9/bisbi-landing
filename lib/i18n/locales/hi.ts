@@ -14,12 +14,10 @@ export const hi: LandingTranslations = {
     headline2: "है न लिखना।",
     subheadline:
       "बोलें। Bisbi वही लिखता है जो आप कहते हैं — किसी भी ऐप में, किसी भी भाषा में।",
-    freeBadge: "मुफ्त शुरू करें। क्रेडिट कार्ड नहीं चाहिए। Mac, Windows और Linux।",
+    freeBadge: "मुफ्त शुरू करें। क्रेडिट कार्ड नहीं चाहिए। Mac।",
   },
   download: {
     mac: "Mac के लिए डाउनलोड",
-    windows: "Windows के लिए डाउनलोड",
-    linux: "Linux के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
   },
   howItWorks: {
@@ -77,12 +75,12 @@ export const hi: LandingTranslations = {
       {
         title: "99 भाषाएं",
         description:
-          "स्वतः पहचान। एक में बोलें, दूसरे में लिखें।",
+          "किसी भी भाषा में आपकी आवाज़ को स्वतः पहचानता है।",
       },
       {
-        title: "Mac, Windows और Linux",
+        title: "Mac के लिए नेटिव ऐप",
         description:
-          "तीनों प्लेटफॉर्म के लिए नेटिव ऐप। एक ही अनुभव, एक ही शॉर्टकट, एक ही नतीजा।",
+          "macOS के लिए बना। तेज़, हल्का, और बिल्कुल अपने घर जैसा।",
       },
     ],
   },
@@ -90,7 +88,7 @@ export const hi: LandingTranslations = {
     title: "बोलना शुरू करें",
     titleHighlight: "आज।",
     description:
-      "Bisbi मुफ्त डाउनलोड करें। Mac, Windows और Linux पर काम करता है। शुरू करने के लिए कोई सदस्यता नहीं।",
+      "Bisbi मुफ्त Mac के लिए डाउनलोड करें। शुरू करने के लिए कोई सदस्यता नहीं।",
     signInHint: "पहले से खाता है?",
     signIn: "साइन इन",
   },
@@ -137,8 +135,6 @@ export const hi: LandingTranslations = {
     ready:
       "आपका खाता तैयार है। Bisbi डाउनलोड करें और डिक्टेट करना शुरू करें।",
     downloadMac: "Mac के लिए डाउनलोड",
-    downloadWindows: "Windows के लिए डाउनलोड",
-    downloadLinux: "Linux के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
     hint: "आपकी सदस्यता और सेटिंग्स ऐप के अंदर मैनेज की जाती हैं।",
     signOut: "साइन आउट",

@@ -8,12 +8,12 @@ Al usar Bisbi, aceptás estos términos. Si no estás de acuerdo, no uses el sof
 
 ## 1. Descripción del servicio
 
-Bisbi es una aplicación de **dictado por voz local** para Mac, Windows y Linux.
+Bisbi es una aplicación de **dictado por voz local** para Mac.
 
 - Apretás un atajo, hablás, soltás el atajo y el texto aparece pegado en la app activa.
 - La transcripción se procesa en tu computadora, con tecnología de Bisbi que se ejecuta on-device.
 - El audio y el texto resultante **no salen de tu equipo**.
-- Plataformas soportadas: macOS (Apple Silicon ARM64 y x64), Windows 10/11 64-bit y Linux 64-bit (AppImage).
+- Plataformas soportadas: macOS (Apple Silicon ARM64 y x64).
 
 ---
 

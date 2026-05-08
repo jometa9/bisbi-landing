@@ -12,12 +12,10 @@ export const en = {
     headline2: "is not to write.",
     subheadline:
       "Speak. Bisbi types what you say — in any app, in any language.",
-    freeBadge: "Free to start. No credit card. Mac, Windows & Linux.",
+    freeBadge: "Free to start. No credit card. Mac.",
   },
   download: {
     mac: "Download for Mac",
-    windows: "Download for Windows",
-    linux: "Download for Linux",
     starting: "Starting download…",
   },
   howItWorks: {
@@ -75,12 +73,12 @@ export const en = {
       {
         title: "99 languages",
         description:
-          "Automatic detection. Speak in one, type in another.",
+          "Recognizes your voice in any language, automatically.",
       },
       {
-        title: "Mac, Windows & Linux",
+        title: "Native Mac app",
         description:
-          "Native apps for all three platforms. Same experience, same shortcut, same result.",
+          "Built for macOS. Fast, lightweight, and feels right at home.",
       },
     ],
   },
@@ -88,7 +86,7 @@ export const en = {
     title: "Start speaking",
     titleHighlight: "today.",
     description:
-      "Download Bisbi free. Works on Mac, Windows and Linux. No subscription to get started.",
+      "Download Bisbi free for Mac. No subscription to get started.",
     signInHint: "Already have an account?",
     signIn: "Sign in",
   },
@@ -134,8 +132,6 @@ export const en = {
     fallbackName: "there",
     ready: "Your account is ready. Download Bisbi and start dictating.",
     downloadMac: "Download for Mac",
-    downloadWindows: "Download for Windows",
-    downloadLinux: "Download for Linux",
     starting: "Starting download…",
     hint: "Your subscription and settings are managed inside the app.",
     signOut: "Sign out",
@@ -248,9 +244,7 @@ export const en = {
       saveError: "Error",
     },
     downloads: {
-      windows: "Windows Download URL",
       mac: "macOS Download URL",
-      linux: "Linux Download URL",
       hint: "Update these URLs each time you publish a new release.",
       save: "Save Download URLs",
       saveLoading: "Saving...",

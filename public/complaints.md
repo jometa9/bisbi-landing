@@ -24,7 +24,7 @@ Newark, DE 19713, Estados Unidos
 **Datos requeridos:**
 
 - Nombre y email asociados a tu cuenta.
-- Producto que estás usando (Bisbi para Mac o Windows) y versión instalada.
+- Producto que estás usando (Bisbi para Mac) y versión instalada.
 - Descripción clara del problema.
 - Cuándo ocurrió.
 - Cómo te afectó.

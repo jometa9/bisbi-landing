@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   applicationName: "Bisbi",
   title: "Bisbi — Apretá. Hablá. Pegá.",
   description:
-    "Bisbi es una app de dictado por voz local para Mac, Windows y Linux. Apretá un atajo, hablá, y tus palabras aparecen donde esté el cursor — en cualquier app, en cualquier idioma.",
+    "Bisbi es una app de dictado por voz local para Mac. Apretá un atajo, hablá, y tus palabras aparecen donde esté el cursor — en cualquier app, en cualquier idioma.",
   keywords: [
     "dictado por voz",
     "voz a texto",
@@ -19,8 +19,6 @@ export const metadata: Metadata = {
     "escribir con la voz",
     "dictado multilingüe",
     "dictado por voz mac",
-    "dictado por voz windows",
-    "dictado por voz linux",
     "bisbi",
     "dictado local",
     "transcripción con ia",
@@ -52,13 +50,13 @@ export const metadata: Metadata = {
     url: "/",
     title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
-      "Dictado por voz local para Mac, Windows y Linux. Apretá un atajo, hablá, y Bisbi pega tus palabras donde esté el cursor — en cualquier idioma.",
+      "Dictado por voz local para Mac. Apretá un atajo, hablá, y Bisbi pega tus palabras donde esté el cursor — en cualquier idioma.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
-      "Dictado por voz que pega donde esté tu cursor. Soporta 5 idiomas. 100% local, privado, Mac, Windows y Linux.",
+      "Dictado por voz que pega donde esté tu cursor. Soporta 5 idiomas. 100% local, privado, Mac.",
   },
   robots: {
     index: true,

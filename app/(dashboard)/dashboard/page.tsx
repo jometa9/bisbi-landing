@@ -1,9 +1,7 @@
 "use client";
 
-import { LinuxIcon } from "@/components/icons/linux-icon";
 import { MacOSIcon } from "@/components/icons/macos-icon";
-import { WindowsIcon } from "@/components/icons/windows-icon";
-import { detectOS, handleDownload, type DownloadOS } from "@/lib/download-handler";
+import { handleDownload } from "@/lib/download-handler";
 import { useI18n } from "@/lib/i18n";
 import { useUserData } from "@/contexts/user-data-context";
 import { Inbox, Settings } from "lucide-react";
@@ -25,12 +23,7 @@ function DashboardContent() {
   const isCheckoutCancel = checkoutResult === "cancel";
   const isPostCheckout = isCheckoutSuccess || isCheckoutCancel;
 
-  const [downloading, setDownloading] = useState<DownloadOS | null>(null);
-  const [detectedOS, setDetectedOS] = useState<DownloadOS>("mac");
-
-  useEffect(() => {
-    setDetectedOS(detectOS());
-  }, []);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     if (!isCheckoutSuccess || !checkoutSessionId) return;
@@ -111,63 +104,11 @@ function DashboardContent() {
     };
   }, [isPostCheckout]);
 
-  const handleClick = async (platform: DownloadOS) => {
-    setDownloading(platform);
-    await handleDownload("bisbi", platform);
-    setTimeout(() => setDownloading(null), 3000);
+  const handleClick = async () => {
+    setDownloading(true);
+    await handleDownload("bisbi");
+    setTimeout(() => setDownloading(false), 3000);
   };
-
-  const platformIcon = {
-    mac: MacOSIcon,
-    windows: WindowsIcon,
-    linux: LinuxIcon,
-  } as const;
-
-  const renderDownloadButton = (
-    platform: DownloadOS,
-    variant: "primary" | "secondary"
-  ) => {
-    const Icon = platformIcon[platform];
-    const label =
-      platform === "mac"
-        ? t.dashboard.downloadMac
-        : platform === "windows"
-          ? t.dashboard.downloadWindows
-          : t.dashboard.downloadLinux;
-    const isPrimary = variant === "primary";
-    const baseBg = isPrimary ? "#7BA89C" : "#F0EDE6";
-    const hoverBg = isPrimary ? "#5A8C83" : "#F0F5F3";
-    const textColor = isPrimary ? "#FFFFFF" : "#1A1A18";
-
-    return (
-      <button
-        key={platform}
-        onClick={() => handleClick(platform)}
-        disabled={downloading !== null}
-        className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
-        style={{
-          backgroundColor: baseBg,
-          color: textColor,
-          border: isPrimary ? undefined : "1px solid rgba(26, 26, 24, 0.08)",
-        }}
-        onMouseEnter={(e) => {
-          if (!downloading)
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-              hoverBg;
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-            baseBg;
-        }}
-      >
-        <Icon className="h-[18px] w-[18px]" />
-        {downloading === platform ? t.dashboard.starting : label}
-      </button>
-    );
-  };
-
-  const variantFor = (platform: DownloadOS) =>
-    platform === detectedOS ? "primary" : "secondary";
 
   const title = isCheckoutSuccess
     ? t.dashboard.checkoutSuccessTitle
@@ -199,14 +140,28 @@ function DashboardContent() {
         </p>
 
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-6">
-            <div className="flex justify-center">
-              {renderDownloadButton("mac", variantFor("mac"))}
-            </div>
-            <div className="flex flex-col sm:flex-row gap-6 sm:justify-center">
-              {renderDownloadButton("windows", variantFor("windows"))}
-              {renderDownloadButton("linux", variantFor("linux"))}
-            </div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleClick}
+              disabled={downloading}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 rounded-full px-7 py-3.5 text-sm font-medium transition-colors disabled:opacity-70 cursor-pointer disabled:cursor-not-allowed"
+              style={{
+                backgroundColor: "#7BA89C",
+                color: "#FFFFFF",
+              }}
+              onMouseEnter={(e) => {
+                if (!downloading)
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                    "#5A8C83";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "#7BA89C";
+              }}
+            >
+              <MacOSIcon className="h-[18px] w-[18px]" />
+              {downloading ? t.dashboard.starting : t.dashboard.downloadMac}
+            </button>
           </div>
 
           <div className="flex sm:justify-center">

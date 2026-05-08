@@ -2,14 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 import { useI18n, type Lang } from "@/lib/i18n";
-import "./windows-demo.css";
-
-type Platform = "mac" | "win";
-
-function detectPlatform(): Platform {
-  if (typeof navigator === "undefined") return "win";
-  return /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? "mac" : "win";
-}
+import "./app-demo.css";
 
 const MOCK_STATS = {
   totalTranscriptions: 1284,
@@ -71,14 +64,12 @@ function timeGreetingKey(): GreetingKey {
   return "evening";
 }
 
-export function WindowsDemo() {
+export function AppDemo() {
   const { t, lang } = useI18n();
   const demo = t.demoApp;
-  const [platform, setPlatform] = useState<Platform>("win");
   const [greetingKey, setGreetingKey] = useState<GreetingKey>("afternoon");
 
   useEffect(() => {
-    setPlatform(detectPlatform());
     setGreetingKey(timeGreetingKey());
   }, []);
 
@@ -154,11 +145,7 @@ export function WindowsDemo() {
                 <div className="home-hotkey-content">
                   <span className="home-hotkey-label">{demo.hotkeyLabel}</span>
                   <div className="home-hotkey-keys">
-                    {platform === "mac" ? (
-                      <kbd className="kbd kbd-mac">⌘</kbd>
-                    ) : (
-                      <kbd className="kbd kbd-win">Alt</kbd>
-                    )}
+                    <kbd className="kbd kbd-mac">⌘</kbd>
                   </div>
                   <span className="home-hotkey-hint">{demo.hotkeyHint}</span>
                 </div>
