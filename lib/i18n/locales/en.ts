@@ -76,10 +76,38 @@ export const en = {
           "Recognizes your voice in any language, automatically.",
       },
       {
-        title: "Native Mac app",
+        title: "Native and lightweight",
         description:
-          "Built for macOS. Fast, lightweight, and feels right at home.",
+          "Built to feel right at home on your machine. Fast, lightweight, and out of your way.",
       },
+    ],
+  },
+  speedComparison: {
+    badge: "Speed",
+    title: "4× faster than typing.",
+    description:
+      "Your voice is faster than your fingers. Bisbi turns what you say into text instantly — wherever you're typing.",
+    unit: "wpm",
+    unitFull: "words per minute",
+    keyboardLabel: "Typing",
+    keyboardHint: "The average typist's speed.",
+    bisbiLabel: "Bisbi",
+    bisbiHint: "The natural speed of speech.",
+    phrases: [
+      "Send the signed contract to the client.",
+      "function calculateTotal(items) { return ...",
+      "Patient presents with acute abdominal pain.",
+      "Chapter 4 summary — supply and demand.",
+      "Draft this week's newsletter intro.",
+      "Dear diary, today was a quiet one.",
+      "Meeting minutes — budget approved unanimously.",
+      "Recipe: 200g flour, 3 eggs, pinch of salt.",
+      "Love you, Mom. Call me when you can.",
+      "Tweet: just discovered Bisbi and I'm hooked.",
+      "Subtitle for the next video: how to start.",
+      "Confirm the appointment for Thursday at 3pm.",
+      "TODO: refactor the auth middleware tomorrow.",
+      "Reply to Sarah about the proposal feedback.",
     ],
   },
   cta: {
@@ -87,6 +115,7 @@ export const en = {
     titleHighlight: "today.",
     description:
       "Download Bisbi free for Mac. No subscription to get started.",
+    freeBadge: "No credit card. No subscription to get started.",
     signInHint: "Already have an account?",
     signIn: "Sign in",
   },

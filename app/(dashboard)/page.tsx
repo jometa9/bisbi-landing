@@ -3,9 +3,9 @@
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
 import { AppDemo } from "@/components/landing/app-demo";
+import { SpeedComparison } from "@/components/landing/speed-comparison";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -88,12 +88,14 @@ function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
   return (
     <h2
       ref={ref}
-      className="text-3xl md:text-4xl font-semibold mb-4"
+      className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]"
       style={{ color: "#1A1A18" }}
     >
-      {title}{" "}
-      <span className={`cta-highlight${active ? " cta-highlight--active" : ""}`}>
-        {highlight}
+      {title}
+      <span className="block">
+        <span className={`cta-highlight${active ? " cta-highlight--active" : ""}`}>
+          {highlight}
+        </span>
       </span>
     </h2>
   );
@@ -119,7 +121,7 @@ export default function HomePage() {
           </div>
 
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]"
             style={{ color: "#1A1A18" }}
           >
             {t.hero.headline1}
@@ -171,6 +173,32 @@ export default function HomePage() {
         </section>
 
         <section
+          id="speed"
+          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+        >
+          <p
+            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
+            style={{ color: "#7BA89C" }}
+          >
+            {t.speedComparison.badge}
+          </p>
+          <h2
+            className="text-3xl md:text-5xl font-semibold text-center mb-4"
+            style={{ color: "#1A1A18" }}
+          >
+            {t.speedComparison.title}
+          </h2>
+          <p
+            className="text-lg text-center max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed"
+            style={{ color: "#5C5C57" }}
+          >
+            {t.speedComparison.description}
+          </p>
+
+          <SpeedComparison />
+        </section>
+
+        <section
           id="features"
           className="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
         >
@@ -218,19 +246,12 @@ export default function HomePage() {
               {t.cta.description}
             </p>
 
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-3">
               <DownloadButtons variant="cta" />
             </div>
 
             <p className="text-sm" style={{ color: "#A8A8A2" }}>
-              {t.cta.signInHint}{" "}
-              <button
-                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-                className="cursor-pointer font-medium hover:opacity-80 transition-opacity"
-                style={{ color: "#7BA89C" }}
-              >
-                {t.cta.signIn}
-              </button>
+              {t.cta.freeBadge}
             </p>
           </div>
         </section>

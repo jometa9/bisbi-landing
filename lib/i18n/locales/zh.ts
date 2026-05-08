@@ -75,10 +75,38 @@ export const zh: LandingTranslations = {
           "自动识别任何语言的语音。",
       },
       {
-        title: "Mac 原生应用",
+        title: "原生轻量应用",
         description:
-          "为 macOS 打造。快速、轻量、就像在家一样自然。",
+          "为你的设备量身打造，就像在家一样自然。快速、轻量、毫不打扰。",
       },
+    ],
+  },
+  speedComparison: {
+    badge: "速度",
+    title: "比打字快 4 倍。",
+    description:
+      "你的声音比手指更快。Bisbi 把你说的话即刻转成文字 — 无论你在哪里输入。",
+    unit: "wpm",
+    unitFull: "每分钟字数",
+    keyboardLabel: "打字",
+    keyboardHint: "普通打字员的速度。",
+    bisbiLabel: "Bisbi",
+    bisbiHint: "说话的自然速度。",
+    phrases: [
+      "把签好的合同发给客户。",
+      "function calculateTotal(items) { return ...",
+      "患者出现急性腹痛。",
+      "第 4 章摘要 —— 供给与需求。",
+      "本周通讯草稿开头。",
+      "亲爱的日记，今天很平静。",
+      "会议纪要 —— 预算已通过。",
+      "食谱：面粉 200 克，鸡蛋 3 个，少许盐。",
+      "妈妈，爱你。有空给我打电话。",
+      "推文：刚发现 Bisbi，太棒了。",
+      "下个视频字幕：如何开始。",
+      "确认周四下午 3 点的预约。",
+      "TODO：明天重构鉴权中间件。",
+      "回复 Sarah 关于提案的反馈。",
     ],
   },
   cta: {
@@ -86,6 +114,7 @@ export const zh: LandingTranslations = {
     titleHighlight: "就在今天。",
     description:
       "免费下载 Bisbi for Mac。无需订阅即可开始。",
+    freeBadge: "无需信用卡。无需订阅即可开始。",
     signInHint: "已有账户？",
     signIn: "登录",
   },
