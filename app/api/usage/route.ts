@@ -10,6 +10,7 @@ import {
   isActiveSubscription,
   tryClaimBatch,
 } from "@/lib/db/queries";
+import { db } from "@/lib/db/drizzle";
 import {
   checkRateLimit,
   getRateLimitKey,
@@ -118,37 +119,51 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Idempotency: if a batchId was sent and we've already processed it within
-  // the TTL window, return the current state without re-incrementing. Lets the
-  // client safely retry batches whose response was lost.
-  if (batchId) {
-    const claimed = await tryClaimBatch(batchId, foundUser.id, "bisbi");
-    if (!claimed) {
-      const wordsUsedNow = existing?.wordsUsed ?? 0;
-      const audioSecondsNow = existing?.audioSeconds ?? 0;
-      const transcriptionsCountNow = existing?.transcriptionsCount ?? 0;
-      const exceededNow = isFree && wordsUsedNow >= wordsLimit;
-      return NextResponse.json({
-        ok: true,
-        deduped: true,
-        tier: effectiveTier,
-        monthKey,
-        wordsUsed: wordsUsedNow,
-        audioSeconds: audioSecondsNow,
-        transcriptionsCount: transcriptionsCountNow,
-        wordsLimit: isFree ? wordsLimit : null,
-        exceeded: exceededNow,
-        remaining: isFree ? Math.max(0, wordsLimit - wordsUsedNow) : null,
-        release: releaseInfoFromSettings(settings),
-      });
+  // Idempotency + atomicity: claim the batchId and increment usage in a single
+  // transaction so a crash between the two never burns a batchId without
+  // counting its words (or vice versa). If the batch was already seen within
+  // the TTL window, return the current state without re-incrementing.
+  const txResult = await db.transaction(async (tx) => {
+    if (batchId) {
+      const claimed = await tryClaimBatch(batchId, foundUser.id, "bisbi", tx);
+      if (!claimed) {
+        return { deduped: true as const };
+      }
     }
+    const updated = await addUserMonthlyUsage(
+      foundUser.id,
+      "bisbi",
+      {
+        words: Math.floor(words),
+        audioSeconds: Math.floor(audioSeconds),
+        transcriptionsCount,
+      },
+      tx
+    );
+    return { deduped: false as const, updated };
+  });
+
+  if (txResult.deduped) {
+    const wordsUsedNow = existing?.wordsUsed ?? 0;
+    const audioSecondsNow = existing?.audioSeconds ?? 0;
+    const transcriptionsCountNow = existing?.transcriptionsCount ?? 0;
+    const exceededNow = isFree && wordsUsedNow >= wordsLimit;
+    return NextResponse.json({
+      ok: true,
+      deduped: true,
+      tier: effectiveTier,
+      monthKey,
+      wordsUsed: wordsUsedNow,
+      audioSeconds: audioSecondsNow,
+      transcriptionsCount: transcriptionsCountNow,
+      wordsLimit: isFree ? wordsLimit : null,
+      exceeded: exceededNow,
+      remaining: isFree ? Math.max(0, wordsLimit - wordsUsedNow) : null,
+      release: releaseInfoFromSettings(settings),
+    });
   }
 
-  const updated = await addUserMonthlyUsage(foundUser.id, "bisbi", {
-    words: Math.floor(words),
-    audioSeconds: Math.floor(audioSeconds),
-    transcriptionsCount,
-  });
+  const updated = txResult.updated;
 
   const exceeded = isFree && updated.wordsUsed >= wordsLimit;
   const remaining = isFree

@@ -52,6 +52,8 @@ export async function getUserMonthlyUsage(
   return result.length > 0 ? result[0] : null;
 }
 
+type DbExecutor = typeof db | Parameters<Parameters<typeof db.transaction>[0]>[0];
+
 export async function addUserMonthlyUsage(
   userId: string,
   productKey: ProductKey,
@@ -59,7 +61,8 @@ export async function addUserMonthlyUsage(
     words: number;
     audioSeconds: number;
     transcriptionsCount?: number;
-  }
+  },
+  executor: DbExecutor = db
 ): Promise<UserMonthlyUsage> {
   const monthKey = currentMonthKey();
   const words = Math.max(0, Math.floor(delta.words || 0));
@@ -68,7 +71,7 @@ export async function addUserMonthlyUsage(
   const transcriptionsCount =
     Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
 
-  const result = await db
+  const result = await executor
     .insert(userMonthlyUsage)
     .values({
       userId,
@@ -96,7 +99,7 @@ export async function addUserMonthlyUsage(
   return result[0];
 }
 
-const SEEN_BATCH_TTL_MS = 24 * 60 * 60 * 1000;
+const SEEN_BATCH_TTL_MS = 48 * 60 * 60 * 1000;
 
 /**
  * Atomically claims a batchId for the given user/product. Returns true if the
@@ -106,12 +109,13 @@ const SEEN_BATCH_TTL_MS = 24 * 60 * 60 * 1000;
 export async function tryClaimBatch(
   batchId: string,
   userId: string,
-  productKey: ProductKey
+  productKey: ProductKey,
+  executor: DbExecutor = db
 ): Promise<boolean> {
   const now = new Date();
   const expiresAt = new Date(now.getTime() + SEEN_BATCH_TTL_MS);
 
-  const inserted = await db
+  const inserted = await executor
     .insert(seenBatch)
     .values({ batchId, userId, productKey, expiresAt })
     .onConflictDoNothing({ target: seenBatch.batchId })
@@ -120,7 +124,7 @@ export async function tryClaimBatch(
   if (inserted.length > 0) return true;
 
   // Existing row — reclaim only if it has expired (rotates the window).
-  const reclaimed = await db
+  const reclaimed = await executor
     .update(seenBatch)
     .set({ expiresAt, userId, productKey })
     .where(
@@ -129,6 +133,19 @@ export async function tryClaimBatch(
     .returning({ batchId: seenBatch.batchId });
 
   return reclaimed.length > 0;
+}
+
+/**
+ * Deletes seenBatch rows whose expiresAt is in the past. Safe to call from a
+ * scheduled job; returns the number of rows removed.
+ */
+export async function deleteExpiredSeenBatches(): Promise<number> {
+  const now = new Date();
+  const deleted = await db
+    .delete(seenBatch)
+    .where(sql`${seenBatch.expiresAt} <= ${now}`)
+    .returning({ batchId: seenBatch.batchId });
+  return deleted.length;
 }
 
 export async function getUser() {

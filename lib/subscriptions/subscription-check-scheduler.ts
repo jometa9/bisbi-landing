@@ -11,6 +11,7 @@ import {
 import { executeWithLock } from "@/lib/cron/distributed-lock";
 import { trackSubscriptionPurchase } from "@/lib/meta/track-subscription-purchase";
 import { getAppUrl } from "@/lib/app-url";
+import { deleteExpiredSeenBatches } from "@/lib/db/queries";
 
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
@@ -21,6 +22,7 @@ export interface SubscriptionCheckResult {
   reconciledWithStripe: number;
   localExpired: number;
   cancelingToCanceled: number;
+  seenBatchesPurged: number;
   errors: string[];
 }
 
@@ -222,6 +224,15 @@ export async function runSubscriptionCheck(): Promise<SubscriptionCheckResult> {
       }
     }
 
+    let seenBatchesPurged = 0;
+    try {
+      seenBatchesPurged = await deleteExpiredSeenBatches();
+    } catch (error) {
+      const errorMsg = `Error purging expired seenBatch rows: ${error instanceof Error ? error.message : String(error)}`;
+      console.error(`[Subscription Check] ${errorMsg}`);
+      errors.push(errorMsg);
+    }
+
     const totalChecked = subscriptionsWithStripeId.length + expiredLocalSubscriptions.length + cancelingExpired.length;
 
     return {
@@ -229,6 +240,7 @@ export async function runSubscriptionCheck(): Promise<SubscriptionCheckResult> {
       reconciledWithStripe,
       localExpired,
       cancelingToCanceled,
+      seenBatchesPurged,
       errors,
     };
   } catch (error) {
@@ -239,6 +251,7 @@ export async function runSubscriptionCheck(): Promise<SubscriptionCheckResult> {
       reconciledWithStripe: 0,
       localExpired: 0,
       cancelingToCanceled: 0,
+      seenBatchesPurged: 0,
       errors: [errorMsg],
     };
   }
