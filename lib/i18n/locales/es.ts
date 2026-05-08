@@ -115,11 +115,11 @@ export const es: LandingTranslations = {
         role: "Alguien en movimiento",
       },
       {
-        quote: "Dos idiomas, un atajo. Sin menús, sin cambiar nada.",
+        quote: "Cambio de idioma a mitad de oración. Bisbi me sigue.",
         role: "Alguien bilingüe",
       },
       {
-        quote: "Mis muñecas me lo agradecen.",
+        quote: "Mis muñecas dejaron de doler.",
         role: "Alguien que tipea mucho",
       },
     ],

@@ -829,7 +829,13 @@ textarea,
     padding: 28px 22px;
     display: flex;
   }
-  .proof-card:nth-child(1) .proof-card-quote { font-size: 22px; }
+  .proof-card-quote,
+  .proof-card:nth-child(1) .proof-card-quote {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
   .proof-card-mark,
   .proof-card:nth-child(1) .proof-card-mark { height: 180%; right: -25%; }
 }
