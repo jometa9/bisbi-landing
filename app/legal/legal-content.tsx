@@ -2,6 +2,7 @@
 
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { useI18n } from "@/lib/i18n";
+import { useEffect } from "react";
 import {
   AVAILABLE_LEGAL_LANGS,
   LEGAL_DOC_IDS,
@@ -22,6 +23,10 @@ export function LegalContent({ docsByLang }: Props) {
 
   const t = LEGAL_I18N[effectiveLang];
   const docs = docsByLang[effectiveLang];
+
+  useEffect(() => {
+    document.title = t.metadata.title;
+  }, [t.metadata.title]);
 
   return (
     <main className="pt-25 pb-20" style={{ backgroundColor: "#FFFFFF" }}>
