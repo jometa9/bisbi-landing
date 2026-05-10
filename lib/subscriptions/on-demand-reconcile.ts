@@ -19,6 +19,10 @@ function markReconciled(userId: string) {
   lastReconciledByUser.set(userId, Date.now());
 }
 
+export function invalidateReconcileCache(userId: string): void {
+  lastReconciledByUser.delete(userId);
+}
+
 export async function reconcileUserFromStripe(
   userId: string,
   stripeCustomerId: string | null | undefined
