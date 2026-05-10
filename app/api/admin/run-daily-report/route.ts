@@ -1,5 +1,3 @@
-"use server";
-
 import { auth } from "@/lib/auth/config";
 import { getUserById } from "@/lib/db/queries";
 import { runDailyReportJob } from "@/lib/reporting/run-daily-report-job";

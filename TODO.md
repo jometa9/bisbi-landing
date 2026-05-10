@@ -4,7 +4,3 @@
 
 TEST Mensual ($10/mes): price_1TUQSNAlGm834neIBQLGYWQP
 Anual ($96/año): price_1TUQSOAlGm834neIVdjMKOau
-
-
-- hero
-- espaciado entre secciones dejando limpoio y ready

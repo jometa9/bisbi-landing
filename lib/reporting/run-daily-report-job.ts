@@ -34,7 +34,7 @@ export async function runDailyReportJob(): Promise<DailyReportJobResponse> {
     };
   }
 
-  const lockResult = await executeWithLock(
+  const result = await executeWithLock(
     JOB,
     LOCK_KEY,
     async () => {
@@ -45,22 +45,21 @@ export async function runDailyReportJob(): Promise<DailyReportJobResponse> {
     { timeout: 3 * 60 * 1000 }
   );
 
-  if (!lockResult.acquired) {
+  if (!result.success) {
+    return { ok: false, error: result.error || "Job failed" };
+  }
+
+  if (!result.executed) {
     return {
       ok: true,
       skipped: true,
-      reason:
-        lockResult.error || "Another instance is already running the report",
+      reason: result.skippedReason || "not executed",
     };
-  }
-
-  if (lockResult.error) {
-    return { ok: false, error: lockResult.error };
   }
 
   return {
     ok: true,
     skipped: false,
-    data: lockResult.result!,
+    data: result.data!,
   };
 }
