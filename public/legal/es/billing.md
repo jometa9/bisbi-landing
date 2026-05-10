@@ -9,7 +9,7 @@ Esta política explica cómo Bisbi (operado por **IPTRADE COPIER LLC**, Delaware
 ### Plan gratuito
 
 - **Costo:** $0.
-- **Uso:** dictado limitado a una cantidad de palabras por mes (el límite vigente se muestra dentro de la app y en el dashboard).
+- **Uso:** dictado limitado a 2.000 palabras por mes (el límite vigente también se muestra dentro de la app y en el dashboard).
 - **Incluye:** todas las funciones principales de la app (transcripción local, atajo configurable, historial local).
 - **Duración:** sin vencimiento. Podés usarlo todo el tiempo que quieras dentro del límite mensual.
 

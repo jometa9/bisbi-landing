@@ -59,4 +59,4 @@ La mayoría de los navegadores te permiten:
 
 ## Bisbi en tu computadora
 
-Bisbi es una aplicación de escritorio. La aplicación instalada en tu Mac **no usa cookies**: las cookies sólo aplican al sitio web bisbi.io. Las preferencias y el historial de transcripciones se guardan localmente en tu equipo, no en cookies.
+Bisbi es una aplicación de escritorio para Mac y Windows. La aplicación instalada en tu equipo **no usa cookies**: las cookies sólo aplican al sitio web bisbi.io. Las preferencias y el historial de transcripciones se guardan localmente en tu equipo, no en cookies.

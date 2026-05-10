@@ -22,7 +22,7 @@ El software se ofrece "tal cual" ("as is") y "según disponibilidad" ("as availa
 
 ## Precisión de la transcripción
 
-Bisbi usa tecnología propia de reconocimiento de voz que se ejecuta localmente en tu computadora. La calidad de la transcripción depende de:
+Bisbi usa tecnología de reconocimiento de voz que se ejecuta localmente en tu computadora (on-device). La calidad de la transcripción depende de:
 
 - La calidad del micrófono.
 - El ruido del ambiente.
@@ -63,11 +63,11 @@ Bisbi es una herramienta de productividad para dictado por voz.
 
 Para funcionar, Bisbi necesita permisos del sistema operativo:
 
-- **Micrófono:** para capturar tu voz.
-- **Accesibilidad (macOS):** para simular Cmd+V y pegar el texto en la app activa.
+- **Micrófono:** para capturar tu voz (Mac y Windows).
+- **Accesibilidad (sólo macOS):** para simular Cmd+V y pegar el texto en la app activa. En Windows el pegado se realiza mediante las APIs estándar del sistema y no requiere un permiso adicional.
 - **Acceso al portapapeles:** para copiar el texto antes de pegarlo.
 
-**Sos vos quien decide otorgar estos permisos.** Bisbi no accede a tu micrófono ni al portapapeles fuera de los momentos en los que activás el atajo de grabación.
+**Sos vos quien decide otorgar estos permisos.** Bisbi accede al micrófono únicamente durante las grabaciones que vos iniciás, ya sea manteniendo presionado el atajo (push-to-talk) o activando el modo manos libres (que graba hasta que lo detengas con el mismo atajo). El portapapeles sólo se usa para entregar el texto transcripto a la app activa.
 
 Si revocás los permisos del sistema, algunas funciones (como pegar automáticamente) van a dejar de funcionar.
 
@@ -133,7 +133,7 @@ El usuario es el único responsable de obtener el consentimiento de cualquier te
 
 ## Tecnología de Bisbi
 
-Bisbi utiliza tecnología propia de reconocimiento de voz que se ejecuta **on-device**, es decir, íntegramente dentro de tu computadora.
+Bisbi utiliza tecnología de reconocimiento de voz que se ejecuta **on-device**, es decir, íntegramente dentro de tu computadora.
 
 - El audio que dictás no se envía a nuestros servidores ni a terceros.
 - Como toda tecnología de reconocimiento de voz, puede producir resultados inesperados, omitir palabras o agregar texto que no fue dicho. Revisá siempre las transcripciones antes de usarlas en contextos donde la precisión sea importante.

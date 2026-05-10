@@ -8,12 +8,12 @@ Al usar Bisbi, aceptás estos términos. Si no estás de acuerdo, no uses el sof
 
 ## 1. Descripción del servicio
 
-Bisbi es una aplicación de **dictado por voz local** para Mac.
+Bisbi es una aplicación de **dictado por voz local** para Mac y Windows.
 
 - Apretás un atajo, hablás, soltás el atajo y el texto aparece pegado en la app activa.
 - La transcripción se procesa en tu computadora, con tecnología de Bisbi que se ejecuta on-device.
 - El audio y el texto resultante **no salen de tu equipo**.
-- Plataformas soportadas: macOS (Apple Silicon ARM64 y x64).
+- Plataformas soportadas: macOS (Apple Silicon ARM64 y x64) y Windows (x64).
 
 ---
 
@@ -43,7 +43,7 @@ Te otorgamos una licencia personal, no exclusiva e intransferible para usar el s
 
 ## 4. Suscripciones y pagos
 
-- **Plan gratuito:** dictado limitado a una cantidad de palabras por mes.
+- **Plan gratuito:** dictado limitado a 2.000 palabras por mes.
 - **Plan Pro:** dictado sin límite de palabras.
 - Las suscripciones se renuevan automáticamente salvo que las canceles.
 - Podés cancelar cuando quieras: el acceso continúa hasta que termine el período pago.
@@ -57,7 +57,7 @@ Te otorgamos una licencia personal, no exclusiva e intransferible para usar el s
 Sos responsable de:
 
 - Configurar correctamente el software (atajo, micrófono, permisos del sistema).
-- Conceder los permisos del sistema operativo necesarios (micrófono y, en macOS, Accesibilidad para que Bisbi pueda pegar el texto).
+- Conceder los permisos del sistema operativo necesarios (micrófono en Mac y Windows; en macOS, además, el permiso de Accesibilidad para que Bisbi pueda pegar el texto).
 - Revisar el texto transcripto antes de usarlo en contextos sensibles (mails, contratos, mensajes médicos, etc.).
 - Cumplir con todas las leyes aplicables.
 - Mantener la seguridad de tu cuenta y de tu equipo.
@@ -67,9 +67,9 @@ Sos responsable de:
 
 ## 6. Uso del micrófono y consentimiento
 
-Bisbi sólo activa el micrófono mientras mantenés presionado el atajo de grabación.
+Bisbi activa el micrófono únicamente cuando vos lo iniciás, ya sea manteniendo presionado el atajo de grabación (push-to-talk) o usando el modo manos libres, en cuyo caso la grabación queda activa hasta que la detengas con el mismo atajo.
 
-Sos vos quien controla cuándo el micrófono está activo y qué se dicta. Es tu responsabilidad obtener el consentimiento de cualquier otra persona presente en el entorno cuando la ley así lo exija.
+Sos vos quien controla cuándo el micrófono está activo y qué se dicta. Es tu responsabilidad obtener el consentimiento de cualquier otra persona presente en el entorno cuando la ley así lo exija, especialmente al usar el modo manos libres.
 
 ---
 

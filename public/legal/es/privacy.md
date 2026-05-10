@@ -4,7 +4,7 @@ Esta Política de Privacidad explica cómo Bisbi recopila, usa y protege tu info
 
 Bisbi es un producto operado por **IPTRADE COPIER LLC** (Delaware, EE. UU.), con domicilio en 131 Continental Dr, Suite 305, Newark, DE 19713, Estados Unidos. Toda referencia a "Bisbi", "nosotros" o "nuestro" en este documento se refiere a IPTRADE COPIER LLC actuando bajo la marca Bisbi.
 
-Bisbi es una aplicación de dictado por voz local. La transcripción se procesa íntegramente en tu computadora mediante la tecnología de Bisbi, que se ejecuta on-device. El audio que dictás **no se envía a nuestros servidores ni a terceros**.
+Bisbi es una aplicación de dictado por voz local. La transcripción se procesa íntegramente en tu computadora mediante tecnología de reconocimiento de voz que se ejecuta on-device. El audio que dictás **no se envía a nuestros servidores ni a terceros**.
 
 ---
 

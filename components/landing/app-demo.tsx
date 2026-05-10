@@ -114,7 +114,7 @@ export function AppDemo() {
           <div className="sidebar-bottom">
             <button type="button" className="sidebar-account" tabIndex={-1}>
               <span className="sidebar-account-avatar" aria-hidden="true">
-                {demo.user.initial}
+                <img src="/assets/founder4.png" alt="" />
               </span>
               <span className="sidebar-account-text">
                 <span className="sidebar-account-name">{demo.user.name}</span>
