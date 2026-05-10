@@ -103,37 +103,53 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           h1: ({ id, ...props }) => (
             <h1
               id={id}
-              className="text-3xl md:text-4xl font-semibold tracking-tight mt-8 mb-4 scroll-mt-24 leading-tight"
-              style={{ color: "#1A1A18" }}
+              className="text-[19px] md:text-4xl font-semibold mt-8 mb-4 scroll-mt-24"
+              style={{
+                color: "#1A1A18",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.2,
+              }}
               {...props}
             />
           ),
           h2: ({ id, ...props }) => (
             <h2
               id={id}
-              className="text-2xl md:text-3xl font-semibold tracking-tight mt-6 mb-3 scroll-mt-24"
-              style={{ color: "#1A1A18" }}
+              className="text-[17px] md:text-3xl font-semibold mt-6 mb-3 scroll-mt-24"
+              style={{
+                color: "#1A1A18",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.2,
+              }}
               {...props}
             />
           ),
           h3: ({ id, ...props }) => (
             <h3
               id={id}
-              className="text-xl font-semibold tracking-tight mt-5 mb-2 scroll-mt-24"
-              style={{ color: "#1A1A18" }}
+              className="text-[15px] md:text-xl font-semibold mt-5 mb-2 scroll-mt-24"
+              style={{
+                color: "#1A1A18",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.2,
+              }}
               {...props}
             />
           ),
           h4: ({ id, ...props }) => (
             <h4
               id={id}
-              className="text-lg font-semibold tracking-tight mt-4 mb-2 scroll-mt-24"
-              style={{ color: "#1A1A18" }}
+              className="text-[14px] md:text-lg font-semibold mt-4 mb-2 scroll-mt-24"
+              style={{
+                color: "#1A1A18",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.2,
+              }}
               {...props}
             />
           ),
           p: ({ children, ...props }) => (
-            <p className="my-3 leading-relaxed" style={{ color: "#5C5C57" }} {...props}>
+            <p className="my-3 leading-relaxed text-sm md:text-base" style={{ color: "#5C5C57" }} {...props}>
               {children}
             </p>
           ),
@@ -184,20 +200,20 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           },
           ul: ({ ...props }) => (
             <ul
-              className="list-disc list-inside space-y-2 ml-4 mt-0.5 leading-relaxed"
+              className="list-disc list-inside space-y-2 ml-4 mt-0.5 leading-relaxed text-sm md:text-base"
               style={{ color: "#5C5C57" }}
               {...props}
             />
           ),
           ol: ({ ...props }) => (
             <ol
-              className="list-decimal list-inside space-y-2 ml-4 mt-0.5 leading-relaxed"
+              className="list-decimal list-inside space-y-2 ml-4 mt-0.5 leading-relaxed text-sm md:text-base"
               style={{ color: "#5C5C57" }}
               {...props}
             />
           ),
           li: ({ ...props }) => (
-            <li {...props} className="my-2 leading-relaxed" style={{ color: "#5C5C57" }} />
+            <li {...props} className="my-2 leading-relaxed text-sm md:text-base" style={{ color: "#5C5C57" }} />
           ),
           img: ({ src, alt, ...props }) => {
             const videoId = typeof src === "string" ? getYouTubeVideoId(src) : null;

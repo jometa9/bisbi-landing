@@ -6,6 +6,7 @@ import {
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
+import { releaseInfoFromSettings } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -84,5 +85,8 @@ export async function POST(request: NextRequest) {
 
   const session = await stripe.checkout.sessions.create(sessionParams);
 
-  return NextResponse.json({ checkoutUrl: session.url });
+  return NextResponse.json({
+    checkoutUrl: session.url,
+    release: releaseInfoFromSettings(settings),
+  });
 }

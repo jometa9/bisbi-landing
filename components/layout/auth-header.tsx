@@ -6,7 +6,7 @@ export function AuthHeader() {
       className="fixed inset-x-0 top-0 z-50"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div className="mx-auto flex w-full max-w-5xl items-center px-6 py-4">
+      <div className="mx-auto flex w-full max-w-6xl items-center px-6 py-4">
         <Link href="/" className="flex items-center cursor-pointer">
           <span
             className="text-3xl font-semibold tracking-tight"

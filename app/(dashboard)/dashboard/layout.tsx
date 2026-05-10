@@ -40,7 +40,7 @@ export default async function DashboardLayout({
           aria-hidden="true"
         />
         <header className="relative" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center cursor-pointer">
               <span
                 className="text-3xl font-semibold tracking-tight"
@@ -54,7 +54,7 @@ export default async function DashboardLayout({
           </div>
         </header>
 
-        <main className="relative flex-1 w-full max-w-5xl mx-auto flex flex-col pb-5 min-h-[70vh]">
+        <main className="relative flex-1 w-full max-w-6xl mx-auto flex flex-col pb-5 min-h-[70vh]">
           {children}
         </main>
       </div>

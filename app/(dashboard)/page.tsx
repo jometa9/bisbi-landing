@@ -3,9 +3,12 @@
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ProductDemo, RecordingPill } from "@/components/landing/product-demo";
 import { AppDemo } from "@/components/landing/app-demo";
+import { DocsDemo } from "@/components/landing/docs-demo";
+import { SpeedComparison } from "@/components/landing/speed-comparison";
+import { SocialProof } from "@/components/landing/social-proof";
+import { Pricing } from "@/components/landing/pricing";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -88,12 +91,14 @@ function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
   return (
     <h2
       ref={ref}
-      className="text-3xl md:text-4xl font-semibold mb-4"
+      className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.05]"
       style={{ color: "#1A1A18" }}
     >
-      {title}{" "}
-      <span className={`cta-highlight${active ? " cta-highlight--active" : ""}`}>
-        {highlight}
+      {title}
+      <span className="block">
+        <span className={`cta-highlight${active ? " cta-highlight--active" : ""}`}>
+          {highlight}
+        </span>
       </span>
     </h2>
   );
@@ -101,25 +106,32 @@ function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
 
 export default function HomePage() {
   const { t } = useI18n();
+  const docsRef = useRef<HTMLElement | null>(null);
+  const [docsInView, setDocsInView] = useState(false);
+
+  useEffect(() => {
+    const el = docsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) setDocsInView(e.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "-20% 0px -20% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <>
       <LandingHeader />
       <main style={{ backgroundColor: "#FFFFFF" }}>
 
-        <section className="max-w-4xl mx-auto px-6 pt-32 pb-16 text-center">
-          <div className="flex justify-center mb-8">
-            <Image
-              src="/assets/bisbi.png"
-              alt="Bisbi"
-              width={96}
-              height={96}
-              priority
-            />
-          </div>
+        <section className="max-w-6xl mx-auto px-6 pt-32 pb-6 text-left">
+
 
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 leading-[1.05]"
             style={{ color: "#1A1A18" }}
           >
             {t.hero.headline1}
@@ -131,82 +143,85 @@ export default function HomePage() {
           </h1>
 
           <p
-            className="text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed"
+            className="text-base md:text-lg  mb-6 leading-relaxed"
             style={{ color: "#5C5C57" }}
           >
             {t.hero.subheadline}
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex justify-start">
             <DownloadButtons variant="hero" />
           </div>
-
-          <p className="mt-5 text-sm" style={{ color: "#A8A8A2" }}>
-            {t.hero.freeBadge}
-          </p>
         </section>
 
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 md:pb-24">
-          <AppDemo />
+        <section
+          ref={docsRef}
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
+        >
+          <DocsDemo />
         </section>
 
         <section
           id="how-it-works"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
-          <p
-            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-            style={{ color: "#7BA89C" }}
-          >
-            {t.howItWorks.badge}
-          </p>
-          <h2
-            className="text-3xl md:text-5xl font-semibold text-center mb-16 md:mb-20"
-            style={{ color: "#1A1A18" }}
-          >
-            {t.howItWorks.title}
-          </h2>
-
           <ProductDemo />
         </section>
 
         <section
-          id="features"
-          className="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
+          id="speed"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
         >
-          <p
-            className="text-sm font-medium text-center mb-3 uppercase tracking-widest"
-            style={{ color: "#7BA89C" }}
-          >
-            {t.features.badge}
-          </p>
-          <h2
-            className="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16"
-            style={{ color: "#1A1A18" }}
-          >
-            {t.features.title}
-          </h2>
+          <SpeedComparison />
+        </section>
 
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-3">
+          <AppDemo />
+        </section>
+
+        <section
+          id="features"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
+        >
           <div className="feature-grid">
-            {t.features.items.map((feature, i) => (
-              <div
-                key={i}
-                className={`feature-card${i % 2 === 1 ? " feature-card--tint" : ""}`}
-              >
-                <div className="feature-card-watermark" aria-hidden="true">
-                  {featureWatermarks[i]}
+            {[...t.features.items, ...t.features.items].map((feature, i) => {
+              const originalIndex = i % t.features.items.length;
+              const isClone = i >= t.features.items.length;
+              return (
+                <div
+                  key={i}
+                  aria-hidden={isClone || undefined}
+                  className={`feature-card${originalIndex % 2 === 1 ? " feature-card--tint" : ""}${isClone ? " feature-card--clone" : ""}`}
+                >
+                  <div className="feature-card-watermark" aria-hidden="true">
+                    {featureWatermarks[originalIndex]}
+                  </div>
+                  <div className="feature-card-content">
+                    <h3 className="feature-card-title">{feature.title}</h3>
+                    <p className="feature-card-desc">{feature.description}</p>
+                  </div>
                 </div>
-                <div className="feature-card-content">
-                  <h3 className="feature-card-title">{feature.title}</h3>
-                  <p className="feature-card-desc">{feature.description}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
-        <section className="py-8 md:py-12 pt-16 md:pt-24" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <section
+          id="pricing"
+        className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
+        >
+          <Pricing />
+        </section>
+
+        <section
+          id="social-proof"
+          className="max-w-6xl mx-auto px-4 sm:px-6 py-3"
+        >
+          <SocialProof />
+        </section>
+
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
               <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />
             </div>
@@ -218,19 +233,12 @@ export default function HomePage() {
               {t.cta.description}
             </p>
 
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-3">
               <DownloadButtons variant="cta" />
             </div>
 
             <p className="text-sm" style={{ color: "#A8A8A2" }}>
-              {t.cta.signInHint}{" "}
-              <button
-                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-                className="cursor-pointer font-medium hover:opacity-80 transition-opacity"
-                style={{ color: "#7BA89C" }}
-              >
-                {t.cta.signIn}
-              </button>
+              {t.cta.freeBadge}
             </p>
           </div>
         </section>
@@ -238,7 +246,16 @@ export default function HomePage() {
 
       <Footer />
 
-      <RecordingPill floating />
+      <div
+        aria-hidden={docsInView}
+        style={{
+          opacity: docsInView ? 0 : 1,
+          pointerEvents: docsInView ? "none" : "auto",
+          transition: "opacity 240ms ease",
+        }}
+      >
+        <RecordingPill floating />
+      </div>
     </>
   );
 }

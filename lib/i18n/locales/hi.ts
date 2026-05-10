@@ -52,10 +52,26 @@ export const hi: LandingTranslations = {
       transcribing: "ट्रांसक्राइब हो रहा है",
       previousTranscript: "मुझे Bisbi बहुत पसंद है।",
       transcript:
-        "टीम — एक छोटा अपडेट। लॉन्च शुक्रवार को तय समय पर है।",
+        "प्रिय Bisbi, मुझे यह कबूल करना है: तुमने मेरी ज़िंदगी बदल दी। पहले मैं दो उंगलियों और बहुत धैर्य से टाइप करता था।",
+      transcriptLong:
+        "अब मैं बस बोलता हूँ और जादू हो जाता है — अलविदा दर्द भरी कलाइयाँ, स्वागत है उत्पादकता और दिन में थोड़ी सी ख़ुशी।",
+      transcriptOwl:
+        "यह रही मेरे पसंदीदा उल्लू की तस्वीर जो मुझे तुम्हारे लोगो की याद दिलाती है:",
       editorTitle: "मीटिंग नोट्स — नोट्स",
       editorPlaceholder: "एक संदेश लिखें…",
       pasteHint: "जहाँ आप टाइप कर रहे हैं, वहाँ टेक्स्ट अपने आप पेस्ट हो जाता है।",
+      docsTitle: "Bisbi को प्यार भरा ख़त",
+      docsLabel: "Docs",
+      menuFile: "फ़ाइल",
+      menuEdit: "बदलाव करें",
+      menuView: "देखें",
+      menuInsert: "इंसर्ट करें",
+      menuFormat: "फ़ॉर्मैट",
+      menuTools: "टूल",
+      menuExtensions: "एक्सटेंशन",
+      menuHelp: "सहायता",
+      share: "शेयर करें",
+      normalText: "सामान्य टेक्स्ट",
     },
   },
   features: {
@@ -77,18 +93,154 @@ export const hi: LandingTranslations = {
         description:
           "किसी भी भाषा में आपकी आवाज़ को स्वतः पहचानता है।",
       },
+    ],
+  },
+  socialProof: {
+    badge: "आवाज़ें",
+    title: "आपके बोलने के तरीके के लिए बनाया गया।",
+    items: [
       {
-        title: "Mac के लिए नेटिव ऐप",
-        description:
-          "macOS के लिए बना। तेज़, हल्का, और बिल्कुल अपने घर जैसा।",
+        quote:
+          "मैं टाइप करने से तेज़ सोचता हूं। अब विचार और स्क्रीन के बीच कोई दूरी नहीं।",
+        role: "एक लेखक",
+      },
+      {
+        quote: "लंबे जवाब, सेकंडों में।",
+        role: "एक व्यस्त इनबॉक्स",
+      },
+      {
+        quote:
+          "मैं चलते हुए डिक्टेट करता हूं। बैठते ही नोट्स तैयार होते हैं।",
+        role: "चलते-फिरते",
+      },
+      {
+        quote: "दो भाषाएं, एक शॉर्टकट। न मेन्यू, न स्विच।",
+        role: "एक द्विभाषी उपयोगकर्ता",
+      },
+      {
+        quote: "मेरी कलाइयां शुक्रिया कहती हैं।",
+        role: "एक भारी कीबोर्ड उपयोगकर्ता",
       },
     ],
+  },
+  speedComparison: {
+    badge: "गति",
+    title: "टाइप करने से 4× तेज़।",
+    description:
+      "आपकी आवाज़ आपकी उंगलियों से तेज़ है। Bisbi जो आप कहते हैं उसे तुरंत टेक्स्ट में बदल देता है — जहाँ भी आप टाइप कर रहे हों।",
+    unit: "wpm",
+    unitFull: "शब्द प्रति मिनट",
+    keyboardLabel: "टाइप करना",
+    keyboardHint: "कीबोर्ड पर एक औसत व्यक्ति।",
+    keyboardFooter: "ज़्यादातर समय",
+    bisbiLabel: "Bisbi से बात करना",
+    bisbiHint: "विचार की प्राकृतिक गति पर आपकी आवाज़।",
+    bisbiFooter: "5× तेज़",
+    phrases: [
+      "क्लाइंट को हस्ताक्षरित अनुबंध भेजें।",
+      "function calculateTotal(items) { return ...",
+      "मरीज़ को तीव्र पेट दर्द है।",
+      "अध्याय 4 का सारांश — आपूर्ति और मांग।",
+      "इस सप्ताह के न्यूज़लेटर का ड्राफ़्ट।",
+      "प्रिय डायरी, आज शांत दिन था।",
+      "बैठक के मिनट्स — बजट स्वीकृत।",
+      "रेसिपी: 200g आटा, 3 अंडे, चुटकी नमक।",
+      "मम्मी, तुमसे प्यार है। कॉल करो जब हो सके।",
+      "ट्वीट: अभी Bisbi खोजा, ज़बरदस्त है।",
+      "अगले वीडियो का सबटाइटल: कैसे शुरू करें।",
+      "गुरुवार 3 बजे की अपॉइंटमेंट कन्फर्म करें।",
+      "TODO: कल auth middleware को रिफैक्टर करें।",
+      "सारा को प्रस्ताव पर प्रतिक्रिया भेजें।",
+    ],
+  },
+  pricing: {
+    badge: "कीमत",
+    title1: "मुफ्त शुरू करें।",
+    title2: "जब ज़रूरत हो, Pro बनें।",
+    description:
+      "रोज़मर्रा के डिक्टेशन के लिए हमेशा मुफ्त। जब आपकी आवाज़ गंभीर काम कर रही हो, Pro सीमाएँ हटा देता है।",
+    monthly: "मासिक",
+    annual: "वार्षिक",
+    saveBadge: "20% बचाएं",
+    free: {
+      name: "मुफ्त",
+      price: "$0",
+      period: "हमेशा के लिए",
+      tagline: "आदी होने के लिए सब कुछ।",
+      features: [
+        "हर महीने 2,000 शब्द",
+        "99 भाषाएँ",
+        "Mac और Windows",
+        "ज़ीरो रिटेंशन — आपका ऑडियो निजी रहता है",
+      ],
+      cta: "मुफ्त डाउनलोड करें",
+    },
+    pro: {
+      name: "Pro",
+      ribbon: "सबसे लोकप्रिय",
+      monthlyPrice: "$10",
+      annualPrice: "$8",
+      monthlyBilling: "मासिक बिलिंग",
+      annualBilling: "वार्षिक बिलिंग · $96 / वर्ष",
+      month: "महीना",
+      features: [
+        "असीमित डिक्टेशन",
+        "हर साइन-इन Mac और Windows डिवाइस पर",
+        "99 भाषाएँ",
+        "ज़ीरो रिटेंशन — आपका ऑडियो निजी रहता है",
+        "प्राथमिकता सहायता",
+      ],
+      cta: "Pro बनें",
+    },
+    comparison: {
+      eyebrow: "Bisbi की तुलना",
+      title: "वही ताक़त। बेहतर क़ीमत।",
+      columns: {
+        bisbi: "Bisbi Pro",
+        wispr: "Wispr Flow",
+        vibetyper: "Vibe Typer",
+      },
+      rows: [
+        {
+          label: "मूल्य / माह",
+          bisbi: "$10",
+          wispr: "$15",
+          vibetyper: "$10",
+        },
+        {
+          label: "मुफ्त प्लान",
+          bisbi: "true",
+          wispr: "true",
+          vibetyper: "true",
+        },
+        {
+          label: "Mac और Windows",
+          bisbi: "true",
+          wispr: "true",
+          vibetyper: "true",
+        },
+        {
+          label: "99+ भाषाएँ",
+          bisbi: "true",
+          wispr: "true",
+          vibetyper: "true",
+        },
+        {
+          label: "ऑफ़लाइन काम करता है",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
+      ],
+      note: "तुलना 2026 की सार्वजनिक कीमतों पर आधारित है। Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
+    },
   },
   cta: {
     title: "बोलना शुरू करें",
     titleHighlight: "आज।",
     description:
       "Bisbi मुफ्त Mac के लिए डाउनलोड करें। शुरू करने के लिए कोई सदस्यता नहीं।",
+    freeBadge: "कोई क्रेडिट कार्ड नहीं। शुरू करने के लिए कोई सदस्यता नहीं।",
     signInHint: "पहले से खाता है?",
     signIn: "साइन इन",
   },
@@ -121,7 +273,7 @@ export const hi: LandingTranslations = {
     seeMore: "इतिहास में सब देखें",
     badgeIdle: "तैयार",
     plan: { pro: "प्रो" },
-    user: { name: "प्रिया शर्मा", initial: "प्र" },
+    user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "आज", yesterday: "कल" },
     recent: [
       "मार्ता को डिज़ाइन रिव्यू नोट्स भेजें और गुरुवार की पुष्टि करें।",
@@ -135,6 +287,7 @@ export const hi: LandingTranslations = {
     ready:
       "आपका खाता तैयार है। Bisbi डाउनलोड करें और डिक्टेट करना शुरू करें।",
     downloadMac: "Mac के लिए डाउनलोड",
+    downloadWindows: "Windows के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
     hint: "आपकी सदस्यता और सेटिंग्स ऐप के अंदर मैनेज की जाती हैं।",
     signOut: "साइन आउट",

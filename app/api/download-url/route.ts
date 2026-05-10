@@ -3,15 +3,21 @@ import {
   extractFacebookCookies,
   trackLead,
 } from "@/lib/meta";
-import { getLatestBisbiAssetUrl } from "@/lib/releases/github";
+import { DesktopOS, getLatestBisbiAssetUrl } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
+
+function parseOs(value: string | null): DesktopOS {
+  if (value === "windows" || value === "linux") return value;
+  return "mac";
+}
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const metaEventId = searchParams.get("metaEventId") ?? undefined;
+    const os = parseOs(searchParams.get("os"));
 
-    const downloadUrl = await getLatestBisbiAssetUrl();
+    const downloadUrl = await getLatestBisbiAssetUrl(os);
 
     try {
       const { fbc, fbp } = extractFacebookCookies(request);
@@ -32,7 +38,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       productKey: "bisbi",
-      os: "mac",
+      os,
       downloadUrl: downloadUrl || "",
     });
   } catch {

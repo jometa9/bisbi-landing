@@ -11,6 +11,7 @@ import {
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
+import { getReleaseInfo } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -135,5 +136,8 @@ export async function POST(request: NextRequest) {
   // 60s cache that would otherwise hide the change).
   invalidateReconcileCache(foundUser.id);
 
-  return NextResponse.json({ portalUrl: session.url });
+  return NextResponse.json({
+    portalUrl: session.url,
+    release: await getReleaseInfo(),
+  });
 }

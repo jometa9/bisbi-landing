@@ -8,11 +8,11 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-16 md:mt-24"
+      className="w-full"
       style={{ backgroundColor: "#FFFFFF" }}
       role="contentinfo"
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="footer-card">
           <div className="footer-card-watermark" aria-hidden="true" />
           <div className="footer-card-content">
@@ -65,7 +65,7 @@ export function Footer() {
               </div>
             </div>
 
-            <p className="mt-10 text-xs" style={{ color: "#A8A8A2" }}>
+            <p className="text-xs" style={{ color: "#A8A8A2" }}>
               &copy; {new Date().getFullYear()} Bisbi. {t.footer.rights}
             </p>
           </div>

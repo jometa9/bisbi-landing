@@ -8,12 +8,16 @@ import {
   getUserMonthlyUsage,
   getUserProductSubscription,
   isActiveSubscription,
+  tryClaimBatch,
 } from "@/lib/db/queries";
+import { reconcileUserFromStripe } from "@/lib/subscriptions/on-demand-reconcile";
+import { db } from "@/lib/db/drizzle";
 import {
   checkRateLimit,
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
+import { releaseInfoFromSettings } from "@/lib/releases/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -48,7 +52,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const raw = (body ?? {}) as { words?: unknown; audioSeconds?: unknown };
+  const raw = (body ?? {}) as {
+    words?: unknown;
+    audioSeconds?: unknown;
+    transcriptionsCount?: unknown;
+    batchId?: unknown;
+  };
   const words = Number(raw.words);
   const audioSeconds = Number(raw.audioSeconds);
 
@@ -68,6 +77,19 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  const rawCount = Number(raw.transcriptionsCount);
+  const transcriptionsCount =
+    Number.isFinite(rawCount) && rawCount > 0 && rawCount <= 10_000
+      ? Math.floor(rawCount)
+      : 1;
+
+  const batchId =
+    typeof raw.batchId === "string" && raw.batchId.length > 0 && raw.batchId.length <= 64
+      ? raw.batchId
+      : null;
+
+  await reconcileUserFromStripe(foundUser.id, foundUser.stripeCustomerId);
 
   const monthKey = currentMonthKey();
   const [existing, settings, sub] = await Promise.all([
@@ -94,15 +116,57 @@ export async function POST(request: NextRequest) {
         wordsLimit,
         exceeded: true,
         remaining: 0,
+        release: releaseInfoFromSettings(settings),
       },
       { status: 429 }
     );
   }
 
-  const updated = await addUserMonthlyUsage(foundUser.id, "bisbi", {
-    words: Math.floor(words),
-    audioSeconds: Math.floor(audioSeconds),
+  // Idempotency + atomicity: claim the batchId and increment usage in a single
+  // transaction so a crash between the two never burns a batchId without
+  // counting its words (or vice versa). If the batch was already seen within
+  // the TTL window, return the current state without re-incrementing.
+  const txResult = await db.transaction(async (tx) => {
+    if (batchId) {
+      const claimed = await tryClaimBatch(batchId, foundUser.id, "bisbi", tx);
+      if (!claimed) {
+        return { deduped: true as const };
+      }
+    }
+    const updated = await addUserMonthlyUsage(
+      foundUser.id,
+      "bisbi",
+      {
+        words: Math.floor(words),
+        audioSeconds: Math.floor(audioSeconds),
+        transcriptionsCount,
+      },
+      tx
+    );
+    return { deduped: false as const, updated };
   });
+
+  if (txResult.deduped) {
+    const wordsUsedNow = existing?.wordsUsed ?? 0;
+    const audioSecondsNow = existing?.audioSeconds ?? 0;
+    const transcriptionsCountNow = existing?.transcriptionsCount ?? 0;
+    const exceededNow = isFree && wordsUsedNow >= wordsLimit;
+    return NextResponse.json({
+      ok: true,
+      deduped: true,
+      tier: effectiveTier,
+      monthKey,
+      wordsUsed: wordsUsedNow,
+      audioSeconds: audioSecondsNow,
+      transcriptionsCount: transcriptionsCountNow,
+      wordsLimit: isFree ? wordsLimit : null,
+      exceeded: exceededNow,
+      remaining: isFree ? Math.max(0, wordsLimit - wordsUsedNow) : null,
+      release: releaseInfoFromSettings(settings),
+    });
+  }
+
+  const updated = txResult.updated;
 
   const exceeded = isFree && updated.wordsUsed >= wordsLimit;
   const remaining = isFree
@@ -119,6 +183,7 @@ export async function POST(request: NextRequest) {
     wordsLimit: isFree ? wordsLimit : null,
     exceeded,
     remaining,
+    release: releaseInfoFromSettings(settings),
   });
 }
 
@@ -172,5 +237,6 @@ export async function GET(request: NextRequest) {
     wordsLimit: isFree ? wordsLimit : null,
     exceeded,
     remaining: isFree ? Math.max(0, wordsLimit - wordsUsed) : null,
+    release: releaseInfoFromSettings(settings),
   });
 }

@@ -23,7 +23,7 @@ export default function AuthLayout({
         />
         <AuthHeader />
         <div className="relative flex min-h-[80vh] flex-col items-center justify-center px-3 pt-28">
-          <div className="relative w-full max-w-5xl">{children}</div>
+          <div className="relative w-full max-w-6xl">{children}</div>
         </div>
       </div>
       </I18nProvider>

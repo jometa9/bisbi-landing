@@ -1,3 +1,35 @@
+.bisbi-demo-shell {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px;
+  background: #7BA89C;
+  border-radius: 18px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bisbi-demo-shell-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200%;
+  aspect-ratio: 1;
+  background-color: #1A1A18;
+  -webkit-mask-image: url(/owl_head.svg);
+  mask-image: url(/owl_head.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .bisbi-demo-frame {
   position: relative;
   width: 100%;
@@ -5,6 +37,7 @@
   margin: 0 auto;
   aspect-ratio: 1080 / 676;
   container-type: inline-size;
+  z-index: 1;
 }
 
 .bisbi-demo {
@@ -59,15 +92,9 @@
   margin: 0;
   transform-origin: top left;
   transform: scale(min(1, calc(100cqi / 1080px)));
+  border: 1px solid rgba(26, 26, 24, 0.08);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(26, 26, 24, 0.06),
-    0 -20px 60px -20px rgba(123, 168, 156, 0.35),
-    20px 0 60px -20px rgba(123, 168, 156, 0.3),
-    -20px 0 60px -20px rgba(123, 168, 156, 0.3),
-    0 30px 80px -20px rgba(123, 168, 156, 0.45),
-    0 40px 80px -30px rgba(26, 26, 24, 0.25);
   background: var(--bg);
   font-family: var(--font-body);
   font-size: 14px;

@@ -31,6 +31,46 @@ export function ProductDemo() {
 
   const keyGlyph = hotkeyForPlatform(platform);
 
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const setStepRef = (i: number) => (el: HTMLDivElement | null) => {
+    stepRefs.current[i] = el;
+  };
+
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      const center = window.innerHeight / 2;
+      let closestIdx = -1;
+      let closestDist = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const stepCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(stepCenter - center);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx = i;
+        }
+      });
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        el.style.setProperty("--step-active", i === closestIdx ? "1" : "0");
+      });
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <div className="demo-stack">
       <DemoCard
@@ -40,6 +80,7 @@ export function ProductDemo() {
         description={steps[0].description}
         side="left"
         variant="tint"
+        stepRef={setStepRef(0)}
       >
         <HomeMock
           mode="press-cycle"
@@ -58,6 +99,7 @@ export function ProductDemo() {
         description={steps[1].description}
         side="right"
         variant="tint"
+        stepRef={setStepRef(1)}
       >
         <HomeMock
           mode="recording"
@@ -76,6 +118,7 @@ export function ProductDemo() {
         description={steps[2].description}
         side="left"
         variant="tint"
+        stepRef={setStepRef(2)}
       >
         <EditorMock
           title={demo.editorTitle}
@@ -95,6 +138,7 @@ function DemoCard({
   side,
   variant,
   children,
+  stepRef,
 }: {
   index: number;
   label: string;
@@ -103,14 +147,18 @@ function DemoCard({
   side: Side;
   variant: CardVariant;
   children: React.ReactNode;
+  stepRef?: (el: HTMLDivElement | null) => void;
 }) {
   return (
-    <div className={`demo-step${side === "right" ? " demo-step--reverse" : ""}`}>
+    <div
+      ref={stepRef}
+      className={`demo-step${side === "right" ? " demo-step--reverse" : ""}`}
+    >
       <div
         className={`demo-step-card${variant === "tint" ? " demo-step-card--tint" : ""} demo-step-card--${side}`}
       >
         <div className="demo-step-card-watermark" aria-hidden="true">
-          {label} {String(index).padStart(2, "0")}
+          {String(index).padStart(2, "0")}
         </div>
         <div className="demo-step-card-content">
           <div className="demo-step-text">
@@ -260,51 +308,32 @@ function EditorMock({
   placeholder: string;
   transcript: string;
 }) {
-  const [typed, setTyped] = useState("");
+  const [visible, setVisible] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
 
-    let timeout: number | undefined;
-    let interval: number | undefined;
+    const timeouts = new Set<number>();
     let started = false;
     let cancelled = false;
 
-    function clearTimers() {
-      if (timeout) {
-        window.clearTimeout(timeout);
-        timeout = undefined;
-      }
-      if (interval) {
-        window.clearInterval(interval);
-        interval = undefined;
-      }
+    function schedule(fn: () => void, delay: number) {
+      const id = window.setTimeout(() => {
+        timeouts.delete(id);
+        if (!cancelled) fn();
+      }, delay);
+      timeouts.add(id);
     }
 
-    const tokens = transcript.match(/\S+\s*/g) ?? [];
-
-    function startTyping() {
+    function loop() {
       if (cancelled) return;
-      clearTimers();
-      let i = 0;
-      setTyped("");
-      timeout = window.setTimeout(() => {
-        interval = window.setInterval(() => {
-          i += 1;
-          setTyped(tokens.slice(0, i).join(""));
-          if (i >= tokens.length) {
-            if (interval) {
-              window.clearInterval(interval);
-              interval = undefined;
-            }
-            timeout = window.setTimeout(() => {
-              startTyping();
-            }, 3200);
-          }
-        }, 180);
-      }, 600);
+      setVisible(false);
+      schedule(() => {
+        setVisible(true);
+        schedule(loop, 3600);
+      }, 700);
     }
 
     const obs = new IntersectionObserver(
@@ -312,7 +341,8 @@ function EditorMock({
         for (const e of entries) {
           if (e.isIntersecting && !started) {
             started = true;
-            startTyping();
+            schedule(() => setVisible(true), 500);
+            schedule(loop, 4100);
           }
         }
       },
@@ -323,11 +353,12 @@ function EditorMock({
     return () => {
       cancelled = true;
       obs.disconnect();
-      clearTimers();
+      timeouts.forEach((id) => window.clearTimeout(id));
+      timeouts.clear();
     };
   }, [transcript]);
 
-  const showPlaceholder = typed.length === 0;
+  const showPlaceholder = !visible;
   const dateLabel = useMemo(() => {
     if (typeof Date === "undefined") return "";
     const d = new Date();
@@ -370,9 +401,8 @@ function EditorMock({
           {showPlaceholder ? (
             <span className="demo-editor-placeholder">{placeholder}</span>
           ) : (
-            <span>{typed}</span>
+            <span className="demo-editor-typed">{transcript}</span>
           )}
-          <span className="demo-editor-caret" aria-hidden="true" />
         </div>
       </div>
     </div>

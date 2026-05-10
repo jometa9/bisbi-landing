@@ -55,9 +55,9 @@ export default function LegalPage() {
     <>
       <LandingHeader />
       <main className="pt-25 pb-20" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="px-6 w-full max-w-5xl mx-auto">
+        <div className="px-6 w-full max-w-6xl mx-auto">
           <div className="w-full space-y-4 pb-8">
-            <div className="max-w-4xl pb-0">
+            <div className="max-w-5xl pb-0">
               <h1
                 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-tight"
                 style={{ color: "#1A1A18" }}
@@ -76,7 +76,7 @@ export default function LegalPage() {
               </p>
             </div>
 
-            <div className="max-w-4xl my-6">
+            <div className="max-w-5xl my-6">
               <h2
                 className="text-xl font-semibold mb-4 tracking-tight"
                 style={{ color: "#1A1A18" }}
@@ -97,21 +97,21 @@ export default function LegalPage() {
                 ))}
               </ul>
             </div>
-            <hr className="my-8 max-w-4xl" style={{ borderColor: "#E8E6E1" }} />
+            <hr className="my-8 max-w-5xl" style={{ borderColor: "#E8E6E1" }} />
 
             {documents.map((doc, index) => (
               <div key={doc.id}>
                 {index > 0 && (
-                  <hr className="my-8 max-w-4xl" style={{ borderColor: "#E8E6E1" }} />
+                  <hr className="my-8 max-w-5xl" style={{ borderColor: "#E8E6E1" }} />
                 )}
-                <div id={doc.id} className="scroll-mt-20 max-w-4xl">
+                <div id={doc.id} className="scroll-mt-20 max-w-5xl">
                   <MarkdownRenderer content={contents[doc.id] || ""} />
                 </div>
               </div>
             ))}
 
-            <hr className="my-8 max-w-4xl" style={{ borderColor: "#E8E6E1" }} />
-            <div className="max-w-4xl">
+            <hr className="my-8 max-w-5xl" style={{ borderColor: "#E8E6E1" }} />
+            <div className="max-w-5xl">
               <h2
                 className="text-2xl font-semibold mb-4 tracking-tight"
                 style={{ color: "#1A1A18" }}

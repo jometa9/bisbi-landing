@@ -87,7 +87,9 @@ export function AppDemo() {
   } as CSSProperties;
 
   return (
-    <div className="bisbi-demo-frame">
+    <div className="bisbi-demo-shell">
+      <div className="bisbi-demo-shell-watermark" aria-hidden="true" />
+      <div className="bisbi-demo-frame">
     <div className="bisbi-demo" role="img" aria-label="Bisbi product demo">
       <TitleBar />
       <div className="app" style={owlVars}>
@@ -191,6 +193,7 @@ export function AppDemo() {
         </main>
       </div>
     </div>
+      </div>
     </div>
   );
 }
