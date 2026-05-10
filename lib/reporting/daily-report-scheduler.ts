@@ -1,25 +1,66 @@
 import { runDailyReportJob } from "@/lib/reporting/run-daily-report-job";
 
-const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const ART_TZ = "America/Argentina/Buenos_Aires";
+const CHECK_INTERVAL_MS = 60 * 1000;
 
 let checkInterval: NodeJS.Timeout | null = null;
+let lastRunArtDayKey: string | null = null;
+
+function getArtDayKey(d: Date): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: ART_TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(d);
+  const y = parts.find((p) => p.type === "year")!.value;
+  const m = parts.find((p) => p.type === "month")!.value;
+  const day = parts.find((p) => p.type === "day")!.value;
+  return `${y}-${m}-${day}`;
+}
+
+function getArtHourMinute(d: Date): { h: number; min: number } {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: ART_TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(d);
+  return {
+    h: parseInt(parts.find((p) => p.type === "hour")!.value, 10),
+    min: parseInt(parts.find((p) => p.type === "minute")!.value, 10),
+  };
+}
+
+async function tickIfWindow(): Promise<void> {
+  const now = new Date();
+  const dayKey = getArtDayKey(now);
+  const { h, min } = getArtHourMinute(now);
+
+  if (h !== 7 || min > 5) return;
+  if (lastRunArtDayKey === dayKey) return;
+
+  const outcome = await runDailyReportJob();
+  if (!outcome.ok) {
+    console.error(`[Daily Report] ${outcome.error}`);
+    return;
+  }
+  if (!outcome.skipped) {
+    lastRunArtDayKey = dayKey;
+  }
+}
 
 export function startDailyReportScheduler() {
   if (checkInterval) {
     return;
   }
 
-  runDailyReportJob().then((outcome) => {
-    if (!outcome.ok) {
-      console.error(`[Daily Report] ${outcome.error}`);
-    }
-  });
+  tickIfWindow().catch((e) =>
+    console.error("[Daily Report] initial tick:", e)
+  );
 
-  checkInterval = setInterval(async () => {
-    const outcome = await runDailyReportJob();
-    if (!outcome.ok) {
-      console.error(`[Daily Report] ${outcome.error}`);
-    }
+  checkInterval = setInterval(() => {
+    tickIfWindow().catch((e) => console.error("[Daily Report] tick:", e));
   }, CHECK_INTERVAL_MS);
 }
 
