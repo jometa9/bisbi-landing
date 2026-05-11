@@ -8,7 +8,6 @@ type SectionTitleKey =
   | "sectionLimits"
   | "sectionEmailInbox"
   | "sectionStripe"
-  | "sectionOpenAI"
   | "sectionDownloads"
   | "sectionDeleteUser";
 

@@ -4,7 +4,6 @@ import AdminDeleteUser from "@/components/admin-delete-user";
 import AdminSettings from "@/components/admin-settings";
 import AdminInboxSettings from "@/components/admin-inbox-settings";
 import AdminStripeSettings from "@/components/admin-stripe-settings";
-import AdminOpenAISettings from "@/components/admin-openai-settings";
 import AdminIntegrationsSettings from "@/components/admin-integrations-settings";
 import { getCurrentUserFromSession } from "@/lib/db/queries";
 import {
@@ -12,7 +11,6 @@ import {
   Download,
   Gift,
   Mail,
-  Mic,
   Sliders,
   Trash2,
 } from "lucide-react";
@@ -61,13 +59,6 @@ export default async function AdminSettingsPage() {
             icon={<CreditCard className="h-5 w-5 text-gray-700" />}
           >
             <AdminStripeSettings />
-          </AdminSection>
-
-          <AdminSection
-            titleKey="sectionOpenAI"
-            icon={<Mic className="h-5 w-5 text-gray-700" />}
-          >
-            <AdminOpenAISettings />
           </AdminSection>
 
           <AdminSection

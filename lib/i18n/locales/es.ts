@@ -326,7 +326,6 @@ export const es: LandingTranslations = {
       sectionLimits: "Límites de suscripción",
       sectionEmailInbox: "Configuración de email e inbox",
       sectionStripe: "Configuración de Stripe",
-      sectionOpenAI: "OpenAI / Transcripción en la nube",
       sectionDownloads: "URLs de descarga de la app",
       sectionDeleteUser: "Eliminar usuario",
     },
@@ -384,17 +383,6 @@ export const es: LandingTranslations = {
       reportRunning: "Otro proceso está ejecutando el reporte; intentá de nuevo en unos segundos.",
       reportSuccess: "Reporte enviado a Discord.",
       reportNetworkError: "Error de red al ejecutar el reporte.",
-    },
-    openaiSettings: {
-      apiKey: "API key de OpenAI",
-      apiKeyHint:
-        "Clave del servidor que usa /api/transcribe para transcripción en la nube con Whisper / gpt-4o-transcribe. Nunca se expone al cliente.",
-      show: "Mostrar",
-      hide: "Ocultar",
-      save: "Guardar configuración de OpenAI",
-      saveLoading: "Guardando...",
-      saveSuccess: "¡Guardado!",
-      saveError: "Error",
     },
     stripeSettings: {
       secretKey: "Clave secreta de Stripe",

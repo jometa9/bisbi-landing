@@ -24,7 +24,6 @@ export async function GET() {
       discordDailyReportWebhookUrl: settings.discordDailyReportWebhookUrl || "",
       internalApiKey: settings.internalApiKey || "",
       stripeSecretKey: settings.stripeSecretKey || "",
-      openaiApiKey: settings.openaiApiKey || "",
       bisbiProMonthlyPriceId: settings.bisbiProMonthlyPriceId || "",
       bisbiProAnnualPriceId: settings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: settings.bisbiProMonthlyAmount ?? 1000,
@@ -60,7 +59,6 @@ export async function POST(req: NextRequest) {
       discordDailyReportWebhookUrl,
       internalApiKey,
       stripeSecretKey,
-      openaiApiKey,
       bisbiProMonthlyPriceId,
       bisbiProAnnualPriceId,
       bisbiProMonthlyAmount,
@@ -96,9 +94,6 @@ export async function POST(req: NextRequest) {
     }
     if (stripeSecretKey !== undefined) {
       updateData.stripeSecretKey = stripeSecretKey?.trim() || null;
-    }
-    if (openaiApiKey !== undefined) {
-      updateData.openaiApiKey = openaiApiKey?.trim() || null;
     }
     if (bisbiProMonthlyPriceId !== undefined) {
       updateData.bisbiProMonthlyPriceId = bisbiProMonthlyPriceId?.trim() || null;
@@ -149,7 +144,6 @@ export async function POST(req: NextRequest) {
       discordDailyReportWebhookUrl: updatedSettings.discordDailyReportWebhookUrl || "",
       internalApiKey: updatedSettings.internalApiKey || "",
       stripeSecretKey: updatedSettings.stripeSecretKey || "",
-      openaiApiKey: updatedSettings.openaiApiKey || "",
       bisbiProMonthlyPriceId: updatedSettings.bisbiProMonthlyPriceId || "",
       bisbiProAnnualPriceId: updatedSettings.bisbiProAnnualPriceId || "",
       bisbiProMonthlyAmount: updatedSettings.bisbiProMonthlyAmount ?? 1000,
