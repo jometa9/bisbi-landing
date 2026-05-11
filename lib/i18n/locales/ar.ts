@@ -303,6 +303,8 @@ export const ar: LandingTranslations = {
     planProBadge: "خطة Pro فعّالة - تكلّم كما تشاء",
     inboxButton: "البريد الوارد",
     settingsButton: "الإعدادات",
+    openApp: "فتح Bisbi",
+    alreadyInstalled: "هل لديك Bisbi مثبتًا بالفعل؟",
   },
   login: {
     welcome: "مرحباً بك في Bisbi",

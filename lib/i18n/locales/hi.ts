@@ -306,6 +306,8 @@ export const hi: LandingTranslations = {
     planProBadge: "Pro प्लान सक्रिय - जितना चाहें बात करें",
     inboxButton: "इनबॉक्स",
     settingsButton: "सेटिंग्स",
+    openApp: "Bisbi खोलें",
+    alreadyInstalled: "क्या आपके पास पहले से Bisbi इंस्टॉल है?",
   },
   login: {
     welcome: "Bisbi में आपका स्वागत है",

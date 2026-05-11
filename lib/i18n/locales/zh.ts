@@ -302,6 +302,8 @@ export const zh: LandingTranslations = {
     planProBadge: "Pro 计划已激活 - 想说多少说多少",
     inboxButton: "收件箱",
     settingsButton: "设置",
+    openApp: "打开 Bisbi",
+    alreadyInstalled: "已经安装了 Bisbi？",
   },
   login: {
     welcome: "欢迎来到 Bisbi",

@@ -303,6 +303,8 @@ export const en = {
     planProBadge: "Pro plan active - Speak as much as you want",
     inboxButton: "Inbox",
     settingsButton: "Settings",
+    openApp: "Open Bisbi",
+    alreadyInstalled: "Already have Bisbi installed?",
   },
   login: {
     welcome: "Welcome to Bisbi",

@@ -306,6 +306,8 @@ export const es: LandingTranslations = {
     planProBadge: "Plan Pro activo - Hablá todo lo que quieras",
     inboxButton: "Inbox",
     settingsButton: "Ajustes",
+    openApp: "Abrir Bisbi",
+    alreadyInstalled: "¿Ya tenés Bisbi instalado?",
   },
   login: {
     welcome: "Bienvenido a Bisbi",

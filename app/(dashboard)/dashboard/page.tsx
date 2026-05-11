@@ -111,6 +111,25 @@ function DashboardContent() {
     setTimeout(() => setDownloadingOs(null), 3000);
   };
 
+  const handleOpenApp = async () => {
+    let target = "bisbi://login";
+    try {
+      const res = await fetch("/api/web-login", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.user?.apiKey) {
+          const url = new URL("bisbi://login");
+          url.searchParams.set("apiKey", json.user.apiKey);
+          target = url.toString();
+        }
+      }
+    } catch {}
+    window.location.href = target;
+  };
+
   const title = isCheckoutSuccess
     ? t.dashboard.checkoutSuccessTitle
     : isCheckoutCancel
@@ -188,6 +207,19 @@ function DashboardContent() {
               {downloadingOs === "windows"
                 ? t.dashboard.starting
                 : t.dashboard.downloadWindows}
+            </button>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2 text-sm">
+            <span style={{ color: "#5C5C57" }}>
+              {t.dashboard.alreadyInstalled}
+            </span>
+            <button
+              onClick={handleOpenApp}
+              className="inline-flex items-center justify-center gap-1 font-medium cursor-pointer transition-colors"
+              style={{ color: "#5A8C83" }}
+            >
+              {t.dashboard.openApp}
             </button>
           </div>
 
