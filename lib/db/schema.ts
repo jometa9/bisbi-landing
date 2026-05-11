@@ -55,6 +55,7 @@ export const appSettings = pgTable("appSettings", {
   discordDailyReportWebhookUrl: text("discordDailyReportWebhookUrl"),
   internalApiKey: text("internalApiKey"),
   stripeSecretKey: text("stripeSecretKey"),
+  openaiApiKey: text("openaiApiKey"),
   bisbiProMonthlyPriceId: text("bisbiProMonthlyPriceId"),
   bisbiProAnnualPriceId: text("bisbiProAnnualPriceId"),
   bisbiProMonthlyAmount: integer("bisbiProMonthlyAmount"),
