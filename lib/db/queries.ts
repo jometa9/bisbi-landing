@@ -608,6 +608,7 @@ export async function updateAppSettings(
     discordDailyReportWebhookUrl: string | null;
     internalApiKey: string | null;
     stripeSecretKey: string | null;
+    openaiApiKey: string | null;
     bisbiProMonthlyPriceId: string | null;
     bisbiProAnnualPriceId: string | null;
     bisbiProMonthlyAmount: number | null;
@@ -676,6 +677,9 @@ export async function updateAppSettings(
       }
       if (data.stripeSecretKey !== undefined) {
         updateData.stripeSecretKey = data.stripeSecretKey?.trim() || null;
+      }
+      if (data.openaiApiKey !== undefined) {
+        updateData.openaiApiKey = data.openaiApiKey?.trim() || null;
       }
       if (data.bisbiProMonthlyPriceId !== undefined) {
         updateData.bisbiProMonthlyPriceId = data.bisbiProMonthlyPriceId?.trim() || null;

@@ -231,6 +231,12 @@ export const hi: LandingTranslations = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "जब चाहें, क्लाउड की गति",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "तुलना 2026 की सार्वजनिक कीमतों पर आधारित है। Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
     },
@@ -245,7 +251,7 @@ export const hi: LandingTranslations = {
     signIn: "साइन इन",
   },
   footer: {
-    tagline1: "वॉयस डिक्टेशन, 100% लोकल।",
+    tagline1: "वॉयस डिक्टेशन। तत्काल ट्रांसक्रिप्शन।",
     tagline2: "बोलें। दिखता है।",
     contact: "संपर्क",
     legal: "कानूनी",

@@ -22,7 +22,9 @@ The software is provided "as is" and "as available", with no warranties of any k
 
 ## Transcription accuracy
 
-Bisbi uses voice-recognition technology that runs locally on your computer (on-device). Transcription quality depends on:
+Bisbi offers two transcription modes that you choose inside the app: **Online mode** (default), which sends audio to our cloud transcription servers and returns the text, and **Private mode**, which runs on-device on your computer. Online mode generally produces higher accuracy and lower latency but requires an internet connection; Private mode works offline.
+
+Transcription quality depends on:
 
 - Microphone quality.
 - Ambient noise.
@@ -133,10 +135,14 @@ The user is solely responsible for obtaining the consent of any third party pres
 
 ## Bisbi technology
 
-Bisbi uses voice-recognition technology that runs **on-device**, that is, entirely within your computer.
+Bisbi offers two transcription modes that you choose inside the app:
 
-- The audio you dictate is not sent to our servers or to third parties.
-- As with any voice-recognition technology, it may produce unexpected results, omit words or add text that was not said. Always review transcriptions before using them in contexts where accuracy is important.
+- **Online mode (default):** the audio you dictate is sent to our cloud transcription servers, processed under a zero-retention agreement, and the resulting text is returned to your computer. Neither Bisbi nor our transcription provider stores the audio or the resulting text after the transcription is returned.
+- **Private mode:** transcription runs entirely on your computer (on-device). The audio you dictate is not sent to our servers or to any third party.
+
+In both modes:
+
+- As with any voice-recognition technology, transcription may produce unexpected results, omit words or add text that was not said. Always review transcriptions before using them in contexts where accuracy is important.
 - We are not responsible for the transcribed content or for the decisions you make based on it.
 
 ---

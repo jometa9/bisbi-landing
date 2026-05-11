@@ -22,7 +22,9 @@ El software se ofrece "tal cual" ("as is") y "según disponibilidad" ("as availa
 
 ## Precisión de la transcripción
 
-Bisbi usa tecnología de reconocimiento de voz que se ejecuta localmente en tu computadora (on-device). La calidad de la transcripción depende de:
+Bisbi ofrece dos modos de transcripción que vos elegís desde la app: **modo Online** (por defecto), que envía el audio a nuestros servidores de transcripción en la nube y devuelve el texto, y **modo Private**, que corre on-device en tu computadora. El modo Online suele dar mayor precisión y menor latencia, pero requiere conexión a internet; el modo Private funciona sin internet.
+
+La calidad de la transcripción depende de:
 
 - La calidad del micrófono.
 - El ruido del ambiente.
@@ -133,9 +135,13 @@ El usuario es el único responsable de obtener el consentimiento de cualquier te
 
 ## Tecnología de Bisbi
 
-Bisbi utiliza tecnología de reconocimiento de voz que se ejecuta **on-device**, es decir, íntegramente dentro de tu computadora.
+Bisbi ofrece dos modos de transcripción que vos elegís desde la app:
 
-- El audio que dictás no se envía a nuestros servidores ni a terceros.
+- **Modo Online (por defecto):** el audio que dictás se envía a nuestros servidores de transcripción en la nube, se procesa bajo un acuerdo de cero retención y el texto resultante vuelve a tu computadora. Ni Bisbi ni nuestro proveedor de transcripción almacenan el audio ni el texto resultante una vez devuelta la transcripción.
+- **Modo Private:** la transcripción corre íntegramente en tu computadora (on-device). El audio que dictás no se envía a nuestros servidores ni a ningún tercero.
+
+En ambos modos:
+
 - Como toda tecnología de reconocimiento de voz, puede producir resultados inesperados, omitir palabras o agregar texto que no fue dicho. Revisá siempre las transcripciones antes de usarlas en contextos donde la precisión sea importante.
 - No nos hacemos responsables por el contenido transcripto ni por las decisiones que tomes basándote en él.
 

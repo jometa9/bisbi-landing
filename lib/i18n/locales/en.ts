@@ -229,6 +229,12 @@ export const en = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "Cloud speed when you want it",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "Comparison based on public pricing as of 2026. Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
     },
@@ -243,7 +249,7 @@ export const en = {
     signIn: "Sign in",
   },
   footer: {
-    tagline1: "Voice dictation, 100% local.",
+    tagline1: "Voice dictation. Instant transcriptions.",
     tagline2: "Speak. It appears.",
     contact: "Contact",
     legal: "Legal",
@@ -323,6 +329,7 @@ export const en = {
       sectionLimits: "Subscription Limits",
       sectionEmailInbox: "Email & Inbox Configuration",
       sectionStripe: "Stripe Configuration",
+      sectionOpenAI: "OpenAI / Cloud Transcription",
       sectionDownloads: "App Download URLs",
       sectionDeleteUser: "Delete User",
     },
@@ -380,6 +387,17 @@ export const en = {
       reportRunning: "Another process is running the report; try again in a few seconds.",
       reportSuccess: "Report sent to Discord.",
       reportNetworkError: "Network error while running the report.",
+    },
+    openaiSettings: {
+      apiKey: "OpenAI API Key",
+      apiKeyHint:
+        "Server-side OpenAI key used by /api/transcribe to run cloud transcription with Whisper / gpt-4o-transcribe models. Never exposed to the client.",
+      show: "Show",
+      hide: "Hide",
+      save: "Save OpenAI Settings",
+      saveLoading: "Saving...",
+      saveSuccess: "Saved!",
+      saveError: "Error",
     },
     stripeSettings: {
       secretKey: "Stripe Secret Key",

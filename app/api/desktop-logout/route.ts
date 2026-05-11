@@ -1,11 +1,9 @@
-import { getUserByApiKey, updateUserById } from "@/lib/db/queries";
 import {
   checkRateLimit,
   getRateLimitKey,
   rateLimitResponse,
 } from "@/lib/rate-limit";
 import { getReleaseInfo } from "@/lib/releases/github";
-import { generateApiKey } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -20,22 +18,6 @@ export async function POST(request: NextRequest) {
   });
   if (!rl.ok) return rateLimitResponse(rl);
 
-  const authHeader = request.headers.get("authorization");
-  const apiKey =
-    authHeader?.startsWith("Bearer ") ? authHeader.slice(7).trim() : null;
-
-  if (!apiKey) {
-    return NextResponse.json({ error: "Missing API key" }, { status: 401 });
-  }
-
   const release = await getReleaseInfo();
-
-  const foundUser = await getUserByApiKey(apiKey);
-  if (!foundUser) {
-    return NextResponse.json({ ok: true, revoked: false, release });
-  }
-
-  await updateUserById(foundUser.id, { apiKey: generateApiKey() });
-
-  return NextResponse.json({ ok: true, revoked: true, release });
+  return NextResponse.json({ ok: true, revoked: false, release });
 }
