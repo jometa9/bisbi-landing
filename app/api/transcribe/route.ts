@@ -118,7 +118,6 @@ export async function POST(request: NextRequest) {
     rawQuality === "accurate" || rawQuality === "fast" ? rawQuality : "fast";
   const model = MODEL_FOR_QUALITY[quality];
 
-  const language = ((form.get("language") ?? "") as string).trim();
   const prompt = ((form.get("prompt") ?? "") as string).trim();
   const audioSecondsRaw = Number(form.get("audioSeconds"));
   const audioSeconds =
@@ -163,9 +162,6 @@ export async function POST(request: NextRequest) {
   upstreamForm.append("model", model);
   upstreamForm.append("temperature", "0");
   upstreamForm.append("response_format", "json");
-  if (language && language !== "auto") {
-    upstreamForm.append("language", language);
-  }
   if (prompt) {
     upstreamForm.append("prompt", prompt.slice(0, 1024));
   }

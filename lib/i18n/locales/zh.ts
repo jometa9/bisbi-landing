@@ -228,6 +228,12 @@ export const zh: LandingTranslations = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "需要时使用云端速度",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "比较基于 2026 年公开价格。Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com。",
     },
@@ -242,7 +248,7 @@ export const zh: LandingTranslations = {
     signIn: "登录",
   },
   footer: {
-    tagline1: "语音输入，100% 本地。",
+    tagline1: "语音输入。即时转录。",
     tagline2: "说。出现。",
     contact: "联系我们",
     legal: "法律",

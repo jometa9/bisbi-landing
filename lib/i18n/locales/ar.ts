@@ -229,6 +229,12 @@ export const ar: LandingTranslations = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "سرعة السحابة عند الطلب",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "المقارنة مبنية على الأسعار العامة في 2026. Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
     },
@@ -243,7 +249,7 @@ export const ar: LandingTranslations = {
     signIn: "تسجيل الدخول",
   },
   footer: {
-    tagline1: "إملاء صوتي، 100% محلي.",
+    tagline1: "إملاء صوتي. تفريغ فوري.",
     tagline2: "تكلم. يظهر.",
     contact: "تواصل",
     legal: "قانوني",

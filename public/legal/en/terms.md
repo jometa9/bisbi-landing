@@ -8,11 +8,13 @@ By using Bisbi, you accept these terms. If you do not agree, do not use the soft
 
 ## 1. Service description
 
-Bisbi is a **local voice dictation application** for Mac and Windows.
+Bisbi is a **voice dictation application** for Mac and Windows.
 
 - You press a shortcut, speak, release the shortcut, and the text is pasted into the active app.
-- Transcription is processed on your computer using Bisbi technology that runs on-device.
-- Audio and resulting text **never leave your device**.
+- Transcription runs in one of two modes that you choose inside the app:
+  - **Online mode (default):** audio is sent to our cloud transcription servers under a zero-retention agreement and the resulting text is returned to your computer. Neither Bisbi nor our transcription provider stores the audio or the resulting text after the transcription is delivered.
+  - **Private mode:** transcription runs on your computer (on-device). Audio and resulting text **never leave your device**.
+- You can switch between modes at any time from the app's settings.
 - Supported platforms: macOS (Apple Silicon ARM64 and x64) and Windows (x64).
 
 ---

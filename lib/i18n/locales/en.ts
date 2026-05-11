@@ -229,6 +229,12 @@ export const en = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "Cloud speed when you want it",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "Comparison based on public pricing as of 2026. Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
     },
@@ -243,7 +249,7 @@ export const en = {
     signIn: "Sign in",
   },
   footer: {
-    tagline1: "Voice dictation, 100% local.",
+    tagline1: "Voice dictation. Instant transcriptions.",
     tagline2: "Speak. It appears.",
     contact: "Contact",
     legal: "Legal",

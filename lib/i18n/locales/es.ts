@@ -232,6 +232,12 @@ export const es: LandingTranslations = {
           wispr: "false",
           vibetyper: "false",
         },
+        {
+          label: "Velocidad de la nube cuando quieras",
+          bisbi: "true",
+          wispr: "false",
+          vibetyper: "false",
+        },
       ],
       note: "Comparación basada en precios públicos a 2026. Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com.",
     },
@@ -246,7 +252,7 @@ export const es: LandingTranslations = {
     signIn: "Iniciar sesión",
   },
   footer: {
-    tagline1: "Dictado por voz, 100% local.",
+    tagline1: "Dictado por voz. Transcripciones al instante.",
     tagline2: "Hablá. Aparece.",
     contact: "Contacto",
     legal: "Legal",

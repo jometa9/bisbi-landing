@@ -4,7 +4,12 @@ Esta Política de Privacidad explica cómo Bisbi recopila, usa y protege tu info
 
 Bisbi es un producto operado por **IPTRADE COPIER LLC** (Delaware, EE. UU.), con domicilio en 131 Continental Dr, Suite 305, Newark, DE 19713, Estados Unidos. Toda referencia a "Bisbi", "nosotros" o "nuestro" en este documento se refiere a IPTRADE COPIER LLC actuando bajo la marca Bisbi.
 
-Bisbi es una aplicación de dictado por voz local. La transcripción se procesa íntegramente en tu computadora mediante tecnología de reconocimiento de voz que se ejecuta on-device. El audio que dictás **no se envía a nuestros servidores ni a terceros**.
+Bisbi es una aplicación de dictado por voz para Mac y Windows. Bisbi soporta dos modos de transcripción que vos elegís desde la app:
+
+- **Modo Online (por defecto):** el audio que dictás se envía en tiempo real a nuestros servidores de transcripción en la nube y el texto resultante vuelve a tu computadora. El audio se procesa bajo un acuerdo de cero retención con nuestro proveedor de transcripción: se usa únicamente para producir la transcripción y no se almacena ni se utiliza para entrenar modelos. Bisbi tampoco retiene el audio.
+- **Modo Private:** la transcripción se procesa íntegramente en tu computadora, on-device. El audio que dictás **no se envía a nuestros servidores ni a ningún tercero**.
+
+Podés cambiar de modo en cualquier momento desde los ajustes de la app.
 
 ---
 
@@ -25,14 +30,16 @@ Bisbi es una aplicación de dictado por voz local. La transcripción se procesa 
 
 ### Lo que NO recopilamos
 
-**Producto local (app Bisbi):**
+Independientemente del modo que uses, Bisbi nunca almacena:
 
 - El audio que grabás.
 - El texto transcripto.
 - Tu historial de transcripciones.
 - El contenido de lo que dictás.
 
-Toda esa información se mantiene en tu computadora, en una base de datos local. No la enviamos, no la procesamos en la nube y no tenemos acceso a ella.
+**Modo Private:** todos esos datos se mantienen en tu computadora, en una base de datos local. Nunca salen de tu equipo.
+
+**Modo Online:** el audio se envía a nuestros servidores de transcripción en la nube sólo durante la transcripción. Ni Bisbi ni nuestro proveedor de transcripción retienen el audio ni el texto resultante una vez devuelta la transcripción. El texto transcripto se guarda después localmente en tu computadora, donde vos lo controlás.
 
 ---
 
@@ -52,6 +59,7 @@ Toda esa información se mantiene en tu computadora, en una base de datos local.
 
 Compartimos datos solamente con proveedores de confianza:
 
+**OpenAI** — Proveedor de transcripción en la nube utilizado en modo Online (familia `gpt-4o-transcribe`). El audio se procesa bajo un acuerdo de cero retención: se usa únicamente para producir la transcripción y no se almacena ni se utiliza para entrenar modelos. No se usa en modo Private.
 **Stripe** — Procesamiento de pagos (cumple PCI; no almacenamos tarjetas).
 **Resend** — Envío de emails transaccionales (confirmaciones, recibos).
 **Meta Pixel** — Analítica del sitio web y publicidad.
@@ -69,7 +77,8 @@ Protegemos tus datos con:
 - Acceso restringido a los datos personales.
 - Auditorías de seguridad periódicas.
 
-**App local:** tu audio y tus transcripciones nunca salen de tu computadora.
+**Modo Private:** tu audio y tus transcripciones nunca salen de tu computadora.
+**Modo Online:** el audio se transmite a nuestros servidores de transcripción en la nube por TLS y se procesa bajo un acuerdo de cero retención; ni Bisbi ni el proveedor de transcripción lo retienen una vez devuelta la transcripción.
 
 ---
 
