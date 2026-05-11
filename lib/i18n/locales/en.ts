@@ -323,6 +323,7 @@ export const en = {
       sectionLimits: "Subscription Limits",
       sectionEmailInbox: "Email & Inbox Configuration",
       sectionStripe: "Stripe Configuration",
+      sectionOpenAI: "OpenAI / Cloud Transcription",
       sectionDownloads: "App Download URLs",
       sectionDeleteUser: "Delete User",
     },
@@ -380,6 +381,17 @@ export const en = {
       reportRunning: "Another process is running the report; try again in a few seconds.",
       reportSuccess: "Report sent to Discord.",
       reportNetworkError: "Network error while running the report.",
+    },
+    openaiSettings: {
+      apiKey: "OpenAI API Key",
+      apiKeyHint:
+        "Server-side OpenAI key used by /api/transcribe to run cloud transcription with Whisper / gpt-4o-transcribe models. Never exposed to the client.",
+      show: "Show",
+      hide: "Hide",
+      save: "Save OpenAI Settings",
+      saveLoading: "Saving...",
+      saveSuccess: "Saved!",
+      saveError: "Error",
     },
     stripeSettings: {
       secretKey: "Stripe Secret Key",
