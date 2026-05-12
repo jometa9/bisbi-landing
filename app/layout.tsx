@@ -51,12 +51,21 @@ export const metadata: Metadata = {
     title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
       "Dictado por voz local para Mac. Apretá un atajo, hablá, y Bisbi pega tus palabras donde esté el cursor — en cualquier idioma.",
+    images: [
+      {
+        url: "/assets/giphy.gif",
+        width: 320,
+        height: 220,
+        alt: "Bisbi — dictado por voz en acción",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bisbi — Apretá. Hablá. Pegá.",
     description:
       "Dictado por voz que pega donde esté tu cursor. Soporta 5 idiomas. 100% local, privado, Mac.",
+    images: ["/assets/giphy.gif"],
   },
   robots: {
     index: true,
