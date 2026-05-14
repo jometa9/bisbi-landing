@@ -9,6 +9,7 @@ export const LEGAL_DOC_IDS = [
   "complaints",
   "refunds",
   "disclaimer",
+  "affiliate",
 ] as const;
 export type LegalDocId = (typeof LEGAL_DOC_IDS)[number];
 
@@ -54,6 +55,7 @@ export const LEGAL_I18N: Record<LegalLang, LegalChrome> = {
       complaints: "Política de Reclamos",
       refunds: "Política de Reembolsos",
       disclaimer: "Aviso Legal",
+      affiliate: "Términos del Programa de Afiliados",
     },
     metadata: {
       title: "Información Legal — Bisbi",
@@ -90,6 +92,7 @@ export const LEGAL_I18N: Record<LegalLang, LegalChrome> = {
       complaints: "Complaints Policy",
       refunds: "Refund Policy",
       disclaimer: "Legal Disclaimer",
+      affiliate: "Affiliate Program Terms",
     },
     metadata: {
       title: "Legal Information — Bisbi",
