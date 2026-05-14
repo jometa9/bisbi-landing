@@ -86,10 +86,15 @@ export async function POST(request: NextRequest) {
 
   const session = await stripe.checkout.sessions.create(sessionParams);
 
-  const checkoutUrl = `${baseUrl}/checkout/redirect?sid=${session.id}`;
+  if (!session.url) {
+    return NextResponse.json(
+      { error: "Checkout session could not be created" },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({
-    checkoutUrl,
+    checkoutUrl: session.url,
     release: releaseInfoFromSettings(settings),
   });
 }
