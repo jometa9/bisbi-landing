@@ -54,7 +54,7 @@ Nos reservamos el derecho de modificar las tasas de comisión, productos elegibl
 ## 5. Pagos
 
 - Los pagos se procesan **15 días después del cierre de cada mes calendario** (NET-15) por el total de comisiones aprobadas en el período.
-- Los pagos se efectúan vía **PayPal**, **Stripe Connect** u otros métodos habilitados en el panel del Programa.
+- Los pagos se efectúan exclusivamente vía **PayPal** o **criptomonedas** (USDT/USDC en redes soportadas, según se indique en el panel del Programa). No se ofrecen otros métodos de pago.
 - Existe un umbral mínimo de pago de **USD 100**. Si tu saldo no alcanza el mínimo, se acumula al período siguiente.
 - Es tu responsabilidad mantener actualizada tu información de cobro. No somos responsables por pagos rechazados o retrasados debido a información incorrecta o desactualizada.
 - Los pagos están sujetos a las **retenciones impositivas** que correspondan según la jurisdicción del Afiliado y la legislación aplicable. En particular, los Afiliados con residencia fiscal en EE. UU. que reciban más de USD 600 en un año calendario recibirán el formulario 1099 correspondiente.

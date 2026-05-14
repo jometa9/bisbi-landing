@@ -54,7 +54,7 @@ We reserve the right to modify commission rates, eligible products and rules at 
 ## 5. Payments
 
 - Payments are processed **15 days after the close of each calendar month** (NET-15) for the total of approved commissions in the period.
-- Payments are made via **PayPal**, **Stripe Connect** or other methods enabled in the Program panel.
+- Payments are made exclusively via **PayPal** or **cryptocurrency** (USDT/USDC on supported networks, as indicated in the Program panel). No other payment methods are offered.
 - A minimum payout threshold of **USD 100** applies. If your balance does not reach the minimum, it accumulates to the next period.
 - It is your responsibility to keep your payout information up to date. We are not responsible for payments rejected or delayed due to incorrect or outdated information.
 - Payments are subject to **tax withholdings** that may apply according to the Affiliate's jurisdiction and applicable law. In particular, Affiliates with U.S. tax residency who receive more than USD 600 in a calendar year will receive the corresponding 1099 form.
