@@ -69,7 +69,7 @@
     "marked": "^15.0.12",
     "motion": "^12.23.12",
     "nanoid": "^5.1.5",
-    "next": "^15.5.9",
+    "next": "^15.5.16",
     "next-auth": "^5.0.0-beta.25",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.10.0",
