@@ -8,9 +8,9 @@
 export type DownloadOS = "mac" | "windows" | "linux";
 
 export const DOWNLOADS: Record<DownloadOS, string> = {
-  mac: "https://github.com/jometa9/Bisbi/releases/latest/download/Bisbi.dmg",
-  windows: "https://github.com/jometa9/Bisbi/releases/latest/download/Bisbi-Setup.exe",
-  linux: "https://github.com/jometa9/Bisbi/releases/latest/download/Bisbi.AppImage",
+  mac: "https://github.com/jometa9/Bisbi/releases",
+  windows: "https://github.com/jometa9/Bisbi/releases",
+  linux: "https://github.com/jometa9/Bisbi/releases",
 };
 
 export const SOURCE_REPO_URL = "https://github.com/jometa9/Bisbi";
