@@ -11,6 +11,7 @@ export const hi: LandingTranslations = {
   download: {
     mac: "Mac के लिए डाउनलोड",
     windows: "Windows के लिए डाउनलोड",
+    linux: "Linux के लिए डाउनलोड",
     starting: "डाउनलोड शुरू हो रहा है…",
   },
   howItWorks: {

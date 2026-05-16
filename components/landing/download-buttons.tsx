@@ -1,5 +1,6 @@
 "use client";
 
+import { LinuxIcon } from "@/components/icons/linux-icon";
 import { MacOSIcon } from "@/components/icons/macos-icon";
 import { WindowsIcon } from "@/components/icons/windows-icon";
 import { useI18n } from "@/lib/i18n";
@@ -9,6 +10,7 @@ import { useEffect, useState, type ComponentType } from "react";
 const ICONS: Record<DownloadOS, ComponentType<{ className?: string }>> = {
   mac: MacOSIcon,
   windows: WindowsIcon,
+  linux: LinuxIcon,
 };
 
 interface DownloadButtonsProps {
@@ -24,10 +26,18 @@ export function DownloadButtons({ variant = "hero" }: DownloadButtonsProps) {
   }, []);
 
   const labelFor = (os: DownloadOS) =>
-    os === "mac" ? t.download.mac : t.download.windows;
+    os === "mac"
+      ? t.download.mac
+      : os === "windows"
+        ? t.download.windows
+        : t.download.linux;
 
   const orderedOS: DownloadOS[] =
-    primaryOS === "windows" ? ["windows", "mac"] : ["mac", "windows"];
+    primaryOS === "windows"
+      ? ["windows", "mac", "linux"]
+      : primaryOS === "linux"
+        ? ["linux", "mac", "windows"]
+        : ["mac", "windows", "linux"];
 
   if (variant === "header") {
     const os = primaryOS ?? "mac";

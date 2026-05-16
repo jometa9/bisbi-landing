@@ -11,6 +11,7 @@ export const zh: LandingTranslations = {
   download: {
     mac: "下载 Mac 版",
     windows: "下载 Windows 版",
+    linux: "下载 Linux 版",
     starting: "开始下载…",
   },
   howItWorks: {

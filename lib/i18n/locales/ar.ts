@@ -11,6 +11,7 @@ export const ar: LandingTranslations = {
   download: {
     mac: "تنزيل لـ Mac",
     windows: "تنزيل لـ Windows",
+    linux: "تنزيل لـ Linux",
     starting: "جارٍ بدء التنزيل…",
   },
   howItWorks: {

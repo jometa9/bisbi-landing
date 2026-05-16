@@ -9,6 +9,7 @@ export const en = {
   download: {
     mac: "Download for Mac",
     windows: "Download for Windows",
+    linux: "Download for Linux",
     starting: "Starting download…",
   },
   howItWorks: {

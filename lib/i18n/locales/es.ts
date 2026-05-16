@@ -11,6 +11,7 @@ export const es: LandingTranslations = {
   download: {
     mac: "Descargar para Mac",
     windows: "Descargar para Windows",
+    linux: "Descargar para Linux",
     starting: "Iniciando descarga…",
   },
   howItWorks: {
