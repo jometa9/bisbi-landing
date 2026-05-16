@@ -175,7 +175,6 @@ export const es: LandingTranslations = {
     freeBadge: "Gratis para siempre. Open source.",
   },
   footer: {
-    contact: "Contacto",
     source: "Código",
     rights: "Todos los derechos reservados.",
     createdBy: "Creado por",

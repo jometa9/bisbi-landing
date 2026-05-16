@@ -172,7 +172,6 @@ export const en = {
     freeBadge: "Free forever. Open source.",
   },
   footer: {
-    contact: "Contact",
     source: "Source",
     rights: "All rights reserved.",
     createdBy: "Created by",

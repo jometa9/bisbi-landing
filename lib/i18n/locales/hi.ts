@@ -164,7 +164,6 @@ export const hi: LandingTranslations = {
     freeBadge: "हमेशा के लिए मुफ्त। ओपन सोर्स।",
   },
   footer: {
-    contact: "संपर्क",
     source: "सोर्स",
     rights: "सर्वाधिकार सुरक्षित।",
     createdBy: "द्वारा बनाया गया",

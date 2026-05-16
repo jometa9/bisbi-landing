@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/owl_head.svg" alt="Bisbi" width="96" height="96" />
+  <img src="public/assets/bisbi.png" alt="Bisbi" width="96" height="96" />
 </p>
 
 <h1 align="center">Bisbi — Landing</h1>
@@ -27,7 +27,7 @@ No accounts. No subscriptions. No usage limits. Audio stays private (zero retent
 
 > The desktop app lives in a separate repo: **<https://github.com/jometa9/Bisbi>** — that's where you'll find releases, the source, and how to contribute.
 
-This repository is **only the marketing landing** (`bisbi.io`).
+This repository is **only the marketing landing**.
 
 ## Features
 

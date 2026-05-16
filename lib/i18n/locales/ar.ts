@@ -141,7 +141,6 @@ export const ar: LandingTranslations = {
     freeBadge: "مجاني للأبد. مفتوح المصدر.",
   },
   footer: {
-    contact: "تواصل",
     source: "الكود",
     rights: "جميع الحقوق محفوظة.",
     createdBy: "أُنشئ بواسطة",

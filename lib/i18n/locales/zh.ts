@@ -137,7 +137,6 @@ export const zh: LandingTranslations = {
     freeBadge: "永久免费。开放源代码。",
   },
   footer: {
-    contact: "联系",
     source: "源代码",
     rights: "保留所有权利。",
     createdBy: "创建者",

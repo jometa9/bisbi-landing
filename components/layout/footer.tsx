@@ -52,12 +52,6 @@ export function Footer() {
                 style={{ color: "#5C5C57" }}
               >
                 <a
-                  href="mailto:hello@bisbi.io"
-                  className="transition-colors hover:text-[#1A1A18] cursor-pointer"
-                >
-                  {t.footer.contact}
-                </a>
-                <a
                   href={SOURCE_REPO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
