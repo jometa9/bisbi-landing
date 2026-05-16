@@ -1544,6 +1544,94 @@ textarea,
   border-color: rgba(26, 26, 24, 0.14);
 }
 
+/* Wide / full-width free card */
+
+.pricing-card--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 36px 36px 32px;
+  align-items: stretch;
+}
+
+.pricing-card-wide-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.pricing-card-wide-right {
+  align-self: center;
+  min-width: 0;
+}
+
+.pricing-card-watermark {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: translateY(-50%);
+  width: 220px;
+  height: 220px;
+  color: #1A1A18;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pricing-card-watermark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pricing-card--wide > *:not(.pricing-card-watermark) {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-card-foot--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.pricing-card-foot--stack > div:first-child {
+  flex-direction: column;
+  width: 100%;
+}
+
+.pricing-card-foot--stack > div:first-child > a {
+  width: 100%;
+}
+
+.pricing-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5C5C57;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(26, 26, 24, 0.12);
+  background: #FFFFFF;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.pricing-source-link:hover {
+  background: #1A1A18;
+  color: #FFFFFF;
+  border-color: #1A1A18;
+}
+
+.pricing-source-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
 /* Comparison table */
 
 .pricing-compare {
@@ -1704,6 +1792,12 @@ textarea,
   .pricing-shell { padding: 32px 20px 24px; gap: 24px; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-card { padding: 24px 22px 22px; }
+  .pricing-card--wide {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 22px 24px;
+  }
+  .pricing-card-watermark { width: 160px; height: 160px; right: -30px; }
   .pricing-card-price { font-size: 36px; }
   .pricing-compare { padding: 0; }
 }

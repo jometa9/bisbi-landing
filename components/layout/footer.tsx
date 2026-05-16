@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import { SOURCE_REPO_URL } from "@/lib/downloads";
 import Link from "next/link";
 
 export function Footer() {
@@ -56,12 +57,14 @@ export function Footer() {
                 >
                   {t.footer.contact}
                 </a>
-                <Link
-                  href="/legal"
+                <a
+                  href={SOURCE_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="transition-colors hover:text-[#1A1A18] cursor-pointer"
                 >
-                  {t.footer.legal}
-                </Link>
+                  {t.footer.source}
+                </a>
               </div>
             </div>
 

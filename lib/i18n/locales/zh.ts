@@ -1,23 +1,16 @@
-import { en, type LandingTranslations } from "./en";
+import type { LandingTranslations } from "./en";
 
 export const zh: LandingTranslations = {
-  nav: {
-    howItWorks: "使用方法",
-    features: "功能特点",
-    languages: "语言",
-    signIn: "登录",
-    downloadFree: "免费下载",
-    dashboard: "控制台",
-  },
   hero: {
     headline1: "写作最快的方式",
     headline2: "是不写。",
     subheadline:
       "说话。Bisbi 写下你说的内容 — 任意应用，任意语言。",
-    freeBadge: "免费开始。无需信用卡。仅限 Mac。",
+    freeBadge: "免费开源。Mac 和 Windows。",
   },
   download: {
     mac: "下载 Mac 版",
+    windows: "下载 Windows 版",
     starting: "开始下载…",
   },
   howItWorks: {
@@ -25,18 +18,9 @@ export const zh: LandingTranslations = {
     title: "三步搞定。就这些。",
     stepLabel: "步骤",
     steps: [
-      {
-        title: "按下快捷键",
-        description: "你选择的快捷键。Bisbi 立即开始监听。",
-      },
-      {
-        title: "自然说话",
-        description: "说出你需要的。任何语言，任何口音，任何语速。",
-      },
-      {
-        title: "文字出现了",
-        description: "Bisbi 准确地在光标位置帮你写出来。",
-      },
+      { title: "按下快捷键", description: "你选择的快捷键。Bisbi 立即开始监听。" },
+      { title: "自然说话", description: "说出你需要的。任何语言，任何口音，任何语速。" },
+      { title: "文字出现了", description: "Bisbi 准确地在光标位置帮你写出来。" },
     ],
     demo: {
       greeting: "早上好",
@@ -52,8 +36,7 @@ export const zh: LandingTranslations = {
       transcript: "亲爱的 Bisbi，我必须坦白：你改变了我的生活。以前我只能用两根手指慢慢打字。",
       transcriptLong:
         "现在我只要开口说话，奇迹就发生了——告别酸痛的手腕，欢迎效率与每天一点点的快乐。",
-      transcriptOwl:
-        "这是我最喜欢的猫头鹰照片，让我想起你们的 logo：",
+      transcriptOwl: "这是我最喜欢的猫头鹰照片，让我想起你们的 logo：",
       editorTitle: "会议笔记——笔记",
       editorPlaceholder: "输入消息…",
       pasteHint: "文本会自动粘贴到你正在输入的位置。",
@@ -77,47 +60,24 @@ export const zh: LandingTranslations = {
     items: [
       {
         title: "适用任何应用",
-        description:
-          "Slack、Gmail、Notion、Word、终端、浏览器 — 光标在哪，Bisbi 就在哪写。",
+        description: "Slack、Gmail、Notion、Word、终端、浏览器 — 光标在哪，Bisbi 就在哪写。",
       },
       {
         title: "按键即说",
-        description:
-          "一个快捷键。自然说话。无需打开界面，无需切换窗口。",
+        description: "一个快捷键。自然说话。无需打开界面，无需切换窗口。",
       },
-      {
-        title: "99 种语言",
-        description:
-          "自动识别任何语言的语音。",
-      },
+      { title: "99 种语言", description: "自动识别任何语言的语音。" },
     ],
   },
   socialProof: {
     badge: "声音",
     title: "为你说话的方式而生。",
     items: [
-      {
-        quote:
-          "我想得比打字快。从此想法与屏幕之间不再有距离。",
-        role: "一位写作者",
-      },
-      {
-        quote: "长回复，几秒搞定。",
-        role: "繁忙的收件箱",
-      },
-      {
-        quote:
-          "我边走边口述，坐下时笔记已就绪。",
-        role: "在路上",
-      },
-      {
-        quote: "两种语言，一个快捷键。无需菜单，无需切换。",
-        role: "双语用户",
-      },
-      {
-        quote: "我的手腕感谢我。",
-        role: "重度键盘用户",
-      },
+      { quote: "我想得比打字快。从此想法与屏幕之间不再有距离。", role: "一位写作者" },
+      { quote: "长回复，几秒搞定。", role: "繁忙的收件箱" },
+      { quote: "我边走边口述，坐下时笔记已就绪。", role: "在路上" },
+      { quote: "两种语言，一个快捷键。无需菜单，无需切换。", role: "双语用户" },
+      { quote: "我的手腕感谢我。", role: "重度键盘用户" },
     ],
   },
   speedComparison: {
@@ -151,172 +111,64 @@ export const zh: LandingTranslations = {
     ],
   },
   pricing: {
-    badge: "价格",
-    title1: "免费开始。",
-    title2: "需要时再升级 Pro。",
+    title1: "对所有人免费。",
+    title2: "开放源代码。",
     description:
-      "日常听写永久免费。Pro 让你在认真创作时没有任何限制。",
-    monthly: "按月",
-    annual: "按年",
-    saveBadge: "省 20%",
+      "Bisbi 是 100% 免费且开源的。无需账户，无需订阅，没有限制。下载即用。",
     free: {
       name: "免费版",
       price: "$0",
       period: "永久免费",
-      tagline: "足够让你爱上它。",
-      features: [
-        "每月 2,000 字",
-        "99 种语言",
-        "Mac 和 Windows",
-        "零保留 — 你的音频保持私密",
-      ],
-      cta: "免费下载",
-    },
-    pro: {
-      name: "Pro",
-      ribbon: "最受欢迎",
-      monthlyPrice: "$10",
-      annualPrice: "$8",
-      monthlyBilling: "按月计费",
-      annualBilling: "按年计费 · $96 / 年",
-      month: "月",
+      tagline: "Bisbi 全部能力，无任何附加条件。",
       features: [
         "无限听写",
-        "在所有登录的 Mac 和 Windows 设备上使用",
+        "Mac 和 Windows",
         "99 种语言",
         "零保留 — 你的音频保持私密",
-        "优先支持",
+        "在 GitHub 上开源",
       ],
-      cta: "升级 Pro",
-    },
-    comparison: {
-      eyebrow: "Bisbi 对比",
-      title: "同样的能力。更优的价格。",
-      columns: {
-        bisbi: "Bisbi Pro",
-        wispr: "Wispr Flow",
-        vibetyper: "Vibe Typer",
-      },
-      rows: [
-        {
-          label: "每月价格",
-          bisbi: "$10",
-          wispr: "$15",
-          vibetyper: "$10",
-        },
-        {
-          label: "免费方案",
-          bisbi: "true",
-          wispr: "true",
-          vibetyper: "true",
-        },
-        {
-          label: "Mac 和 Windows",
-          bisbi: "true",
-          wispr: "true",
-          vibetyper: "true",
-        },
-        {
-          label: "99+ 种语言",
-          bisbi: "true",
-          wispr: "true",
-          vibetyper: "true",
-        },
-        {
-          label: "离线可用",
-          bisbi: "true",
-          wispr: "false",
-          vibetyper: "false",
-        },
-        {
-          label: "需要时使用云端速度",
-          bisbi: "true",
-          wispr: "false",
-          vibetyper: "false",
-        },
-      ],
-      note: "比较基于 2026 年公开价格。Wispr Flow: wisprflow.ai · Vibe Typer: vibetyper.com。",
+      sourceLink: "在 GitHub 上查看源代码 →",
     },
   },
   cta: {
-    title: "开始说话,",
-    titleHighlight: "就在今天。",
-    description:
-      "免费下载 Bisbi for Mac。无需订阅即可开始。",
-    freeBadge: "无需信用卡。无需订阅即可开始。",
-    signInHint: "已有账户？",
-    signIn: "登录",
+    title: "今天就开始",
+    titleHighlight: "用说的。",
+    description: "免费下载 Bisbi（Mac 或 Windows）。无需账户，无需订阅。",
+    freeBadge: "永久免费。开放源代码。",
   },
   footer: {
-    tagline1: "语音输入。即时转录。",
-    tagline2: "说。出现。",
-    contact: "联系我们",
-    legal: "法律",
+    contact: "联系",
+    source: "源代码",
     rights: "保留所有权利。",
-    createdBy: "由",
+    createdBy: "创建者",
   },
   demoApp: {
-    nav: { home: "首页", history: "历史", settings: "设置" },
+    nav: { home: "主页", history: "历史", settings: "设置" },
     greetings: {
       lateNight: "晚安",
       morning: "早上好",
       afternoon: "下午好",
       evening: "晚上好",
     },
-    statusTitle: "准备聆听",
+    statusTitle: "准备就绪",
     titleHint: "按下快捷键开始说话。",
     hotkeyLabel: "快捷键",
-    hotkeyHint: "文字会自动粘贴到你正在输入的位置。",
+    hotkeyHint: "文本会自动粘贴到你正在输入的位置。",
     activitySection: "你的活动",
-    statTranscriptions: "条转录",
+    statTranscriptions: "次转写",
     statDictated: "已听写",
     statWords: "字",
-    statWpm: "字/分",
-    recentSection: "最近的转录",
+    statWpm: "wpm",
+    recentSection: "最近转写",
     seeMore: "在历史中查看全部",
     badgeIdle: "就绪",
-    plan: { pro: "专业版" },
+    plan: { pro: "Pro" },
     user: { name: "Joaquin", initial: "J" },
     dateGroups: { today: "今天", yesterday: "昨天" },
     recent: [
-      "把设计评审笔记发给 Marta，确认我们周四的安排。",
-      "提醒：用新的定价方案更新引导文案。",
-      "[音乐] 邮件草稿：再次感谢介绍。我希望下周能安排一个简短的电话。",
+      "把设计评审的笔记发给 Marta，并确认我们周四照常进行。",
+      "提醒：用新的价格层级更新引导文案。",
+      "[音乐] 邮件草稿：再次感谢介绍。我希望下周能安排一次简短的电话。",
     ],
   },
-  dashboard: {
-    greeting: "你好 {name}!",
-    fallbackName: "朋友",
-    ready: "你的账户已准备好。下载 Bisbi 开始听写。",
-    downloadMac: "下载 Mac 版",
-    downloadWindows: "下载 Windows 版",
-    starting: "开始下载…",
-    hint: "你的订阅和设置在应用内管理。",
-    signOut: "退出登录",
-    signingOut: "退出中…",
-    checkoutSuccessTitle: "欢迎加入 Pro！",
-    checkoutSuccessSubtitle: "无限听写已开启。尽情说话吧。",
-    checkoutCancelTitle: "没问题",
-    checkoutCancelSubtitle: "你仍在免费计划。随时可以在 Bisbi 中升级。",
-    planFreeBadge: "免费计划 - 想无限畅说？升级到 Pro",
-    planProBadge: "Pro 计划已激活 - 想说多少说多少",
-    inboxButton: "收件箱",
-    settingsButton: "设置",
-    openApp: "打开 Bisbi",
-    alreadyInstalled: "已经安装了 Bisbi？",
-  },
-  login: {
-    welcome: "欢迎来到 Bisbi",
-    accessAccount: "登录你的 {appName} 账户",
-    subtitle: "登录以下载 Bisbi",
-    continueWithGoogle: "使用 Google 继续",
-    connecting: "正在连接…",
-    loading: "加载中…",
-    successTitle: "登录成功",
-    successSubtitle: "我们将带你回到 {appName}",
-    openApp: "打开 {appName}",
-    openingHint: "正在自动打开，或点击上方按钮",
-    backToApp: "返回应用",
-  },
-  admin: en.admin,
 };

@@ -1,7 +1,6 @@
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 import { getAppUrl } from "@/lib/app-url";
-import { getUser } from "@/lib/db/queries";
 import type { Metadata, Viewport } from "next";
 import React from "react";
 
@@ -90,13 +89,11 @@ export const viewport: Viewport = {
   interactiveWidget: "resizes-content",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const userPromise = getUser();
-
   return (
     <html lang="es">
       <head>
@@ -110,7 +107,7 @@ export default async function RootLayout({
         style={{ backgroundColor: "#FFFFFF", color: "#1A1A18" }}
         suppressHydrationWarning={true}
       >
-        <Providers userPromise={userPromise}>
+        <Providers>
           <div className="flex min-h-screen flex-col">
             <main className="flex-1 w-full">{children}</main>
           </div>

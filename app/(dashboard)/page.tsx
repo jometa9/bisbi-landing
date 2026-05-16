@@ -7,10 +7,10 @@ import { DocsDemo } from "@/components/landing/docs-demo";
 import { SpeedComparison } from "@/components/landing/speed-comparison";
 import { SocialProof } from "@/components/landing/social-proof";
 import { Pricing } from "@/components/landing/pricing";
+import { DownloadButtons } from "@/components/landing/download-buttons";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const featureWatermarks = [
@@ -34,36 +34,6 @@ const featureWatermarks = [
     <rect x="13" y="7" width="6" height="6" rx="1" />
   </svg>,
 ];
-
-function DownloadButtons({
-  variant = "hero",
-}: {
-  variant?: "hero" | "cta";
-}) {
-  const { t } = useI18n();
-  const router = useRouter();
-
-  const base =
-    variant === "hero"
-      ? "inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-medium transition-colors text-white cursor-pointer"
-      : "inline-flex items-center gap-3 rounded-full px-5 py-2.5 text-sm font-medium transition-colors text-white cursor-pointer";
-
-  return (
-    <button
-      onClick={() => router.push("/dashboard")}
-      className={base}
-      style={{ backgroundColor: "#7BA89C" }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#5A8C83";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#7BA89C";
-      }}
-    >
-      {t.nav.downloadFree}
-    </button>
-  );
-}
 
 function CtaTitle({ title, highlight }: { title: string; highlight: string }) {
   const ref = useRef<HTMLHeadingElement | null>(null);

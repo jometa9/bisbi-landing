@@ -1,6 +1,0 @@
-10usd price_1TUQPeA3C4QniATDIZ6MEfA5
-96 price_1TUQQLA3C4QniATDQyB20HXn
-
-
-TEST Mensual ($10/mes): price_1TUQSNAlGm834neIBQLGYWQP
-Anual ($96/año): price_1TUQSOAlGm834neIVdjMKOau

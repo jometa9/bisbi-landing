@@ -1,4 +1,0 @@
-
-DROP TABLE IF EXISTS "verificationToken" CASCADE;
-DROP TABLE IF EXISTS "subscriptionHistory" CASCADE;
-DROP TABLE IF EXISTS "session" CASCADE;

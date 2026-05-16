@@ -1,19 +1,10 @@
 "use client";
 
+import { DownloadButtons } from "@/components/landing/download-buttons";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { useI18n } from "@/lib/i18n";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { MouseEvent } from "react";
 
 export function LandingHeader() {
-  const { t } = useI18n();
-  const router = useRouter();
-
-  const handleDownloadClick = () => {
-    router.push("/dashboard");
-  };
-
   return (
     <header
       className="fixed inset-x-0 top-0 z-50"
@@ -33,19 +24,7 @@ export function LandingHeader() {
           <div className="hidden sm:block">
             <LanguageSwitcher />
           </div>
-          <button
-            onClick={handleDownloadClick}
-            className="rounded-full px-4 py-1.5 text-sm font-medium text-white cursor-pointer"
-            style={{ backgroundColor: "#7BA89C" }}
-            onMouseEnter={(e: MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.backgroundColor = "#5A8C83";
-            }}
-            onMouseLeave={(e: MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.backgroundColor = "#7BA89C";
-            }}
-          >
-            {t.nav.downloadFree}
-          </button>
+          <DownloadButtons variant="header" />
         </div>
       </div>
     </header>
