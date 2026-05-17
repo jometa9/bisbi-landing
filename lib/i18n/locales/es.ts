@@ -9,10 +9,8 @@ export const es: LandingTranslations = {
     freeBadge: "Gratis y open source. Mac y Windows.",
   },
   download: {
-    mac: "Descargar para Mac",
-    windows: "Descargar para Windows",
-    linux: "Descargar para Linux",
-    starting: "Iniciando descarga…",
+    label: "Descargar",
+    heroLabel: "Descargar gratis",
   },
   howItWorks: {
     badge: "Cómo funciona",

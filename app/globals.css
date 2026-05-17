@@ -1608,12 +1608,14 @@ textarea,
 .pricing-source-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 13px;
+  width: 100%;
+  font-size: 14px;
   font-weight: 500;
   color: #5C5C57;
   text-decoration: none;
-  padding: 6px 12px;
+  padding: 10px 20px;
   border-radius: 999px;
   border: 1px solid rgba(26, 26, 24, 0.12);
   background: #FFFFFF;
@@ -1627,8 +1629,8 @@ textarea,
 }
 
 .pricing-source-icon {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 

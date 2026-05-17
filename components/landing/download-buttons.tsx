@@ -1,17 +1,7 @@
 "use client";
 
-import { LinuxIcon } from "@/components/icons/linux-icon";
-import { MacOSIcon } from "@/components/icons/macos-icon";
-import { WindowsIcon } from "@/components/icons/windows-icon";
 import { useI18n } from "@/lib/i18n";
-import { DOWNLOADS, detectOS, type DownloadOS } from "@/lib/downloads";
-import { useEffect, useState, type ComponentType } from "react";
-
-const ICONS: Record<DownloadOS, ComponentType<{ className?: string }>> = {
-  mac: MacOSIcon,
-  windows: WindowsIcon,
-  linux: LinuxIcon,
-};
+import { DOWNLOADS } from "@/lib/downloads";
 
 interface DownloadButtonsProps {
   variant?: "hero" | "cta" | "header";
@@ -19,32 +9,13 @@ interface DownloadButtonsProps {
 
 export function DownloadButtons({ variant = "hero" }: DownloadButtonsProps) {
   const { t } = useI18n();
-  const [primaryOS, setPrimaryOS] = useState<DownloadOS | null>(null);
 
-  useEffect(() => {
-    setPrimaryOS(detectOS());
-  }, []);
-
-  const labelFor = (os: DownloadOS) =>
-    os === "mac"
-      ? t.download.mac
-      : os === "windows"
-        ? t.download.windows
-        : t.download.linux;
-
-  const orderedOS: DownloadOS[] =
-    primaryOS === "windows"
-      ? ["windows", "mac", "linux"]
-      : primaryOS === "linux"
-        ? ["linux", "mac", "windows"]
-        : ["mac", "windows", "linux"];
+  const href = DOWNLOADS.mac;
 
   if (variant === "header") {
-    const os = primaryOS ?? "mac";
-    const Icon = ICONS[os];
     return (
       <a
-        href={DOWNLOADS[os]}
+        href={href}
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-white cursor-pointer transition-colors"
         style={{ backgroundColor: "#7BA89C" }}
@@ -55,45 +26,45 @@ export function DownloadButtons({ variant = "hero" }: DownloadButtonsProps) {
           (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#7BA89C";
         }}
       >
-        <Icon className="w-4 h-4" />
-        {labelFor(os)}
+        {t.download.label}
       </a>
     );
   }
 
   const padding = variant === "hero" ? "px-6 py-3" : "px-5 py-2.5";
+  const label = variant === "hero" ? t.download.heroLabel : t.download.label;
 
   return (
     <div className="flex flex-col sm:flex-row gap-3">
-      {orderedOS.map((os, idx) => {
-        const Icon = ICONS[os];
-        const isPrimary = idx === 0;
-        return (
-          <a
-            key={os}
-            href={DOWNLOADS[os]}
-            rel="noopener noreferrer"
-            className={`inline-flex items-center justify-center gap-2 rounded-full ${padding} text-sm font-medium cursor-pointer transition-colors`}
-            style={{
-              backgroundColor: isPrimary ? "#7BA89C" : "#E6EFED",
-              color: isPrimary ? "#FFFFFF" : "#1A1A18",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = isPrimary
-                ? "#5A8C83"
-                : "#D9E8E5";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = isPrimary
-                ? "#7BA89C"
-                : "#E6EFED";
-            }}
-          >
-            <Icon className="w-4 h-4" />
-            {labelFor(os)}
-          </a>
-        );
-      })}
+      <a
+        href={href}
+        rel="noopener noreferrer"
+        className={`inline-flex items-center justify-center gap-2 rounded-full ${padding} text-sm font-medium cursor-pointer transition-colors`}
+        style={{ backgroundColor: "#7BA89C", color: "#FFFFFF" }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#5A8C83";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#7BA89C";
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+          aria-hidden="true"
+        >
+          <path d="M12 3v12" />
+          <path d="m7 10 5 5 5-5" />
+          <path d="M5 21h14" />
+        </svg>
+        {label}
+      </a>
     </div>
   );
 }

@@ -7,10 +7,8 @@ export const en = {
     freeBadge: "Free, open source. Mac and Windows.",
   },
   download: {
-    mac: "Download for Mac",
-    windows: "Download for Windows",
-    linux: "Download for Linux",
-    starting: "Starting download…",
+    label: "Download",
+    heroLabel: "Download free",
   },
   howItWorks: {
     badge: "How it works",

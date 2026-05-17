@@ -9,10 +9,8 @@ export const zh: LandingTranslations = {
     freeBadge: "免费开源。Mac 和 Windows。",
   },
   download: {
-    mac: "下载 Mac 版",
-    windows: "下载 Windows 版",
-    linux: "下载 Linux 版",
-    starting: "开始下载…",
+    label: "下载",
+    heroLabel: "免费下载",
   },
   howItWorks: {
     badge: "使用方法",
