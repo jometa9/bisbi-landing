@@ -72,9 +72,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Ensure lightningcss linux binary (npm optional deps workaround)
-        run: npm install --no-save lightningcss-linux-x64-gnu
+        # Workaround for npm bug with optional native deps (https://github.com/npm/cli/issues/4828):
+        # the lockfile is generated on macOS, so npm ci skips linux-x64 native binaries
+        # (lightningcss, @tailwindcss/oxide). Regenerate the lockfile on the Linux runner.
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
