@@ -6,8 +6,8 @@ export function MacOSIcon({ className }: { className?: string }) {
       style={{
         display: "inline-block",
         backgroundColor: "currentColor",
-        WebkitMaskImage: "url(/apple-173-svgrepo-com.svg)",
-        maskImage: "url(/apple-173-svgrepo-com.svg)",
+        WebkitMaskImage: "var(--asset-apple-icon)",
+        maskImage: "var(--asset-apple-icon)",
         WebkitMaskRepeat: "no-repeat",
         maskRepeat: "no-repeat",
         WebkitMaskPosition: "center",

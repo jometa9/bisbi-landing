@@ -1,7 +1,9 @@
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 import { getAppUrl } from "@/lib/app-url";
+import { assetPath } from "@/lib/asset-path";
 import type { Metadata, Viewport } from "next";
+import type { CSSProperties } from "react";
 import React from "react";
 
 const metadataBaseUrl = getAppUrl();
@@ -104,7 +106,15 @@ export default function RootLayout({
       </head>
       <body
         className="min-h-screen font-sans antialiased"
-        style={{ backgroundColor: "#FFFFFF", color: "#1A1A18" }}
+        style={
+          {
+            backgroundColor: "#FFFFFF",
+            color: "#1A1A18",
+            "--asset-owl-head": `url(${assetPath("/owl_head.svg")})`,
+            "--asset-owl-head-rec": `url(${assetPath("/owl_head_rec.svg")})`,
+            "--asset-apple-icon": `url(${assetPath("/apple-173-svgrepo-com.svg")})`,
+          } as CSSProperties
+        }
         suppressHydrationWarning={true}
       >
         <Providers>

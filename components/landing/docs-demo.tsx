@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import { assetPath } from "@/lib/asset-path";
 import "./docs-demo.css";
 
 type Phase = "idle" | "recording" | "transcribing" | "typing" | "done";
@@ -205,7 +206,7 @@ export function DocsDemo() {
               )}
               {showOwlGif && (
                 <figure className="docs-demo-doc-gif">
-                  <img src="/assets/giphy.gif" alt="" />
+                  <img src={assetPath("/assets/giphy.gif")} alt="" />
                 </figure>
               )}
             </div>
@@ -443,7 +444,7 @@ function DocsToolbar({
           <span className="material-symbols-outlined">auto_awesome</span>
         </button>
         <span className="docs-demo-avatar">
-          <img src="/assets/founder4.png" alt="" />
+          <img src={assetPath("/assets/founder4.png")} alt="" />
         </span>
       </div>
     </div>

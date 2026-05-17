@@ -17,8 +17,8 @@
   height: 200%;
   aspect-ratio: 1;
   background-color: #1A1A18;
-  -webkit-mask-image: url(/owl_head.svg);
-  mask-image: url(/owl_head.svg);
+  -webkit-mask-image: var(--asset-owl-head);
+  mask-image: var(--asset-owl-head);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;

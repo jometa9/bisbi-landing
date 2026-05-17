@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 import { useI18n, type Lang } from "@/lib/i18n";
+import { assetPath } from "@/lib/asset-path";
 import "./app-demo.css";
 
 const MOCK_STATS = {
@@ -82,8 +83,8 @@ export function AppDemo() {
   const lastTranscription = recentRows[0]?.text ?? "";
 
   const owlVars = {
-    "--owl-idle": "url(/owl_head.svg)",
-    "--owl-rec": "url(/owl_head_rec.svg)",
+    "--owl-idle": `url(${assetPath("/owl_head.svg")})`,
+    "--owl-rec": `url(${assetPath("/owl_head_rec.svg")})`,
   } as CSSProperties;
 
   return (
@@ -114,7 +115,7 @@ export function AppDemo() {
           <div className="sidebar-bottom">
             <button type="button" className="sidebar-account" tabIndex={-1}>
               <span className="sidebar-account-avatar" aria-hidden="true">
-                <img src="/assets/founder4.png" alt="" />
+                <img src={assetPath("/assets/founder4.png")} alt="" />
               </span>
               <span className="sidebar-account-text">
                 <span className="sidebar-account-name">{demo.user.name}</span>

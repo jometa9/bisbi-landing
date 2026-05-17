@@ -906,8 +906,8 @@ textarea,
   max-width: 400px;
   aspect-ratio: 1;
   background-color: #1A1A18;
-  -webkit-mask-image: url(/owl_head.svg);
-  mask-image: url(/owl_head.svg);
+  -webkit-mask-image: var(--asset-owl-head);
+  mask-image: var(--asset-owl-head);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
@@ -942,8 +942,8 @@ textarea,
   aspect-ratio: 1;
   transform: translate(-20%, 30%);
   background-color: #1A1A18;
-  -webkit-mask-image: url(/owl_head.svg);
-  mask-image: url(/owl_head.svg);
+  -webkit-mask-image: var(--asset-owl-head);
+  mask-image: var(--asset-owl-head);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
@@ -1256,8 +1256,8 @@ textarea,
   height: 200%;
   aspect-ratio: 1;
   background-color: #1A1A18;
-  -webkit-mask-image: url(/owl_head_rec.svg);
-  mask-image: url(/owl_head_rec.svg);
+  -webkit-mask-image: var(--asset-owl-head-rec);
+  mask-image: var(--asset-owl-head-rec);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;

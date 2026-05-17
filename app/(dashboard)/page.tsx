@@ -10,6 +10,7 @@ import { Pricing } from "@/components/landing/pricing";
 import { DownloadButtons } from "@/components/landing/download-buttons";
 import { Footer } from "@/components/layout/footer";
 import { useI18n } from "@/lib/i18n";
+import { assetPath } from "@/lib/asset-path";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -193,7 +194,7 @@ export default function HomePage() {
         <section className="py-16 md:py-24" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <div className="flex justify-center mb-6">
-              <Image src="/owl_head.svg" alt="Bisbi" width={56} height={56} />
+              <Image src={assetPath("/owl_head.svg")} alt="Bisbi" width={56} height={56} />
             </div>
             <CtaTitle title={t.cta.title} highlight={t.cta.titleHighlight} />
             <p
