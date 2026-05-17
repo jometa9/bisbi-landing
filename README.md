@@ -5,11 +5,11 @@
 <h1 align="center">Bisbi — Landing</h1>
 
 <p align="center">
-  <em>Press. Speak. Paste.</em><br>
-  Voice dictation that types where your cursor is — in any app, in any language.
+  <strong>Local-first voice dictation for your desktop. Press a hotkey, speak, and the text gets pasted right where your cursor was.</strong>
 </p>
 
 <p align="center">
+  <a href="https://jometa9.github.io/bisbi-landing/"><strong>jometa9.github.io/bisbi-landing</strong></a> ·
   <a href="https://github.com/jometa9/Bisbi"><strong>App & source code →</strong></a>
 </p>
 
@@ -17,22 +17,30 @@
 
 ## What is Bisbi
 
-Bisbi is a free, open source voice dictation app for **Mac** and **Windows**.
+Bisbi is a free, open source voice dictation app for **Mac** and **Windows** that turns your voice into text and inserts it automatically into the active application — a code editor, an email, a chat, a document, the terminal, anywhere your cursor is.
 
-1. **Press your shortcut** — the hotkey you choose.
+1. **Press your shortcut** — hold the hotkey you choose (default `Right ⌘` on Mac, `Right Ctrl` on Windows).
 2. **Speak naturally** — any language, any accent, any speed.
-3. **Text appears** — exactly where your cursor is, in any app.
+3. **Text appears** — auto-pasted exactly where your cursor was, in whichever app had focus.
+
+Two swappable transcription engines:
+
+- **Cloud (OpenAI)** — best quality, with your own API key.
+- **Offline (whisper.cpp)** — 100% local, nothing leaves your machine, model bundled in the installer.
 
 No accounts. No subscriptions. No usage limits. Audio stays private (zero retention).
 
 > The desktop app lives in a separate repo: **<https://github.com/jometa9/Bisbi>** — that's where you'll find releases, the source, and how to contribute.
 
-This repository is **only the marketing landing**.
+This repository is **only the marketing landing**, served on GitHub Pages at <https://jometa9.github.io/bisbi-landing/>.
 
 ## Features
 
 - Works in any app — Slack, Gmail, Notion, Word, terminal, browser, anywhere your cursor is.
 - One shortcut to dictate — no window to open, no app to switch.
+- Hands-free mode for long dictations.
+- Cloud or fully offline transcription, swappable in one click.
+- Encrypted local history (SQLite) — your API key is stored with the OS keychain.
 - 99 languages, recognized automatically.
 - Mac and Windows.
 - 100% free and open source.
